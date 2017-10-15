@@ -19,3 +19,115 @@ header-img: "img/post-bg-02.jpg"
 <br><br>
 
 >> Model 2 패턴
+
+<br>
+<p style="font-size:14px">
+Model : 데이터 혹은 데이터를 처리하는 영역 <br><br>
+View : 결과 화면을 만들어내는데 사용하는 부분<br><br>
+Controller : 웹의 요청을 처리한다. View와 Model 사이에서 통신하는 역할을 한다.
+
+<br><br>
+</p>
+
+<p style="font-size:14px">
+위와같이 분할하면서 Front-end 와 Back-end 를 분리하여 작업이 가능하며 유지보수에도 용이하게 되었다.
+<br><br>
+</p>
+
+>>Front Controller 패턴
+
+<p style="font-size:14px">
+<br>
+모델 2 방식으로 분업이 가능케 되었지만 각 컨트롤러 사이의 중복코드가 생기며 Front Controller 방식을 도입하게됨.(Spring MVC)
+<br>
+</p>
+
+
+<img src="{{ site.baseurl }}/img/springmvc.JPG" alt="Post Sample Image">
+<br>
+
+<p style="font-size:14px">
+위 사진에서 Front-controller 가 dispatcher-servlet이라고 생각하면 된다.
+Spring 3.0 MVC 의 요청 처리 절차는 아래와 같다.
+<p>
+
+<p style = "font-size:14px;">
+1.. 클라이언트가 브라우저에서 회원가입을 위해 서버에 HTTP Request 메시지를 보낸다.
+<br><br>
+2.. 들어오는 HTTP Request는 Front-controller에서 받아 적절한 회원가입 요청을 처리하는 컨트롤러의 메서드에 매핑(Handler-mapping)한다.
+<br><br>
+3.. Handler Mapping의 도움으로, Front-controller는 들어온 요청을 적절한 Controller(회원등록 Controller) 로 보낸다.
+<br><br>
+4.. 이 Controller는 회원관리 관련한 DB연동을 담당하는 USERDAO(DB와 연동하여 회원정보를 Insert함)를 이용해서 데이터를 요청한다.
+<br><br>
+5.. USERDAO객체는 Mybatis 를 이용하는 Mapper를 통해서 원하는 작업을 수행한다.
+<br><br>
+4.. Controller 는 들어온 요청을 처리하고 그 결과로 Model과 View 를 ModelAndView 라는 객체의 인스턴스 형태로 Front Controller 에 다시 전달한다.
+<br><br>
+5.. Front Controller 는 ViewResolver 오브젝트를 이용하여 이 view 를 분석한다(회원가입 완료 화면).
+<br><br>
+6.. 선택된 view 는 변환되어 다시 클라이언트에게 보여진다.
+</p>
+
+
+<br><br>
+
+>>Spring Controller Test
+
+<br>
+<p style="font-size:14px;">컨트롤러에 대한 예제.</p>
+
+~~~java
+package org.zerock.domain;
+
+public class ProductVO {
+	private String name;
+	private double price;
+	public ProductVO(String name, double price) {
+		super();
+		this.name = name;
+		this.price = price;
+	}
+	public String getName() {
+		return name;
+	}
+	public double getPrice() {
+		return price;
+	}
+//VO 클래스 생성. 객체로 값이 전달됨.
+~~~
+
+
+~~~java
+@Controller //@Controller 애너테이션은 SampleController3 을 Controller 클래스로 지정해준다.
+public class SampleController3 {
+   private static final Logger logger = LoggerFactory.getLogger(SampleController3.class);
+   @RequestMapping("/doD") // doD() 메서드는 doD URI에 매칭되는 메소드이다.
+   public String doD(Model model) {
+      ProductVO product = new ProductVO("Sample Product", 10000);
+      logger.info("doD");
+      model.addAttribute(product);      // 이때 productVO 처럼 앞글자가 소문자로 처리된 형태가 저장된다.
+      return "productDetail";
+   }
+}
+~~~
+
+
+~~~html
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<html>
+	<body>
+
+		<P> ${productVO.name }</P>
+		<p>${productVO.price }</p>
+	</body>
+</html>
+~~~
+
+<br>
+
+<p style="font-size:14px;">
+위의 예제는 SampleController3 을 컨트롤러로 지정해주고 해당 컨트롤러로 오는 요청 중 doD 에 매핑되는 doD() 메서드가 실행되는 예제이다.<br>
+product 객체를 하나 생성하고 model객체에 product객체를 주입한다. 해당 컨트롤러는 productDetail 을 리턴하여 productDetail.jsp 페이지를 응답한다.
+</p>
