@@ -153,10 +153,11 @@ border-color:transparent;
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
-  padding: 100px 0 50px;
+  padding: 80px 0 50px;
   color: white;
   text-align:center;
   text-shadow:2px 2px 1px rgba(0,0,0,.4);
+  padding-bottom:80px;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .site-heading,
