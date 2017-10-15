@@ -8,7 +8,8 @@ header-img: "img/post-bg-02.jpg"
 ---
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 10 - 15 (일)</H4>
-<li>MyBatis</li>
+<li>MyBatis 구현하기</li>
+<li>MyBatis 문법</li>
 
 <br>
 <H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
@@ -30,9 +31,243 @@ MyBatis 를 이용할 떄 SQL 사용하는 방식
 </p>
 <hr>
 <p style="font-size:14px;">
-MyBatis를 XML을 활용하여 작성하는 순서
+<b>▶XML을 활용하여 MyBatis를 사용하는 순서. </b>
 <br><br>
-1.. DB에서 테이블 생성
+1.. DB에서 테이블 생성<br>
+MySQL 에서 이전에 생성했던 book_ex 스키마를 활용하여 tbl_member라는 테이블을 생성한다.
 <br><br>
-2.. 도
+2.. 도메인 객체를 만든다. (memberVO) 이 VO객체가 데이터가 되어 왔다갔다 하는것임. 아래와 같은 VO객체를 생성한다.
+<br>( src/main/domain 에 MemberVO 클래스 생성 )
+</p>
+
+~~~java
+//SRC/MAIN에 domain 이라는 패키지를 생성한 후 이안에 VO클래스를 생성한다.
+public class MemberVO {
+	private String userid;
+	private String userpw;
+	private String username;
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	public String getUserpw() {
+		return userpw;
+	}
+	public void setUserpw(String userpw) {
+		this.userpw = userpw;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+}
+~~~
+
+<p style="font-size:14px"><br>
+3..DAO 인터페이스 생성한다. <br>
+( src/main/persistence 에 MemberDAO 클래스 생성 )
+</p>
+
+~~~java
+public interface MemberDAO {
+	public String getTime();
+	public void insertMember(MemberVO vo);
+	public MemberVO readMember(String userid)throws Exception;
+	public MemberVO readWithPW(String userid, String userpw)throws Exception;
+}
+~~~
+
+<p style="font-size:14px"><br>
+4.. XML Mapper를 작성한다. Mapper자료 참고 <a href="http://www.mybatis.org/mybatis-3/ko/getting-started.html">www.mybatis.org/mybatis-3/ko/getting-started.html</a> <br>
+(src/main/resources 에 mappers패키지를 생성하고 그 안에 memberMapper.xml을 하나 만든다.)
+
+</p>
+
+
+~~~xml
+<!---->
+<?xml version="1.0" encoding ="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="org.zerock.mapper.MemberMapper">
+	<select id ="getTime" resultType="string">
+	select now()
+	</select>
+	<insert id="insertMember">
+	insert into tbl_member(userid, userpw, username, email) values(#{userid},#{userpw},#{username},#{email})
+	</insert>
+	<select id ="selectMember" resultType="org.zerock.domain.MemberVO">
+	select * from tbl_member where userid = #{userid}
+	</select>
+	<select id ="readWithPW" resultType="org.zerock.domain.MemberVO">
+	select * from tbl_member where userid = #{userid} and userpw = #{userpw}
+	</select>
+</mapper>
+~~~
+
+
+<p style="font-size:14px;"><br>
+5.. myBatis-Spring에서 XML 인식 Mapper를 인식하려면 root-context에서 아래 코드를 추가해주어야한다.
+</p>
+
+~~~xml
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+
+	<!-- Mapper로 끝나는 파일 모두 인식 -->
+	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+
+</bean>
+~~~
+
+<p style="font-size:14px;"><br>
+6.. SqlSessionTemplate 설정하기 (DB와 연결을하고 작업이 완료되면 연결을 close() 해야한다. 이 클래스에서는 DB 연결이나 종료작업을 책임진다.<br>
+(root-context에 아래 코드를 추가한다.)
+</p>
+
+~~~xml
+<bean id ="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+</bean>
+~~~
+
+<p style="font-size:14px;"><br>
+7..MemberDAO 인터페이스를 구현하는 MemberDAOImpl 클래스를 하나 생성한다.<br>
+( src/main/persistence 안에 MemberDAOImpl 클래스 구현)
+</p>
+
+</p>
+
+~~~java
+
+@Repository
+public class MemberDAOImpl implements MemberDAO{
+	@Inject
+	private SqlSession sqlSession;
+	private static final String namespace="org.zerock.mapper.MemberMapper";
+	public String getTime() {
+		return sqlSession.selectOne(namespace+"getTime");
+	}
+	@Override
+	public void insertMember(MemberVO vo) {
+		sqlSession.insert(namespace+".insertMember",vo);
+	}
+	@Override
+	public MemberVO readMember(String userid) throws Exception{
+		return(MemberVO)
+				sqlSession.selectOne(namespace+".selectMember", userid);
+	}
+	@Override
+	public MemberVO readWithPW(String userid, String userpw) throws Exception{
+
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("userid", userid);
+		paramMap.put("userpw", userpw);
+
+		return sqlSession.selectOne(namespace+".readWithPW", paramMap);
+	}
+}
+~~~
+
+<p style="font-size:14px;"><br>
+8.. persistence 패키지 안의 클래스를 읽어오기 위해 root-context경로에 component-scan등록
+</p>
+
+~~~xml
+<context:component-scan base-package="org.zerock.persistence"/>
+~~~
+
+
+<p style="font-size:14px;">
+<br>
+9.. MyBatis의 log4jdbc-log4j2 라이브러리를 pom.xml에 추가하고 root-context.xml를 log4jdbc를 사용할 수 있도록 수정해준다.
+<br>(MyBatis의 로그를 더 자세히 조사할 수 있다.)
+</p>
+
+~~~xml
+<!--pom.xml-->
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
+~~~
+
+~~~xml
+<!--<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+위의 코드를 아래코드로 바꿔준다. jdbc ->> log4jdbc-->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<!--
+				<property name="url"
+					value="jdbc:log4jdbc:mysql://127.0.0.1:3306/book_ex?useSSL=false"></property>
+				-->
+		<property name="url"
+					value="jdbc:mysql://127.0.0.1:3306/book_ex?useSSL=false"></property>
+~~~
+
+<p style="font-size:14px"><br>
+10.. log4jdbc를 제대로 동작시키기위해 log4jdbc.log4j2.properties 파일과 logback.xml파일을 만들고 아래코드를 추가해야한다.
+<br>(src/main/resource에 log4.jdbc.log4j2.properties파일과 logback.xml 파일을 생성한다.)
+
+~~~properties
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+~~~
+
+~~~xml
+<!--logback.xml-->
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+	<!-- log4jdbc-log4j2 -->
+<logger name="jdbc.sqlonly"   level="DEBUG"/>
+<logger name="jdbc sqltiming" level="INFO"/>
+<logger name="jdbc.audit"		level="WARN"/>
+<logger name="jdbc.resultset"		level="ERROR"/>
+<logger name="jdbc.resultsettable"		level="ERROR"/>
+<logger name="jdbc.connection"		level="INFO"/>
+
+</configuration>
+~~~
+
+
+<p style="font-size:14px;"><br>
+11.. 테스트클래스 작성 하고 실행한다. 테스트가 완료되면 MyBatis 구현이 완료된 것이다.<br>
+(src/test 내에 MemberDAOTest 클래스 구현)
+</p>
+
+~~~java
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(
+		locations= {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
+public class MemberDAOTest {
+	@Inject
+	private MemberDAO dao;
+	@Test
+	public void testTime()throws Exception{
+		System.out.println(dao.getTime());
+	}
+	@Test
+	public void testInsertMember()throws Exception{
+		MemberVO vo = new MemberVO();
+		vo.setUserid("user00");
+		vo.setUserpw("user00");
+		vo.setUsername("USER00");
+		vo.setEmail("user00@aaa.com");
+		dao.insertMember(vo);
+	}
+}
+~~~
+
+<br><br>
+<h5 style = "font-size: 17px; font-weight : bold;">2 .. MyBatis 문법</h5>
+
+<p style="font-size:14px">
+<br>MyBatis은 PreparedStatement을 통해 처리된다. PreparedStatement에 들어가는 파라미터를 사용할 때는 ${}를 사용한다. " ? " 라고 생각하면 된다.
 </p>
