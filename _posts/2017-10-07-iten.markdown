@@ -1,0 +1,59 @@
+---
+layout:     post
+title:      "[정보처리기사] 전산영어"
+
+date:       2017-10-07 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 07 (토)</H4>
+<li>전산 영어</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">공단공개문제 참조</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. 전산영어</h5>
+<br>
+<p style="font-size:14px;">
+<br><br>
+<b style ="color:red;">VPN : Virtual Private Network</b> : 인터넷 망과 같은 공중망을 사설망처럼 이용해 회선 비용을 크게 절감할 수 있는 기업통신 서비스
+<br><br>
+<b style ="color:red;">AR : Argumented Reality</b> : 추가적인 정보가 함께 적힌 장면을 생성하여 사용자가 봤던 실제 장면과 컴퓨터가 만들어낸 가상 장면을 복합한 합성 시야를 만들어줌.
+<br><br>
+<b style ="color:red;">DDOS : Disturbuted Denial of Service</b> : 일반적으로 트로이 목마에 감염되어 여러 손상된 시스템이 서비스 거부 공격을 일으키는 단일 시스템을 대상으로 사용되는 공격
+<br><br>
+<b style ="color:red;">VOIP : Voice Over Internet Protocol</b> : 인터넷 전화
+<br><br>
+<b style ="color:red;">DRM : Digital Rights Management</b> : 디지털 저작권 관리
+<br><br>
+<b style ="color:red;">Social Web</b> : 사이버 공간에서 사람들 간의 관계를 형성하여 정보를 주고받는 서비스
+<br><br>
+<b style ="color:red;">NetBook</b> : Small portable computing device, similar to a notebook. however, it has a smaller form factor and comes with more limited features.
+<br><br>
+<b style ="color:red;">TCP/IP</b> : This is abbreviation for transmission control protocol/internet protocol, is the suite of communications protocols used to connect hosts on the internet.
+<br><br>
+<b style ="color:red;">FIFO / FCFS</b> : CPU scheduling is the task of selecting a waiting process from the ready queue and allocating the CPU to it. The CPU is allocated to the selected process by the dispatcher. this scheduling is the simplest scheduling algorithm with this scheme, the process that request the CPU first is allocated the CPU first.
+<br><br>
+<b style = "color:red">RAID</b> : Short for Redundant Array of independent Disks, a category of disk drives that employ two or more drives in combination for fault tolerance and performance this disk drives are used frequently on servers but aren't generally necessary for personal computers.
+<br><br>
+<b style = "color:red;">VPN </b> : It is network that is constructed by using public wires to connect nodes. For example, there are a number of systems that enable you to create networks using the internet as the medium for transportating data.
+<br><br>
+<b style = "color:red;">LINUX</b> : A freely-distributable open source operating system that runs on a number of hardware platforms, This kernel was developed mainly by linux torvals.
+<br><br>
+<b style = "color:red;">HDCP</b> : HDMI, DVI 인터페이스 출력에 대한 콘텐츠 보호기술.
+<br><br>
+<b style = "color:red;">RFID : Radio Frequency Identification </b> : 극소형 칩에 상품정보를 저장하고 안테나를 달아 무선으로 데이터를 송신하는 장치.
+<br><br>
+<b style = "color:red;">방화벽 (Firewall)</b> : 내부의 네트워크를 보호하기 위해 외부에서의 불법적인 트래픽 유입을 막고, 허가되고 인증된 트래픽만을 허용.
+<br><br>
+<b style = "color:red;">Unix</b> : AT&T에서 개발한 OS 로 멀티태스킹이 가능하며 다양한 사용자가 공유할 수 있는 운영체제.
+<br><br>
+<b style = "color:red;">Shell</b> : 명령어 해석기 (kernel을 감싸고 있음.)
+<br><br>
+<b style = "color:red;">PAD</b> : 방송에서 제공하는 프로그램 내용과 관련된 부가정보를 제공하는 서비스.
+<br><br>
+<b style = "color:red">kernel</b> : Unix 운영체제의 중심부를 일컫는다.
+</p>

@@ -1,0 +1,23 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+body{font-family: 'Nanum Gothic', serif;position: relative;}
+img{vertical-align:middle;}
+a{text-decoration:none !important;outline:none;}
+#mainSection{ position:relative; margin-top:-20px;}
+
+.titlename{width: 400px; margin: 0 auto; height : 500px; }
+#inputtitle{width: 400px; color:black; border-radius:4px;border-style:none; font-size: 10px;height: 20px; margin-top: 30px;  opacity:0.3;}
+#administrate{padding-top: 30px;}
+#inputcontents{width : 400px; height: 300px; color:black; border-radius:4px; border-style: none; font-size:10px; opacity:0.3; margin-top:10px;}
+#button{width: 400px; border-style:none; border-radius: 4px; background-color:floralwhite; margin-top:20px; opacity : 0.5; color:black; font-weight:bold; font-size: 13px; height:20px; }
+#button_hover{background-color:aqua;}
+.sectionDivide{margin: 0 auto; width: 260px; margin-top:100px;}
+ #maintheme{
+            width: 100%;
+            height:auto;
+            opacity:0.5;
+        }
+ #title{position: absolute; left:0; top : 30%; width: 100%;
+        text-align:center; font-size: 35px; color:black; font-weight:bold;}
+#top{background-color:#e7e7e7;}
+.footer{background-color:#e7e7e7; color:white; text-align:center; height: 100px;}
+.Loginwrap{margin: 0 auto;  position:relative;}

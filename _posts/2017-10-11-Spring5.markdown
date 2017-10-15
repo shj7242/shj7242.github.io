@@ -1,0 +1,121 @@
+---
+layout:     post
+title:      "[Spring] 에러처리"
+
+date:       2017-10-11 15:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 11 (수)</H4>
+<li>에러처리</li>
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. 에러처리</h5>
+
+<br>
+
+
+>> xml 을 이용한 에러처리 에러 코드에 대한 에러페이지를 반환한다.
+
+~~~xml
+<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/error500.jsp</location>
+	</error-page>
+~~~
+
+<br><br>
+
+~~~html
+<!--index.jsp-->
+3. <a href="<c:url value="/study/getMessage1.html"/>">404 Error</a>
+
+4. <a href="<c:url value="/study/getMessageByZero.html"/>">By zero Error</a>
+
+6. <a href = "<c:url value="/study/getMessage500.html"/>">500 Error</a>
+~~~
+
+<p>index.jsp에서 각 에러 버튼을 클릭했을 때 처리해줄 메서드를 controller 에 작성해준다.</p>
+
+~~~java
+@RequestMapping("/study/getMessageByZero.html")
+public String getMessageByZero(Model model, HttpServletRequest req, HttpServletResponse res){
+	model.addAttribute("message","Hello ! Spring Web Programming"+(1/0));
+		model.addAttribute("combo", CommonUtil.comboSelect());
+
+		return "showMessage";
+}
+
+@RequestMapping("/study/getMessage500.html")
+public String getMessage500(Model model, HttpServletRequest req, HttpServletResponse res) {
+	Map map = null;
+	map.get("asdf");
+		return "showMessage";
+
+}
+~~~
+
+<p>view 에 에러를 보여줄 페이지(commonException.jsp)를 만들어준다. 이후 index.jsp 실행하여 각각의 에러를 클릭하면 에러페이지(commonException.jsp)를 반환한다.</p>
+
+~~~html
+<table>
+			<tr>
+        <td><span style="font-family:Tahoma; font-weight:bold; color:#000000; line-height:150%; width:440px; height:70px;"> 오류발생 알림화면(허용되지 않는 요청을 하셨습니다) by Spring</span></td>
+      </tr>
+			<tr>
+		 <td><%= exception %></td>
+		</tr>
+</table>
+~~~
+
+>>Spring Annotation 을 활용하여 에러처리
+
+<p>앞에서 web.xml에 추가한 Error-page 를 지워주고  </p>
+
+~~~java
+//아래 xml에 추가된 bean 경로 처럼 com.study.common.exception패키지 안에 CommonExceptionHandler클래스를 생성해준다.
+@ControllerAdvice("com.study")
+public class CommonExceptionHandler {
+
+	@ExceptionHandler(RuntimeException.class) //runtimeException 이 발생했을떄
+	public String handleException1() {
+		return "error/commonException";
+
+	}
+	@ExceptionHandler(ArithmeticException.class)// ArithmeticException이 발생했을 떄
+	public String handleException2() {
+		return "error/commonException";
+	}
+}
+~~~
+
+<p>
+<b style="color:red">@ControllerAdvice</b>을 붙임으로서 CommonExceptionHandler 클래스가 어플리케이션의 예외처리를 맡을 거라고 알려주게 된다.
+<br><br>
+<b style="color:red;">@ExceptionHandler</b>애너테이션을 메소드에 붙여줌으로써 예외처리들을 구체화할 수 있다. 또한 사용자들에게 특정한 에러페이지로 redirect 해준다. 완전히 커스터마이즈된 에러응답을 만들어준다.
+
+~~~xml
+<!--dispatcher-servlet.xml 에 다음 bean을 추가해준다-->
+	<bean class="com.study.common.exception.CommonExceptionHandler"/>
+~~~
+
+<br>
+
+<p>BY zero Error 를 눌렀을 때 테스트</p>
+<br>
+
+<img src="{{ site.baseurl }}/img/exce.JPG" alt="Post Sample Image">
+
+<p>getMessageByZero 로 리다이렉트된다. / 커스터마이즈된 화면을가진 에러 응답가능</p>

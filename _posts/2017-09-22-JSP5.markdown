@@ -1,0 +1,73 @@
+---
+layout:     post
+title:      "[WAS] JSP jdbc "
+
+date:       2017-09-22 19:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 09 - 22 (금)</H4>
+<li>JDBC 객체</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . JDBC 객체</h5>
+<br>
+<p><b style="color: blue">1.. Connection 객체 </b><br><br>
+Connection 객체는 DB와의 연결을 위해서 사용한다. connection 객체를 얻기 위해서는 Database의 위치와 Database 접속 ID, Password 그리고 Port 번호를 셋팅해야하며. 이렇게 셋팅된 객체에 인자로 DriverManager의 getConnection()메소드를 호출하여 넣어준다.
+
+ </p>
+
+ ~~~java
+Connection conn;
+PrepareStatement pstmt;
+conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","id","pw");
+pstmt = conn.prepareStatement(sql); //preparestatement메소드를 통해 sql 을 전달한다.
+ ~~~
+
+<p><b style = " color:blue">2 .. Statement 객체 </b><br><br>
+
+statement객체는 SQL문을 통한 갱신이나 값의 변화를 통해 실행여부를 파악하기위한 메소드들을 제공한다.
+
+<BR><br>
+1) executeQuery()
+SELECT문을 실행시킬 때 사용한다. 실행 결과로 ResultSet 객체를 리턴한다.
+<BR><br>
+2) executeUpdate()
+INSERT문이나 CREATE문, DELETE문 등을 실행할 때 사용한다. 값을 가져오는게 아니므로 성공여부를 알 필요가 있다. int 변수를 0으로 초기화 하고 본 메소드를 활용하여 증가하면 성공했다는 뜻으로 증가된 변수값을 반환한다.
+<BR><br>
+3) close()
+connection 객체의 값이 null 이거나 preparestatment 객체의 값이 null이면 연결을 종료한다.</p>
+<br>
+<p><b style = " color:blue">3 .. ResultSet 객체 </b><br><br>
+
+resultset객체는 데이터베이스의 테이블 비슷한 유형으로 반환하게 된다. 최초에 1번째행의 0번째 칼럼부터 반환하기 시작한다. 아래 메소드를 활용하여 값들을 가져온다.  
+<br><br>
+1)  getString(int n)
+현재 행에서 n번째 컬럼의 데이터를 String값으로 얻어온다.
+<br><br>
+2) getString(String columnName)
+현재 행에서 column명이 columnName인 데이터를 String값으로 얻어온다.
+<br><br>
+3) getInt(int n)
+현재 행에서 n번째 컬럼의 int값을 얻어온다.
+<br><br>
+4) getInt(String columnName)
+현재 행에서 column명이 columnName에 해당하는 셀의 데이터를 int값으로 얻어온다.
+</p>
+
+~~~java
+String sql = "select * from TEST1";
+pstmt = conn.prepareStatement(sql);
+rs = pstmt.executeQuery();
+for(int k=0; rs.next(); k++) {			
+  client= new Client(rs.getString("id"),rs.getString("password"),rs.getString("name"));
+  abc.add(client);
+}
+~~~
+
+<p>위의 코드는 select문을 통해 TEST1테이블에 있는 모든 값들을 가져오기 위함이다. ResultSet의 반복문과 next() 메소드를 사용하여 client객체에 컬럼값들을 찍어낸다.</p>

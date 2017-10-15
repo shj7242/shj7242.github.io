@@ -1,0 +1,26 @@
+# Site settings
+title: Tech Blog
+header-img: img/1.jpg
+email: shinhj7242@gmail.com
+copyright_name: HEEJUN/Tech Blog/java development
+description: "A collection of technical portfolio"
+baseurl:
+url: "http://yourdomain.com"
+twitter_username: shinhj7242
+github_username:  shj7242
+facebook_username:  profile.php?id=100002266059179
+email_username:  shinhj7242@gmail.com
+
+# Google Analytics
+# To enable google analytics, uncomment below line with a valid Google Tracking ID
+# google_tracking_id:
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+paginate: 5
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+gems: [jekyll-paginate, jekyll-feed]
+des: A collection of technical portfolio

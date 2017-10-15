@@ -1,0 +1,70 @@
+---
+layout:     post
+title:      "[JAVA] java.lang패키지"
+
+date:       2017-08-26 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 08 - 26 (토)</H4>
+
+<li>Object 클래스</li>
+<li>String 클래스</li>
+<br>
+<H4 style ="font-weight:bold; color:orange;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . Object클래스</h5>
+<br>
+
+<p>
+
+>> Object 클래스
+
+<br>모든 클래스의 최고 조상, 11개의 메서드를 가지고 있다.
+<br>
+<br>
+- clone() : 객체 자신의 복사본을 반환한다.<br><br>
+- equals() : 객체 자신과 다른 객체가 같은 객체인지 알려줌 (boolean 형태)<br><br>
+- hashcode() : 객체 자신을 int 형태의 해시코드로 반환한다.<br><br>
+- toString () : 객체 자신의 정보를 문자열로 반환한다. <br><br>
+- getClass() : 객체 자신의 클래스 정보를 담고 있는 class 인스턴스를 반환한다.<br><br>
+- finallize() : 객체가 소멸될 때 가비지 컬랙터에 의해 자동적으로 호출된다. <br><br>
+- 이외에도 notify() ,notifyAll(), wait() 등 쓰레드 관련 메서드들이 있다.
+
+</p>
+
+~~~java
+class Person{
+	long id;
+	public boolean equals(Object obj){   //equals 메소드를 오버라이딩해서 멤버변수의 값을 비교함.
+		if(obj!=null&&obj instanceof Person){
+			return id ==((Person)obj).id;
+		}else{
+			return false;
+		}
+	}
+	Person(long id){
+		this.id = id;
+	}
+	public String toString(){
+		return "id : "+id;
+	} //toString() 메서드도 다음과 같이 오버라이딩 해서 쓴다.
+}
+~~~
+
+<br><br>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . String클래스</h5>
+
+<br><br>
+
+<img src="{{ site.baseurl }}/img/string1.JPG" alt="Post Sample Image">
+
+<img src="{{ site.baseurl }}/img/string2.JPG" alt="Post Sample Image">
+
+<img src="{{ site.baseurl }}/img/string3.JPG" alt="Post Sample Image">
+
+<img src="{{ site.baseurl }}/img/string4.JPG" alt="Post Sample Image">
+
+<img src="{{ site.baseurl }}/img/String5.JPG" alt="Post Sample Image">

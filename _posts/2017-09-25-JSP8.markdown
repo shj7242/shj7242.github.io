@@ -1,0 +1,321 @@
+---
+layout:     post
+title:      "[WAS] JSP MVC"
+
+date:       2017-09-25 19:30:00
+author:     "신희준"
+header-
+: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 09 - 25 (월)</H4>
+<li>JDBC/JSP MVC 예제 따라풀기</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . MVC 예제 따라하기</h5>
+<br>
+<p>
+
+<b style = "color:blue;">▶ User Class :</b>User 테이블의 정의, 인스턴스 변수들을 DB의 컬럼들과 일치하도록 이름을 유사하게 생성. private로 생성하고 getter/setter 메소드 사용
+</p>
+
+~~~java
+class User {
+ String user_id;
+ String password;
+ String name;
+ String email;
+ java.sql.Date in_date;
+ java.sql.Date up_date;
+ public User() {}
+
+ public User(String user_id, String password, String name, String email) {
+  this(user_id, password, name, email
+   , new java.sql.Date(new java.util.Date().getTime())
+   , new java.sql.Date(new java.util.Date().getTime()));
+ }
+public User(String user_id, String password, String name, String email, java.sql.Date in_date, java.sql.Date up_date) {
+ super();
+ this.user_id = user_id;
+ this.password = password;
+ this.name = name;
+ this.email = email;
+ this.in_date = in_date;
+ this.up_date = up_date;
+}
+
+@Override
+public String toString() {
+ return "User [user_id=" + user_id + ", password=" + password + ", name=" + name + ", email=" + email
+   + ", in_date=" + in_date + ", up_date=" + up_date + "]";
+}
+
+public String getUser_id() {
+ return user_id;
+}
+public void setUser_id(String user_id) {
+ this.user_id = user_id;
+}
+public String getPassword() {
+ return password;
+}
+public void setPassword(String password) {
+ this.password = password;
+}
+public String getName() {
+ return name;
+}
+
+public void setName(String name) {
+ this.name = name;
+}
+
+public String getEmail() {
+ return email;
+}
+public void setEmail(String email) {
+ this.email = email;
+}
+public Date getIn_date() {
+ return in_date;
+}
+public void setIn_date(Date in_date) {
+ this.in_date = in_date;
+}
+public Date getUp_date() {
+ return up_date;
+}
+public void setUp_date(Date up_date) {
+ this.up_date = up_date;
+}
+}
+~~~
+
+
+<p>
+<b style = "color:blue;">▶ DBUtil이라는 클래스를 하나 생성해준다.</b>
+<br><br><b style="black;">getConnection() : </b> 공통적으로 쓰이는 DB 경로/ DB 아이디 / DB 비밀번호를 정의해주며 DB에 로딩을 요청한다.
+
+<br><br><b> rollback(Connection conn) :  </b> rollback을 공통적으로 정의해준 이유는 예외 상황을 위해서이다. rollback은 이론상 SAVEPOINT로 되돌아간다. <br>&nbsp;rollback() 은 예를들어 게시판을 지울 때 필요할 수 있다. 게시글 삭제는 더불어 댓글까지 삭제할 필요가 있는데 이 때 하나는 지워지고 하나는 안지워지는 상황이 나올 수 있다. 이 때 rollback이 필요하다고 한다.<br> &nbsp;또한 보통의 단일의 insert, delete, update 등은 AutoCommit(false)를 지정하지만 쿼리문이 두개가 들어갈 수 있다.<br> &nbsp; 이 경우 AutoCommit(true)를하여 rollback할 수 있어야한다. (트랜잭션 컨트롤 필요)
+<br><br>
+<b>close(AutoCloseable... asc) : </b> 각각의 UserDao의 메소드에는 본래 공통적으로 close()할 필요가 있다. 이 메소드를 정의하는 이유는 중복적으로 닫아야되는 코드를 없애기 때문이다.
+</p>
+
+
+~~~java
+class DBUtil {
+ public static Connection getConnection() {
+  Connection conn = null;
+
+  String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
+     String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+     String DB_USER = "asdf1234";  // DB의 userid와 pwd를 알맞게 변경
+     String DB_PASSWORD = "1234";
+  // 드라이버를 로딩한다.
+  try {
+   Class.forName(DB_DRIVER);
+   conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
+  } catch (Exception e) {
+   e.printStackTrace();
+  }     
+
+  return conn;
+ }
+
+ static void rollback(Connection conn){
+  if(conn!=null) {
+   try {
+    conn.rollback();
+   } catch(SQLException e){
+
+   }
+  }
+ }
+
+ static void close(AutoCloseable... acs) {
+  try {
+   for(AutoCloseable ac : acs) {
+    if(ac!=null)
+     ac.close();
+   }
+  } catch(Exception e) {}
+ }
+
+}
+~~~
+
+<p>
+<b style = "color:blue;">▶ Dao(UserDAO, BoardDao, ...Dao 의 조상) :</b> DB에 접근하는 Object들이 공통적으로 상속받을 Data Access Object를 만들어준다. 공통적으로 connection 객체 정의와 tableName을 아래 상속받은 클래스에서 정의해주기 위해 인스턴스 변수를 생성한다. conn 객체가 비어있으면 앞서 정의한 DButil.getConnection(); 메소드를 실행해준다.(DB로딩을 요청 / 공통적으로 쓰이는 Instance 변수들 local DB url과 DB 아이디, 비밀번호를 정의해줌)
+
+
+</p>
+
+~~~java
+class Dao {
+ Connection conn;
+ String tableName = "";
+
+ Dao() {
+  this(null, "");
+ }
+
+ Dao(String tableName) {
+  this(null, tableName );
+}//테이블명을 잡아줌 >>User_info와 연결하는 DAO면 USER_INFO , TABLE_INFO와 연결하는 DAO면 TABLE_INFO
+
+ Dao(Connection conn, String tableName) {
+  this.tableName = tableName;
+  this.conn = conn;
+
+  if(conn==null) {
+   this.conn = DBUtil.getConnection();
+  }
+}//conn 객체가 null값이면
+}
+~~~
+
+
+<p>
+<b style = "color:blue;">▶ UserDao(회원가입/로그인/회원정보수정/전체회원조회/회원삭제 기능 정의)</b> >> UserDao 클래스로 묶는다.
+//예를들어 Board(게시판)에 관여하는 DB연결 메소드는 BoardDAO 클래스를 정의하여 묶는다. (DAO-Data Access Object)
+Dao 클래스는 DB와 연동하고
+</p>
+
+~~~java
+class UserDao extends Dao {
+ UserDao() {
+  super(null, "user_info");
+ }
+ //UsedDao() 생성자에는 조상클래스에 table을 지정해줌 ( UserDao 클래스는 조상 Dao 클 )
+
+ UserDao(Connection conn) {
+  super(conn, "user_info");
+ }
+
+ List<User> selectAllUsers() {
+  List<User> list = new ArrayList<User>();
+     String query = "SELECT * FROM " + tableName; // 모든 사용자의 정보를 가져온다.
+  ResultSet rs = null;
+  Statement stmt = null;
+
+        try {
+       stmt = conn.createStatement();             // Statement를 가져온다.
+       rs = stmt.executeQuery(query); // SQL문을 실행한다.
+
+          while (rs.next()) {
+           User u = new User();
+        u.setUser_id(rs.getString(1));
+        u.setName(rs.getString(2));
+        u.setPassword(rs.getString(3));
+        u.setEmail(rs.getString(4));
+        u.setIn_date(rs.getDate(5));
+        u.setUp_date(rs.getDate(6));
+        list.add(u);
+          }
+        } catch ( Exception e ) {
+             e.printStackTrace();
+        } finally {
+         DBUtil.close(stmt, rs);
+        }
+
+     return list;
+ }
+
+    User selectUser(User u) {
+     String query = "SELECT * FROM "+ tableName
+            +" WHERE USER_ID = ?"; // 사용자 정보를 가져온다. ''를 사용하지 않음에 주의
+     PreparedStatement ps = null;
+  ResultSet rs = null;
+
+        try {
+             ps = conn.prepareStatement(query);
+       ps.setString(1, u.getUser_id());
+       rs = ps.executeQuery(); // rs = ps.executeQuery(query);과 같이 하지 않음에 주의
+
+          while (rs.next()) {
+        u.setUser_id(rs.getString(1));
+        u.setName(rs.getString(2));
+        u.setPassword(rs.getString(3));
+        u.setEmail(rs.getString(4));
+        u.setIn_date(rs.getDate(5));
+        u.setUp_date(rs.getDate(6));
+          }
+        } catch ( Exception e ) {
+             e.printStackTrace();
+        } finally {
+         DBUtil.close(ps, rs);
+        }
+
+     return u;
+    }
+
+    int deleteUser(User u) {
+        int result = 0;
+     String query = "DELETE FROM " + tableName
+           + " WHERE USER_ID = ?"; // 사용자 정보를 가져온다. ''를 사용하지 않음에 주의
+        try (PreparedStatement ps = conn.prepareStatement(query);) {
+         conn.setAutoCommit(true);
+   // 3.2 쿼리 셋팅 & 실행   
+   ps.setString(1, u.getUser_id());
+   result = ps.executeUpdate(); // ps.executeUpdate(sql);과 같이 하지 않음에 주의
+        } catch(SQLException e) {
+   e.printStackTrace();
+        }
+
+        return result;
+    }
+    int insertUser(User u) {
+        int result = 0;
+        String sql = "INSERT INTO " + tableName + " VALUES "
+           + " (?,?,?,?,?,?)"; // ""안에 ;를 넣지 않아도 된다.
+//  String sql = "insert into USER_INFO values (?,?,?,?, sysdate, sysdate)"; // ""안에 ;를 넣지 않아도 된다.
+        try (PreparedStatement ps = conn.prepareStatement(sql);) {
+         conn.setAutoCommit(true);
+   // 3.2 쿼리 셋팅 & 실행   
+   ps.setString(1, u.getUser_id());
+   ps.setString(2, u.getName());
+   ps.setString(3, u.getPassword());
+   ps.setString(4, u.getEmail());
+//   ps.setDate(5, java.sql.Date.valueOf("2013-09-04"));
+   ps.setDate(5, u.getIn_date());
+   ps.setDate(6, u.getUp_date());
+
+   result = ps.executeUpdate(); // ps.executeUpdate(sql);과 같이 하지 않음에 주의
+        } catch ( Exception e ) {
+         e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    int updateUser(User u) {
+        int result = 0;
+        String sql = "UPDATE "+ tableName
+          + " SET name=?, password=?, email=?, in_date=?, up_date=? "
+          + " WHERE user_id = ?"; // ""안에 ;를 넣지 않아도 된다.
+        try (PreparedStatement ps = conn.prepareStatement(sql);){
+         conn.setAutoCommit(true);
+   // 3.2 쿼리 셋팅 & 실행   
+   ps.setString(1, u.getName());
+   ps.setString(2, u.getPassword());
+   ps.setString(3, u.getEmail());
+//   ps.setDate(5, java.sql.Date.valueOf("2013-09-04"));
+   ps.setDate(4, u.getIn_date());
+   ps.setDate(5, u.getUp_date());
+   ps.setString(6, u.getUser_id());
+
+   result = ps.executeUpdate(); // ps.executeUpdate(sql);과 같이 하지 않음에 주의
+        } catch ( Exception e ) {
+         // 5. 실패하면, 에러를 보여줘?
+         e.printStackTrace();
+        }
+
+        return result;
+    }     
+}
+
+~~~

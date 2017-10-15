@@ -1,0 +1,146 @@
+---
+layout:     post
+title:      "[Spring] AOP2"
+
+date:       2017-10-11 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 11 (수)</H4>
+<li>AOP</li>
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. AOP</h5>
+
+<br>
+<p><b>web application 상의 AOP 실습</b></p>
+<br><br>
+<p v>AOP(Aspect Oriented Programming)은 관점지향 프로그래밍이라고도 하며 이를 사용함으로써 공통적인 부분과 핵심적인 부분을 분리하여 유지보수성을 높이고 코드중복을 최소화한다.</p>
+
+
+<p>dispatcher-servlet.xml 에 다음코드를 추가한다.</p>
+
+~~~xml
+<aop:config>
+		<aop:aspect ref="profiler">
+			<aop:pointcut id="publicMethod" expression="execution(public * com.study.controller..*(..))" />
+			<aop:around pointcut-ref="publicMethod" method="trace" />
+		</aop:aspect>
+	</aop:config>
+~~~
+
+<br>
+<p style="font-size:14px;">
+▶ aspect : aspect는 공통적인 부분을 가지는 bean 객체형태이다. <br><br>
+▶ pointcut : aspect bean객체 내에있는 공통적인 메소드를 언제 실행할 것인가에 대한 조건이다. <br><br>
+▶ aop:around : 모든 시점에 적용가능
+<br><br>
+▶ execution 명시자
+
+<br>
+</p>
+
+~~~xml
+<!--execution 기본형식-->
+execution(수식어패턴 ? 리턴타입 패턴 패키지패턴 ? 이름 패턴 (파라미터 패턴))
+<!--이름패턴은 클래스이름의 패턴이라고 생각하면 된다-->
+~~~
+
+<br>
+
+~~~xml
+<aop:pointcut id="publicMethod" expression="execution(public * com.study.controller..*(..))" />
+<!--수식어 패턴은 생략가능// *은 모든값을 의미함 //..은 0개 이상이라는 의미 -->
+~~~
+
+<br>
+<p style="font-size:14px;">즉, 위에 execution은 수식어 패턴은 public으로 반환타입은 무엇이든지 가능하며 com.study.controller패키지 및 하위 패키지에 있는 메서드를 호출하라는 말이다. <br>(..)는 매개변수 즉, 파라미터가 0개 이상인 메서드를 말한다.</p>
+
+<br>
+<p>AOP 테스트를 예제 : 실행시간 출력하는 프로그램</p>
+
+~~~java
+public class ControllerWrapper{
+	public Object trace(ProceedingJointPoint joinPoint) throws Throwable{
+		String signatureString = jointPoint.getSignature().toString();
+		System.out.println(signatureString +"시작");
+		long start = System.currentTimeMillis();
+		try{
+			Object result = joinPoint.proceed();
+			return result;
+		}finally{
+			long finish = System.currentTimeMillis();
+			System.out.println(signatureString +"종료");
+			System.out.println(signatureString +"실행 시간 :" +(finish-start)+"ms");
+		}
+	}
+}
+~~~
+
+<p style="font-size:14px;">dispatcher-servlet에 ControllerWrapper클래스로 오는 요청을 매핑하기위한 bean을 생성한다.</p>
+
+~~~xml
+<bean id="profiler" class="com.study.common.aop.ControllerWrapper" />
+~~~
+
+<br><br>
+<p style="font-size:14px;">aop:aspect 는 profiler를 참조한다. <br>즉, com.study.controller패키지 및 하위 패키지로오는 모든 요청은 profiler id를 가진 ControllerWrapper클래스에 trace(ProceedingJointPoint joinPoint)메소드를 실행한다.
+<br>
+aop:around 의 경우에
+ProceedingJointPoint 타입의 파라미터를 필수적으로 첫번째 파라미터로 선언해야한다. (규칙) <br> getSignature() 는 메서드의 설명을 반환한다.
+</p>
+<br>
+
+>> 애너테이션을 사용해서 AOP 구현하기
+
+<br>
+
+<p style="font-size:14px;">위의 방법 외에 ComponentScan 애너테이션을 사용하면 xml에 더이상 bean을 추가할 필요가 없어서 xml이 더 가볍게 사용할 수 있다.</p>
+<br><br>
+<p style="font-size:14px;">dispatcher-servlet.xml에서 aop태그 및 bean태그를 모두 제거한다. component-scan을 위해 다음 코드를 xml에 추가한다. 결국 xml설정을 계속 해주지 않아도 애너테이션으로 쉽게 코딩이 가능하다.</p>
+<br>
+
+~~~xml
+	<context:component-scan base-package="com.study"/>
+<!--com.study에 있는 모든 bean에 적용-->
+	<aop:aspectj-autoproxy/>
+<!--위 태그를 사용하면 @Aspect 애너테이션이 적용된 빈을 Aspect로 사용할 수 있게 된다.-->
+~~~
+
+<br>
+<p style="font-size:14px;">component-scan은 xml에 bean을 등록하지 않아도 각 bean클래스에 @Component를 통해 자동으로 bean을 등록해준다. </p>
+<br>
+
+~~~java
+@Aspect // ControllerWrapper bean을 Aspect로 사용한다.
+@Component // Component-scan을 통해 bean을 자동 등록한다.
+public class ControllerWrapper {
+//Pointcut 은  Aspect로 지정된 bean 내부의 공통 메서드가 언제 실행될지 joinPoint를 지정해주기 위해 사용된다. profileTarget() 메서드는 Pointcut annotation을 위해 만든 껍데기만 있는 메서드이다.
+	@Pointcut("execution(public * com.study.controller..*(..))")
+	public void profileTarget() {}
+
+	@Around("profileTarget()&&args(model,req,res)")
+//Around 애너테이션은 메서드 수행 전후에 수행된다.
+	public Object trace(ProceedingJoinPoint joinPoint, Model model, HttpServletRequest req, HttpServletResponse res) throws Throwable {
+			Object result = joinPoint.proceed();
+//jointPoint.proceed()를 통해 포인트컷을 실행한다.
+			return result;
+			//return "";  //AOP의 흐름을 이해하기 까지는 ""을 반환해도 상관없음.
+	}
+}
+~~~
+
+<br>
+<p>
+1 . 전체적인 정리를 해보면 만약 index.jsp에서 서버로 어떠한 요청이 들어왔을 때 <br><br>
+2 . 요청은 component-scan을 통해 @Component 애너테이션을 가진 bean을 자동으로 xml에 등록해줄 것이다. <br><br>
+3 . 해당 bean에는 execution을 통해 com.study.controller패키지 또는 하위 패키지의 모든 클래스, 메소드들을 호출한다.
+<br><br>
+4 . 즉 ControllerWrapper를 통해 다른 컨트롤러의 메소드들이 매핑되고 trace method안에서 proceed()를 통해 포인트 컷이 실행되면 결합하한다. <br><br>
+5 . 들어오는 요청을 매핑하여 요청에 맞는 메서드를 실행해준다.
+
+  </p>

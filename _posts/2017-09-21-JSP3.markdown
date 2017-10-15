@@ -1,0 +1,105 @@
+---
+layout:     post
+title:      "[WAS] JSP 에러처리, include, forward "
+
+date:       2017-09-21 22:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 09 - 21 (목)</H4>
+<li>에러처리</li>
+<li>include 액션태그/디렉티브 </li>
+<li>forward 액션태그/디렉티브 </li>
+<li>include , forward 액션태그의 page 속성경로 </li>
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 에러처리</h5>
+
+
+<p>
+만일 End-user가 어떤 페이지를 요청했는데 400, 500번 대 에러가 발생했다고 생각해보자.
+ 아마도 신뢰를 잃을 것이다. 뿐만 아니라 500번 에러가 발생했을 때는 해커들에게 이를 노출 시킬 수 있다. 보안적으로도 문제가 되는 점이라 할 수 있다. 이를 위해 에러처리를 할 필요가 있다. <br>
+  <br>
+  try-catch 문을 활용하여 에러페이지 대신에 사용자들이 좀 친밀하게 받아들일 수 있는 페이지를 반환하면 좋을 것이다. 어떻게 보면 예외상황을 대처하는 것이 프로젝트의 가장 중요한 점이 될 수도 있을 것이라고 본다.
+
+</p>
+
+~~~jsp
+<body>
+	<%try{ %>
+	name파라미터 값 : <%= request.getParameter("name").toUpperCase() %>
+	<% } catch(Exception e){ %>
+	name 파라미터가 올바르지 않습니다. (500)
+	<%} %>
+</body>
+
+~~~
+
+<p>위의 코드와 같이 try-catch 문을 사용하여 에러상황에 대한 예외 페이지를 반환하도록 예외 패이지를 작성할 필요가 있다.</p>
+
+~~~jsp
+<%@ page contentType = "text/html; charset=utf-8"%>
+<%@ page buffer = "1kb" %>
+<%@ page errorPage = "/error/viewErrorMessage.jsp" %>
+<html>
+<head></head>
+<body>
+<% for(int i =0; i < 300; i++){out.println(i);}%>
+<%=1/0%>
+~~~
+
+<p>위와 같은 코드에서는 buffer의 크기가 1kb로 지정이 되어있다. buffer는 용량이 다차면 자동으로 flush를 한다. 그러므로 200 응답 상태 코드가 웹브라우저에 전송이된다. (정상) 그러나 버퍼의 크기가 부족하면 추가적으로 출력해야하는 내용이 짤리고 에러를 띄우게 된다. 하지만 이미 정상 응답코드를 보냈기 때문에 브라우저는 정상작동을 하고 있다고 인식을 하게된다. 또한 위에 코드처럼 1/0 은 ArithmeticException 에러이다. 하지만 위의 화면은 정상출력이된다.
+<br><br> 이 예제의 결론은 충분한 buffer 크기를 주자는 것이다. </p>
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">2 . include 액션태그/디렉티브 </h5>
+
+<p>include 액션태그는 중복된 코드사용을 필요로 할 때 쓰인다. 대부분의 웹페이지는 디자인이나 화면 구성이 일관성있게 되어있다. 이 때 중복되는 코드를 없애주는게 include 액션태그이다.</p>
+
+
+<img src="{{ site.baseurl }}/img/includePage.JPG" alt="Post Sample Image">
+
+
+
+<p>page 에는 포함할 페이지 경로를 지정해주고 flush 는 지정한 JSP 페이지를 실행하기 전에 출력버퍼를 플러시할지 여부를 정하는 속성이다.</p>
+
+<img src="{{ site.baseurl }}/img/includeFile.JPG" alt="Post Sample Image">
+
+<p>include 디렉티브는 다음과 같이 쓰이며 file 에는 포함할 파일의 경로를 정해준다. 목적은 액션태그와 마찬가지로 중복코드의 제거이다. 이 둘은 매우 비슷해보이지만 쓰는 용도가 조금 상이하다고 한다. <BR><BR>
+jsp:include 액션태그 : 레이아웃의 한 구성요소를 모듈화 하기위해 사용된다. <br><br>
+include 디렉티브 : 모든 JSP페이지에서 사용하는 전역적인 변수를 지정할 때나 중복되는 문장을 모듈화 한다.</p>
+
+
+<img src="{{ site.baseurl }}/img/include.JPG" alt="Post Sample Image">
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">3 . forward 액션태그/디렉티브 </h5>
+
+<p>forward는 하나의 JSP에서 다른 JSP로 요청할 때 사용된다.</p>
+
+<img src="{{ site.baseurl }}/img/forwardbasic.JPG" alt="Post Sample Image">
+
+<p><b style="color:red">- 주의점 -</b><br>
+이 액션태그로 출력된 화면은 이동할 페이지의 실행화면이지만 브라우저의 주소는 실행 페이지 그대로이다. 앞서 response객체의 response.sendRedirect("경로")같이 다른 페이지를 반환하는 것과는 다르다. jsp:forward 액션 태그는 실행 페이지의 출력 버퍼의 내용을 출력하지 않는다. 이동한 페이지의 출력버퍼를 실행하고 이 결과를 출력 버퍼에 저장을한다.</p>
+<br>
+<p>어떻게 보면 response 객체의 sendRedirect와 크게 다를게 없다는 것을 느낄 수 있다. 그럼, 과연 어떻게 이 액션태그를 응용할 것인가..?</p>
+
+
+<img src="{{ site.baseurl }}/img/adultforward.JPG" alt="Post Sample Image">
+
+
+<p>위처럼 어떤 조건에 따라 이동할 페이지를 정할 수 있다. 코드를 간결화 할 수 있는 것이다.</p>
+
+<h5 style = "font-size: 17px; font-weight : bold;">4 . include, forward 액션태그의 page속성 경로 </h5>
+
+<p>두가지 방식으로 경로를 입력할 수 있다. <br><br>
+<b style="color:blue;">1 ..</b>  Application 폴더를 기준으로한 절대경로<br><br>
+<b style="color:blue;">2 ..</b>  현재 JSP 페이지를 기준으로한 상대경로<br><br>
+
+<B STYLE="COLOR:RED">*  </B>OS에 상관없이 경로를 구분할 때는 ' / '를 사용한다. </p>
+
+<p>상대경로는 보통 이동할 페이지가 같은 폴더에 위치하거나 현재폴더의 하위폴더에 위치한 경우에 쓰면 수월하다.</p>

@@ -1,0 +1,216 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Noto Font - font-weight : 100, 300, 400, 500, 700, 900 */
+.noto_bold {font-family: "Noto Sans KR"; font-weight: 700;}
+.noto_medium {font-family: "Noto Sans KR"; font-weight: 500;}
+.noto_light {font-family: "Noto Sans KR"; font-weight: 300;}
+.noto_ultralight {font-family: "Noto Sans KR"; font-weight: 100;}
+
+/* PlayfairDisplay Font - font-weight : 400, 700, 900 */
+.play_medium {font-family: 'Playfair Display', serif; font-weight: 400;}
+.play_bold {font-family: 'Playfair Display', serif; font-weight: 700;}
+.play_ultrabold {font-family: 'Playfair Display', serif; font-weight: 900;}
+
+
+.wrapper { width : 100%; overflow: auto;}
+.section{ width : 100%; overflow: auto;}
+.header{ text-align : center; height : 1080px;max-width : 1920px; float: none; margin: 0 auto;}
+.header .header_left{margin-top : 30px;margin-left : 50px;float : left; width : 300px;}
+.header .header_center{max-width:766px; float : left ; margin-left : 300px; }
+.header .header_right{ float: right; width : 150px; margin-top: 30px; }
+
+.section1_wrap{width : 100%; }
+.section1{max-width : 1920px; float : none; margin :  auto; }
+
+
+
+.index .in_p { margin-top: 3%; margin-left :9.5%; }
+.index .in { margin-top: 4%; margin-left : 11.2%;}
+
+.last_index{ margin-top : 4%; margin-left : 10%;}
+
+@media all and (max-width:1200px){
+    .fl{width :  100%; margin :  0 auto; overflow: auto; text-align:center;}
+    .fr{width : 100%;margin : 0 auto; overflow: auto; text-align:center;}
+    .col-6{margin : 0 auto; text-align: center; width : 100%; }
+    .section4_center{float:none; margin :auto ; text-align:center;}
+.index{margin-right : 10%;}
+.col-7{margin : 0 auto; text-align: center; width : 100%; }
+.col-10 {margin : 0 auto; text-align: center; width : 100%;}
+.section3_1_img{margin : 0 auto; text-align: center; width : 100%; float:none;}
+.section3_2_img{margin : 0 auto; text-align: center; width : 100%; float: none;}
+
+}
+@media all and( max-width : 1600px){
+    .fl{width :  100%; margin :  0 auto; overflow: auto; text-align:center;}
+    .fr{width : 100%;margin : 0 auto; overflow: auto; text-align:center;}
+    .col-12
+
+}
+@media all and(min-width:980px){
+    .index{margin-left: 0%;}
+    .fl{width :  100%; margin :  0 auto; overflow: auto; text-align:center;}
+    .fr{width : 100%;margin : 0 auto; overflow: auto; text-align:center;}
+}
+
+.section2_Wrap{width: 100%; overflow: auto; float:none; }
+.section2 { max-width : 1920px; margin: 0 auto; float : none; overflow: hidden;}
+.section2_left img .about{ }
+.history_about{z-index:3 ; position:absolute; padding-top : 160px;}
+.history_img{z-index : 2; position:absolute; padding-top: 50px; padding-left: 80px;}
+.about{z-index: 1; position:absolute;}
+.section2_main{max-width: 1170px; margin : 0 auto ; text-align : center; float:none; overflow:hidden;}
+.section2_left{float :left; margin: 120px auto; text-align: center;}
+.section2_left img{text-align: center;}
+.section2_center{float: left; margin: 180px auto; text-align : center;  }
+.section2_center p{font-weight :bold; }
+.section2_right{float:left; margin: 180px auto; text-align : center;  }
+.section2_right p{font-weight :bold; }
+.section2_right p span{color : saddlebrown}
+.section2_center p span{color : saddlebrown}
+
+
+
+.section3_wrap{width: 100%; overflow: auto; float:none;}
+.section3{ max-width : 1920px; margin: 0px auto 100px auto; padding-top : 0px;float : none; overflow: hidden; background:url("../img/section3_back.png"); background-position: center;background-repeat:repeat-y;  }
+.section3_main{max-width: 1170px; margin : auto ; text-align : center; float:none; overflow:hidden; padding-top: 91px;}
+
+.section3_point{margin-top: 330px;}
+.section3_left{margin-left : 0%;float : left; margin-top: -88px;margin-bottom : 130px;}
+
+.section3_center{  margin : 300px 0px 125px 0px;  text-align:center; overflow: hidden;}
+.section3_center .section3_img{margin-left : 0px; float:none;}
+
+.section3_right{ text-align:center; margin : 130px auto 100px auto;  overflow: hidden;}
+.section3_img{float:left;}
+.section3_ds{float:left;}
+.section3_img2{float:none;}
+.section3_ds2{float:left;}
+.section3_1_img{overflow:hidden; text-align:center; margin : auto;}
+
+
+.section4_wrap{width: 100%; overflow: auto; float:none;  margin: 55px auto;  }
+.section4{ max-width : 1920px; margin:  100px auto; float : none; overflow: hidden; background:url("../img/section4_back.png");background-repeat:no-repeat;  background-position: center; }
+.section4_main{max-width : 1170px; overflow:hidden; text-align:center; margin : auto; float : left; padding-top: 150px;}
+
+.section4_title{float : left; margin-top : -150px;  }
+.section4_left{float : left;    margin-top: 520px;  max-width: 375px; overflow:hidden; margin-left : 30px; }
+.section4_center{float : left ;   margin : auto ;  overflow: hidden; }
+.section4_right{float : left;  margin-top : 200px; max-width : 375px; overflow:hidden;}
+.section4_img1{float : left;margin-top :100px; margin-bottom:100px;}
+.section4_centit{ margin: auto ;clear:both; text-align:center; margin-left: 0px; margin-top: 100px; }
+.section4_centit1{margin: auto ; clear:both; margin-right: 235px; margin-top: 20px;margin-bottom: 100px;}
+.section4_bottom{ clear: both;margin: auto; text-align:center; float: none;}
+.next{float:left;margin-top : 220px; margin-left : 300px; }
+.prev{float : left; margin-left : 60px;}
+.section4_right p{float : left; font-family : 'Open Sans'; font-style: italic; font-weight : 600; letter-spacing : 1px; font-size : 14pt; color: #aaa; text-align:left;}
+.section4_right p:hover{cousor : pointer; color: black ; }
+
+.section5_wrap{width: 100%; overflow: auto; float:none;  margin: 55px auto;  }
+.section5 { max-width : 1920px; margin: 0 auto; float : none; overflow: hidden;}
+.section5_main{max-width: 1170px; margin : 0 auto ; text-align : center; float:none; overflow:hidden;}
+.section5_title{font-family: 'Oswald' , sans-serif; font-weight : 900; font-size : 34pt; color: saddlebrown; line-height : 100%; letter-spacing: 0.1px;}
+.section5_img1{ margin :50px 0; text-align:center;}
+.section5_img2{margin : 100px auto;}
+
+.section6 { max-width : 1920px; margin: 0 auto; float : none; overflow: hidden;}
+.section_left{float :left;  }
+.section_center{float : left;}
+.section_right{float : left; }
+
+.footer{max-width : 1920px; padding: 50px 0;margin: 0px auto; float : none; overflow: hidden; text-align:center; background-color: #111;}
+.footer_main{max-width: 1170px; margin : 0 auto ; text-align : center; float:none; overflow:hidden;}
+.footer_box { float : left; margin-left : 0px; margin-top : 100px;}
+
+.footer1{max-width : 1920px; margin: 0 auto; float : none; overflow: hidden; text-align:center; background-color: #111; padding-bottom: 100px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media all and (min-width: 480px) {
+    .section2_center {
+        margin: 10px auto;
+    }
+
+    .section2_right {
+        margin: 80px auto;
+    }
+
+    .section3_center {
+        margin: 0px 0px 125px 0px;
+    }
+
+    .section3_right {
+        margin: 0px 0px 125px 0px;
+    }
+    .section4_right{visibility : hidden;}
+    .section4_main{float :none;}
+    .prev{visibility : hidden;}
+    .next{visibility : hidden;}
+    .section4{margin :-30px auto 0 auto;}
+    .section4_right{height : 0px; margin-top:0px;}
+    .section4_left{height: 0px; margin-top:0px;}
+    .section4_main{padding-top: 0px;}
+    .section4_title{margin-top: -0px;}
+}
+@media all and (min-width: 768px) {
+
+}
+
+@media all and (min-width: 992px) {
+
+
+@media all and (min-width: 1200px) {
+    .section4_center {
+        margin: 0 auto;
+        float: none;
+        text-align: center;
+    }
+
+    .section2_center {
+        margin: 180px auto;
+    }
+
+    .section2_right {
+        margin: 180px auto;
+    }
+
+    .section3_center {
+        margin: 300px 0px 125px 0px;
+    }
+
+    .section3_right {
+        margin: 130px 0px 125px 0px;
+    }
+    .section4_right{visibility : visible;}
+    .prev{visibility : visible;}
+    .next{visibility : visible;}
+    .section4_main{float :left;}
+    .section4{margin : 100px auto;}
+    .section4_left{margin-left : 0px;}
+    .section4_bottom{visibility : visible;}
+    .section4_left { margin-top : 520px;}
+    .section4_right{height:100%; margin-top : 200px;}
+    .section4_left{height : 100%; margin-top: 520px;}
+    .section4_main{padding-top: 150px;}
+    .section4_title{margin-top: -150px;}
+}
+
+@media all and (min-width: 1800px) {
+
+
+}

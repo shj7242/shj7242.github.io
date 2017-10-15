@@ -1,0 +1,215 @@
+---
+layout:     post
+title:      "[JAVA] Collections Framework"
+
+date:       2017-08-27 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 08 - 27 (일)</H4>
+
+<li>Collections</li>
+<li>List</li>
+<li>Set</li>
+<li>Map</li>
+<br>
+<H4 style ="font-weight:bold; color:orange;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . Collections framework</h5>
+<br>
+
+>>Collections Framework
+
+<br><br>
+<p>다수의 데이터(Collections), 즉 데이터 그룹을 저장하는 클래스들을 표준화한 프로그래밍 방식<br><br>
+배열과 아주 비슷하며 배열의 단점을 보완한 프로그램밍 방식이다. (가변적인 크기 등)
+<br><br>
+컬렉션 프레임워크는 크게 3가지 타입의 인터페이스로 나뉜다. ( List , Set , Map )
+</p>
+
+>>Collections Framework 상속계층도
+
+<br>
+<img src="{{ site.baseurl }}/img/collection.jpg" alt="Post Sample Image">
+<br>
+<p>
+-<b style="color:red;"> List 인터페이스</b> : 순서가 있는 데이터의 집합으로 데이터의 중복을 허용한다.<br>
+구현클래스 : ArrayList, LinkedList, Stack, Vector
+<br><br>
+-<b style="color:red;"> Set 인터페이스 </b>: 순서를 유지하지 않는 데이터의 집합으로 데이터의 중복을 허용하지 않는다.<br>
+구현클래스 : HashSet, TreeSet
+<br><br>
+-<b style="color:red;"> Map 인터페이스 </b>: 키와 값의 쌍으로 이루어진 데이터의 집합으로 순서를 유지하지 않으며 키의 중복은 허용하지 않지만 데이터의 중복은 허용한다.
+<br> 구현클래스 : HashMap, TreeMamp, HashTable, Properties
+<br><br><br>
+<b style="color:red;">Iterator</b><br><br>
+- 컬렉션 클래스에 저장된 요소들을 나열하는 방법을 제공한다. <br>
+- 컬렉션 클래스의 iterator()를 호출해서 사용.<br>
+- iterator 는 일회성이며 읽는 도중에 컬렉션 변경이 불가하다.<br>
+</p>
+
+~~~java
+List list = new ArrayList(); // ArrayList 한개를 생성
+Iterator it = list.iterator();
+//list 객체의 조상인 collection클래스의 iterator()메소드호출
+while(it.hasNext()){  
+	System.out.println(it.next());
+} //.next()로 읽어옴
+~~~
+
+<br><br>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . List</h5>
+
+<br><br>
+<p>
+<b style="color:red;">ArrayList - Vector - LinkedList</b> 비교
+
+<br>
+<span style="font-size:13px;">
+ArrayList는 기존 Vector를 개선한것으로 기능적으로는 동일하고 이 둘 List인터페이스를 구현하므로 저장순서가 유지되며 중복을 허용한다는 점은 같다. Vector는 자체적으로 동기화 처리가 되어있지만 ArrayList는 그렇지 않다.
+</span>
+<br>
+<span style="font-size:13px;">
+ArrayList와 LinkedList는 각자만의 장점이 있다. ArrayList의 경우 스택구조로 되어있기에 중간의 데이터를 삭제하거나 추가할 경우 성능상의 단점을 가진다. 이에 비해 LinkedList는 중간에 데이터를 삭제/추가하는 작업에 있어서 성능이 비교적 좋다.(Queue)
+</span>
+<br><br>
+
+List 인터페이스의 몇몇 함수들.
+</p>
+
+~~~java
+public class Client{
+	String id;
+	String pw;
+	Client(String id, String pw){
+		this.id = id;
+		this.pw = pw;
+	}
+	String toString(){
+		return "id :"+id + "pw :"+pw;
+	}
+}
+
+public class test{
+	public static main(String argsp[]){
+		Client c = new Client("shj","1234");
+		ArrayList<Client> a = new <Client>ArrayList();
+
+		a.add(c); //추가
+		a.get(0).toString(); // List의 0번째 객체의 값을 반환한다.
+		a.indexOf(c); // c객체가 배열의 몇번째 순서인지 반환.
+		a.remove(0); // List 의 0 번째 값을 삭제한다.
+		a.clear(); // List 안의 값을 모두 비운다.
+		a.clone(); // List를 복제한다.
+		a.contains(c); // c객체의 값이 a List안에 있는지 확인한다.
+		a.size(); // a List의 크기를 반환한다. 배열의 length 와 동일
+
+		//이외의 List 인터페이스를 상속받는 LinkedList, Vector 도 비슷한 함수를 가진다.
+	}
+}
+~~~
+
+<br>
+<h5 style = "font-size: 17px; font-weight : bold;">3 . Set</h5>
+<br>
+
+<p>
+<b style="color:red;">HashSet</b>
+<br><br>
+<span style="font-size:13px;"> Set은 중복을 허용하지 않는다. 만일 add() 를 통해 중복된 데이터값을 넣는다면 False 가 반환되면서 저장을 실패할 것이다. 중복저장을 허용하지 않고자 할 경우 Set을 활용하면 편할 것이다.</span>
+</p>
+
+~~~java
+Object[] obj = {6,7,1,4,6,2,4,11,3,4};
+Set set = new HashSet();
+
+for(int i =0; i <obj.length; i ++){
+	set.add(obj[i]);
+}
+List list = new LinkedList(set); // List의 인스턴스 list에 set을 넣는다.
+Collections.sort(list); // Collections 의 sort() 메소드로 간단히 list를 정렬한다.
+System.out.print(list);  
+// {1,2,3,4,6,7,11} 이 출력될 것이다. 중복되는 값을 제거한다.
+~~~
+
+<br><br>
+<p>
+<b style="color:red;">TreeSet</b>
+<br><br>
+<span style="font-size:13px;"> TreeSet은 이진 검색 트리라는 자료구조 형태로 데이터를 저장하는 클래스이다. TreeSet도 Set의 성격인 중복저장 불허, 순서유지 x 를 가지고 있다. <br>
+TreeSet은 저장할 때 이미 정렬하기 때문에 읽어올 때 따로 정렬할 필요가 없다.</span>
+</p>
+
+~~~java
+class TreeLotto{
+	public static void main(String args[]){
+		Set set = new TreeSet();
+		for(int i =0; set.size()<6 ; i ++){
+			int num = (int)(Math.random()*45) +1; // 1~45까지의 랜덤숫자를 num 변수에 넣는다.
+			set.add(num);
+		}
+		System.out.print(set); // 실행결과 {5,7,24,31,33,35} 랜덤숫자가 자동으로 정렬해서 출력
+	}
+}
+~~~
+
+<p>
+<span style="font-size:13px;"> TreeSet의 subset() 메서드</span></p>
+</p>
+
+~~~java
+class TreeDictionary{
+	public static void main(String args[]){
+		Set set = new TreeSet();
+		set.add("apple");
+		set.add("banana");
+		set.add("car");
+		set.add("dragon");
+		set.add("egg");
+		String from = "a";
+		String to = "c";
+		System.out.println(from+"으로 시작하는 단어부터"+to+"로 시작하는 단어까지 검색"+set.subSet(from,to)); //a로 시작하는 단어부터 c로시작하는 단어를 검색해서 자른다.
+	}
+}
+~~~
+
+<br>
+<h5 style = "font-size: 17px; font-weight : bold;">4 . Map</h5>
+<br>
+
+<p>
+<b style="color:red">HashMap - HashTable</b>
+<br><br>
+<span style="font-size:13px;"> HashMap 과 HashTable 의 차이는 ArrayList와 Vector의 차이와 비슷하다. HashMap이 더 최신 버전이라는 것. HashMap의 특징으로는 Map인터페이스처럼 <b style ="color:red;">Key : value</b> 형태로 되어있다는 것이다. 즉 key 값의 중복은 허용하지 않지만 value의 중복은 허용한다. 추가적으로 HashMap은 해싱을 사용하기 때문에 많은 양의 데이터를 검색하는데 있어서 뛰어난 성능을 가진다.</span></p>
+
+~~~java
+class HashDictionary{
+	public static void main(String args[]){
+		HashMap map = new HashMap();
+		map.put("사과","빨간색 과일이다.");
+		map.put("바나나","노란색 과일이다.");
+		map.put("신희준","학생이다.");
+		map.put("자바","객체지향언어이다.");  
+		// list, set과 다르게 put으로 key:value 형태의 데이터를 </span>넣는다.
+		System.out.println("Key값을 입력하세요");
+		Scanner sc;
+		String input;
+		while(true) {
+			sc=new Scanner(System.in);
+			input= sc.next();
+			if(map.get(input)!=null){
+				System.out.println(map.get(input));  // get()메서드로 키값에 맞는 value 값을 가져온다.
+			}else
+				System.out.println("키 값이 존재하지 않습니다.");
+		}		
+	}
+}
+~~~
+
+<p>
+<br><br>
+<b style="color:red">TreeMap</b>
+<br><br>
+<span style="font-size:13px;"> TreeMap 은 TreeSet 처럼 이진검색트리 형태로 되어있으면서 Map의 성질을 가진다. 먼저 HashMap이 TreeMap 보다 검색성능이 더 좋다고 하여 HashMap을 사용하는게 낫다고 하지만 범위검색 및 정렬검색의 경우 TreeMap의 성능이 더 우수하다.</span></p>

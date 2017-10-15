@@ -1,0 +1,81 @@
+---
+layout:     post
+title:      "[DB] SQL 1"
+date:       2017-09-06 21:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<H4 style ="font-weight:bold; color : orange">2017 - 09 - 06 (수)</H4>
+<li>SQL(Structured Query Language) Start</li>
+<li>SQL Practice</li>
+<li>Oracle 오류</li>
+
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . SQL Start</h5>
+
+<p><b>DB TABLE구조</b></p>
+<img src="{{ site.baseurl }}/img/structure.JPG" alt="Post Sample Image">
+<p>column을 attribute라 칭하기도 하며 field라고도 한다. 또한 row는 tuple으로도 불린다.</p>
+
+
+<p>우선 본교육에서는 오라클 DB를 활용하였습니다.
+<br><br><b>오라클 설치 및 계정생성</b><br>
+
+</p>
+
+~~~SQL
+>>sqlplus
+>>Enter user-name :  --system입력
+>>Enter user-name :  --Oracle설치시 지정한 패스워드입력.
+>>create user student identified by 1234; --id student, password 1234로 계정생성
+>>grant connect, resource to student; --student계정에 권한부여
+>>conn id/password  --생성한 계정으로 연결
+>>show user; --현재 연결된 유저아이디를 확인
+~~~
+
+
+<p><b>DDL(Data Definition Language)</b></p>
+<p>DDL에는 <b style="color:red;">CREATE, ALTER, DROP, TRUNCATE, GRANT, REVOKE, COMMENT</b> 등 테이블 생성, 제거, 제약조건 변경 및 권한 부여시에 사용한다.</p>
+<p><b>DML(Data Manipulation Language)</b></p>
+<p>DML에는 <b style= "color:red">SELECT, INSERT, DELETE, UPDATE</b> 등이 있다. 테이블을 조작하여 데이터를 가져오거나 테이블에 데이터를 추가/제거하는 작업을 할 때 사용한다.</p>
+
+<p><b>DCL(Data Control Language)</b></p>
+<p>DCL에는 <b style="color:red">COMMIT, ROLLBACK, GRANT, REVOKE</b> 데이터를 제어하는 언어이다.
+데이터의 보안, 무결성, 회복, 병행 수행제어 등을 정의한다.</p>
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">2 .SQL Practice</h5>
+
+
+<p>SQL예시</p>
+
+
+~~~SQL
+CREATE TABLE Subject(ID NUMBER(5), NAME VARCHAR2(20), SubjectCode VARCHAR2(20));   --Subject테이블을 하나 생성하는 SQL문장이다.
+
+DROP TABLE oldSubject; --테이블을 삭제한다.
+
+SELECT * from Subject where; NAME='DataStructure' ORDER BY 'ASC' --Subject테이블에서 이름이 DataStructure인 모든 컬럼을 불러온다. ORDER BY를 통해 오름차순 정렬한다.
+
+INSERT INTO Subject VALUES(1 , 'ComputerStructure', 'COM132'); --Subject테이블에 한 행을 추가한다.
+
+UPDATE Subject SET NAME='SystemAnalyst' where ID=1; --ID가 1인 행의 NAME 값을 SystemAnalyst로 변경한다.
+
+DELETE FROM Subject; --Subject테이블의 모든 행 삭제 Drop과 달리 테이블자체가 사라지지는 않는다.
+
+~~~
+
+<h5 style = "font-size: 17px; font-weight : bold;">3 .ORACLE 오류</h5>
+
+<p style="color:red">the network adapter could not establish the connection</p>
+
+<p>해결방법 : 시작 > 실행 > services.msc 실행한다. </p>
+<img src="{{ site.baseurl }}/img/error.JPG" alt="Post Sample Image">
+<p>listener와 SERVICEXE를 실행시킨다.</p>
+<p>다시 system으로 접속을 시도하니 접속가능.</p>
+
+<p>오류 발생원인 톰캣서버실행할 때 충돌때문에 CNSLSNR excutable을 정지해둠.</p>

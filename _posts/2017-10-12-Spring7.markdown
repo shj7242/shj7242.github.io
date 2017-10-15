@@ -1,0 +1,102 @@
+---
+layout:     post
+title:      "[Spring] Spring Mysql 연동"
+
+date:       2017-10-12 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 12 (목)</H4>
+<li>프로젝트 기본구조 구성</li>
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. Spring Mysql 연동</h5>
+
+<br>
+<p><b>스프링 MVC 프로젝트</b></p>
+<br><br>
+<p style="font-size:14px;">JAVA version : jdk1.8 //spring version : 4.3.8 // tomcat-server version : 8.5 // Mysql version : 5.7 <br><br>
+1.. Spring lagacy project 의 MVC project 생성. <br><br>
+<br><br>
+Spring MVC 프로젝트 템플릿 구조
+</p>
+
+<img src="{{ site.baseurl }}/img/spst.JPG" alt="Post Sample Image">
+
+
+<p style="font-size:14px;">
+<hr>
+- src/main/java : 개발되는 JAVA 코드의 경로이다. (Controller) <br>
+- src/main/resources : 서버가 실행될 때 필요한 파일들의 경로 (MyBatis)
+<br>
+-src/test/java : 테스트 전용 JAVA 코드
+<br>
+-src/test/resources : 테스트 전용 파일 경로
+<br>
+-src/main/webapp/spring : Spring 설정 파일의 경로 <br>
+-src/main/webapp/views : jsp 파일의 경로
+<hr>
+
+
+
+<br><br>
+2.. pom.xml에서 위에 명시한 버전을 수정한다. <br><br>
+3.. pom.xml에 plugin를 추가해주어 maven-update시 jdk버젼이 초기화 되는것을 방지한다.<br><br>
+</p>
+
+~~~xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+  	<artifactId>maven-compiler-plugin</artifactId>
+    <version>2.5.1</version>
+    <configuration>
+        <source>${java-version}</source>
+        <target>${java-version}</target>
+        <compilerArgument>-Xlint:all</compilerArgument>
+        <showWarnings>true</showWarnings>
+    		<showDeprecation>true</showDeprecation>
+    </configuration>
+</plugin>
+~~~
+
+<br>
+<p style="font-size:14px;">
+4.. Mysql을 설치하고 Mysql계정을 하나 생성해준다. (Mysql-server설치 failed 발생할 시 visual c++ 설치해야 함)
+<br><br>
+5.. Mysql-Workbench 로 접속한 뒤, Mysql에 새로운 스키마를 추가한 후 시작화면으로 돌아와 사용자 계정을 우클릭하여 Edit Connection에 default schema 텍스트박스에 추가한 스키마의 이름을 저장한다.<br><br>
+6.. Mysql command를 활용하여 현재 DB와 연결되었는지 확인한다. >>status<br><br>
+7.. JDBC의 연결이 제대로 되는지 확인하기위해 mvnrepository에서 Connector-j라이브러리를 추가해줍니다.<br><br>
+8.. JUNIT 의 버전을 4.7이상으로 설정한다.<br><br>
+9.. JDBC 연결 테스트하기<br><br>
+</p>
+
+
+~~~Java
+//다음 코드로 Mysql과 연동이 되었는지 확인한다.
+package org.zerock.web;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import org.junit.Test;
+public class MySQLConnectionTest {
+	private static final String DRIVER = "com.mysql.jdbc.Driver";
+	//MySQL Driver 6.0 = "com.mysql.cj.jdbc.Driver";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/book_ex?useSSL=false";
+	//MySQL 6.1 "jdbc:mysql://127.0.0.1:3306/book_ex?useSSL=false&serverTimezone=Asia/Seoul";
+	private static final String USER = "zerock";
+	private static final String PW = "zerock";
+	@Test
+	public void testConnection() throws Exception {
+		Class.forName(DRIVER);
+		try(Connection con = DriverManager.getConnection(URL, USER, PW)){
+			System.out.println(con);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+~~~

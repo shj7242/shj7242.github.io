@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  
+    
+    <style>
+    html, body{width:100%; height:100%;}
+ul,li{list-style-type:none;}
+*{margin:0; padding:0;}
+#header{width: 1000px; margin: 0 auto; overflow: hidden;}
+.banner_bg{position:absolute;}
+#header h1{float : left; padding-bottom :10px; padding-top : 34px; color: red;padding-right: 5px;}
+#header h1#po{float : left; padding-bottom :10px; padding-top : 34px; color: black;padding-right: 80px;}
+#header ul{float : left;}
+#header ul li{float : left; margin-right : 50px; padding-top: 50px;  padding-bottom : 26px; color:#bbb; font-weight: bold;}
+#header ul #point li div{float : left; border: 1px; border-color: #aaa; border-style:solid;}
+
+div#part{width:100% ; height: 499px ; }
+div#part .banner_bg{ background-position: center; width:100% ; height: 499px; position: absolute; opacity: 0; transition: all 0.6s; }
+div#part .banner_bg.on{ opacity: 1 !important; }
+div#part .banner_bg#banner0{background-image: url("image/slideBg01.jpg");   }
+div#part .banner_bg#banner1{background-image: url("image/slideBg02.jpg");   }
+div#part .banner_bg#banner2{background-image: url("image/slideBg03.jpg");   }
+div#part .banner_bg#banner3{background-image: url("image/slideBg04.jpg");  }
+div#part .banner_bg#banner4{background-image: url("image/slideBg05.jpg");  }
+
+div.content{position : absolute; width:1000px; left:50%; text-align: left; margin-left:-500px; margin-top: 80px;}
+div.content h1{margin-top: 30px;}
+div.content h3{margin-top: 20px;}
+div.content div{border : 1px solid white; width : 150px; text-align:center; height:30px; margin-top:15px;}
+div.content div:hover{background-color:white; color: black; font-weight:bold;}
+div.content div p{font-size:10pt; margin-top: 5px;}
+div.content{position:absolute;}
+div#botmenu{ position: absolute ; width: 100% ; height: 50px; top: 548px ; text-align: center;}
+div#botmenu ul{width: 1000px; height: 50px;  position: absolute ;  z-index: 1; left: 50%; margin-left: -500px;}
+#botmenu ul li{float: left;  width: 180px; color: white; padding: 14px 0; border: 1px solid rgba(255, 255, 255, .3); cursor: pointer; }
+div#botmenu #botmenuBg{ position: absolute ; background-color: black; opacity: 0.6 ; width: 100% ; height: 50px; }
+#botmenu ul li:hover{background-color:red; color : white;}
+#botmenu ul li.on{background-color:red; color:white;}
+#main{width :100%; height 700px;}
+#main div#mtitle{text-align: center; margin-top: 70px; overflow : hidden;}
+#main div#mtitle h2{}
+#main div#mtitle h5{color : #999}
+
+#mcontent{margin :0 auto; width : 600px; height : 400px; padding-top:50px;}
+#mcontent #contentimg1{ float : left; height : 400px; width: 270px; text-align:center;}
+#mcontent #contentimg1 #img1{padding-left: 70px ;}
+#mcontent #contentimg1 div{padding-left : 55px;}
+#mcontent #contentimg2{ margin-left : 40px;float : left; height : 400px;width: 270px;text-align:center;}
+#mcontent #contentimg2 #img2{width: 150px; padding-left: 74px ;}
+#mcontent #contentimg2 div{padding-left : 40px;}
+#mcontent #contentimg2 div p{color : darkgrey}
+#mcontent #contentimg1 div p{color : darkgrey}
+#mcontent #contentimg2 div h1{color : darkgrey}
+#mcontent #contentimg1 div h1{color : darkgrey}
+#header ul li:hover{border-bottom-color : red;  border-bottom-style: solid; border-bottom-width: 4px;}
+#main2{ background-image: url(image/bg_mCon03.jpg); width : 100%; height: 637px;}
+#main2 #main2img {width: 1000px; height : 637px; margin : 0 auto; text-align:center;}
+#main2 #main2img #main2img_head{width :1000px; height :50px;}
+#main2 #main2img #main2img_center{margin : 0 auto;width : 900px; height :537px; background-image: url("image/bg_circle03.png");}
+#main2 #main2img #main2img_center #i1{float : left; padding : 225px 80px 150px 137px;}
+#main2 #main2img #main2img_center #i1 p{margin-top:5px;}
+#main2 #main2img #main2img_center #i1 h4{margin-bottom:5px;}
+#main2 #main2img #main2img_center #i2{float : left; }
+#main2 #main2img #main2img_center #i3{float : left; }
+#main2 #main2img #main2img_center #i2 p{margin-top:15px;}
+#main2 #main2img #main2img_center #i2 h4{margin-bottom:15px;}
+#main2 #main2img #main2img_center #i3 p{margin-top:20px;}
+#main2 #main2img #main2img_center #i3 h4{margin-bottom:20px;}
+#main2 #main2img #main2img_center #i2{float : left; padding : 225px 50px 150px 0px;}
+#main2 #main2img #main2img_center #i3{float : left; padding : 180px 50px 150px 10px;}
+#main2 #main2img #main2foot{ width :900px; height: 50px; text-align : center;}
+#main2 #main2img #main2foot img{margin-left: 160px;clear : both; float : left; }
+#main2 #main2img #main2foot p{ margin-left : 10px; float : left;  color: grey;}
+#main3{ width : 100%; height : 543px; }
+#main3 #main3wrap{width : 100% ; height : 450px;}
+#main3 #main3wrap #main3header{margin: 0 auto;text-align: center; width: 100%; height : 150px;}
+#main3 #main3wrap #main3img{ transition: 0.5s; background-color : #f3f3f3 ;clear: both; margin :0 auto;width : 1000px; height : 260px; border :1px solid #ccc;}
+
+#main3 #main3wrap #main3img #main3img1{margin-top:40px; width : 1000px; height : 178px;}
+#main3 #main3wrap #main3img #main3img1 #main3r{width : 140px; height : 122px;background-image: url("image/icon_mca03ioCon.png"); margin-left : 100px; margin-top: 10px;float:left;  border-right : 1px solid #ccc; padding-right :85px; background-repeat:no-repeat;}
+#main3 #main3wrap #main3img:hover #main3img1 #main3r{background-image: url("image/icon_mca03ioCon_hover.png"); background-repeat: no-repeat;}
+
+#main3 #main3wrap #main3img #main3img1 #main3c{padding-left : 150px; padding-top: 10px;float:left; height :178px;}
+#main3 #main3wrap #main3img #main3img1 #main3c p {margin-top : 10px;}
+#main3 #main3wrap #main3img #main3img1 #main3c div{border : 1px solid #aaa; margin-top: 20px; width : 50px; text-align: center;  }
+#main3 #main3wrap #main3img:hover{background-color:black;}
+#main3 #main3wrap #main3img :hover #main3c{color:white;}
+#main3 #main3wrap  :hover div{color:white; border-color:white;}
+
+#mid_4{width:100%; height: 775px; background-image:url("../testfile/image/bg_mCon05.jpg"); text-align: center ; margin: 0 auto;}
+#mid_4_h{padding-top: 50px; padding-bottom: 40px;}
+#mid_4_div{ width: 998px; height: 498px;  margin: 50px auto; background-color: #eeeeee; }
+
+#mid_4_div1{ width: 320px; height: 498px; background-color: white ; overflow: hidden ; float: left ; }
+#mid_4_div1_top{ width: 320px; height: 280px; background-color: rgba(99, 166, 217, 1); text-align: left ; color: white ; padding-left: 20px; }
+#mid_4_div1_top:hover {cursor: pointer ;}
+#mid_4_div1_top_more{ width: 60px; height: 20px; border: white solid 1px; padding: 3px; float: left ;}
+#mid_4_div1_top img {position: absolute ; margin-left :200px;}
+#main3 #main3wrap #main3img #main3img1 #main3c div #p3{color:#555; font-size : 8pt; }
+#mid_4{width:100%; height: 775px; background-image:url("../testfile/image/bg_mCon05.jpg"); text-align: center ; margin: 0 auto;}
+#mid_4_h{padding-top: 50px; padding-bottom: 40px;}
+#mid_4_div{ width: 998px; height: 498px;  margin: 50px auto; background-color: #eeeeee; }
+
+#mid_4_div1{ width: 320px; height: 498px; background-color: white ; overflow: hidden ; float: left ; }
+#mid_4_div1_top{ width: 320px; height: 280px; background-color: rgba(99, 166, 217, 1); text-align: left ; color: white ; padding-left: 20px; }
+#mid_4_div1_top:hover {cursor: pointer ;}
+#mid_4_div1_top_more{ width: 60px; height: 20px; border: white solid 1px; padding: 3px; float: left ;}
+#mid_4_div1_top img {position: absolute ; margin-left :200px;}
+
+
+.mid_bg_left{width: 250px; height: 150px; margin-top: 27px; position: absolute; opacity: 0; font-size: smaller; transition: all 0.6s;}
+.mid_bg_left.on{opacity: 1;}
+#mid_bg1 { margin-left: 28px; }
+#mid_bg2 { margin-left: 28px; margin-top: 16px;}
+
+#test #icon1.on { background-image: url("../testfile/image/btn_conPage_active.png ");  float: left; margin-left: 105px ; }
+#test #icon1 { background-image: url("../testfile/image/btn_conPage.png ");  float: left; margin-left: 105px ;}
+#test #icon2.on { background-image: url("../testfile/image/btn_conPage_active.png"); }
+#test #icon2 { background-image: url("../testfile/image/btn_conPage.png"); }
+
+#test { margin-top: 180px; margin-left: 30px;}
+#test ul li {width: 12px; height: 12px;  float: left; margin-left: 10px ; background-repeat: no-repeat ;}
+#test ul li:hover  {cursor: pointer;}
+
+
+#mid_bg3 { margin-left: 28px; }
+#mid_bg4 { margin-left: 28px; margin-top: 16px;}
+
+#test2 #icon3.on { background-image: url("../testfile/image/btn_conPage_active.png ");  float: left; margin-left: 105px ; }
+#test2 #icon3 { background-image: url("../testfile/image/btn_conPage.png ");  float: left; margin-left: 105px ;}
+#test2 #icon4.on { background-image: url("../testfile/image/btn_conPage_active.png"); }
+#test2 #icon4 { background-image: url("../testfile/image/btn_conPage.png"); }
+
+#test2 { margin-top: 180px; margin-left: 30px;}
+#test2 ul li {width: 12px; height: 12px;  float: left; margin-left: 10px ; background-repeat: no-repeat ;}
+#test2 ul li:hover  {cursor: pointer;}
+
+
+#mid_bg5 { margin-left: 28px; }
+#mid_bg6 { margin-left: 28px; margin-top: 16px;}
+
+#test3 #icon5.on { background-image: url("../testfile/image/btn_conPage_active.png ");  float: left; margin-left: 105px ; }
+#test3 #icon5 { background-image: url("../testfile/image/btn_conPage.png ");  float: left; margin-left: 105px ;}
+#test3 #icon6.on { background-image: url("../testfile/image/btn_conPage_active.png"); }
+#test3 #icon6 { background-image: url("../testfile/image/btn_conPage.png"); }
+
+#test3 { margin-top: 180px; margin-left: 30px;}
+#test3 ul li {width: 12px; height: 12px;  float: left; margin-left: 10px ; background-repeat: no-repeat ;}
+#test3 ul li:hover  {cursor: pointer;}
+
+
+
+
+#mid_4_div2{ width: 320px; height: 498px; background-color: white ; overflow: hidden ; float: left ; margin-left: 20px;}
+#mid_4_div2_top{ width: 320px; height: 280px; background-color: rgba(77, 183, 210, 1); text-align: left ; color: white ; padding-left: 20px; }
+#mid_4_div2_top:hover {cursor: pointer ;}
+#mid_4_div2_top_more{ width: 60px; height: 20px; border: white solid 1px; padding: 3px; float: left ;}
+#mid_4_div2_top img {position: absolute ; margin-left :200px;}
+
+
+
+
+
+#mid_4_div3{ width: 320px; height: 498px; background-color: white ; overflow: hidden ; float: right ;}
+#mid_4_div3_top{ width: 320px; height: 280px; background-color: rgba(101, 203, 212, 1); text-align: left ; color: white ; padding-left: 20px; }
+#mid_4_div3_top:hover {cursor: pointer ;}
+#mid_4_div3_top_more{ width: 60px; height: 20px; border: white solid 1px; padding: 3px; float: left ;}
+#mid_4_div3_top img {position: absolute ; margin-left :200px;}
+
+
+
+div#section6{ width: auto; height: 600px; background-color: white; }
+div#section6 h2{padding-top: 50px; text-align: center; font-size: 30px;}
+div#section6 p{padding-top: 10px; text-align: center; color: #666666;font-size: 20px;}
+div#section6 div#section6_si{ height: 350px; width: 1000px; margin: 30px auto 0 auto; background-color: #fff;}
+div#section6 div#section6_si_sub1 {height: 350px; width: 320px; float: left; background-color: #999; box-sizing: border-box;}
+div#section6 div#section6_si_sub2 {height: 350px; width: 320px; float: left;background-color: white;margin-left: 2%;box-sizing: border-box;}
+div#section6 div#section6_si_sub3 {height: 350px; width: 320px; float: left;background-color: #fafafa;margin-left: 2%;box-sizing: border-box;}
+
+div#section6_sub1_su1 { height: 33.3%; width: 100%; background-color: #fafafa; border-top: 1px solid #ddd;border-right: 1px solid #ddd;border-left: 1px solid #ddd; box-sizing: border-box;}
+div#section6_sub1_su1_i{ float:left; width: 35%; height: 100%; ;}
+div#section6_sub1_su1_i img {padding: 20px 0 0 24px; }
+div#section6_sub1_su1_t{ float: left; width: 65%; height: 100%; }
+div#section6_sub1_su1_t h3 { ; text-align: left; margin: 30px 0 -10px 0;}
+img#section6_sub1_su1_t_line,div#section6_sub1_su1_t h3,div#section6_sub1_su1_t p  {margin-left: 20px; }
+div#section6_sub1_su1_t p { text-align: left; color: #666; font-size: 12px;}
+
+div#section6_sub1_su2 { height: 33.3%; width: 100%; background-color: #fff; border-top: 1px solid #ddd;border-right: 1px solid #ddd;border-left: 1px solid #ddd; box-sizing: border-box;}
+div#section6_sub1_su2_i{ float:left; width: 35%; height: 100%; ;}
+div#section6_sub1_su2_i img {padding: 20px 0 0 24px; }
+div#section6_sub1_su2_t{ float: left; width: 65%; height: 100%; }
+div#section6_sub1_su2_t h3 { ; text-align: left; margin: 30px 0 -10px 0;}
+img#section6_sub1_su2_t_line,div#section6_sub1_su2_t h3,div#section6_sub1_su2_t p  {margin-left: 20px; }
+div#section6_sub1_su2_t p { text-align: left; color: #666; font-size: 12px;}
+
+div#section6_sub1_su3 { height: 33.3%; width: 100%; background-color: #fafafa; border: 1px solid #ddd; box-sizing: border-box;}
+div#section6_sub1_su3_i{ float:left; width: 35%; height: 100%; ;}
+div#section6_sub1_su3_i img {padding: 20px 0 0 24px; }
+div#section6_sub1_su3_t{ float: left; width: 65%; height: 100%; }
+div#section6_sub1_su3_t h3 { ; text-align: left; margin: 30px 0 -10px 0;}
+img#section6_sub1_su3_t_line,div#section6_sub1_su3_t h3,div#section6_sub1_su3_t p  {margin-left: 20px; }
+div#section6_sub1_su3_t p { text-align: left; color: #666; font-size: 12px;}
+
+div#section6_si_sub2{ width: 300px; margin: 0 auto ; height: 300px; border: 1px solid #ccc;}
+div#section6_si_sub2 h3 { margin-top: 10px; text-align: center;}
+div#section6_si_sub2 p { text-align: center; color: #666; font-size: 16px;}
+img#cloud{ margin: 50px 0 0 100px;}
+img#section6_si_sub2_line{ margin: 25px 0 0 150px}
+
+div#section6_si_sub3{ width: 300px; margin: 0 auto ; height: 300px; border: 1px solid #ccc;}
+div#section6_si_sub3 h3 { margin-top: 10px; text-align: center;}
+div#section6_si_sub3 p { text-align: center; color: #666; font-size: 16px;}
+img#sdata{ margin: 50px 0 0 100px;}
+img#section6_si_sub3_line{ margin: 25px 0 0 150px}
+
+div#section7 { width: auto; height: 600px; background-color: #f5f5f5;}
+div#section7 h2{padding-top: 50px; text-align: center; font-size: 30px;}
+div#section7 p{padding-top: 10px; text-align: center; color: #666666;font-size: 20px;}
+div#section7_s ul{ width: 1000px; margin: 80px auto 0 auto;}
+div#section7_s ul li div img { margin-bottom: 15px;}
+div#section7_s ul li{ display: inline; width: 20%; float: left; height: 180px; text-align: center; color: #999;}
+div#section7_s_i { padding: 40px 0 0 0 ;}
+
+div#footer{width: 1000px; height: 200px; background-color: #fff; margin: 0 auto;}
+div#footer_1{ width: 20%; height: 200px; background-color: white; float: left;}
+div#footer_1 img{ margin-top: 90px;}
+div#footer_2{ width: 60%; height: 200px; background-color: white; float: left;}
+div#footer_2 ul { margin: 70px 0 0 0px;}
+div#footer_2 ul li{ display: inline; margin-right: 20px; border-right: 1px solid #999; padding-right: 20px; font-size: 14px;}
+div#footer_2 ul li#li_l { border-right: 0px;}
+div#footer_2 p{ margin-top: 20px; font-size: 12px; color: #999}
+div#footer_3{ width: 20%; height: 200px; background-color: white; float: left;}
+div#footer_3 select {margin: 60px 0 0 23px; width: 150px;}
+div#footer_3 img{margin: 20px 0 0 30px;}
+
+div#tail { width: 100px; height: 200px; position: fixed; top:50%;right: 5%; }
+
+
+
+.header_con {width: 100px; height: 100px; background:red;}
+
+#wrap1 .header_con {background: aqua;}
+#wrap2 .header_con {background: purple;}
+    
+    </style>
+    <script>
+window.addEventListener("load", onLoadHandler);
+        function onLoadHandler(){
+
+            console.log( "윈도우가 로딩 완료되었어요" );
+    var bannerList = document.querySelectorAll("#part .banner_bg");
+    var menuList = document.querySelectorAll( "#botmenu ul li");
+    var prevIndex = 0;
+
+    console.log( menuList )
+    for( var i=0; i<menuList.length; i++ ){
+        menuList[i].addEventListener("click", onClickHandler )
+    }
+
+    function onClickHandler( e ){
+
+        var clickedBtn = e.currentTarget;
+        var clickIndex = -1;
+
+        for( i=0; i<menuList.length; i++ ){
+            if( menuList[i] == clickedBtn ){
+                clickIndex = i;
+            }
+        }
+
+        if( prevIndex != -1 ){
+            menuList[ prevIndex ].setAttribute( "class", "" );
+            bannerList[ prevIndex].setAttribute( "class", "banner_bg" );
+        }
+
+        menuList[ clickIndex ].setAttribute( "class", "on" );
+        bannerList[ clickIndex].setAttribute( "class", "banner_bg on" );
+
+        prevIndex = clickIndex;
+    }
+}
+
+
+
+
+/**
+ * Created by P on 2016-08-01.
+ */
+/* 제일 위에 bg 그림 변경 */
+
+//window.addEventListener( "load", onLoadHandler );
+//function onLoadHandler() {
+//    console.log("윈도우가 로딩 완료되었어요");
+//
+//    // 상단 비주얼
+//    sliderControl( "#bg .main_bg", "#band ul li", "main_bg", "main_bg on" );
+//
+//    // 첫번째
+//    sliderControl( "#mid_4_div1 .mid_bg_left", "#test ul li", "mid_bg_left", "mid_bg_left on" );
+//
+//    // 두번째
+//    sliderControl( "#mid_4_div2 .mid_bg_left", "#test2 ul li", "mid_bg_left", "mid_bg_left on" );
+//
+//    // 세번째
+//    sliderControl( "#mid_4_div3 .mid_bg_left", "#test3 ul li", "mid_bg_left", "mid_bg_left on" );
+//}
+//function bigDataInit(){
+//    console.log( "빅데이터 영역 스크립트 시작" );
+//
+//
+//    /!* visual selector 정의 *!/
+//    var visualList = [
+//        document.querySelectorAll("#mid_4_div1 .mid_bg_left")
+//        ,document.querySelectorAll("#mid_4_div2 .mid_bg_left")
+//        ,document.querySelectorAll("#mid_4_div3 .mid_bg_left")
+//    ];
+//
+//    /!* visual selector에 따른 메뉴 정의 *!/
+//    var menuList = [
+//        document.querySelectorAll("#test ul li") // 2개씩, 3개씩
+//        ,document.querySelectorAll("#test2 ul li")
+//        ,document.querySelectorAll("#test3 ul li")
+//    ];
+//
+//
+//    /!* 아래쪽에 로고 왼쪽 그림 변경 *!/
+//
+//    var prevIndex = [0,0,0];
+//for( var i=0; i<visualList.length; i++ ){
+//        prevIndex.push( 0 );
+//    }
+//
+//
+//    for( var i=0; i<menuList.length; i++ ){
+//        var currList = menuList[i];
+//        for( var j=0; j<currList.length; j++ ){
+//            currList[j].addEventListener("click", onClickHandler );
+//        }
+//    }
+//
+//    function onClickHandler( e ) {
+//
+//        var clickedBtn = e.currentTarget;
+//        var clickIndex = -1;
+//        var gropIndex = -1;
+//
+//        for( var i=0; i<menuList.length; i++ ){
+//            var currList = menuList[i];
+//            for( var j=0; j<currList.length; j++ ){
+//                if( currList[j] == clickedBtn ) {
+//                    gropIndex = i;
+//                    clickIndex = j;
+//                }
+//            }
+//        }
+//
+//        if (prevIndex[gropIndex] != -1) {
+//            menuList[gropIndex][ prevIndex[gropIndex] ].setAttribute("class", "");
+//            visualList[gropIndex][ prevIndex[gropIndex] ].setAttribute("class", "mid_bg_left");
+//        }
+//
+//        menuList[gropIndex][clickIndex].setAttribute("class", "on");
+//        visualList[gropIndex][clickIndex].setAttribute("class", "mid_bg_left on");
+//
+//        prevIndex[gropIndex] = clickIndex;
+//
+//    }
+//
+//}
+
+
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div id="header">
+        <h1>KT</h1> <h1 id="po">NexR</h1>
+        <ul>
+            <li>Product & Service</li>
+            <li>3V</li>
+            <li>Resource</li>
+            <li>About</li>
+            <li>Content</li>
+            <li id="point"><div>Search</div></li>
+        </ul>
+    </div>
+    <hr>
+<div id="part">
+    <div class="banner_bg on"id="banner0">
+
+    <div class="content">
+        <h1>No1.Big DATA<BR>Professional Group<br>KT NexR</h1>
+        <h3>국내 최고의 빅데이터 전문인력,축적된 경험 및 전문기술을<br>바탕으로 빅데이터 Erd-to-Erd 서비스를 시행하고 있습니다.</h3>
+        <div><p>READ MORE  ></p></div>
+    </div>
+    </div>
+
+    <div class="banner_bg"id="banner1">
+
+        <div class="content">
+            <h1>No1.Big DATA<BR>Professional Group<br>KT NexR</h1>
+            <h3>국내 최고의 빅데이터 전문인력,축적된 경험 및 전문기술을<br>바탕으로 빅데이터 Erd-to-Erd 서비스를 시행하고 있습니다.</h3>
+            <div><p>READ MORE  ></p></div>
+        </div>
+    </div>
+    <div class="banner_bg"id="banner2">
+
+    <div class="content">
+        <h1>No1.Big DATA<BR>Professional Group<br>KT NexR</h1>
+        <h3>국내 최고의 빅데이터 전문인력,축적된 경험 및 전문기술을<br>바탕으로 빅데이터 Erd-to-Erd 서비스를 시행하고 있습니다.</h3>
+        <div><p>READ MORE  ></p></div>
+    </div>
+</div>
+    <div class="banner_bg"id="banner3">
+
+        <div class="content">
+            <h1>No1.Big DATA<BR>Professional Group<br>KT NexR</h1>
+            <h3>국내 최고의 빅데이터 전문인력,축적된 경험 및 전문기술을<br>바탕으로 빅데이터 Erd-to-Erd 서비스를 시행하고 있습니다.</h3>
+            <div><p>READ MORE  ></p></div>
+        </div>
+    </div>
+    <div class="banner_bg"id="banner4">
+
+        <div class="content">
+            <h1>No1.Big DATA<BR>Professional Group<br>KT NexR</h1>
+            <h3>국내 최고의 빅데이터 전문인력,축적된 경험 및 전문기술을<br>바탕으로 빅데이터 Erd-to-Erd 서비스를 시행하고 있습니다.</h3>
+            <div><p>READ MORE  ></p></div>
+        </div>
+    </div>
+    <div id="botmenu">
+        <ul>
+            <li class="on">NDAP</li>
+            <li>Consulting</li>
+            <li>3V</li>
+            <li>Success</li>
+            <li>Who We Are</li>
+        </ul>
+        <div id="botmenuBg"></div>
+    </div>
+</div>
+
+
+
+    <div id="main">
+        <div id="mtitle"><h2>Big Data End-to-End Service</h2><br><h5>국내 최고의 빅데이터 전문 인력, 축적된 경험 및 전문 기술을 보유하고 있습니다.</h5><br></div>
+
+
+    <div id="mcontent">
+
+        <div id="contentimg1"><div id="img1"><img src="image/img_con01_thum03.png"></div> <br> <div><h3>Bussiness Development</h3> <br><h1>ㅡ</h1><p>빅데이터기술 전문 컨설팅</p><p>빅데이터활용 분석 컨설팅</p></div></div>
+        <div id="contentimg2"><div id="img2"><img src="image/img_con01_thum04.png"></div><br> <div><h3>Technical Development</h3> <br><h1>ㅡ</h1><p>제품 개발 및 연구</p><p>시스템 구축 및 운영</p></div></div>
+
+    </div>
+    </div>
+    <div id="main2">
+    <div id="main2img"><div id="main2img_head"><br><Br><Br><h2>Big Data!</h2><Br><p>더 이상 새롭고 어려운 용어가 아닌, 데이터를 수용하기 위한 흐름입니다.</p></div>
+    <div id="main2img_center"><div id="i1"><h4>RDBMS</h4><img  src="image/img_pp01.png"><P>Gigabyte</P></div>
+        <div id="i2"><h4>Data Warehouse</h4><img src="image/img_pp05.png"><p>Terabyte</p></div>
+        <div id="i3"><h4>Big Data Platform</h4><img src="image/img_pp40.png"><p>petabyte</p></div>
+
+    </div>
+        <div id="main2foot"><img src="image/bul_point01.png"><p>대용량 데이터를 수용하기 위한 인프라의 변화는 30년 전부터 이미 시작되었습니다.</p></div>
+
+    </div>
+
+
+    </div>
+     <div id="main3">
+        <div id="main3wrap">
+         <div id="main3header"><Br><br><h2>Big Data Platform</h2><br><p>미래를 예측하는 KT NexR의 차세대 빅데이터 플랫폼을 소개합니다.</p></div>
+            <div id="main3img">
+                <div id="main3img1">
+                    <div id="main3r"></div>
+                    <div id="main3c"><h2>NDAP</h2><BR><h4>더 다양해진 형태의 데이터를 모두 수용하는 방법!</h4><P>빅데이터의 모든 서비스를 제공하는 차세대 빅데이터 플랫폼</P>
+                    <div><p id="p3">MORE+</p></div></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="mid_4" class="section">
+        <div id="mid_4_h">
+            <h2>Big Data for Business Action</h2><br>
+            <h4>3V를 기반으로 성과를 도출하여 비용감소, 매출증대에 기여합니다.</h4>
+            <div id="mid_4_div">
+                <div id="mid_4_div1">
+                    <div id="mid_4_div1_top">
+                        <h1>Volumn</h1>
+                        <h3>Enterprise Data Hub</h3>
+                        <br>
+                        <p>비용 효율적인 빅데이터 저장과 분석!<Br>
+                            데이터 기반의 의사결정 기반 마련<br>
+                            새로운비즈니스 가치 창출<br>
+                            <img src="../testfile/image/img_circleTm_i01.png" alt="">
+                            <br><br>
+                        <div id="mid_4_div1_top_more">More +</div>
+                        </p>
+                    </div>
+
+                    <div class="mid_bg_left on" id="mid_bg1">
+                        <img src="../testfile/image/case_logo01.gif" alt="">
+                        <br><br><br>
+                        <p>폭발적 데이터 증가에 완벽 대응!<br>
+                            인프라 구축 최대 80% 비용 절감!</p>
+                        <br><br>
+                    </div>
+                    <div class="mid_bg_left" id="mid_bg2">
+                        <img src="../testfile/image/case_logo02.gif" alt="">
+                        <br><br><br>
+                        <p>의사결정 시스템을 NPAP을 기초로 구축<br>
+                            세종특별자치시의 교통 정책의 근간 마련!</p>
+                        <br><br>
+                    </div>
+
+                    <div id="test">
+                        <ul>
+                            <li class="on" id="icon1"></li>
+                            <li id="icon2"></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+
+                <div id="mid_4_div2">
+                    <div id="mid_4_div2_top">
+                        <h1>Velocity</h1>
+                        <h3>IoT</h3>
+                        <br>
+                        <p>센서(IoT)데이터 실시간 수집<Br>
+                            장기 데이터 저장 기반 마련<br>
+                            장애 사전 예측 및 대응<br>
+                            <img src="../testfile/image/img_circleTm_i01.png" alt="">
+                            <br><br>
+                        <div id="mid_4_div2_top_more">More +</div>
+                        </p>
+
+                    </div>
+
+
+                    <div class="mid_bg_left on" id="mid_bg3">
+                        <img src="../testfile/image/case_logo03.gif" alt="">
+                        <br><br><br>
+                        <p>폭발적 데이터 증가에 완벽 대응!<br>
+                            인프라 구축 최대 80% 비용 절감!</p>
+                        <br><br>
+                    </div>
+                    <div class="mid_bg_left" id="mid_bg4">
+                        <img src="../testfile/image/case_logo04.gif" alt="">
+                        <br><br><br>
+                        <p>의사결정 시스템을 NPAP을 기초로 구축<br>
+                            세종특별자치시의 교통 정책의 근간 마련!</p>
+                        <br><br>
+                    </div>
+
+                    <div id="test2">
+                        <ul>
+                            <li class="on" id="icon3"></li>
+                            <li id="icon4"></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+
+                <div id="mid_4_div3">
+                    <div id="mid_4_div3_top">
+                        <h1>Variety</h1>
+                        <h3>보안로그통합 / FDS고도화</h3>
+                        <br>
+                        <p>내부 보안 통제로 보안 강화<Br>
+                            신뢰성 향상 및 탐지 고도화<br>
+                            사전, 사후 대응 체계 확립<br>
+                            <img src="../testfile/image/img_circleTm_i01.png" alt="">
+                            <br><br>
+                        <div id="mid_4_div3_top_more">More +</div>
+                        </p>
+                    </div>
+
+
+                    <div class="mid_bg_left on" id="mid_bg5">
+                        <img src="../testfile/image/case_logo05.gif" alt="">
+                        <br><br><br>
+                        <p>폭발적 데이터 증가에 완벽 대응!<br>
+                            인프라 구축 최대 80% 비용 절감!</p>
+                        <br><br>
+                    </div>
+                    <div class="mid_bg_left" id="mid_bg6">
+                        <img src="../testfile/image/case_logo06.gif" alt="">
+                        <br><br><br>
+                        <p>의사결정 시스템을 NPAP을 기초로 구축<br>
+                            세종특별자치시의 교통 정책의 근간 마련!</p>
+                        <br><br>
+                    </div>
+
+                    <div id="test3">
+                        <ul>
+                            <li class="on" id="icon5"></li>
+                            <li id="icon6"></li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="section6">
+        <h2>Resources</h2>
+        <p>3대용량 데이터 수용을 위한 빅데이터 플랫폼 SW전략을 확인하십시오.</p>
+        <div id="section6_si">
+            <div id="section6_si_sub1">
+                <div id="section6_sub1_su1">
+                    <div id="section6_sub1_su1_i">
+                        <img src="image/img_circleTm02_i01.png">
+                    </div>
+                    <div id="section6_sub1_su1_t">
+                        <h3>성공사례</h3>
+                        <img src="image/lineTxt01.gif" id="section6_sub1_su1_t_line">
+                        <p>Enterprise Data Hub</p>
+                    </div>
+                </div>
+                <div id="section6_sub1_su2">
+                    <div id="section6_sub1_su2_i">
+                        <img src="image/img_circleTm02_i01.png">
+                    </div>
+                    <div id="section6_sub1_su2_t">
+                        <h3>성공사례</h3>
+                        <img src="image/lineTxt01.gif" id="section6_sub1_su2_t_line">
+                        <p>IOT</p>
+                    </div>
+                </div>
+                <div id="section6_sub1_su3">
+                    <div id="section6_sub1_su3_i">
+                        <img src="image/img_circleTm02_i01.png">
+                    </div>
+                    <div id="section6_sub1_su3_t">
+                        <h3>성공사례</h3>
+                        <img src="image/lineTxt01.gif" id="section6_sub1_su3_t_line">
+                        <p>보안로그통합 / FDS고도화</p>
+                    </div>
+                </div>
+            </div>
+            <div id="section6_si_sub2">
+                <img src="image/img_cloud.png" id="cloud">
+                <h3>제품자료</h3>
+                <img src="image/lineTxt01.gif" id="section6_si_sub2_line">
+                <p>다양한 빅데이터 관련 자료</p>
+            </div>
+            <div id="section6_si_sub3">
+                <img src="image/img_sdata.png" id="sdata">
+                <h3>세미나자료</h3>
+                <img src="image/lineTxt01.gif" id="section6_si_sub3_line">
+                <p>kt NexR의 세미나 자료</p>
+            </div>
+        </div>
+    </div>
+    <div id="section7">
+        <h2>Resources</h2>
+        <p>3대용량 데이터 수용을 위한 빅데이터 플랫폼 SW전략을 확인하십시오.</p>
+        <div id="section7_s">
+            <ul>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>기업소개</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>채용안내</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>세미나</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>뉴스룸</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>오시는길</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>영업문의</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>파트너 문의</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>일반문의</li>
+                <li><div><img src="image/img_con06_icon01.png" alt=""></div>채용문의</li>
+                <li><div id="section7_s_i"><img src="image/logo_midTip.png" alt=""></li>
+            </ul>
+
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_1">
+            <img src="image/logoBot.png" alt="">
+        </div>
+        <div id="footer_2">
+            <ul>
+                <li>Product & Service</li>
+                <li>3V</li>
+                <li>Resources</li>
+                <li>About</li>
+                <li id="li_l">Contact</li>
+            </ul>
+            <p>4F, ktds 176, HYORYEONG-RO, SEOCHO-GU, SEOUL, REPUBLIC OF KOREA<br>TEL 02 556 0827 | EMAIL : CONTACT@NEXR.COM</p>
+        </div>
+        <div id="footer_3">
+            <select name='fruits' >
+                <option value='' selected>Famaily_Site</option>
+                <option value='apple'>사과</option>
+                <option value='banana'>바나나</option>
+                <option value='lemon'>레몬</option>
+            </select>
+            <img src="image/mark_gs.gif" alt="">
+        </div>
+
+    </div>
+</body>
+</html>

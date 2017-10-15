@@ -1,0 +1,116 @@
+---
+layout:     post
+title:      "[WAS] Servlet Practice"
+
+date:       2017-09-19 19:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<H4 style ="font-weight:bold; color : orange">2017 - 09 - 19 (화)</H4>
+<li>HttpServletRequest, HttpServletResponse</li>
+<li>Servlet Practice </li>
+<li>JSP / Servlet</li>
+
+<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . HttpServletRequest, HttpServletResponse</h5>
+
+<p>
+HttpServletRequest, HttpServletResponse의 객체를 활용한 몇몇 메소드를 알아보고자 한다.        
+</p><BR>
+
+~~~java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//하나는 요청하는 내용과 응답하는 내용을 넣어줌 doget메소드가 호출되면
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		if(id.equals("shj7242")&&pw.equals("1234")){
+			response.sendRedirect("/");
+      //client가 두번요청하는거 다시 요청하는거임.찰스로 보면 요청번호가 다름.// http://localhost/index.html (root임)
+		}else{
+			request.setAttribute("msg", "ID, Password are not agreed");
+			RequestDispatcher reqDis = request.getRequestDispatcher("/LoginForm.jsp");
+      //요청을 한번 함.
+			reqDis.forward(request, response);
+		}
+		// send redirect : 두번요청한다  request dispatcher : 1번 요청하고 응답받는다.
+	}
+~~~
+
+<p>위의 Servlet은 로그인화면으로 구성한 jsp파일에서 GET방식으로 리퀘스트 받았을 때 Form의 Action 속성의 값과 매핑하여 위 서블릿으로 찾아간다.(서블릿 에너테이션 부분 생략된 것) HttpServletResponse 객체인  response의 메소드로 <b style="color:red">setContentType</b>(무슨 형식으로 되있는지), <b style="color:red">setCharacterEncoding</b>(무엇으로 인코딩할것인지.) 즉 view에 어떤식으로 값을 반응할지를 정해주는 메소드라 할 수 있다. </p>
+
+<p>위 서블릿은 특정 아이디와 패스워드 값을 지정하고 HttpServletRequest의 객체의 getParameter라는 리퀘스트 받은 값을 가져오는 메소드를 사용하여 특정 값과 비교한다. 같을 경우 메인페이지를 반환, 다를경우 현재페이지를 반환한다.</p>
+
+
+<img src="{{ site.baseurl }}/img/respserv.JPG" alt="Post Sample Image">
+<p>위의 이미지는 Charse라는 프로그램으로 서버와의 동작을 보는 디버깅 툴이다. 정확히 id, password를 입력하여 redirect() 메소드가 실행됬을 때 LoginForm.jsp에서 200번의 응답코드를 보낸다. 이 후 바로 메인화면을 반환하는게 아니라 Servlet을 걸쳐서 보내지게된다. Servlet의 응답코드를 보면 302로 두번의 응답이 이루어지는것을 확인할 수 있다. </p>
+
+<img src="{{ site.baseurl }}/img/reqsuv.JPG" alt="Post Sample Image">
+<p>위의 이미지는 위 서블릿의 if 문이 False일 경우 즉, ID 또는 Password가 불일치 할 경우 RequestDispatcher() 메소드가 실행되는 부분을 잡은 것이다. 보면 Root의 서블릿으로 이동하는 것을 확인할 수 있다. 단지 리퀘스트를 한 화면에서 setAttribute()메소드를 통해 화면이 리프레쉬 된 것을 볼 수 있다. 한번의 요청만 이루어진다.</p>
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">2 .Servlet Practice</h5>
+
+<img src="{{ site.baseurl }}/img/fortune.JPG" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/fortures.JPG" alt="Post Sample Image">
+
+<p>운세보기 프로그램을 간단히 만들어 보았다. 각각 항목을 입력하고 버튼을 누르면 Servlet에서 운세를 보여준다.</p>
+
+
+~~~java
+@WebServlet("/FortuneServlet")
+public class FortuneServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		String abc = request.getParameter("born")+request.getParameter("sex")+request.getParameter("name");
+		int prenum = abc.hashCode() % 8;
+		String fortune[] = { "운세1", "운세2", "운세3","운세4","운세5", "운세6", "운세7"};
+
+		PrintWriter out = response.getWriter();
+		out.println("<DOCTYPE html>");
+		out.println("<html>");
+		out.println("<head>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h1>안녕하십니까  " + name + " 님.</h1>");
+		out.println("<h1>운세 :" + fortune[prenum] + ".</h1>");
+		out.println("</body>");
+		out.println("</html>");
+	}
+}
+
+~~~
+
+<p>위의 코드 결과값을 출력할 때 처음에는 한글이 출력되지 않았다.<br>  setCharacterEncoding("UTF-8") 메소드를 request.getParameter()메소드 상위에 기입해야 된다. request객체를 통해 불러오는 파라미터 값이 오기전에 인코딩 타입을 설정해 주어야 하는 것이라고 판단된다.
+</p>
+
+<p>앞에 로그인폼 예제와 같이 데이터를 getParameter로 받고 각각의 String타입 정보들의 hashcode()로 합하여 이 값을 운세목록을 저장해놓은 배열에 크기만큼 나눈 나머지의 값을 운세 배열의 인덱스로 넣어준다면 같은사람이 다시 운세를보아도 같은 결과를 얻을 수 있다.
+
+
+<b style = "color : red"> ▣ GET으로 한글을 받았을 때 : </b> Request객체를 setCharacterEncoding("UTF-8")로 지정해줘야함.<BR>
+<B STYLE = "COLOR : RED"> ▣ POST로 한글을 받았을 떄 : </B> server.xml 파일에서 Connector 객체에 URLEncoder 를 UTF-8로 지정해준다.
+
+
+</p>
+
+<h5 style = "font-size: 17px; font-weight : bold;">3 .JSP / SERVLET</h5>
+
+<p>Java EE 에서 JSP를 실행시키면 Servlet으로 변환합니다. Root를 확인해보자.</p>
+<p>
+JSP ROOT경로<br>
+C:\Users\heejun shin\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\ROOT\org\apache\jsp
+<br><br>
+톰캣 ROOT경로<br>
+C:\apache-tomcat-8.5.16\work\Catalina\localhost\ROOT\org\apache\jsp
+</p>
+
+<p>WAS는 JSP 페이지에 요청이 들어오면 JSP를 직접 실행하는 것이 아니라 JSP를 자바 소스코코드로 변환한 뒤 컴파일해서 생성한 서블릿을 실행하는 것이다. (위에있는 폴더에 생성이 됨)</p>
