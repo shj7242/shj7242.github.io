@@ -2,14 +2,16 @@
 layout:     post
 title:      "[Spring] MVC Model 2"
 
-date:       2017-10-15 23:30:00
+date:       2017-10-15 10:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 10 - 15 (일)</H4>
 <li>MVC MODEL 2</li>
-
+<li>Front-controller 패턴</li>
+<li>Controller 테스트</li>
+<li>JSON 테스트</li>
 <br>
 <H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
 <br>
@@ -131,3 +133,25 @@ public class SampleController3 {
 위의 예제는 SampleController3 을 컨트롤러로 지정해주고 해당 컨트롤러로 오는 요청 중 doD 에 매핑되는 doD() 메서드가 실행되는 예제이다.<br>
 product 객체를 하나 생성하고 model객체에 product객체를 주입한다. 해당 컨트롤러는 productDetail 을 리턴하여 productDetail.jsp 페이지를 응답한다.
 </p>
+<br><br>
+
+>>JSON 데이터 생성하기
+
+<br>
+<p style="font-size:14px;">
+JSON 을 활용하기 위해서 pom.xml 에 해당 라이브러리를 추가해야한다. mvnrepostorty에서 jackson-databind를 검색하여 추가한다.
+
+</p>
+
+
+~~~JAVA
+@Controller
+public class SampleController5 {
+	@RequestMapping("/doJSON")
+	public @ResponseBody ProductVO doJSON() {
+		//JSON 데이터를 사용하기위해 @ResponseBody 애너테이션을 추가해야한다.메소드 리턴을 객체로 한다.
+		ProductVO vo = new ProductVO("샘플상품",30000);
+		return vo;
+	}
+}
+~~~

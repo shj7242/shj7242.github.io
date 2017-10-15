@@ -1,0 +1,38 @@
+---
+layout:     post
+title:      "[Spring] MyBatis 활용"
+
+date:       2017-10-15 11:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 15 (일)</H4>
+<li>MyBatis</li>
+
+<br>
+<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. MyBatis</h5>
+
+<br><br>
+
+<p style="font-size:14px;">
+MyBatis는 애너테이션을 지원하며 인터페이스와 에너테이션을 통해 SQL문을 설정하고 처리할 수 있다.
+<br><br>
+MyBatis 를 이용할 떄 SQL 사용하는 방식
+<br><br>
+- xml문서를 활용하여 SQL문을 설정한다. DAO 에서는 XML을 찾아서 실행하는 코드를 작성한다.
+<br>(이 경우 SQL이 XML에 작성되어 SQL문의 수정이 유리하다.)
+<br><br>
+- 간단한 SQL문은 애너테이션으로 처리하고, 복잡한 SQL문은 XML으로 처리한다.
+</p>
+<hr>
+<p style="font-size:14px;">
+MyBatis를 XML을 활용하여 작성하는 순서
+<br><br>
+1.. DB에서 테이블 생성
+<br><br>
+2.. 도
+</p>
