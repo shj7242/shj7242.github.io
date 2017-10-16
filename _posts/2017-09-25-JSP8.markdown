@@ -4,8 +4,7 @@ title:      "[WAS] JSP MVC"
 
 date:       2017-09-25 19:30:00
 author:     "신희준"
-header-
-: "img/post-bg-02.jpg"
+header-: "img/post-bg-02.jpg"
 ---
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 09 - 25 (월)</H4>
