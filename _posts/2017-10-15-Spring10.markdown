@@ -214,6 +214,8 @@ public class MemberDAOImpl implements MemberDAO{
 <p style="font-size:14px"><br>
 10.. log4jdbc를 제대로 동작시키기위해 log4jdbc.log4j2.properties 파일과 logback.xml파일을 만들고 아래코드를 추가해야한다.
 <br>(src/main/resource에 log4.jdbc.log4j2.properties파일과 logback.xml 파일을 생성한다.)
+</p>
+
 
 ~~~properties
 log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
