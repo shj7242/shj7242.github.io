@@ -77,7 +77,8 @@ Spring 3.0 MVC 의 요청 처리 절차는 아래와 같다.
 >>Spring Controller Test
 
 <br>
-<p style="font-size:14px;">컨트롤러에 대한 예제.</p>
+<p style="font-size:14px;">컨트롤러에 대한 예제</p>
+
 
 ~~~java
 package org.zerock.domain;
