@@ -51,7 +51,7 @@ Controller : 웹의 요청을 처리한다. View와 Model 사이에서 통신하
 <p style="font-size:14px">
 위 사진에서 Front-controller 가 dispatcher-servlet이라고 생각하면 된다.
 Spring 3.0 MVC 의 요청 처리 절차는 아래와 같다.
-<p>
+</p>
 
 <p style = "font-size:14px;">
 1.. 클라이언트가 브라우저에서 회원가입을 위해 서버에 HTTP Request 메시지를 보낸다.
