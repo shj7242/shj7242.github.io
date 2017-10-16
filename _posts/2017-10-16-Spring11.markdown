@@ -142,6 +142,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 ( src/main/persistence 안에 MemberDAOImpl 클래스 구현)
 </p>
 
+</p>
 
 ~~~java
 

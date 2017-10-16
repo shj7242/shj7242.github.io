@@ -69,10 +69,8 @@ Spring 3.0 MVC 의 요청 처리 절차는 아래와 같다.
 5.. Front Controller 는 ViewResolver 오브젝트를 이용하여 이 view 를 분석한다(회원가입 완료 화면).
 <br><br>
 6.. 선택된 view 는 변환되어 다시 클라이언트에게 보여진다.
-</p>
-
-
 <br><br>
+</p>
 
 >>Spring Controller Test
 
@@ -128,18 +126,21 @@ public class SampleController3 {
 </html>
 ~~~
 
-<br>
+
 
 <p style="font-size:14px;">
+<br>
 위의 예제는 SampleController3 을 컨트롤러로 지정해주고 해당 컨트롤러로 오는 요청 중 doD 에 매핑되는 doD() 메서드가 실행되는 예제이다.<br>
 product 객체를 하나 생성하고 model객체에 product객체를 주입한다. 해당 컨트롤러는 productDetail 을 리턴하여 productDetail.jsp 페이지를 응답한다.
-</p>
 <br><br>
+</p>
+
 
 >>JSON 데이터 생성하기
 
-<br>
+
 <p style="font-size:14px;">
+<br>
 JSON 을 활용하기 위해서 pom.xml 에 해당 라이브러리를 추가해야한다. mvnrepostorty에서 jackson-databind를 검색하여 추가한다.
 
 </p>
