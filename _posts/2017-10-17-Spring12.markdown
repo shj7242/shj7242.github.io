@@ -74,10 +74,8 @@ pool을 너무 크게해놓으면 메모리소모가 크며 너무 적으면 대
 
 </p>
 <p style="font-size:14px"><br><br>
-▶DAO : DB에 접근하기 위한 인터페이스이다. DAOInpl 이라는 명칭으로 DAO 인터페이스를 구현한다.
-</p>
-
-</p>
+▶DAO : DB에 접근하기 위한 인터페이스이다. DAOImpl 이라는 명칭으로 DAO 인터페이스를 구현한다.
+<br><br>
 <p style="font-size:14px"><br><br>
 ▶Service : 비즈니스 로직을 실행하기위해 생성한 인터페이스이다. ServiceImpl 에의해 구현된다.
 </p>
