@@ -6,6 +6,11 @@ date:       2017-10-15 11:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+<meta name="description" content = "MyBatis는 애너테이션을 지원하며 인터페이스와 에너테이션을 통해 SQL문을 설정하고 처리할 수 있다.MyBatis 를 이용할 떄 SQL 사용하는 방식 xml문서를 활용하여 SQL문을 설정한다. DAO 에서는 XML을 찾아서 실행하는 코드를 작성한다.간단한 SQL문은 애너테이션으로 처리하고, 복잡한 SQL문은 XML으로 처리한다.DB에서 테이블 생성
+MySQL 에서 이전에 생성했던 book_ex 스키마를 활용하여 tbl_member라는 테이블을 생성한다.
+XML Mapper를 작성한다. Mapper자료 참고  src/main/resources 에 mappers패키지를 생성하고 그 안에 memberMapper.xml을 하나 만든다.
+">
+
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 10 - 15 (일)</H4>
 <li>MyBatis 구현하기</li>

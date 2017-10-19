@@ -6,6 +6,7 @@ date:       2017-10-15 10:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+<meta name="description" content = "mvc model, view, controller, servlet JSON, Front-controller, Front-end, Back-end, MVC MODEL 2 , Ajax, ">
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 10 - 15 (일)</H4>
 <li>MVC MODEL 2</li>
