@@ -93,7 +93,7 @@ Autowired를 쓰다보면 type으로 매칭시켜주기 때문에 같은타입�
  <img src="{{ site.baseurl }}/img/spring5.JPG" alt="Post Sample Image">
 
 <br><br>
-6 .. @QResource 활용<br><br>
+6 .. @Resource 활용<br><br>
 
 앞선 @Autowired / @Qualifier를 합친 형태이다. 이 두개를 지우고 @Resource(name = "qnaWrite") 로 바꾸어 보면 이 두개의 기능을 한번에 사용할 수 있다.
 <br><br>

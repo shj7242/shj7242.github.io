@@ -46,6 +46,8 @@ pom.xml 의 arround는 trace 메서드를 앞뒤로 감싸는 것이다. // 사�
 <img src="{{ site.baseurl }}/img/aopanno.JPG" alt="Post Sample Image">
 
 <br>
+
+<p>
 xml문서를 더욱 간결하게 하기 위해 애너테이션을 사용한다.
 
 </p>
