@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[JavaScript] this"
+title:      "[JavaScript] this/생성자"
 
 date:       2017-10-22 11:30:00
 author:     "신희준"
