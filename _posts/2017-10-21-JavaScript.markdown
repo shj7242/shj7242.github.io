@@ -280,6 +280,29 @@ console.log(studentList.length) //출력값 3
 
 <br>
 <p style = "font-size:14px">
-Array() 생성자 함수
+연산자 ( + )
 </p>
 <br>
+
+~~~javascript
+var ex1 = 1+2;
+var ex2 = 'my' +'string';
+var ex3 = 1 + 'string';
+var ex4 = 'string' +2;
+console.log(ex1); // 출력값 : 3
+console.log(ex2); // 출력값 : my string
+console.log(ex3); // 출력값 : 1string  // 자바와 달리 문자열과 숫자의 결합이 가능 1 이 문자열로 변하는듯
+console.log(ex4); // 출력값 : string2   
+~~~
+
+
+<br>
+<p style = "font-size:14px">
+연산자 ( ==, === )
+</p>
+<br>
+
+~~~JavaScript
+console.log(1 == '1'); // 출력값 true (타입이 다르더라도 값이 같다고 판단한다)
+console.log(1 === '1'); // 출력값 false (==보다 좀더 상세히 비교 타입까지 같아야한다.)
+~~~
