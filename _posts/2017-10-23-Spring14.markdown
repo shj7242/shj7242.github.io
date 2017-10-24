@@ -1,0 +1,37 @@
+---
+layout:     post
+title:      "[Spring] 게시판 생성"
+
+date:       2017-10-23 11:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
+,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
+">
+
+<br>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 23 (월)</H4>
+<li>기초 작업</li>
+<li>VO</li>
+<br>
+<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. 기초 작업</h5>
+
+<br>
+<p style="font-size:14px;">
+라이브러리 추가 항목 : <a href="https://shj7242.github.io/2017/10/16/Spring11/">https://shj7242.github.io/2017/10/16/Spring11/</a>
+<br><br>
+이외로 datasource 생성 및 sqlSessionFactory, sqlSession을 생성해준다.(root-context.xml)
+
+</p>
+<br><br>
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. 기초 작업</h5>
+
+<p style="font-size:14px;">
+
+
+</p>
