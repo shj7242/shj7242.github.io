@@ -240,4 +240,4 @@ public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 
 [1]:/download/success.jsp
 
-{% endraw %}
+{% end raw %}
