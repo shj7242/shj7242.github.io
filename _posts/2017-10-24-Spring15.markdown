@@ -225,7 +225,18 @@ public List<BoardVO> listCriteria(Criteria cri) throws Exception {
  }
 ~~~
 
+
 <p style = "font-size:14px">
 <br>
 11 . PageMaker 를 생성한다 . (PageMaker에는 페이징을 하기위한 전체 게시물 갯수, 시작 페이지, 끝 페이지와 prev, next를 정의해준다.)
 </p>
+
+사용한 sql 소스 파일 [다운로드][1]
+
+
+{$ raw %}
+
+
+[1]:{{https://shj7242.github.io/}}/download/success.txt
+
+{% endraw %}
