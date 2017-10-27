@@ -232,12 +232,13 @@ public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 </p>
 
 
-사용한 sql 소스 파일 [다운로드][1]
 
+<p style = "font-size:14px">
+<br>
+12 . PageMaker 를활용하여 BoardController 작성한다.
+</p>
 
-{$ raw %}
-
-
-[1]:/download/success.jsp
-
-{% end raw %}
+<p style = "font-size:14px">
+<br>
+13 . listPage.jsp 를 작성하여 페이징 처리된 화면을 구현한다.
+</p>
