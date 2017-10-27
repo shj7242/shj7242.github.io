@@ -4,6 +4,7 @@ title:      "[DB] SQL 1"
 date:       2017-09-06 21:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
+comments: true
 ---
 
 <H4 style ="font-weight:bold; color : orange">2017 - 09 - 06 (수)</H4>

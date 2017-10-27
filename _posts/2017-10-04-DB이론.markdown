@@ -4,6 +4,7 @@ title:      "[정보처리기사] Database"
 date:       2017-10-04 21:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
+comments: true
 ---
 
 <H4 style ="font-weight:bold; color : orange">2017 - 10 - 04 (수)</H4>

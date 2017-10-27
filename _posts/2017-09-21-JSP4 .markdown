@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "[WAS] JSP Cookie, SESSION "
-
+comments: true
 date:       2017-09-21 23:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"

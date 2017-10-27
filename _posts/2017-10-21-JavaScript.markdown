@@ -5,6 +5,7 @@ title:      "[JavaScript] 타입과 연산자"
 date:       2017-10-21 11:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
+comments: true
 ---
 
 <meta name="description" content="javascript 타입, javascript연산자, javascript 기본형, javascript참조형, javascript예제,javascript기본

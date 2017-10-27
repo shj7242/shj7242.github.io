@@ -5,6 +5,7 @@ title:      "[JAVA] POKERGAME 예제"
 date:       2017-09-01 21:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
+comments: true
 ---
 
 <H4 style ="font-weight:bold; color : orange">2017 - 09 - 01 (금)</H4>

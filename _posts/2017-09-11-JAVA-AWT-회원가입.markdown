@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "[DB] JAVA AWT활용한 DB응용"
-
+comments: true
 date:       2017-09-11 00:01:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"

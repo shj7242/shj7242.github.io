@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "[WAS] Java Bean/ Bean활용 액션태그"
-
+comments: true
 date:       2017-09-26 19:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"

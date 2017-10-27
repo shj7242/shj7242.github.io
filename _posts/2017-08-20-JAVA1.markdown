@@ -5,6 +5,7 @@ title:      "[JAVA] 변수/연산자/조건문/반복문"
 date:       2017-08-20 23:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
+comments: true
 ---
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 08 - 20 (일)</H4>

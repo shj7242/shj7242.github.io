@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "[정보처리기사] 전산영어"
-
+comments: true
 date:       2017-10-07 23:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"

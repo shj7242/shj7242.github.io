@@ -5,6 +5,7 @@ title:      "[JAVA] 객체지향 개념"
 date:       2017-08-22 23:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
+comments: true
 ---
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 08 - 22 (화)</H4>
