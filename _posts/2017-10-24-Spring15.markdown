@@ -237,6 +237,6 @@ public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 {$ raw %}
 
 
-[1]:{{https://shj7242.github.io/}}/download/success.txt
+[1]:{{https://shj7242.github.io/}}/download/success.jsp
 
 {% endraw %}
