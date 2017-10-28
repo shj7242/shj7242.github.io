@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "[Spring] "
+title:      "[Spring] Uricomponents, 동적SQL"
 
-date:       2017-10-24 11:30:00
+date:       2017-10-25 11:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -25,11 +25,11 @@ comments: true
 >UriComponents
 
 <br>
-
+<p style = "font-size:14px">
 URI를 작성할 때 도음을 주는 클래스이다. 이와함꼐 UriComponentsBuilder를 같이 사용한다.
-
+<br>
 사용법을 보면 다음과 같다.
-
+</p>
 
 ~~~java
 public String makeQuery(int page){
@@ -44,7 +44,9 @@ public String makeQuery(int page){
 	}
 ~~~
 
+<p style = "font-size:14px">
 makeQuery를 활용하여 페이지에 따른 게시글을 표시해준다.
+</p>
 
 ~~~html
 <c:forEach items="${list}" var="boardVO">
@@ -62,6 +64,48 @@ makeQuery를 활용하여 페이지에 따른 게시글을 표시해준다.
 </c:forEach>
 ~~~
 
-<br><br>
+<br>
 
 >동적 SQL
+
+<br>
+<p style = "font-size:14px">
+MyBatis는 Mapper를 활용하여 DB에 특정 쿼리문을 날린다.
+<br>
+MyBatis는 내부적으로 몇개의 표현식을 가지고 있어서 상황에 따른 SQL 생성을 할 수 있다.
+<br>
+이것을 동적 SQL 이라 한다.
+<br><br>
+IF , CHOOSE , TRIM , FOREACH 를 활용한다.
+<br>
+아래는 if를 사용한 예이다.
+</p>
+
+~~~xml
+<sql id="search">
+ <if test="searchType != null" >
+   <if test="searchType == 't'.toString()">
+     and title like CONCAT('%', #{keyword}, '%')
+   </if>
+   <if test="searchType == 'c'.toString()">
+     and content like CONCAT('%', #{keyword}, '%')
+   </if>
+   <if test="searchType == 'w'.toString()">
+     and writer like CONCAT('%', #{keyword}, '%')
+   </if>     
+   <if test="searchType == 'tc'.toString()">
+     and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%'))
+   </if>        
+   <if test="searchType == 'cw'.toString()">
+     and ( content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%'))
+   </if>        
+   <if test="searchType == 'tcw'.toString()">
+     and (   title like CONCAT('%', #{keyword}, '%')
+           OR
+             content like CONCAT('%', #{keyword}, '%')
+           OR
+             writer like CONCAT('%', #{keyword}, '%'))
+   </if>              
+ </if>  
+</sql>
+~~~
