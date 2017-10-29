@@ -162,24 +162,27 @@ visual studio 에서 에러를 잡기위해서 플러그인을 설치한다.
 <br><br>
 </p>
 
-compileOnsave -
-true/false (default가 false)
-
+<p style ="font-size:14px">
+compileOnsave - true/false (default가 false)
+<br><br>
 compileOptions
-
+<br><br>
 셋다 설정이 없으면 ts파일을 전부다 컴파일한다.
-files -
+files
+<br>
 include - 와일드카드 (\*) 사용시 .ts / .tsx / .d ts 만 include
+<br>
 exclude - glob 패턴이다. (gitignore 처럼)  설정을 안할 경우 (node_modules, bower_components, jspm_packages,<outDir>) 을 default로 제외한다. outdir은 항상 제외한다.
 
-
+<br><br><br>
 최상위 프로퍼티
-
+<br><br>
 compileOptions : type
-
+<br>
 types 와 typeRoots
-
+<br><br>
 @types 이란?
+<br>
 typeScript 2.0 부터 사용가능해진 내장 type definition 시스템
 아무설정을 안할 경우 node_modules/@types 라는 모든 경로를 찾아서 사용한다.
 typeRoots 를 사용할 경우에는 배열 안에 들어있는 경로들 아래서만 가져온다.
@@ -187,44 +190,63 @@ types 를 사용하면 배열안의 모듈 혹은 ./node_modules/@types/ 안에�
 []빈 배열을 넣는다는 건 이 시스템을 이용하지 않겠다는 뜻이다.
 typeRoots 와 types 를 같이사용하지 않는다.
 
-
+<br><br>
 typing 관련 깃허브
 https://github.com/typings/typings
-
+<br><br>
 target 과 lib
-
+<br><br>
 target
+<br>
 -빌드의 결과물을 어떤 버전으로 관리할지
+<br>
 - 지정을 안할경우 디폴트 es3
-
+<br>,br>
 lib
+<br><br>
 - 기본type definition 라이브러리를 어떤 것을 사용할 것인지.
+<br>
 - lib를 지정하지 않을 때
+<br><br>
 target이 'es3' 이고 디폴트로 lib.d ts 를 사용한다.
+<br>
 target이  'es5' 이면 디폴트로 dom, es5, scripthost를 사용한다
+<br>
 target이 ex6 이면 디폴트로  dom, es6, dom.iterable, scripthost를 사용한다.
+<br>
 lib를 지정하면 그 lib배열로만 라이브러리를 사용한다.
-
+<br>
 빈 [] => no definition found 발생
-
+<br><br>
 outdir과 outfiledir
 
-
+<br><br>
 module
+<br><br>
 - 컴파일 된 모듈의 결과물을 어떤 모듈 시스템으로 할지를 결정한다.
+<br>
 - target 이 es6이면 es6이 디폴트이다.
+<br>
 - target이 es6이 아니면  common.js 가 디폴트이다.
+<br>
 - amd 나 system 와 사용하려면 outFile 이 지정되어야한다.
+<br>
 - es6 이나 es2015 를 사용하기 위해 , target 이 es5이하여야한다.
-
+<br><br>
 moduleResolution
+<br><br>
 -ts 소스에서 모듈을 사용하는 방식을 지정해야 한다.
+<br>
 -classic 아니면 node 이다.
+<br>
 - commonJS 일 때만 NODE라고 생각하면 된다.
-
+<br><br>
 paths 와 basUrl
+<br><br>
 - 상대 경로 방식이 아닌 baseUrl 로 꼭지점과 paths 안의 키/벨류 모듈을 가져가는 방식
 baseUrl - 가져올때 쓴다.
-
+<br><br>
 rootDirs
+<br><br>
 - 배열 안에서 상대 경로를 찾는 방식
+</p>
