@@ -36,8 +36,6 @@ var hoisted_var = ' 변수를를 아래에에 선언'
 <br>
 재선언 가능
 <br><br><br>
-
-
 <b style="font-color:red">let, const</b>
 EX6
 <br>
@@ -60,7 +58,6 @@ const a: string = '에이';
 // 명시적으로 string 타입으로 지정
 const b = "비이";
 // 타입추론에 의한 리터럴 타입 "비이"
-
 let / const 타입추론
 ~~~
 
@@ -76,9 +73,14 @@ Type assertions
 <br>
 문법적으로는 두가지 방법이 있다.
 <br><br>
+</p>
+
+~~~typescript
 1 . 변수 as 강제할 타입이름
-<br>
 2 . <강제할 타입이름>변수
+~~~
+
+<p style="font-size:14px;">
 <br><br>
 Type Alias (타입 별칭)
 <br><br>
