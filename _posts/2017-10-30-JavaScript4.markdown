@@ -127,3 +127,107 @@ users.push({name : 'lhj' , age : 26, address : 'seoul'})
 users.push({name : 'chj' , age : 26, address : 'seoul'})
 users.push({name : 'plh' , age : 26, address : 'seoul'})
 ~~~
+
+* 함수로 객체 생성하기
+
+~~~javascript
+function makeStudent(name, korean, math, english){
+  var willReturn = {
+    이름 : name,
+    국어 : korean,
+    수학 : math,
+    영어 : english,
+    getSum : function(){
+      return this.국어+this.수학+this.영어;
+    },
+    getAverage : function(){
+      return this.getSum()/3;
+    },
+    toString: function(){
+      return this.이름 +'\t'+this.국어+'\t'+this.수학+'\t'+this.영어;
+    }
+
+
+  }
+  return willReturn;
+
+}
+
+console.log(makeStudent('shj',80,70,60).toString()); // 속성의 값들 나열
+console.log(makeStudent('shj',80,70,60).getAverage()); // 평균계산
+console.log(makerStudent('chj',70,60,30).getSum()); // 합계 계산
+~~~
+
+* 배열로 위에서 함수로 만든 객체 관리하기
+
+~~~javascript
+var students = [];
+
+students.push(makeStudent('chj',30,40,80));
+// students 배열에 makeStudent() 함수로 객체를 생성하여 집어넣어준다.
+students.push(makeStudent('plh',20,40,40));
+students.push(makeStudent('ssc',70,60,50));
+students.push(makeStudent('lhj',90,80,20));
+
+for(let i =0; i < students.length; i ++){
+console.log(students[i].toString())
+}
+//for 문으로 students 배열에 들어간 객체 값들의 toString 값 출력
+/*
+"chj  30  40  80"
+"plh  20  40  40"
+"ssc  70  60  50"
+"lhj  90  80  20"
+*/
+~~~
+
+
+* 객체의 복사
+
+~~~javascript
+// 객체를 복사하는 함수 생성
+function clone(obj){
+  var output = {};
+  for(var i in obj){
+    output[i] = obj[i];
+  }
+  return output;
+}
+
+//original 객체 하나 생성
+var original = {a :10, b: 20};
+//referenced 에 original 얕은 복사
+var refereneced = original;
+// cloned 에 깊은복사
+var cloned = clone(original);
+
+//original
+original.a = 20;
+
+alert(JSON.stringfy(referenced, null, 2))
+alert(JSON.stringfy(cloned, null, 2))
+~~~
+
+* 배열 복제
+
+
+~~~javascript
+var array1 = [1,2,3,4,5]
+
+var array2 = []
+
+for(var i =0; i<array1.length; i++){
+  array2[i]=array1[i]; //array2 에 array1 의 값을 넣는다.
+}
+console.log(array2) // [1,2,3,4,5] 출력
+~~~
+
+* 배열 병합
+
+~~~javascript
+const arrayA = [1,2,3,4,5]
+const arrayB = [6,7,8,9,10]
+
+const newArray = [...arrayA, ...arrayB]
+console.log(newArray); //[1,2,3,4,5,6,7,8,9,10] 출력
+~~~
