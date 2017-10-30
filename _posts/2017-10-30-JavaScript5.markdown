@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "[JavaScript] 생성자 함수"
+title:      "[JavaScript] 생성자 함수/프로토 타입"
 
-date:       2017-10-31 12:55:00
+date:       2017-10-31 23:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -15,6 +15,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color : orange">2017 - 10 - 31 (화)</H4>
 <li>생성자함수</li>
+<li>프로토타입</li>
 <br>
 
 >생성자함수 개요
