@@ -2,7 +2,7 @@
 layout:     post
 title:      "[JavaScript] 생성자 함수/프로토 타입"
 
-date:       2017-10-31 23:55:00
+date:       2017-10-30 23:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -13,7 +13,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color:orange;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 31 (화)</H4>
+<H4 style ="font-weight:bold; color : orange">2017 - 10 - 30 (월)</H4>
 <li>생성자함수</li>
 <li>프로토타입</li>
 <br>
