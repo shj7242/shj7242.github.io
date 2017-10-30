@@ -5,7 +5,7 @@
  */
 
 body {
-  font-family: 'Lora', 'Times New Roman', serif;
+  font-family: 'Times New Roman', serif;
   font-size: 20px;
   color: #404040;
 }
@@ -38,8 +38,9 @@ a img:focus {
   cursor: zoom-in;
 }
 blockquote {
-  color: #808080;
+  color: red;
   font-style: italic;
+  font-weight:bold;
 }
 hr.small {
   max-width: 100px;
