@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[TypeScript] Generics"
+title:      "[TypeScript] Iterator"
 
 date:       2017-11-01 15:55:00
 author:     "신희준"
