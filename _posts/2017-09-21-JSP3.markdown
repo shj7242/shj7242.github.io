@@ -7,14 +7,14 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 21 (목)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 21 (목)</H4>
 <li>에러처리</li>
 <li>include 액션태그/디렉티브 </li>
 <li>forward 액션태그/디렉티브 </li>
 <li>include , forward 액션태그의 page 속성경로 </li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . 에러처리</h5>

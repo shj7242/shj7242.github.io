@@ -10,12 +10,12 @@ header-img: "img/post-bg-02.jpg"
 <iframe src="/htmlpractice/main.html" style ="width : 100%; height : 300px;">
 </iframe>
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 12 (화)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 12 (화)</H4>
 <li>HTML 활용</li>
 <li>HTML element</li>
 <li>CSS 활용</li>
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
  <h5 style = "font-size: 17px; font-weight : bold;">1 . HTML 활용</h5>
 

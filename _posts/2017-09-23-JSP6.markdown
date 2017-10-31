@@ -7,12 +7,12 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 23 (토)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 23 (토)</H4>
 <li>JDBC/JSP 회원관리 예제</li>
 
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . 회원관리 예제</h5>

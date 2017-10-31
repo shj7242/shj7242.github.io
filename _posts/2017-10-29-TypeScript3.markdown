@@ -12,9 +12,9 @@ comments: true
 ,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
 ">
 <br>
-<H4 style ="font-weight:bold; color:orange;"> 타입스크립트 코리아 이웅재님의 강의 참조</H4>
+<H4 style ="font-weight:bold; color:black;"> 타입스크립트 코리아 이웅재님의 강의 참조</H4>
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 29 (일)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 29 (일)</H4>
 <li>var/const/let</li>
 
 <br>

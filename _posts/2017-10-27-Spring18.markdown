@@ -13,11 +13,11 @@ comments: true
 ">
 
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 27 (금)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 27 (금)</H4>
 <li>트랜잭션 처리</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<H4 style ="font-weight:bold; color:black;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
 <br>
 
 

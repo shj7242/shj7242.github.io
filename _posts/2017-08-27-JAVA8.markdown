@@ -8,14 +8,14 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 08 - 27 (일)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 27 (일)</H4>
 
 <li>Collections</li>
 <li>List</li>
 <li>Set</li>
 <li>Map</li>
 <br>
-<H4 style ="font-weight:bold; color:orange;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . Collections framework</h5>

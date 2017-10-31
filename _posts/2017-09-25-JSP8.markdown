@@ -7,12 +7,12 @@ author:     "신희준"
 header-: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 25 (월)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 25 (월)</H4>
 <li>JDBC/JSP MVC 예제 따라풀기</li>
 
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . MVC 예제 따라하기</h5>

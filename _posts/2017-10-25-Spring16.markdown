@@ -13,12 +13,12 @@ comments: true
 ">
 
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 25 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 25 (수)</H4>
 <li>UriComponentsBuilder</li>
 <li>동적 SQL</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<H4 style ="font-weight:bold; color:black;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
 <br>
 
 

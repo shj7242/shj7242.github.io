@@ -7,14 +7,14 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 08 (금)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 08 (금)</H4>
 <li>CONSTRAINT</li>
 <li>TRANSACTION</li>
 <li>Dictionary</li>
 <li>OBJECT</li>
 <li>ADVANCED_SQL</li>
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 

@@ -7,13 +7,13 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 20 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 20 (수)</H4>
 <li>디렉티브</li>
 <li>스크립트 </li>
 <li>기본 객체</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . 디렉티브</h5>
@@ -99,7 +99,7 @@ header-img: "img/post-bg-02.jpg"
 <br> - exception
 </b>
 <br><br>
-<b style="color:orange;">- request 기본객체</b><br><br>
+<b style="color:black;">- request 기본객체</b><br><br>
 
 request 기본 객체는 웹 브라우저에 웹 사이트의 주소를 입력하면, 웹 브라우저는 해당 웹 서버에 연결한 후 요청 정보를 전송하는데, 이 요청 정보를 제공하는 것이 바로 request 기본 객체이다.
 </p>
@@ -164,13 +164,13 @@ name = <%= nameParam[0]%>
 
 <p>getParameter()메소드는 요청할때 받은 단일 값이다. 회원가입에 비유하자면 아이디, 주민등록번호 같은 값들을 각각 받을때 쓴다. getParameterValue()메소드의 경우 예를들어 어떤 사람이 회원가입을 할 떄 자격증 항목의 경우 배열로 받을 필요가 있다. 이 때 사용하면 될 것 같다. getParameterName()은 "속성 : 값"으로 되어있는 오브젝트가 있다면 속성을 받아오는 메소드이다. getParameterMap()은 "속성 : 값" 을 Map형식으로 받는다.</p>
 
-<p><b style="color:orange;">-response 기본객체</b><br>
+<p><b style="color:black;">-response 기본객체</b><br>
 
 request와 반대의 기능을 수행한다. 브라우저에 보내는 response메시지에 대한 정보를 담는다.
 <br><b>response 객체가 제공하는 헤더 추가 메서드</b>
 
 </p>
-<hr style ="background-color: orange; ">
+<hr style ="background-color: black; ">
 <p>
 <b>addDateHeader(String name, long date)</b> : 헤더에 date를 추가한다.<br>
 <b>addHeader(String name, String value)</b> : name 헤더에 value 값으로 추가한다.<br>
@@ -180,7 +180,7 @@ request와 반대의 기능을 수행한다. 브라우저에 보내는 response�
 
 <b>Cache-control</b> : HTTP 1.1버전에서 지원하며 헤더의 값을 no-cache로 지정하면 웹 브라우저는 응답 결과를 캐시하지 않는다. no-cache로 설정하더라도 응답내용을 보관할 수 있다. 응답결과가 캐시에 저장되지 않기 위해서는 헤더에 no-store를 추가해야한다.
 </p>
-<hr style ="background-color: orange; ">
+<hr style ="background-color: black; ">
 
 
 <p><b>redirect</b> : response 객체가 제공하는 메서드로 두번의 요청을 함. (전날 포스팅한 내용을 참조)</p>

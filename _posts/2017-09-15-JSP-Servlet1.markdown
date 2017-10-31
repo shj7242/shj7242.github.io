@@ -7,12 +7,12 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 15 (금)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 15 (금)</H4>
 <li>ECLIPSE J2EE-TOMCAT 설치 </li>
 <li>SERVLET , JSP </li>
 <li>PRACTICE </li>
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 

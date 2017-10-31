@@ -7,13 +7,13 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 07 (목)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 07 (목)</H4>
 <li>SQL DML</li>
 <li>SQL DML 예제</li>
 <li>SQL JOIN</li>
 
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 

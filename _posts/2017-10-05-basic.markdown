@@ -7,12 +7,12 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 05 (목)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 05 (목)</H4>
 <li>소프트웨어공학 용어</li>
 
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">공단공개문제 참조</H4>
+<H4 style ="font-weight:bold; color:black;">공단공개문제 참조</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. 소프트웨어 개발 용어</h5>

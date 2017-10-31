@@ -7,11 +7,11 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 14 (토)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 14 (토)</H4>
 <li>MyBatis 연동</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<H4 style ="font-weight:bold; color:black;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. Spring과 MyBatis 연동</h5>

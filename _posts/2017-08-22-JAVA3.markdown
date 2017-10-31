@@ -8,14 +8,14 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 08 - 22 (화)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 22 (화)</H4>
 <li>객체지향 언어</li>
 <li>클래스와 객체</li>
 <li>변수와 메서드</li>
 <li>생성자</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
 <br>
 
 

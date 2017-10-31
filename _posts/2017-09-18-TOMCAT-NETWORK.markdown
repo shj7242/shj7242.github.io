@@ -7,12 +7,12 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 18 (월)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 18 (월)</H4>
 <li>인터넷과 네트워크의 이해</li>
 <li>TOMCAT 에러 </li>
 <li>Servlet연습</li>
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 

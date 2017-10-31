@@ -8,11 +8,11 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 01 (금)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 01 (금)</H4>
 <li>POKERGAME 예제</li>
 
 
-<H4 style ="font-weight:bold; color:orange;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
 
 
 

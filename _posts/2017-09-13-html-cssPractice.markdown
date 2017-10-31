@@ -9,12 +9,12 @@ header-img: "img/post-bg-02.jpg"
 
 <p>익일 활용할 HTML form태그를 사용하여 화면을 구성해 봄.</p>
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 13 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 13 (수)</H4>
 <li>CSS 속성</li>
 <li>form태그를 포함한 간단한 화면</li>
 <li>Bootstrap</li>
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . CSS 속성</h5>

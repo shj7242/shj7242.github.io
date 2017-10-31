@@ -10,11 +10,11 @@ comments: true
 <meta name="description" content="Spring(스프링) Navigator 패키지 분류법칙, xml파일 용도 dispatcher-servlet, appServlet,web.xml, root-context.xml , pom.xml , mybatis, mybatis.xml, datasource ,sqlsession, MVC구조, MVC모델2,MVC 형태도">
 
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 17 (화)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 17 (화)</H4>
 <li>MVC Navigator</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. Spring MVC navigator</h5>

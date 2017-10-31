@@ -7,14 +7,14 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 20 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 20 (수)</H4>
 <li>out 기본객체</li>
 <li>pageContext 기본 객체 </li>
 <li>application 기본 객체</li>
 <li>JSP 기본객체와 영역</li>
 <li>JSP 기본 객체의 속성</li>
 <br>
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 . out 기본 객체</h5>

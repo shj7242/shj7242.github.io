@@ -7,12 +7,12 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 04 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 04 (수)</H4>
 <li>데이터베이스 정의</li>
 <li>관계 데이터 연산</li>
 <li>물리적 설계</li>
 <br>
-<H4 style ="font-weight:bold; color:orange;">정처기 DB 공부 (기사퍼스트 실기 문제집 참조)</H4>
+<H4 style ="font-weight:bold; color:black;">정처기 DB 공부 (기사퍼스트 실기 문제집 참조)</H4>
 
 
 <br>

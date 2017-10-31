@@ -7,12 +7,12 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<H4 style ="font-weight:bold; color : orange">2017 - 09 - 06 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 06 (수)</H4>
 <li>SQL(Structured Query Language) Start</li>
 <li>SQL Practice</li>
 <li>Oracle 오류</li>
 
-<H4 style ="font-weight:bold; color:orange;">기본사항 정리</H4>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 
 
 

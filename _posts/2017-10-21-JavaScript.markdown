@@ -12,11 +12,11 @@ comments: true
 ">
 
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 21 (토)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 21 (토)</H4>
 <li>타입</li>
 <li>연산자</li>
 <br>
-<H4 style ="font-weight:bold; color:orange;">인사이드 자바스크립트(송형주, 고현준 지음 한빛 미디어) 참조</H4>
+<H4 style ="font-weight:bold; color:black;">인사이드 자바스크립트(송형주, 고현준 지음 한빛 미디어) 참조</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. 타입</h5>

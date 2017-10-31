@@ -11,9 +11,13 @@ comments: true
 <meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
 ,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
 ">
+<br>
+<H4 style ="font-weight:bold; color:black;"> 타입스크립트 코리아 이웅재님의 강의 참조</H4>
+<br>
+
 
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 28 (토)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 28 (토)</H4>
 <li>TypeScript</li>
 <li>개발환경 구축</li>
 <li>컴파일러 사용</li>

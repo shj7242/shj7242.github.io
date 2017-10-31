@@ -13,12 +13,12 @@ XML Mapper를 작성한다. Mapper자료 참고  src/main/resources 에 mappers�
 ">
 
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 15 (일)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 15 (일)</H4>
 <li>MyBatis 구현하기</li>
 <li>MyBatis 문법</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<H4 style ="font-weight:bold; color:black;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. MyBatis</h5>

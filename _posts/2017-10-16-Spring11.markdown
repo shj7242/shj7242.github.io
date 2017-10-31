@@ -10,11 +10,11 @@ comments : true
 
 <meta name ="description" content = "프로젝트 생성 및 테스트, MVC구조 만들기, MVC , MVC 구조만들기 과정, WAS, SPRING MVC 과정, 스프링 메이븐(mvnrepostorty)MAVEN 의존성관리 Dependency, 버전, 프로젝트 버전, jdk ">
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 16 (월)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 16 (월)</H4>
 <li>MVC만들기 정리</li>
 
 <br>
-<H4 style ="font-weight:bold; color:orange;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<H4 style ="font-weight:bold; color:black;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. Summary</h5>

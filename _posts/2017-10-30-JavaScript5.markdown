@@ -11,9 +11,9 @@ comments: true
 <meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
 ">
 <br>
-<H4 style ="font-weight:bold; color:orange;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
 <br>
-<H4 style ="font-weight:bold; color : orange">2017 - 10 - 30 (월)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 30 (월)</H4>
 <li>생성자함수</li>
 <li>프로토타입</li>
 <br>
