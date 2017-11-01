@@ -1,0 +1,120 @@
+---
+layout:     post
+title:      "[JavaScript] DOM"
+
+date:       2017-11-01 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 01 (화)</H4>
+<li>DOM</li>
+<br>
+<br>
+
+
+> Document Object Model
+
+<br>
+
+| 메서드 이름 |  설명  |
+|:--------|:--------|
+| document.getElementById(아이디) | id를 사용해 문서 객체를 선택 |
+| document.querySelector(선택자) | 선택자를 이용해 문서객체를 선택 |
+| document.getElementsByName(이름) | name 속성으로 여러개의 문서객체를 선택 |
+| document.getElementsByClassName(클래스) | class 속성으로 여러개의 문서객체 선택 |
+| document.getElementsByTagName(태그명) | 태그명으로 여러개의 문서객체 선택 |
+| setAttribute | 속성을 지정해줌 |
+| createElement(tagName) | 요소 노드를 생성해준다. |
+| createTextNode(text) | 텍스트 노드를 생성해준다. |
+| appendChild(node) | 객체에 노드를 연결해준다. |
+| removeChild(child) | 자식 노드를 삭제 해준다. |
+
+
+
+
+<br>
+
+
+
+
+> DOM 예제
+
+<br>
+
+~~~javascript
+window.onload = function (){
+
+  //var header = document.getElementById('header'); //header 라는 id 셀렉터를 가진 element
+  var header = document.createElement('h1'); // h1 element 생성
+
+  var textNode = document.createTextNode('hello DOM'); // textNode 하나 생성
+
+  header.appendChild(textNode) // header , 즉 h1 태그 안에 text노드 자손을 하나 연결
+  document.body.appendChild(header) // body 의 자손으로 h1 등록
+
+
+  //------속성을 셋팅하는 1번째 방법
+  var img = document.createElement('img'); // img 태그 생성 하여 img 변수에 넣는다.
+  document.body.appendChild(img); // img 태그를 생성하여 body 의 child로 연결
+  // img.src = 'img/post-bg-06.jpg' // img 의 src 지정
+  // img.width = 500;
+  // img.height = 400;
+
+  //-------속성을 셋팅하는 2번째 방법
+  img.setAttribute('src', 'img/post-bg-06.jpg');
+  img.setAttribute('width', 500);
+  img.setAttribute('height', 400);
+
+  img.setAttribute('data-property', 350)
+
+
+  //-----------------innerHTML
+
+  // var inner = '';
+  // inner += '<ul>';
+  // inner += '<li>javascript</li>';
+  // inner += '<li>JQuery</li>'
+  // inner += '<li>Ajax</li>';
+  // inner += '</ul>'
+
+  var header1 = document.getElementById('header-1')
+  var header2 = document.getElementById('header-2')
+
+
+  header1.innerHTML = 'with getElementById()'
+  header2.innerHTML = 'width getElementById()'
+
+  var para = document.getElementsByTagName('p')
+
+  for(var i =0 ; i <para.length; i ++){
+    para[i].innerHTML = 'with get elementByTagName'
+
+  }
+
+  // dom 을 통해 스타일 주기
+  var header = document.getElementById('header');
+  header.style.color = 'red';
+  header.style.fontFamily = 'serif';
+
+  // 요소 제거하기
+
+
+    var removeObj = document.getElementById('removeObj');
+  document.body.removeChild(removeObj);
+
+  //시계 생성하기
+  var clock = document.getElementById('clock');
+
+  setInterval(function(){
+    clock.innerHTML = new Date().toString();
+  },1000);
+
+}
+~~~
