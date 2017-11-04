@@ -26,3 +26,6 @@ comments: true
 
 <iframe src="/htmlpractice/card.html" style ="width : 100%; height : 750px;">
 </iframe>
+<br>
+
+* 소스코드 : <a href='https://github.com/shj7242/Practice_js/blob/master/jspractice/card.js'>https://github.com/shj7242/Practice_js/blob/master/jspractice/card.js</a>
