@@ -1,0 +1,58 @@
+---
+layout:     post
+title:      "[JavaScript] Exception"
+
+date:       2017-11-04 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 04 (토)</H4>
+<li>Exception</li>
+
+<br>
+<br>
+
+>Exception 개요
+
+<br>
+
+어떤 프로그램을 실행하던중 갑자기 어떤 문제가 발생할 경우 프로그램이 중단된다. 이러한 상황을 예측하여 좀더 user-freindly한 화면을 보여주기 위해서 Exception을 활용한다. Java의 Exception 과 다를바 없다는 생각이 들었다. <br>
+예외 처리는 두가지로 나눌 수 있다.
+<br>
+
+ * 기본 예외 처리
+
+ ~~~javascript
+  function registerEventListener(node, event, listener){
+    if(node.addEventListener){
+      //firefox , chrome, safari , opera
+      node.addEventListner(event, listener, false);{
+        //exploler
+        node.attachEvent('on' + event, listener);
+      }
+    }
+  }
+  // 보다시피 if 문을 활용하여 특정 브라우저 상 에러가 날 수 있는 상황을 미연에 방지하기한다.
+ ~~~
+
+ * 고극 예외 처리
+
+ ~~~javascript
+ try{
+   willExcept.byeBye();
+   alert('try exit')
+ }catch (exception){
+   alert('예외발생')
+ }finally{
+   alert('무조건 실행')
+ }
+
+ //자바의 try ~ catch 문의 구조와 완전히 똑같다.
+ ~~~

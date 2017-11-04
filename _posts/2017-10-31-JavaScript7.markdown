@@ -187,6 +187,7 @@ document.write(output)
 | slice() | 요소의 지정한 부분을 리턴  |
 | sort()* | 배열의 요소를 정렬합니다.  |
 | splice()* | 요소의 지정한 부분을 삭제하고 삭제한 요소를 리턴  |
+
 <br>
 
 ~~~javascript
