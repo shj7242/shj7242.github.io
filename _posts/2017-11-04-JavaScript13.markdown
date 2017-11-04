@@ -1,0 +1,28 @@
+---
+layout:     post
+title:      "[JavaScript] 카드게임"
+
+date:       2017-11-04 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="카드 뒤집기 게임, javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 04 (토)</H4>
+<li>같은카드 맞추기 게임</li>
+
+<br>
+<br>
+
+>Exception 개요
+
+<br>
+
+
+<iframe src="/htmlpractice/card.html" style ="width : 100%; height : 300px;">
+</iframe>
