@@ -19,38 +19,10 @@ comments: true
 <br>
 <br>
 
+>카드 뒤집기 게임
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <script src="js/card.js"></script>
-    <link rel="stylesheet" type="text/css" href="CSS/card.css" />
-</head>
-<body>
-<div id="wrap">
-    <div id ='header'>
-    카드게임
-    </div>
-
-    <div id="main">
-
-    </div><!--main 카드 들어가는 공간-->
+<br>
 
 
-        <div>
-
-            <section>
-                <button class='btn' id="adversion" onclick="click1()">뒤집기</button>
-                <button class='btn' id="hidden" onclick="click2()">숨기기</button>
-                <button class='btn' id="view" onclick="click3()">보이기</button>
-                <button class='btn' id="shuffle" onclick="shuffle()">셔플</button>
-            </section>
-
-        </div>
-</div><!--wrap -->
-</body>
-
-
-</html>
+<iframe src="/htmlpractice/card.html" style ="width : 100%; height : 750px;">
+</iframe>

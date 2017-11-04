@@ -30,9 +30,10 @@ section{text-align:center;margin : 50px auto; }
     color: white;
     height: 50px;
     padding-top : 30px;
+    width : 650px;
 }
 #wrap{
-   width: 900px;
+   width: 650px;
     margin : 0 auto;
 }
 #main{
