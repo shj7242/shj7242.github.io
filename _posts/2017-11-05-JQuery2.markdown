@@ -14,8 +14,9 @@ comments: true
 <H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 11 - 05 (일)</H4>
-<li>selector</li>
-<li>객체 확장</li>
+<li>DOM 메서드</li>
+
+
 <br>
 <br>
 
@@ -58,8 +59,11 @@ $(document).ready(function(){
   })
 ~~~
 
+<br>
 
 * xml 문자열 생성
+
+<br>
 
 ~~~html
 <script>

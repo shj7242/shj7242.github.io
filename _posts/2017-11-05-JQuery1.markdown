@@ -16,6 +16,7 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2017 - 11 - 05 (일)</H4>
 <li>selector</li>
 <li>객체 확장</li>
+<li>충돌 방지</li>
 <br>
 <br>
 
