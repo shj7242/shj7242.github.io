@@ -2,7 +2,7 @@
 layout:     post
 title:      "[JQuery] Selector/객체확장/충돌방지"
 
-date:       2017-11-03 18:55:00
+date:       2017-11-05 18:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
