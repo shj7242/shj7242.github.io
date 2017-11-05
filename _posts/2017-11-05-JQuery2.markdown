@@ -1,0 +1,110 @@
+---
+layout:     post
+title:      "[JQuery] DOM메서드"
+
+date:       2017-11-05 19:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 05 (일)</H4>
+<li>selector</li>
+<li>객체 확장</li>
+<br>
+<br>
+
+>JQuery DOM 메서드
+
+<br>
+
+* 필터 선택자
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+    $('h3:even').css({
+        color:'orange',
+        backgroundColor: 'black'
+    });
+});
+~~~
+
+<br>
+
+* JQuery 필터 메서드
+
+<br>
+
+~~~javascript
+//짝수 자리에 있는 element 선택
+$(document).ready(function(){
+      $('h3').filter(':odd').css({
+          backgroundColor : 'orange',
+          color : 'white'
+      })
+  })
+// 특정 위치에 있는 element 선택
+$(document).ready(function(){
+      $('h3').eq(0).css({
+          backgroundColor :'red'
+      })
+  })
+~~~
+
+
+* xml 문자열 생성
+
+~~~html
+<script>
+    // xml 문자열 생성
+    var xml = "";
+    xml+='<friends>';
+    xml+='    <friend>';
+    xml+='        <name>신희준</name>';
+    xml+='        <language>Ruby</language>';
+    xml+= '    </friend>';
+    xml += '    <friend>';
+    xml += '        <name>임하준</name>'
+    xml += '        <language>Basic</language>'
+    xml += '    </friend>';
+    xml += '    <friend>';
+    xml+= '        <name>최효준</name>';
+    xml += '        <language>C#</language>';
+    xml += '    </friend>';
+    xml += '</friends>'
+
+    $(document).ready(function(){
+        var xmlDoc = $.parseXML(xml);
+        console.log(xmlDoc)
+        $(xmlDoc).find('friend').each(function(index){
+            var output = '';
+            output += '<div>';
+            output += '  <h1>' + $(this).find('name').text() + '</h1>';
+            output += '  <p>' + $(this).find('language').text() +'</p>';
+            output += '</div>';
+            document.body.innerHTML +=output;
+        });
+    });
+</script>
+~~~
+
+<br>
+
+* parent() 메서드
+
+~~~html
+ <script>
+        $(document).ready(function(){
+            $('span').parent().css('background','red');
+        })
+
+ </script>
+<!--span 태그의 부모에게 css속성 주입-->
+~~~
