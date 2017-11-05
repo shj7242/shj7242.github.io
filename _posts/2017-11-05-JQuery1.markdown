@@ -1,0 +1,177 @@
+---
+layout:     post
+title:      "[JQuery] Selector/객체확장/충돌방지"
+
+date:       2017-11-03 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 05 (일)</H4>
+<li>selector</li>
+<li>객체 확장</li>
+<br>
+<br>
+
+>JQuery 개요
+
+<br>
+JQuery 는 Javascript를 조금더 손쉽게 쓸 수 있도록 도와주는 라이브러리이다.
+
+<br>
+JQuery 사용을 위해선 두가지 방법이 있다.
+
+* 내려받기
+* CDN 활용
+
+~~~html
+<!--CDN 활용 -->
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+~~~
+
+<br>
+
+
+* $(document).ready : window.onload 와 비슷한 기능을 수행한다. 차이점은 여러번의 이벤트를 연결할 수 있다는 점이다.
+
+~~~html
+<script>
+$(document).ready(function(){
+alert("first ready")
+}
+$(document).ready(function(){
+    alert("second ready")
+}) // 이벤트를 여러개 연결할 수 있다.
+window.onload = function(){
+    alert("first load")
+})
+window.onload = function(){
+    alert("second load") // 후에 선언된 것만 실행된다.
+}
+</script>
+~~~
+
+<br>
+
+* 기본 선택자 : Javascript 에서 document.getElementsByTagName 처럼 특정 selector 를 선택하는 것이다.
+
+<br>
+
+~~~html
+<script>
+$(document).ready(function(){
+    $('h1').css('color', 'red');
+    $('#test').css('color','blue');
+})
+</script>
+~~~
+
+<br>
+
+* 속성 선택자 : 기본선택자 뒤에 사용한다.
+
+<br>
+
+~~~html
+<script>
+$(document).ready(function(){
+  $('input[type=text]').val('hello Jquery');
+  // 기본선택자[속성=값] 과 일치하는 element의 value 셋팅
+});
+</script>
+
+
+<input type="text"/>
+<input type="password"/>
+<input type="radio"/>
+<input type="checkbox"/>
+<input type="file"/>
+~~~
+
+<br>
+
+* 필터 선택자
+
+<br>
+
+~~~javascript
+$('input:button') //input 태그 중 button type을 가진 element 선택
+$('input:file')  // input 태그 중 file type 을 가진 element 선택
+// $('element명:')
+~~~
+
+<br>
+
+* 속성 선택자
+
+<br>
+
+~~~javascript
+var value = $('option:selected').val();
+//select 태그의 옵션에서 선택되어있는 옵션을 가져옴
+console.log(value);
+~~~
+
+<br>
+
+* 필터 선택자
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+        $('option:odd').css('color','orange');
+        $('option:even').css('color','blue');
+        $('h1:first').css('color','green');
+        $('h1:last').css('color','yellow');
+  });
+~~~
+
+<br><br>
+
+> 객체 확장
+
+<br>
+
+~~~javascript
+var obj = {name : '신희준'};
+   $.extend(obj,
+      {
+        region : ' 서울시 ',
+        part : ' game '
+      });
+      // obj 에 region , part 속성 추가
+~~~
+
+<br><br>
+
+>충돌 방지
+
+<br>
+
+* Javascript 에는 jQuery 뿐만아니라 prototype 등의 라이브러리를 사용하는데 이 둘은 충돌이 날 가능성이 존재한다. 그렇기 때문에 충돌을 방지하는 메서드인 $.conflicit() 메서드를 활용해야한다.
+
+
+<br>
+
+~~~javascript
+//$.noConflict(); 메서드를 사용할 경우 더이상 $를 사용할 수 없다.
+  $.noConflict();
+  jQuery(document).ready(function(){
+
+  });
+  // jQuery 를항상 붙이기 길기 때문에 변수로 할당하여 사용한다.
+
+  $.noConflict();
+  var J = jQuery;
+
+  J(document).ready(function(){
+    J('h1').removeClass('title');
+  })
+~~~
