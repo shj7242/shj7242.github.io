@@ -16,6 +16,7 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2017 - 11 - 06 (월)</H4>
 <li>속성추가</li>
 <li>문서객체 추가</li>
+<li>문서객체 내부검사</li>
 <br>
 <br>
 
@@ -46,6 +47,8 @@ comments: true
 <br>
 
 * class 속성 삭제하기 : removeClass()
+
+<br>
 
 ~~~javascript
 //클래스 삭제하기
@@ -149,6 +152,8 @@ $(document).ready(function(){
        //append() 는 그 뒤에 바로 붙이기 prepend() 는 앞에 붙이기
 ~~~
 
+<br>
+
 * 문서객체 이동하기 : appendTo()
 
 <br>
@@ -160,5 +165,78 @@ $(document).ready(function(){
     setInterval(function(){
         $('img').first().appendTo('body');
     }, 500); // 첫번째 이미지가 계속 맨뒤로 이동한다.
+})
+~~~
+
+<br>
+
+
+| 메서드 이름 |  설명  |
+|:--------|:--------|
+| $(A).appendTo(B) | A를 B의 뒷부분에 추가한다. |
+| $(A).prependTo(B) | A를 B의 앞부분에 추가한다. |
+| $(A).insertAfter(B) | A를 B의 뒤에 추가한다. |
+| $(A).insertBefore(B) | A를 B의 앞에 추가한다.  |
+| $(A).append(B) | B를 A의 뒷부분에 추가한다. |
+| $(A).prepend(B) | B를 A의 앞부분에 추가합니다. |
+| $(A).after(B) | B를 A의 뒤에 추가합니다. |
+| $(A).before(B) | B를 A의 앞에 추가합니다. |
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+  var h1 = '<h1>header</h1>';
+  var h2 = '<h2>header</h2>';
+  $('body').append(h1,h2,h1,h2);
+});
+~~~
+
+~~~javascript
+//배열을 사용하여 append 하기
+$(document).ready(function(){
+  var content = [
+    {name : 'shj', region : 'seoul'}
+    {name : 'lhj', region : 'seoul'}
+    {name : 'chj', region : 'seoul'}
+  ]
+  $('div').append(function(index){
+    var item = content[index];
+    var output = '';
+    output += '<h1>'+ item.name +'</h1>';
+    output += '<h2>' + item.region + '</h2>';
+    return output;
+  })
+})
+~~~
+
+<br>
+
+> 문서객체 내부검사
+
+
+<br>
+
+* html() : 문서 객체 내부의 글자와 관련된 모든 기능을 수행(html태그도 인식)
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+  var html = $('h1').html();
+  $('div').html('<h1>header</h1>')
+})
+~~~
+
+<br>
+
+* text() : 문서객체 내부의 글자에 관련한 기능 수행
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+  var text = $('h1').text()
+  $('#header').html(text);
 })
 ~~~

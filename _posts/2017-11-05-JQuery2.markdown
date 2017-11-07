@@ -39,7 +39,10 @@ $(document).ready(function(){
 
 <br>
 
-* JQuery 필터 메서드
+* JQuery 필터 메서드(특정위치 선택)  
+  - filter()
+  - eq() : 특정위치의 문서객체 선택
+  - first() , last()
 
 <br>
 
@@ -58,6 +61,7 @@ $(document).ready(function(){
       })
   })
 ~~~
+
 
 <br>
 
