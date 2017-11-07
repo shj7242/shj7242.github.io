@@ -1,0 +1,19 @@
+---
+layout:     post
+title:      "[JQuery] lightBox"
+
+date:       2017-11-07 20:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 07 (화)</H4>
+
+<br>
+<br>
