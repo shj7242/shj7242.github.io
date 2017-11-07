@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script>
+
+        $(document).ready(function() {
+            $("input[type='checkbox']").on('click',function(){
+                var write ='';
+                $("input[type='checkbox']:checked").each(function(){
+                   write += $(this).val();
+                });
+                $('textarea').val(write);
+            });
+            $('#alls').on('click',function(){
+                var alltext = '';
+                $("input[type='checkbox']").prop('checked',true).each(function(index){
+                    alltext += $(this).val()
+                });
+                $('textarea').val(alltext)
+            });
+            $('#allr').on('click',function(){
+                $('input').prop('checked',false)
+                $('textarea').val('');
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+<button id="alls">전체선택</button>
+<button id="allr">전체해제</button>
+<br><br>
+<form action="">
+    축구 <input type="checkbox" value ='축구'><br>
+    야구 <input type="checkbox" value ='야구'><br>
+    농구 <input type="checkbox" value ='농구'><br>
+    배구 <input type="checkbox" value ='배구'><br>
+    탁구 <input type="checkbox" value ='탁구'><br>
+    하키 <input type="checkbox" value ='하키'><br><br>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+
+</body>
+</html>
