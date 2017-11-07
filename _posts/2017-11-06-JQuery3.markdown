@@ -240,3 +240,16 @@ $(document).ready(function(){
   $('#header').html(text);
 })
 ~~~
+
+<br>
+
+* val() : 문서 객체 내부의 값에 관련한 기능 수행
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+  var value = $('textarea').val();
+  $('textarea').val('test message');
+})
+~~~

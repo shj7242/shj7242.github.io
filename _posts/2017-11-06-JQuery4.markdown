@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[JQuery] 이벤트"
+title:      "[JQuery] 이벤트1"
 
 date:       2017-11-06 20:55:00
 author:     "신희준"
@@ -101,6 +101,51 @@ $(document).ready(function(){
 ~~~
 
 <br>
+
+* one() 메서드 : on과 동일한 방법으로 사용하지만 이벤트를 한번만 연결한다.
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+  $('h1').one('click', function(){
+    $('h1').css('color','red');
+  })
+})
+~~~
+
+<br>
+
+* trigger() : 이벤트를 강제로 실행한다.
+
+<br>
+
+~~~html
+<!-- $(selector).trigger(eventName)
+ $(selector).trigger(eventName, data) : data 에는 배열을 집어넣는다 -->
+
+<script>
+  $(document).ready(function(){
+    $('h1').click(function(){
+      $(this).html(function(index, html){
+        return html += '★';
+      })
+    })
+    setInterval(function(){
+      $('h1').last().trigger('click'); // click을 강제실행한다.
+    },1000);
+  })
+
+</script>
+
+
+<body>
+  <h1>start: </h1>
+  <h1>start: </h1>
+</body>
+~~~
+
+<br><br>
 
 >context 객체
 
