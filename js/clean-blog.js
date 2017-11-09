@@ -11,6 +11,18 @@ $(function() {
 
 // Contact Form Scripts
 
+
+$(".typed").typed({
+    strings: ["Hello World!!!!!!!"],
+    typeSpeed: 100,
+    backDelay: 900,
+    // loop
+    loop: true
+});
+
+
+
+
 $(function() {
 
     $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
