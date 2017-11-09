@@ -12,6 +12,8 @@ comments: true
 ,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
 ">
 <br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+
 <H4 style ="font-weight:bold; color:black;"> </H4>
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 11 - 08 (수)</H4>
