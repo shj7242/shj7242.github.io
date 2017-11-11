@@ -1,0 +1,27 @@
+---
+layout:     post
+title:      "[Node.js] mongoDB SQL"
+
+date:       2017-11-11 18:55:00
+header-img: "img/post-bg-02.jpg"
+author:     "신희준"
+comments: true
+---
+
+<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
+,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 11 (토)</H4>
+<li>MongoDB 구조</li>
+<li>MongoDB SQL</li>
+<br>
+<br>
+
+> MongoDB SQL
+
+<br>
+
+*

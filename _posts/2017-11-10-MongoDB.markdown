@@ -14,7 +14,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
 <br>
-<H4 style ="font-weight:bold; color : black">2017 - 11 - 08 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 10 (금)</H4>
 <li>MongoDB 소개</li>
 <li>MongoDB 초기설정</li>
 <li>express에서 mongoDB 사용하기</li>

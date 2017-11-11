@@ -2,7 +2,7 @@
 layout:     post
 title:      "[Node.js] 미들웨어2"
 
-date:       2017-11-08 17:55:00
+date:       2017-11-09 17:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -14,7 +14,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
 <br>
-<H4 style ="font-weight:bold; color : black">2017 - 11 - 09 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 09 (목)</H4>
 <li>body-parser</li>
 <li>Router</li>
 <br>
