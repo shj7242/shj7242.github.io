@@ -1,0 +1,110 @@
+---
+layout:     post
+title:      "[OpenAPI] Tmap 지도 api"
+
+date:       2017-11-19 17:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
+,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 16 (목)</H4>
+
+
+<br>
+<br>
+
+> Tmap 에서 제공해주는 지도 API
+
+<br>
+
+
+* sk planet developers 회원가입 필요 (https://developers.skplanetx.com/)
+
+* https://developers.skplanetx.com/apidoc/kor/t-map/javascript/#apiItem1
+
+에서 APPkey 를 발급 받습니다.
+<br>
+Tmap API 를 사용하기 위해서는 appKey가 필요 합니다. appKey는  개발하는 웹, 앱에서 Tmap API을 사용할 때 사용하는 ID입니다.
+appKey는 SK플래닛 개발자센터에 가입을 하고 앱을 사용하겠다는 의사 표시(앱 등록)을 하시면 즉시 발급 받을 수 있습니다.
+
+* 적용해보기
+
+~~~html
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+<!--티맵의 api 불러옵니다. -->
+    <script SRC = "https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=앱키"></script>
+
+    <script type="text/javascript">
+        function initialize() {
+            var map = new Tmap.Map({div:"map_div", width:'500px', height:'500px'});
+        }
+        window.onload = function() {
+            initialize();
+        }
+    </script>
+</head>
+<body>
+<div id="map_div" ></div>
+</body>
+</html>
+~~~
+
+<br>
+
+* 아래같은 화면을 볼 수 있다.
+
+<img src="{{ site.baseurl }}/img/tmap.PNG" alt="Post Sample Image">
+
+* 키보드 컨트롤러 추가하기
+
+~~~JavaScript
+function initialize() {
+    var map = new Tmap.Map({div:"map_div", width:'500px', height:'500px'});
+    map.addControl(new Tmap.Control.KeyboardDefaults());
+}
+~~~
+
+위 같이 KeyboardDefaults 컨트롤러를 추가해주면 키보드로 맵을 조작 가능합니다.
+
+* 마우스 포지션
+
+~~~javascript
+function initialize() {
+    var map = new Tmap.Map({div:"map_div", width:'500px', height:'500px'});
+    map.addControl(new Tmap.Control.KeyboardDefaults());
+    map.addControl(new Tmap.Control.MousePosition());
+}
+~~~
+
+<img src="{{ site.baseurl }}/img/tmap2.PNG" alt="Post Sample Image">
+
+
+위처럼 MousePosition 컨트롤러를 추가해주면 현재 위치한 마우스포인터가 가르키는 지도상의 좌표를 우측 하단에 찍어줍니다.
+
+* 미니맵 표시하기 : 현재 맵 위치와 대응하는 작은 미니맵을 우측 하단에 생성한다.
+
+
+~~~javascript
+function initialize() {
+    var map = new Tmap.Map({div:"map_div", width:'500px', height:'500px'});
+    map.addControl(new Tmap.Control.KeyboardDefaults());
+    map.addControl(new Tmap.Control.MousePosition());
+    map.addControl(new Tmap.Control. OverviewMap());
+}
+~~~
+
+<img src="{{ site.baseurl }}/img/tmap3.PNG" alt="Post Sample Image">

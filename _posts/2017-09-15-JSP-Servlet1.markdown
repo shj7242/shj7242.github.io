@@ -92,6 +92,7 @@ public class loginAction extends HttpServlet {
 		out.println("</body>");
 		out.println("</html>");
 	}
+}
 ~~~
 
 
