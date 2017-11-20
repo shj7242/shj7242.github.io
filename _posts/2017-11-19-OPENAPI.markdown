@@ -18,6 +18,7 @@ comments: true
 
 
 <br>
+references : https://developers.skplanetx.com/
 <br>
 
 > Tmap 에서 제공해주는 지도 API
@@ -65,9 +66,12 @@ appKey는 SK플래닛 개발자센터에 가입을 하고 앱을 사용하겠다
 
 <br>
 
-* 아래같은 화면을 볼 수 있다.
+아래같은 화면을 볼 수 있다.
 
 <img src="{{ site.baseurl }}/img/tmap.PNG" alt="Post Sample Image">
+
+
+<br>
 
 * 키보드 컨트롤러 추가하기
 
@@ -80,6 +84,8 @@ function initialize() {
 
 위 같이 KeyboardDefaults 컨트롤러를 추가해주면 키보드로 맵을 조작 가능합니다.
 
+<br>
+
 * 마우스 포지션
 
 ~~~javascript
@@ -90,10 +96,13 @@ function initialize() {
 }
 ~~~
 
-<img src="{{ site.baseurl }}/img/tmap2.PNG" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/tmap1.PNG" alt="Post Sample Image">
 
 
 위처럼 MousePosition 컨트롤러를 추가해주면 현재 위치한 마우스포인터가 가르키는 지도상의 좌표를 우측 하단에 찍어줍니다.
+
+
+<br>
 
 * 미니맵 표시하기 : 현재 맵 위치와 대응하는 작은 미니맵을 우측 하단에 생성한다.
 
@@ -104,7 +113,15 @@ function initialize() {
     map.addControl(new Tmap.Control.KeyboardDefaults());
     map.addControl(new Tmap.Control.MousePosition());
     map.addControl(new Tmap.Control. OverviewMap());
+    //tmap 에서 제공해주는 컨트롤러는 위 3가지가 있다.
 }
 ~~~
 
-<img src="{{ site.baseurl }}/img/tmap3.PNG" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/tmap2.PNG" alt="Post Sample Image">
+
+
+<br>
+
+* Marker 객체 : Tmap.Lonlat , Tmap.Icon/Tmap.IconHtml
+
+<br>
