@@ -14,7 +14,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
 <br>
-<H4 style ="font-weight:bold; color : black">2017 - 11 - 16 (목)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 19 (일)</H4>
 
 
 <br>

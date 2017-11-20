@@ -73,7 +73,6 @@ comments: true
 ▶connection pool : DB에 미리 연결을 해 놓은 후 필요할 때마다 Pool에서 연결을 빌려와서 사용한다. (연결을 끊지 않는다.)
 pool을 너무 크게해놓으면 메모리소모가 크며 너무 적으면 대기시간이 길어진다.
 
-</p>
 
 </p>
 <p style="font-size:14px"><br><br>
