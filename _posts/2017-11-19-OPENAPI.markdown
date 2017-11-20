@@ -125,3 +125,26 @@ function initialize() {
 * Marker 객체 : Tmap.Lonlat , Tmap.Icon/Tmap.IconHtml
 
 <br>
+Tmap 위에 그래픽 객체를 표시하기 위해 Marker 를 사용한다.
+
+
+~~~JavaScript
+//Tmap - Marker 객체
+var markerLayer = new Tmap.Layer.Markers();
+map.addLayer(markerLayer);
+
+var lonlat = new Tmap.LonLat(14135893.887852, 4518348.1852606);
+//lonlat 은 Tmap 맵 타일에 대응하는 좌표체계이다.
+var size = new Tmap.Size(24,38);
+var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
+var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); // icon 객체 생성 Marker가 표시할 그래픽정보로서 맵위에 png, jpg 같은 그래픽 파일을 불러온다.
+//        var size = new Tmap.Size(24,38);
+//        var offset = new Tmap.Pixel(-(size.w/2), -size.h);
+//        var icon = new Tmap.IconHtml("<img src= 'https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png'></img>", size, offset);
+
+var marker = new Tmap.Marker(lonlat, icon);
+markerLayer.addMarker(marker);
+~~~
+
+아래같은 Icon 을 lonlat에서 지정한 좌표에 찍는다.
+<img src="{{ site.baseurl }}/img/tmap3.PNG" alt="Post Sample Image">
