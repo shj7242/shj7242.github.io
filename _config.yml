@@ -1,9 +1,9 @@
 # Site settings
-title: Tech Blog
+title: 메모 블로그
 header-img: img/1.jpg
 email: shinhj7242@gmail.com
-copyright_name: HEEJUN/Tech Blog/java development
-description: "Study while recording"
+copyright_name: HEEJUN/memo Blog/programming study
+description: "hello world!!"
 baseurl:
 url: "http://yourdomain.com"
 twitter_username: shinhj7242
