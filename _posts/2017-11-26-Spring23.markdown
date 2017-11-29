@@ -1,0 +1,57 @@
+---
+layout:     post
+title:      "[Spring] 페이스북 로그인"
+
+date:       2017-11-29 17:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
+,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
+">
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 29 (수)</H4>
+
+<br>
+
+1 . <a href="https://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook/2.0.3.RELEASE">facebookAPI Dependency</a> 를 추가한다.
+
+2 . 페이스북 개발자 사이트로 접속한다. 주소는 <a href =https://developers.facebook.com> https://developers.facebook.com</a> 이다.
+
+
+3 . FACEBOOK로그인 설정탭의 OAuth 설정에서 리디렉션 URI 를 추가한다.
+
+<img src="{{ site.baseurl }}/img/pb.PNG" alt="Post Sample Image">
+
+
+4 . 설정에서 앱ID 및 앱 시크릿코드를 확인한다.
+
+5 . src/main/resources 에 application.properties 파일 생성후 아래처럼 페이스북 앱 ID 및 시크릿코드를 붙여넣는다. ( 아래코드는 SPRING.IO에서 예시해준 예제 코드 )
+
+~~~xml
+spring.social.facebook.appId=233668646673605
+spring.social.facebook.appSecret=33b17e044ee6a4fa383f46ec6e28ea1d
+~~~
+
+6 . root-context.xml 에 다음 코드를 추가한다. ()
+
+~~~xml
+<context:property-placeholder location="classpath:/application.properties" />
+
+<bean id = "connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+  <property name = "connectionFactories">
+    <bean class = "org.springframework.social.facebook.connect.FacebookConnectionFactory">
+      <constructor-arg value = "${spring.social.facebook.appId}"/>
+      <constructor-arg value = "${spring.social.facebook.appSecret}"/>
+
+    </bean>
+  </property>
+</bean>
+<bean id = "inMemoryConnectionRepository" class = "org.springframework.social.connect.mem.InMemoryConnectionRepository">
+  <constructor-arg ref=  "connectionFactoryLocator"/>
+</bean>
+~~~
