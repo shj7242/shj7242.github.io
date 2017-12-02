@@ -9,7 +9,7 @@ comments: true
 ---
 
 <meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
-,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
+,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT 카카오톡 로그인 API , 카카오톡 REST API , 카카오톡 REST API 로그인
 ">
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
