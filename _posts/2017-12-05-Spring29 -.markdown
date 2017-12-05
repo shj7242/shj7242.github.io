@@ -1,0 +1,143 @@
+---
+layout:     post
+title:      "[Spring] AJAX ID찾기"
+
+date:       2017-12-04 17:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
+,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT, 구글 로그인 API, NAVER API NAVER LOGIN API 네이버 로그인 API
+">
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 05 (화)</H4>
+
+<br>
+
+> ajax로 아이디 찾기
+
+<br>
+
+1 . 아이디 찾기 화면 작성하기 : 아이디 찾기의 경우 초기 회원가입시 받은 전화번호 이름 을가지고 찾아온다. 동일 인물이 두개 이상의 아이디를 가입했을 수 있기에 값을 JSON 형태의 스트링 값으로 받아왔다.
+
+~~~html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>아이디 찾기</title>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+$(document).on('click','#findId',function(){
+	var name = $('#name').val();
+ 	var birth = $('#birth').val();
+ 	var tel = $('#tel').val();
+
+ 	var postData = {'user_name' : name , 'user_birth' : birth , 'user_phoneNumber' : tel};
+
+	$.ajax({
+        url:'/user/findingId',
+        type:'POST',
+        data: postData,
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType : "json",
+
+        success:function(data){
+        	var emailLists = data.user_email;
+        	var emailLength = emailLists.length
+        	var emailfind = emailLists.substring(1, emailLength-1)
+       	 		 $("#emailList").append("<h1>"+"회원님의 정보로 등록된 이메일은 : "+emailfind+" 입니다.</h1>")
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+
+        	alert('정보를 다시 입력해주시길 바랍니다.' );
+        }
+    });
+});
+
+</script>
+</head>
+<body>
+	<h1>까먹은 이메일을 찾아봅시다</h1>
+	<form>
+		이름 <input type="text" name="user_name" id="name"><br>
+		생년월일 <input type="text" name="user_birth" id="birth"><br>
+		핸드폰 번호 <input type="text" name="user_phoneNumber" id="tel"><br>
+
+	</form>
+	<button id="findId">아이디 찾기</button>
+	<br>
+	<br>
+
+	<span id="emailList"></span>
+</body>
+
+</html>
+~~~
+
+2 . 해당 비동기 요청 (ajax 요청) 을 받는 컨트롤러를 작성한다. 컨트롤러 작성시 보내는 json형태의 메시지를 객체로 받기위해 @ModelAttribute 애너테이션을 붙여준다.  
+
+~~~java
+@RequestMapping(value = "/findingId" , method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+public @ResponseBody String findingId(@ModelAttribute UserVO vo, Model model , HttpServletResponse response)throws Exception {
+
+	System.out.println(vo.toString());
+
+
+	ArrayList <String> emailList = service.findId(vo);
+	System.out.println(emailList.toString());
+	System.out.println(emailList.get(0));
+	String findEmail = "{\"user_email\":\""+emailList+"\"}";
+
+	System.out.println(findEmail);
+
+	return findEmail;
+}
+~~~
+
+3 . 서비스 처리 : DAO 처리에 있어서 아이디가 여러개 있을 수 있기 때문에 list형식으로 받아온다. 각각의 list 안의 객체안에 있는 email 컬럼에 불러온 email 값을 세팅해준다.
+
+~~~Java
+@Override
+public ArrayList<String> findId(UserVO vo) throws Exception {
+	// TODO Auto-generated method stub
+	logger.info("이메일 찾기 service 진입");
+	List<UserVO> list = dao.findId(vo);
+	ArrayList<String> findId = new ArrayList<String>();  
+	for(int i =0; i <list.size(); i ++) {
+		String email = list.get(i).getUser_email();
+		findId.add(email);
+
+	}
+	return findId;
+}
+~~~
+
+4 . DAO 생성 : selectList 로 이메일을 찾아와 list 형식으로 리턴한다. 그 아래는 findId 매퍼이다.
+
+~~~JAVA
+@Override
+public List<UserVO> findId(UserVO vo) throws Exception {
+	// TODO Auto-generated method stub
+	logger.info("이메일찾기 dao 진입");
+	logger.info(vo.toString());
+	return sqlSession.selectList(namespace + ".findId" , vo);
+
+}
+~~~
+
+~~~xml
+<select id = "findId" resultType = "UserVO">
+select user_email from USER where user_name = #{user_name} and user_birth = #{user_birth} and user_phoneNumber = #{user_phoneNumber} and user_authStatus = 1
+<
+~~~
+
+화면 전환 없이 비동기식 요청을 통해 데이터를 받아올 수 있습니다.
