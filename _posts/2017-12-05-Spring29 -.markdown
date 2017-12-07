@@ -2,7 +2,7 @@
 layout:     post
 title:      "[Spring] AJAX ID찾기"
 
-date:       2017-12-04 17:55:00
+date:       2017-12-05 17:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
