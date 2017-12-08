@@ -1,11 +1,32 @@
 ---
 layout:     post
-title:      "[WAS] JSP-TOMCAT-SERVLET START"
+title:      "[JSP/SERVLET] JSP-TOMCAT-SERVLET START"
 comments: true
 date:       2017-09-15 21:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="ECLIPSE J2EE-TOMCAT 설치 , SERVLET , JSP 개념 ">
+ <meta property="og:description" content=" ECLIPSE J2EE-TOMCAT 설치 , SERVLET , JSP 개념 ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/15/JSP-Servlet1/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ECLIPSE J2EE-TOMCAT 설치 , SERVLET , JSP 개념 ">
+  <meta name="twitter:description" content=" ECLIPSE J2EE-TOMCAT 설치 , SERVLET , JSP 개념 ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/15/JSP-Servlet1/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="ECLIPSE J2EE-TOMCAT 설치 , SERVLET , JSP 개념 ">
+   <meta name="facebook:description" content=" ECLIPSE J2EE-TOMCAT 설치 , SERVLET , JSP 개념 ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/15/JSP-Servlet1/">
+
+
+ </head>
+
+
+
 
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 15 (금)</H4>
 <li>ECLIPSE J2EE-TOMCAT 설치 </li>

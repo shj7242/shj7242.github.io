@@ -1,11 +1,31 @@
 ---
 layout:     post
-title:      "[WAS] JSP 구성요소"
+title:      "[JSP/SERVLET] JSP 구성요소"
 comments: true
 date:       2017-09-20 19:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP 구성요소 ( 디렉티브 , 스크립트, 기본객체 )">
+ <meta property="og:description" content=" JSP 구성요소 ( 디렉티브 , 스크립트, 기본객체 )">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/20/JSP1/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP 구성요소 ( 디렉티브 , 스크립트, 기본객체 )">
+  <meta name="twitter:description" content=" JSP 구성요소 ( 디렉티브 , 스크립트, 기본객체 )">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/20/JSP1/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP 구성요소 ( 디렉티브 , 스크립트, 기본객체 )">
+   <meta name="facebook:description" content=" JSP 구성요소 ( 디렉티브 , 스크립트, 기본객체 )">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/20/JSP1/">
+
+
+ </head>
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 20 (수)</H4>
 <li>디렉티브</li>

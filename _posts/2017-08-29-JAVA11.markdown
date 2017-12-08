@@ -7,6 +7,35 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력I/O">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA 입출력 IO">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력 IO">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/29/JAVA11/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA 입출력 IO">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력 IO">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/29/JAVA11/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA 입출력 IO">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력 IO">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/29/JAVA11/">
+
+
+   </head>
+
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 29 (화)</H4>
 

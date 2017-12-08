@@ -7,6 +7,36 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션 (Annotation)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA 애너테이션(Annotation)">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션(Annotation)">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/28/JAVA10/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA 애너테이션(Annotation)">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션(Annotation)">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/28/JAVA10/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA 애너테이션(Annotation)">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션(Annotation)">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/28/JAVA10/">
+
+
+   </head>
+
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 28 (월)</H4>
 

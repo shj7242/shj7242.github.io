@@ -7,6 +7,34 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류 ">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류">
+   <meta property="og:description" content=" SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류">
+   <meta property="og:url" content="http://shj7242.github.io/2017/09/06/SQLstart/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류">
+    <meta name="twitter:description" content=" SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/06/SQLstart/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류">
+     <meta name="facebook:description" content=" SQL(Structured Query language)의 개념, SQL 연습, Oracle 오류">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/06/SQLstart/">
+
+
+   </head>
+
+
+
+
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 06 (수)</H4>
 <li>SQL(Structured Query Language) Start</li>
 <li>SQL Practice</li>

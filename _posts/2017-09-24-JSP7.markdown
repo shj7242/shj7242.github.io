@@ -1,11 +1,32 @@
 ---
 layout:     post
-title:      "[WAS] JSP jdbc 예제(게시판)"
+title:      "[JSP/SERVLET] JSP jdbc (허접한 게시판)"
 comments: true
 date:       2017-09-24 19:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP jdbc 게시판 CRUD">
+ <meta property="og:description" content="JSP jdbc 게시판 CRUD">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/24/JSP7/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP jdbc 게시판 CRUD">
+  <meta name="twitter:description" content="JSP jdbc 게시판 CRUD">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/24/JSP7/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP jdbc 게시판 CRUD">
+   <meta name="facebook:description" content="JSP jdbc 게시판 CRUD">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/24/JSP7/">
+
+
+ </head>
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 24 (일)</H4>
 <li>JDBC/JSP 게시판 기능 구상</li>

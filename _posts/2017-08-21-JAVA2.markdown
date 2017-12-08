@@ -7,6 +7,33 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 배열">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="자바 배열">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/21/JAVA2/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="자바 배열">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 배열">
+    <meta name="twitter:domain" content="http://shj7242.github.io/2017/08/21/JAVA2/">
+   </head>
+
+   <meta name="facebook:card" content="summary">
+    <meta name="facebook:title" content="자바 배열">
+    <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 배열">
+    <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/21/JAVA3/">
+   </head>
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 21 (월)</H4>
 <li>배열</li>

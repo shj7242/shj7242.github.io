@@ -7,6 +7,34 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향개념1 ( 객체지향 언어란? , 클래스와 객체, 변수와 메서드, 생성자)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="자바 배열">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향 개념">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/22/JAVA3/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="자바 배열">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향 개념">
+    <meta name="twitter:domain" content="http://shj7242.github.io/2017/08/22/JAVA3/">
+   </head>
+
+   <meta name="facebook:card" content="summary">
+    <meta name="facebook:title" content="자바 배열">
+    <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향 개념">
+    <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/22/JAVA3/">
+   </head>
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 22 (화)</H4>
 <li>객체지향 언어</li>

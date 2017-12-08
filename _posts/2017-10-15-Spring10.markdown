@@ -12,6 +12,25 @@ MySQL 에서 이전에 생성했던 book_ex 스키마를 활용하여 tbl_member
 XML Mapper를 작성한다. Mapper자료 참고  src/main/resources 에 mappers패키지를 생성하고 그 안에 memberMapper.xml을 하나 만든다.
 ">
 
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 (Spring) 마이바티스 (Mybatis) 사용하기">
+ <meta property="og:description" content="스프링 (Spring) 마이바티스 (Mybatis) 사용하기">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/16/Spring10/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 (Spring) 마이바티스 (Mybatis) 사용하기">
+  <meta name="twitter:description" content="스프링 (Spring) 마이바티스 (Mybatis) 사용하기">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/16/Spring10/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 (Spring) 마이바티스 (Mybatis) 사용하기">
+   <meta name="facebook:description" content="스프링 (Spring) 마이바티스 (Mybatis) 사용하기">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/16/Spring10/">
+
+
+ </head>
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 15 (일)</H4>
 <li>MyBatis 구현하기</li>

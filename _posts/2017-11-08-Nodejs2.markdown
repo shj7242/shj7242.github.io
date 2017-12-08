@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[Node.js] 미들웨어 활용"
+title:      "[Node.js] 미들웨어1 활용"
 
 date:       2017-11-08 17:55:00
 author:     "신희준"
@@ -8,9 +8,24 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
-,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
-">
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="노드js 미들웨어2">
+ <meta property="og:description" content="노드js 미들웨어2">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/08/Nodejs2/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="노드js 미들웨어2">
+  <meta name="twitter:description" content="노드js 미들웨어2">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/08/Nodejs2/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="노드js 미들웨어2">
+   <meta name="facebook:description" content="노드js 미들웨어2">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/08/Nodejs2/">
+
+
+ </head>
+
 <br>
 <H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
 

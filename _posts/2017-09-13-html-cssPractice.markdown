@@ -7,6 +7,25 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="CSS(Cascade style sheet) , HTML FORM 태그 ">
+ <meta property="og:description" content=" CSS(Cascade style sheet) , HTML FORM 태그 ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/13/html-cssPractice/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CSS(Cascade style sheet) , HTML FORM 태그 ">
+  <meta name="twitter:description" content=" CSS(Cascade style sheet) , HTML FORM 태그 ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/13/html-cssPractice/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="CSS(Cascade style sheet) , HTML FORM 태그 ">
+   <meta name="facebook:description" content=" CSS(Cascade style sheet) , HTML FORM 태그 ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/13/html-cssPractice/">
+
+
+ </head>
+
 <p>익일 활용할 HTML form태그를 사용하여 화면을 구성해 봄.</p>
 
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 13 (수)</H4>

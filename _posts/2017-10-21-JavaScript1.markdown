@@ -8,8 +8,23 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<meta name="description" content="javascript 타입, javascript연산자, javascript 기본형, javascript참조형, javascript예제,javascript기본
-">
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="자바스크립트(JavaScript) 클로져">
+ <meta property="og:description" content="자바스크립트(JavaScript) 클로져">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/22/JavaScript1/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="자바스크립트(JavaScript) 클로져">
+  <meta name="twitter:description" content="자바스크립트(JavaScript) 클로져">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/22/JavaScript1/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="자바스크립트(JavaScript) 클로져">
+   <meta name="facebook:description" content="자바스크립트(JavaScript) 클로져">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/22/JavaScript1/">
+
+
+ </head>
 
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 21 (토)</H4>

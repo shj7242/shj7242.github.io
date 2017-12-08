@@ -7,6 +7,35 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA Lang 패키지">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA Lang 패키지">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA Lang 패키지">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/26/JAVA7/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA Lang 패키지">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA Lang 패키지">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/26/JAVA7/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA Lang 패키지">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA Lang 패키지">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/26/JAVA7/">
+
+
+   </head>
+
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 26 (토)</H4>
 

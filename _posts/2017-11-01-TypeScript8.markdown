@@ -8,9 +8,24 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
-,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
-">
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="타입스크립트 디코레이터(Decorator)">
+ <meta property="og:description" content="타입스크립트 디코레이터(Decorator)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/01/TypeScript8/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="타입스크립트 디코레이터(Decorator)">
+  <meta name="twitter:description" content="타입스크립트 디코레이터(Decorator)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/01/TypeScript8/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="타입스크립트 디코레이터(Decorator)">
+   <meta name="facebook:description" content="타입스크립트 디코레이터(Decorator)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/01/TypeScript8/">
+
+
+ </head>
+
 <br>
 <H4 style ="font-weight:bold; color:black;"> 타입스크립트 코리아 이웅재님의 강의 참조</H4>
 <br>

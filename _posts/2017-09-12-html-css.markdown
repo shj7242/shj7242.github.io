@@ -6,9 +6,26 @@ date:       2017-09-12 12:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
-<p style ="font-size:14px; font-weight:bold;">아래 화면은 작년 프론트 학습시에 제작했던 화면입니다. HTML,CSS를 활용하였습니다.</p>
-<iframe src="/htmlpractice/main.html" style ="width : 100%; height : 300px;">
-</iframe>
+
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="HTML 활용 및 HTML 의 요소(Element) , CSS (Cascade style sheet) ">
+ <meta property="og:description" content=" HTML 활용 및 HTML 의 요소(Element) , CSS (Cascade style sheet) ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/12/html-css/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HTML 활용 및 HTML 의 요소(Element) , CSS (Cascade style sheet) ">
+  <meta name="twitter:description" content=" HTML 활용 및 HTML 의 요소(Element) , CSS (Cascade style sheet) ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/12/html-css/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="HTML 활용 및 HTML 의 요소(Element) , CSS (Cascade style sheet) ">
+   <meta name="facebook:description" content=" HTML 활용 및 HTML 의 요소(Element) , CSS (Cascade style sheet) ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/12/html-css/">
+
+
+ </head>
+
 
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 12 (화)</H4>
 <li>HTML 활용</li>

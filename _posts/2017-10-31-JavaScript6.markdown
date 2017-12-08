@@ -7,6 +7,26 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JavaScript 캡슐화 , 상속, 클래스">
+ <meta property="og:description" content="JavaScript 캡슐화 , 상속, 클래스">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/31/JavaScript6/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JavaScript 캡슐화 , 상속, 클래스">
+  <meta name="twitter:description" content="JavaScript 캡슐화 , 상속, 클래스">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/31/JavaScript6/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JavaScript 캡슐화 , 상속, 클래스">
+   <meta name="facebook:description" content="JavaScript 캡슐화 , 상속, 클래스">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/31/JavaScript6/">
+
+
+ </head>
+
+
+
 
 <meta name="description" content="javascript, javascript 객체, javascript프로토타입, javascript생성자,javascript함수,javascript생성자함수
 ">

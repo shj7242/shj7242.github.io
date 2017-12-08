@@ -7,6 +7,24 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
 
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+ <meta property="og:description" content=" HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/14/html-form/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+  <meta name="twitter:description" content=" HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/14/html-form/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+   <meta name="facebook:description" content=" HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/14/html-form/">
+
+
+ </head>
+
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 14 (목)</H4>
 <li>Form Element</li>
 <li>css Psuedo Selector </li>

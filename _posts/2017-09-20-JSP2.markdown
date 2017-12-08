@@ -1,11 +1,32 @@
 ---
 layout:     post
-title:      "[WAS] JSP 기본객체와 영역, 속성"
+title:      "[JSP/SERVLET] JSP 기본객체와 영역, 속성"
 comments: true
 date:       2017-09-20 22:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP 기본객체의 영역과 속성 (Application , page, session ,request)">
+ <meta property="og:description" content="JSP 기본객체의 영역과 속성 (Application , page, session ,request)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/20/JSP2/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP 기본객체의 영역과 속성 (Application , page, session ,request)">
+  <meta name="twitter:description" content="JSP 기본객체의 영역과 속성 (Application , page, session ,request)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/20/JSP2/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP 기본객체의 영역과 속성 (Application , page, session ,request)">
+   <meta name="facebook:description" content="JSP 기본객체의 영역과 속성 (Application , page, session ,request)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/20/JSP2/">
+
+
+ </head>
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 20 (수)</H4>
 <li>out 기본객체</li>

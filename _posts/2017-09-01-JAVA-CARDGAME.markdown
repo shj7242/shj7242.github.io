@@ -8,6 +8,33 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="JAVA 포커 게임 만들기">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA 포커 게임 만들기">
+   <meta property="og:description" content=" JAVA 포커 게임 만들기">
+   <meta property="og:url" content="http://shj7242.github.io/2017/09/01/JAVA-CARDGAME/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA 포커 게임 만들기">
+    <meta name="twitter:description" content=" JAVA 포커 게임 만들기">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/01/JAVA-CARDGAME/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA 포커 게임 만들기">
+     <meta name="facebook:description" content=" JAVA 포커 게임 만들기">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/01/JAVA-CARDGAME/">
+
+
+   </head>
+
+
+
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 01 (금)</H4>
 <li>POKERGAME 예제</li>
 

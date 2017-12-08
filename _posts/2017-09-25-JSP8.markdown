@@ -1,11 +1,30 @@
 ---
 layout:     post
-title:      "[WAS] JSP MVC"
+title:      "[JSP/SERVLET] JSP MVC"
 comments: true
 date:       2017-09-25 19:30:00
 author:     "신희준"
 header-: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP , SERVLET MVC (Model, View , Controller)">
+ <meta property="og:description" content="JSP , SERVLET MVC (Model, View , Controller)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/25/JSP8/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP , SERVLET MVC (Model, View , Controller)">
+  <meta name="twitter:description" content="JSP , SERVLET MVC (Model, View , Controller)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/25/JSP8/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP , SERVLET MVC (Model, View , Controller)">
+   <meta name="facebook:description" content="JSP , SERVLET MVC (Model, View , Controller)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/25/JSP8/">
+
+
+ </head>
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 25 (월)</H4>
 <li>JDBC/JSP MVC 예제 따라풀기</li>

@@ -1,11 +1,30 @@
 ---
 layout:     post
-title:      "[WAS] JSP jdbc 예제(회원관리)"
+title:      "[JSP/SERVLET] JSP jdbc 예제(회원관리)"
 comments: true
 date:       2017-09-23 19:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP jdbc 회원관리 CRUD">
+ <meta property="og:description" content="JSP jdbc 회원관리 CRUD">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/23/JSP6/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP jdbc 회원관리 CRUD">
+  <meta name="twitter:description" content="JSP jdbc 회원관리 CRUD">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/23/JSP6/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP jdbc 회원관리 CRUD">
+   <meta name="facebook:description" content="JSP jdbc 회원관리 CRUD">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/23/JSP6/">
+
+
+ </head>
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 23 (토)</H4>
 <li>JDBC/JSP 회원관리 예제</li>

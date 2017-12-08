@@ -7,6 +7,35 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론3 (추상 클래스, 인터페이스)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="인터페이스, 추상클래스">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 3(추상클래스 ,인터페이스 )">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/24/JAVA5/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="인터페이스, 추상클래스">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 3(추상클래스 ,인터페이스)">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/24/JAVA5/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="인터페이스, 추상클래스">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 3(추상클래스 ,인터페이스)">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/24/JAVA5/">
+
+
+   </head>
+
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 24 (목)</H4>
 

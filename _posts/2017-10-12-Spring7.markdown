@@ -6,6 +6,25 @@ date:       2017-10-12 23:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 (Spring) MySQL 연동해서 JDBC 사용하기">
+ <meta property="og:description" content="스프링 (Spring) MySQL 연동해서 JDBC 사용하기">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/12/Spring7/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 (Spring) MySQL 연동해서 JDBC 사용하기">
+  <meta name="twitter:description" content="스프링 (Spring) MySQL 연동해서 JDBC 사용하기">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/12/Spring7/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 (Spring) MySQL 연동해서 JDBC 사용하기">
+   <meta name="facebook:description" content="스프링 (Spring) MySQL 연동해서 JDBC 사용하기">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/12/Spring7/">
+
+
+ </head>
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 12 (목)</H4>
 <li>프로젝트 기본구조 구성</li>

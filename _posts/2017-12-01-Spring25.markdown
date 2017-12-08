@@ -8,9 +8,24 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
-,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT 카카오톡 로그인 API , 카카오톡 REST API , 카카오톡 REST API 로그인
-">
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 카카오톡 로그인 API (REST API)">
+ <meta property="og:description" content="스프링 카카오톡 로그인 API (REST API)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/01/Spring25/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 카카오톡 로그인 API (REST API)">
+  <meta name="twitter:description" content="스프링 카카오톡 로그인 API (REST API)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/01/Spring25/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 카카오톡 로그인 API (REST API)">
+   <meta name="facebook:description" content="스프링 카카오톡 로그인 API (REST API)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/01/Spring25/">
+
+
+ </head>
+
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
 <br>

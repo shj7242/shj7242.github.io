@@ -7,6 +7,34 @@ author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="자바 변수,연산자,조건문,반복문">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+   <meta property="og:url" content="http://shj7242.github.io">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="자바 변수,연산자,조건문,반복문">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+    <meta name="twitter:domain" content="http://shj7242.github.io">
+   </head>
+
+
+
+
+
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 20 (일)</H4>
 <li>변수</li>

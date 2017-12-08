@@ -8,9 +8,24 @@ header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
-<meta name="description" content="Spring스프링 애너테이션 Annotation정리 @Autowired,@Qualifier,@Resource,@Component,@PostConstruct,@Aspect
-,@AOP,@POINTCUT,@AROUND,@ADVICE,@RequestMapping,@REPOSITORY,@SERVICE,@COMPONENT
-">
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="자바스크립트(JavaScript) 생성자 , this">
+ <meta property="og:description" content="자바스크립트(JavaScript) 생성자 , this">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/22/JavaScript3/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="자바스크립트(JavaScript) 생성자 , this">
+  <meta name="twitter:description" content="자바스크립트(JavaScript) 생성자 , this">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/22/JavaScript3/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="자바스크립트(JavaScript) 생성자 , this">
+   <meta name="facebook:description" content="자바스크립트(JavaScript) 생성자 , this">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/22/JavaScript3/">
+
+
+ </head>
+
 
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 22 (일)</H4>

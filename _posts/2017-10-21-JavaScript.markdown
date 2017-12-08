@@ -11,6 +11,26 @@ comments: true
 <meta name="description" content="javascript 타입, javascript연산자, javascript 기본형, javascript참조형, javascript예제,javascript기본
 ">
 
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="자바스크립트(JavaScript) 타입, 연산자">
+ <meta property="og:description" content="자바스크립트(JavaScript) 타입, 연산자">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/21/JavaScript/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="자바스크립트(JavaScript) 타입, 연산자">
+  <meta name="twitter:description" content="자바스크립트(JavaScript) 타입, 연산자">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/21/JavaScript/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="자바스크립트(JavaScript) 타입, 연산자">
+   <meta name="facebook:description" content="자바스크립트(JavaScript) 타입, 연산자">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/21/JavaScript/">
+
+
+ </head>
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 21 (토)</H4>
 <li>타입</li>

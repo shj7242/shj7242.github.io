@@ -1,11 +1,31 @@
 ---
 layout:     post
-title:      "[WAS] Java Bean/ Bean활용 액션태그"
+title:      "[JSP/SERVLET] Java Bean/ Bean활용 액션태그"
 comments: true
 date:       2017-09-26 19:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+ <meta property="og:description" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/26/JSP9/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+  <meta name="twitter:description" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/26/JSP9/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+   <meta name="facebook:description" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/26/JSP9/">
+
+
+ </head>
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 26 (화)</H4>
 <li>JAVA BEAN</li>

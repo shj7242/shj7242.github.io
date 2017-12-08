@@ -6,6 +6,27 @@ date:       2017-10-08 23:30:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="정보처리기사 업무프로세스 요약">
+ <meta property="og:description" content="정보처리기사 업무프로세스 요약">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/08/process/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="정보처리기사 업무프로세스 요약">
+  <meta name="twitter:description" content="정보처리기사 업무프로세스 요약">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/08/process/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="정보처리기사 업무프로세스 요약">
+   <meta name="facebook:description" content="정보처리기사 업무프로세스 요약">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/08/process/">
+
+
+ </head>
+
+
+
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 08 (일)</H4>
 <li>업무프로세스</li>

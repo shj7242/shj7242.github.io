@@ -1,11 +1,31 @@
 ---
 layout:     post
-title:      "[WAS] 인터넷과 네트워크이해+TOMCAT에러+Servlet연습"
+title:      "[JSP/SERVLET] 인터넷과 네트워크이해+TOMCAT에러+Servlet연습"
 comments: true
 date:       2017-09-18 21:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 ---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="인터넷과 네트워크의 이해, TOMCAT 에러, SERVLET 실습 ">
+ <meta property="og:description" content=" 인터넷과 네트워크의 이해, TOMCAT 에러, SERVLET 실습 ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/18/TOMCAT-NETWORK/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="인터넷과 네트워크의 이해, TOMCAT 에러, SERVLET 실습 ">
+  <meta name="twitter:description" content=" 인터넷과 네트워크의 이해, TOMCAT 에러, SERVLET 실습 ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/18/TOMCAT-NETWORK/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="인터넷과 네트워크의 이해, TOMCAT 에러, SERVLET 실습 ">
+   <meta name="facebook:description" content=" 인터넷과 네트워크의 이해, TOMCAT 에러, SERVLET 실습 ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/18/TOMCAT-NETWORK/">
+
+
+ </head>
+
+
 
 <H4 style ="font-weight:bold; color : black">2017 - 09 - 18 (월)</H4>
 <li>인터넷과 네트워크의 이해</li>
