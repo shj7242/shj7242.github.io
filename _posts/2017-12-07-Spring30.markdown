@@ -173,7 +173,7 @@ function fileChange(e) {
 
     formData.append("file", file);
 
-    $.ajax({
+		$.ajax({
     	url: '/uploadAjax',
 		  data: formData,
 		  dataType:'text',
@@ -182,17 +182,7 @@ function fileChange(e) {
 		  type: 'POST',
 		  success: function(data){
 
-			  alert(data);
-			  if(checkImageType(data)){
-				  str ="<div>"
-						  +"<img src='displayFile?fileName="+data+"'/>"
-						  +data+"</div>";
-			  }else{
-				  str = "<div>"+data+"</div>";
-			  }
-
-			  $("#abc").append(str);
-
+			alert("프로필 이미지가 변경 되었습니다.")
 
 		  }
 		})
@@ -225,9 +215,23 @@ function fileChange(e) {
 
  			return front + end;
 
- 		}    
+ 		}
+
 }
 </script>
+
+<c:choose>
+			 	<c:when test="${empty userImage }">
+				<div>
+					<img id ="profileImg" src = "/displayFile?fileName=/lion.gif" style = "border-radius:0%; padding-top : 10px; height:100px; width:100px;">
+				</div>
+				</c:when>
+				<c:otherwise>
+				<div>
+					<img id ="profileImg" src = "/displayFile?fileName=${userImage }" style = "border-radius:0%; padding-top : 10px; height:100px; width:100px;">
+				</div>
+				</c:otherwise>
+</c:choose>
 ~~~
 
 7 . controller 생성 : ajax 요청을 받는 컨트롤러를 생성한다. 이 컨트롤러에서는 이미지 파일을 변환하여 servlet-context.xml 에서 지정한 저장공간으로 업로드와 동시에 service를 통해 database에 이미지 경로를 저장하게 된다.
@@ -235,13 +239,11 @@ function fileChange(e) {
 ~~~java
 @ResponseBody
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public ResponseEntity<byte[]> uploadAjax(MultipartFile file, String str, HttpSession session,
-			HttpServletRequest request) throws Exception {
+	public String uploadAjax(MultipartFile file, String str, HttpSession session,
+			HttpServletRequest request, Model model) throws Exception {
 
 		logger.info("originalName: " + file.getOriginalFilename());
-		ResponseEntity<byte[]> entity = null;
-		FileInputStream in = null;
-		try {
+
 			ResponseEntity<String> img_path = new ResponseEntity<>(
 					UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
 					HttpStatus.CREATED);
@@ -255,33 +257,68 @@ function fileChange(e) {
 			vo.setUser_id(id.getUser_id());
 			logger.info("file name : " + user_imgPath);
 
-			String formatName = user_imgPath.substring(user_imgPath.lastIndexOf(".") + 1);
+			return user_imgPath;
+	}
+
+	@ResponseBody
+	@RequestMapping("/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+
+		logger.info("FILE NAME: " + fileName);
+
+		try {
+
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
 			MediaType mType = MediaUtils.getMediaType(formatName);
 
 			HttpHeaders headers = new HttpHeaders();
-			in = new FileInputStream(uploadPath + user_imgPath);
+
+			in = new FileInputStream(uploadPath + fileName);
 
 			if (mType != null) {
 				headers.setContentType(mType);
 			} else {
 
-				user_imgPath = user_imgPath.substring(user_imgPath.indexOf("_") + 1);
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition",
-						"attachment; filename=\"" + new String(user_imgPath.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
 			}
 
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-			service.uploadImg(vo);
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-
 		} finally {
 			in.close();
 		}
 		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName) {
+
+		logger.info("delete file: " + fileName);
+
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+		MediaType mType = MediaUtils.getMediaType(formatName);
+
+		if (mType != null) {
+
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+		}
+
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 ~~~
 
