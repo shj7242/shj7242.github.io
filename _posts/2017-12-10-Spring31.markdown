@@ -37,7 +37,9 @@ comments: true
 
 > 데이터베이스 암호화 방식 vs 스프링 시큐리티
 
-개발자가 패스워드 암호화에서 알아야 할점 : <a href =http://egloos.zum.com/springmvc/v/520257>http://egloos.zum.com/springmvc/v/520257</a>
+
+개발자가 패스워드 암호화에서 알아야 할점 : http://egloos.zum.com/springmvc/v/520257
+
 
 * 데이터베이스에서 제공하는 (mysql , oracle 등) 암호화에 의존해서는 안된다.
 
