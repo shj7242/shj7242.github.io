@@ -40,7 +40,7 @@ comments: true
 
 3 . FACEBOOK로그인 설정탭의 OAuth 설정에서 리디렉션 URI 를 추가한다.
 
-<img src="{{ site.baseurl }}/img/pb.PNG" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/fb.PNG" alt="Post Sample Image">
 
 
 4 . 설정에서 앱ID 및 앱 시크릿코드를 확인한다.

@@ -53,19 +53,22 @@ comments: true
 
 <br>
 
-1 . 라이브러리 추가하기 : 이 라이브러리를 추가할 때 조심해야하는 것은 스프링 버전과 잘 맞는지 확인해야하는 것이다. 만일 잘 물리지 않는 버전을 사용했을 때 라이브러리를 날리고 다시설치해야한다.
+1 . 스프링 시큐리티 라이브러리 추가하기 : 이 라이브러리를 추가할 때 조심해야하는 것은 스프링 버전과 잘 맞는지 확인해야하는 것이다. 만일 잘 물리지 않는 버전을 사용했을 때 라이브러리를 날리고 다시설치해야한다.
 
 ~~~xml
+<!--스프링시큐리티 web 라이브러리-->
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-web</artifactId>
     <version>4.1.0.RELEASE</version>
   </dependency>
+  <!--스프링시큐리티 core 라이브러리-->
   <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-core</artifactId>
     <version>4.1.0.RELEASE</version>
   </dependency>
+  <!--스프링시큐리티 config 라이브러리-->
   <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-config</artifactId>
@@ -74,7 +77,7 @@ comments: true
 ~~~
 
 2 . spring-security.xml 생성 : 해당 xml 문서에는 비밀번호 암호화인코딩을 위한 bean을 추가해준다.
-BcryptPasswordEncoder 는 비밀번호 암호화 메서드, 인코딩된 비밀번호와 Raw 형태의 비밀번호를 비교해주는 메서드를 제공한다. 하지만 비밀번호를 디코딩하는 메서드는 지원하지 않는다.
+스프링 시큐리티 라이브러리에서 제공하는 BcryptPasswordEncoder 는 비밀번호 암호화 메서드, 인코딩된 비밀번호와 Raw 형태의 비밀번호를 비교해주는 메서드를 제공한다. 하지만 비밀번호를 디코딩하는 메서드는 지원하지 않는다.
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -118,7 +121,7 @@ public void create(UserVO vo) throws Exception {
 
 5 . 이 후 DAO 에서 서비스에서 전달받은 vo 를 전달하면 데이터베이스에 인코딩된 데이터가 저장된다.
 
-6 . 인코딩 비밀번호와 인코딩 되지 않은 비밀번호를 비교하는 메서드를 통해 로그인 기능을 구현할 수 있다. BCryptPasswordEncoder 빈의 matches(rawData , encodedData) 메서드를 활용하면 로우 데이터와 인코딩 데이터를 비교할 수 있게 된다.
+6 . 스프링시큐리티의 bcrypt 인코딩 비밀번호와 인코딩 되지 않은 비밀번호를 비교하는 메서드를 통해 로그인 기능을 구현할 수 있다. BCryptPasswordEncoder 빈의 matches(rawData , encodedData) 메서드를 활용하면 로우 데이터와 인코딩 데이터를 비교할 수 있게 된다.
 
 ~~~JAVA
 @Override
@@ -138,3 +141,5 @@ public UserVO login(LoginDTO dto) throws Exception {
   return dao.login(dto);
 }
 ~~~
+
+7 . 스프링 시큐리티의 BCryptPasswordEncoder 를 필요로 하는 작업 들 ( 비밀번호 변경, 비밀번호 찾기 등의 작업에 해당 작업을 추가한다. )
