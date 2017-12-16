@@ -1,0 +1,98 @@
+---
+layout:     post
+title:      "[Spring] Requestparam"
+
+date:       2017-12-16 17:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="spring requestparam list, 리스트로 받기">
+ <meta property="og:description" content="spring requestparam list, RequestParam애너테이션을 통해 클라이언트에서 폼으로 보낸 데이터 리스트로 받기">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/16/Spring32/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="spring requestparam list, 리스트로 받기">
+  <meta name="twitter:description" content="spring requestparam list, RequestParam애너테이션을 통해 클라이언트에서 폼으로 보낸 데이터 리스트로 받기">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/16/Spring32/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="spring requestparam list, 리스트로 받기">
+   <meta name="facebook:description" content="spring requestparam list, RequestParam애너테이션을 통해 클라이언트에서 폼으로 보낸 데이터 리스트로 받기">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/16/Spring32/">
+
+
+ </head>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 16 (토)</H4>
+
+<br>
+
+> RequestParam 애너테이션 활용
+
+* JSON 형태의 값을 받을 때 : {'email' : email}  형태의 JSON 데이터를 /user/authenticate 로 보낸다.
+
+~~~JavaScript
+<script>
+$(document).on('click','#authenticate',function(){
+	var email = $('#email').val()
+    $.ajax({
+        url:'/user/authenticate',
+        type:'POST',
+        data: {'email' : email},
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        dataType : "json",
+        success:function(data){
+    });
+});
+});
+</script>
+~~~
+
+* RequestParam 으로 받기 : @RequestParam("JSON 의 키 값") 형태로 받는다.
+
+~~~java
+@RequestMapping(value = "/authenticate" , method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public @ResponseBody String checkDuplicate(HttpServletResponse response,  @RequestParam("email") String email, Model model)throws Exception {
+    system.out.print(email);
+		return responseMsg;
+
+	}
+~~~
+
+* list 형태의 값을 전달 할 때 : 각각의 input box 에 동일한 name 을 준다.
+
+~~~html
+<form action = "/sclass/register">
+  <input type = "text" name = "video_path">
+  <input type = "text" name = "video_path">
+  <input type = "text" name = "video_path">
+  <input type = "submit">
+</form>  
+~~~
+
+* @RequestParam("폼 태그 name 속성 값") 형식으로 사용한다. 
+
+~~~java
+@RequestMapping(value = "/getRegist2", method = {RequestMethod.POST}, produces = "text/plain; charset=UTF8")
+public String register2(@RequestParam("video_path") List<String> list)throws Exception {
+
+  ArrayList<VideoVO> videoArr = new ArrayList<VideoVO>();
+  for(int i =0; i<list.size(); i ++) {
+    VideoVO videovo = new VideoVO();
+    videovo.setVideo_path(list.get(i));
+    videoArr.add(videovo);
+  }
+
+  request.setAttribute("vidioInfo", videoArr);
+
+  return "sclass/register2";
+}
+~~~
