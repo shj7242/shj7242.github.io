@@ -37,6 +37,25 @@ comments: true
 
 > RequestParam 애너테이션 활용
 
+* RequestParam 으로 매개변수 명이 보내는 값의 이름과 같을경우 @ReqeustParam("키값") 을 @RequestParam 으로 줄여 사용할 수 있다.
+
+~~~java
+@Controller
+@RequestMapping("/user")
+public class EmployeeController {
+
+    @RequestMapping("/authenticate")
+    public void requestParameter (@RequestParam String test) {
+
+        logger.info(test);
+
+    }
+}
+~~~
+
+
+
+
 * JSON 형태의 값을 받을 때 : {'email' : email}  형태의 JSON 데이터를 /user/authenticate 로 보낸다.
 
 ~~~JavaScript
@@ -78,7 +97,7 @@ $(document).on('click','#authenticate',function(){
 </form>  
 ~~~
 
-* @RequestParam("폼 태그 name 속성 값") 형식으로 사용한다. 
+* @RequestParam("폼 태그 name 속성 값") 형식으로 사용한다.
 
 ~~~java
 @RequestMapping(value = "/getRegist2", method = {RequestMethod.POST}, produces = "text/plain; charset=UTF8")
@@ -95,4 +114,16 @@ public String register2(@RequestParam("video_path") List<String> list)throws Exc
 
   return "sclass/register2";
 }
+~~~
+
+* @PathVariable 과 비교 : @PathVariable 애너테이션 사용시 곧장 값을 받을 수 있다. 분류 작업에 효율적으로 사용할 수 있을 거라 생각한다. 또한 하나의 컨트롤러를 유용하게 사용할 수 있다.
+
+~~~JAVA
+@RequestMapping("/user/{cri}")
+public void test(@PathVariable String cri){
+  System.out.println("================");
+  System.out.println("페이징 번호:"+cri);
+  System.out.println("================");
+}
+
 ~~~
