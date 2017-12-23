@@ -1,4 +1,0 @@
----
-name: TypeScript
-title: 'TypeScript'
----

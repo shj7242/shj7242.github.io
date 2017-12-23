@@ -1,4 +1,0 @@
----
-name: jQuery
-title: 'jQuery'
----
