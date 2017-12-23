@@ -1,10 +1,9 @@
 ---
 layout:     post
-title:      "[DB] mongoDB 쿼리"
+title:      "[Node.js] mongoDB 쿼리"
 
 date:       2017-11-11 18:55:00
-tags: [DB]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 author:     "신희준"
 comments: true
 ---

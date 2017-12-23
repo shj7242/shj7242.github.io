@@ -1,12 +1,13 @@
 ---
 layout:     post
 title:      "[JAVA] 변수/연산자/조건문/반복문"
+
 date:       2017-08-20 23:30:00
 author:     "신희준"
-tags: [JAVA]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
+
 
 <head>
  <meta name="robots" content="index,follow">

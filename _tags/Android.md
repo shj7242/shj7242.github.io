@@ -1,4 +1,0 @@
----
-name: Android
-title: 'Android'
----

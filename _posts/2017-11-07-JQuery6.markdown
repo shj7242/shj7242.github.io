@@ -4,8 +4,7 @@ title:      "[JQuery] 이벤트2"
 
 date:       2017-11-07 20:55:00
 author:     "신희준"
-tags: [jQuery]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 

@@ -4,8 +4,7 @@ title:      "[TypeScript] Generics"
 
 date:       2017-10-31 15:55:00
 author:     "신희준"
-tags: [TypeScript]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 

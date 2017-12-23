@@ -1,4 +1,0 @@
----
-name: Spring
-title: 'Spring'
----

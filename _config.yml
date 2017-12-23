@@ -1,66 +1,26 @@
-title: 메모블로그
-email: shinhj7242
-description: 기록하는습관
-baseurl: ''
-url: 'http://tech.kakao.com'
-timezone: Asia/Seoul
+# Site settings
+title: 메모 블로그
+header-img: img/1.jpg
+email: shinhj7242@gmail.com
+copyright_name: HEEJUN/memo Blog/programming study
+description: "hello world!!"
+baseurl:
+url: "http://yourdomain.com"
+twitter_username: shinhj7242
+github_username:  shj7242
+facebook_username:  profile.php?id=100002266059179
+email_username:  shinhj7242@gmail.com
 
-repository: shj7242/shj7242.github.io
+# Google Analytics
+# To enable google analytics, uncomment below line with a valid Google Tracking ID
+# google_tracking_id:
 
-permalink: /:year/:month/:day/:title/
-
-excerpt_separator: <!--more-->
-
+# Build settings
 markdown: kramdown
-
-krandown:
-  input: GFM
-  highlighter: rouge
-
-plugins:
-  - jekyll-paginate
-
+highlighter: rouge
+permalink: pretty
 paginate: 5
-paginate_path: '/page/:num/'
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
-collections:
-  authors:
-    output: true
-    permalink: /authors/:path/
-  tags:
-    output: true
-    permalink: /tags/:path/
-
-defaults:
-  - scope:
-      path: ''
-      type: authors
-    values:
-      layout: author
-  - scope:
-      path: ''
-      type: tags
-    values:
-      layout: tag
-
-exclude: [README.md, Gemfile, Gemfile.lock]
-
-keep_files: [assets, files]
-github: [metadata]
-# iolo's custom
-author: beam307@naver.com
-image: '/assets/images/default_blog_cover.jpg'
-asset_url: /assets
-#asset_url: //meta-kage.kakaocdn.net/dn/osa/blog/assets
-#asset_url: //t1.daumcdn.net/osa/blog/assets
-#google_analytics:
-#  ua: 'UA-72007721-1'
-facebook:
-  app_id: '1204347326263800'
-  username: profile.php?id=100002266059179
-#twitter:
-#  username: kakaodev
-#google_plus:
-#  username: kakaodev
-github_url: github.com/shj7242
-username: shj7242.github.io
+gems: [jekyll-paginate, jekyll-feed]
+des: Study while recording

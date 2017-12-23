@@ -4,8 +4,7 @@ title:      "[JavaScript] 생성자 함수/프로토 타입"
 
 date:       2017-10-30 23:55:00
 author:     "신희준"
-tags: [TypeScript]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 

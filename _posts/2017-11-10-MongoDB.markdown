@@ -1,11 +1,10 @@
 ---
 layout:     post
-title:      "[DB] mongoDB 소개 및 초기설정"
+title:      "[Node.js] mongoDB 소개 및 초기설정"
 
 date:       2017-11-10 17:55:00
 author:     "신희준"
-tags: [DB]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 

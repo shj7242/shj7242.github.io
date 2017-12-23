@@ -4,8 +4,7 @@ title:      "[Node.js] JSON RPC"
 
 date:       2017-11-15 17:55:00
 author:     "신희준"
-tags: [nodeJS]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 

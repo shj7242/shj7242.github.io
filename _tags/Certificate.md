@@ -1,4 +1,0 @@
----
-name: Certificate
-title: 'Certificate'
----

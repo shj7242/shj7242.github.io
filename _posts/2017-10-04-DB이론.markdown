@@ -3,8 +3,7 @@ layout:     post
 title:      "[정보처리기사] Database"
 date:       2017-10-04 21:00:00
 author:     "신희준"
-tags: [Certificate]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 

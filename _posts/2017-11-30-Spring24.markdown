@@ -4,8 +4,7 @@ title:      "[Spring] 네이버 로그인 API/JSON to String"
 
 date:       2017-11-30 17:55:00
 author:     "신희준"
-tags: [Spring]
-header-img: /files/covers/blog.jpg
+header-img: "img/post-bg-02.jpg"
 comments: true
 ---
 
