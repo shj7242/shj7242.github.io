@@ -4,7 +4,7 @@ title:      "[Android] Android 초기설정"
 
 date:       2017-11-17 17:55:00
 author:     "신희준"
-tags: [jQuery]
+tags: [Android]
 header-img: /files/covers/blog.jpg
 comments: true
 ---
