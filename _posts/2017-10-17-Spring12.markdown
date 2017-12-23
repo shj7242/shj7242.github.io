@@ -4,7 +4,8 @@ title:      "[Spring] MVC Navigator"
 
 date:       2017-10-17 11:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 <meta name="description" content="Spring(스프링) Navigator 패키지 분류법칙, xml파일 용도 dispatcher-servlet, appServlet,web.xml, root-context.xml , pom.xml , mybatis, mybatis.xml, datasource ,sqlsession, MVC구조, MVC모델2,MVC 형태도">

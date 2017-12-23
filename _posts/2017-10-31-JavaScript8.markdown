@@ -4,7 +4,8 @@ title:      "[JavaScript] ES5 Array/String/underscore"
 
 date:       2017-10-31 14:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [JavaScript]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

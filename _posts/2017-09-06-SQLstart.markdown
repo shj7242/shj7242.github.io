@@ -3,7 +3,8 @@ layout:     post
 title:      "[DB] SQL 1"
 date:       2017-09-06 21:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [DB]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

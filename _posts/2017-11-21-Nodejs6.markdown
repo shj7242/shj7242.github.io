@@ -4,7 +4,8 @@ title:      "[Node.js] node server to tomcat"
 
 date:       2017-11-21 17:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [nodeJS]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

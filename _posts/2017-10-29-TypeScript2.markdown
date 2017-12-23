@@ -4,7 +4,8 @@ title:      "[TypeScript] 기본 타입"
 
 date:       2017-10-29 11:40:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [TypeScript]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

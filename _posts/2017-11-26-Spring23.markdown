@@ -4,7 +4,8 @@ title:      "[Spring] 페이스북 로그인 API"
 
 date:       2017-11-29 17:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

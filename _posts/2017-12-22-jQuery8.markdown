@@ -4,7 +4,8 @@ title:      "[JQuery] 핸들바 템플릿"
 
 date:       2017-12-21 20:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [jQuery]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

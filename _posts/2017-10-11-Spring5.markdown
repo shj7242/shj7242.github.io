@@ -4,7 +4,8 @@ title:      "[Spring] 에러처리"
 comments: true
 date:       2017-10-11 15:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
 ---
 
 <head>

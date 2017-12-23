@@ -4,7 +4,8 @@ title:      "[Spring] REST API"
 
 date:       2017-10-26 11:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 

@@ -4,7 +4,8 @@ title:      "[TypeScript] 인터페이스"
 
 date:       2017-10-30 11:50:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+tags: [TypeScript]
+header-img: /files/covers/blog.jpg
 comments: true
 ---
 
@@ -25,7 +26,7 @@ comments: true
 
 
  </head>
- 
+
 <br>
 <H4 style ="font-weight:bold; color:black;"> 타입스크립트 코리아 이웅재님의 강의 참조</H4>
 <br>
