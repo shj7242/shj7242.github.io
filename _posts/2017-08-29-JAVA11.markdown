@@ -1,0 +1,213 @@
+---
+layout:     post
+title:      "[JAVA] 입출력(I/O)"
+
+date:       2017-08-29 23:40:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력I/O">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA 입출력 IO">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력 IO">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/29/JAVA11/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA 입출력 IO">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력 IO">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/29/JAVA11/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA 입출력 IO">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 입출력 IO">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/29/JAVA11/">
+
+
+   </head>
+
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 29 (화)</H4>
+
+<li>Input/Ouput Stream</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . I/O Stream</h5>
+<br>
+
+>>입출력(I/O) 이란?
+
+<br>
+<p>
+I/O란 Input과 Output의 약자로 입력과 출력을 말한다. 컴퓨터 내부 또는 외부의 장치와 프로그램간의 데이터를 주고받는 것이다.
+</p>
+<br>
+
+>>스트림(Stream) 이란?
+
+<br>
+자바에서 한쪽에서 다른쪽으로 데이터를 전달하기위해 데이터를 전송할 수 있는 연결통로가 필요한데 이를 스트림이라고 부른다. 스트림은 큐(Queue) 형태와 같은 FIFO (First in First Out) 구조로 되어있다.
+
+<br>
+
+>>스트림의 종류
+
+~~~java
+- ByteStream : 입출력 Data 단위가 8bit
+                 InputStream, OutputStream
+
+- CharStream : 입출력 Data 단위가 16bit
+                 Reader, Writer
+
+- NodeStream : Data Source에서 Data Destination까지의 연결을 담당하는 Stream
+                 FileInputStream, FileOutputStream
+
+- FilterStream : Data를 가공하거나, 기능 제공을 목적으로 하는 Stream
+                  InputStreamReader, OutputStreamWriter
+~~~
+
+
+>>FileInputStream
+
+~~~java
+public class Io1 {
+	public static void main(String[] args)
+			throws FileNotFoundException, IOException
+	{
+		FileInputStream fis = new FileInputStream("c://aaa.txt");
+    //aaa.txt에있는 값을 FileInputStream 객체에 넣는다.
+		int fisRead = fis.read();
+    //fisRead 에 FileInputStream 객체의 값을 읽어와 넣는다.
+    //read() 로 한글자 읽어온다.
+		System.out.println("fisRead : " + fisRead); // aaa.txt파일의 첫글자를 int형으로 출력
+		System.out.println("fisRead : " + (char) fisRead); //char형으로 변환하여 출력
+		while(fisRead != -1){ // while 문을 사용하여 다음값까지 모두 읽어온다.
+			System.out.print((char) fisRead);
+			fisRead = fis.read();
+		}
+		fis.close(); // (IO 객체 해제)꼭 닫아주어야한다.
+	}
+}
+//FileInputStream 의 경우 한글깨짐 발생한다.
+~~~
+
+>>InputStreamReader
+
+~~~java
+public class Io2 {
+	public static void main(String[] args) throws IOException {
+		FileInputStream fis = new FileInputStream("c://aaa.txt");
+		InputStreamReader isr = new InputStreamReader(fis);
+    //InputStreamReader를 통해 값을 불러오면 한글깨짐이 발생하지 않는다.
+		int fisRead = isr.read();
+		while(fisRead != -1){
+			System.out.print((char)fisRead);
+			fisRead = isr.read();
+		}
+		isr.close();
+		fis.close(); // 반드시 I/O 객체를 헤제하자.
+	}
+}
+~~~
+
+>>FileReader : FileInputStream 와 InputStreamReader를 합친버전이라할 수 있다.
+
+~~~java
+public class Io3 {
+	public static void main(String[] args) throws IOException {
+		FileReader fr = new FileReader("c://aaa.txt");
+    //기존에 FileinputStream 과 InputStreamReader 를 같이 생성했어야하는데 FileReader로 한번에 비영어권 문제를 읽어온다.
+		int frRead = fr.read();
+		while(frRead != -1){
+			System.out.print((char)frRead);
+			frRead = fr.read();
+		}
+		fr.close();
+	}
+}
+~~~
+
+>>FileOutputStream
+
+~~~java
+public class Io4 {
+	public static void main(String[] args) throws IOException {
+		FileOutputStream fos = new FileOutputStream("c://bbb.txt");
+    //InputStream이 txt파일의 값을 읽어왔다면 OuputStream은 값을 집어넣는 것이다.
+    //FileInputStream 과 마찬가지로 한글깨짐이 발생한다.
+		fos.write("한글출력불가능");
+		fos.close();
+	}
+}
+~~~
+
+>>OutputStreamWriter
+
+~~~java
+public class IO5{
+	public static void main(String[] args) throws IOException {
+		FileOutputStream fos = new FileOutputStream("C://bbb.txt");
+		OutputStreamWriter osw = new OutputStreamWriter(fos);
+//한글 깨짐을 방지하기위해 OuputStreamWriter 객체를 활용해 한글 깨짐을 방지한다.
+    String str = "한글출력 가능";
+		osw.write(str);
+		osw.close();
+		fos.close();
+	}
+}
+~~~
+
+>>FileWriter : FileOutputStream + OutputStreamWriter
+
+~~~java
+public class IO6 {
+	public static void main(String[] args) throws IOException {
+		FileWriter fw = new FileWriter("D://bbb.txt");
+//FileReader 와 마찬가지로 FileWriter객체 하나로 한글 깨짐없이 Write 할 수 있다.
+    String str = "한글출력 가능";
+		fw.write(str);
+		fw.close();
+	}
+}
+~~~
+
+>>BufferedReader , BufferedWriter : 라인단위로 읽어온다.
+
+~~~java
+public class Io7 {
+
+	public static void main(String[] args) throws IOException {
+		FileReader fr = new FileReader("c://aaa.txt");
+		BufferedReader br = new BufferedReader(fr);
+		System.out.println(br.readLine());
+		FileWriter fw = new FileWriter("c://bbb.txt");
+		BufferedWriter bw = new BufferedWriter(fw);
+		String readLine = br.readLine();
+		while(readLine != null){
+			System.out.println(readLine);
+			bw.write(readLine);
+			bw.newLine();
+			readLine = br.readLine();
+		}
+		//fw.flush();//Data 출력 밀어내기
+		br.close();
+		fr.close();
+		bw.close();
+		fw.close();
+	}
+}
+~~~

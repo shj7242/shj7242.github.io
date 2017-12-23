@@ -1,0 +1,135 @@
+---
+layout:     post
+title:      "[JSP/SERVLET] Java Bean/ Bean활용 액션태그"
+comments: true
+date:       2017-09-26 19:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+ <meta property="og:description" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/26/JSP9/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+  <meta name="twitter:description" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/26/JSP9/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+   <meta name="facebook:description" content="JAVA BEAN, JAVA BEAN 과 액션태그 ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/26/JSP9/">
+
+
+ </head>
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 26 (화)</H4>
+<li>JAVA BEAN</li>
+<li>JAVA BEAN을 사용하기 위한 액션태그</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . JAVA BEAN</h5>
+<br>
+<p>
+
+<b style = "color:blue;">▶ JAVA BEAN :</b>  JSP에서 자바빈 클래스는 데이터를 저장하는 필드(변수에 들어갈 값), 데이터를 읽어올 때 사용되는 메서드, 값을 저장할 때 사용하는메서드로 구성.(JSP 페이지에서 데이터를 보여줄 때 이 데이터를 자바빈 클래스에 담아서 보내준다. User 객체를 생성해서 이 객체를 활용하는 것 처럼)<br>
+[ 단순히 자바 클래스이다. 자바빈 클래스는 Getter/Setter를 가지고 있으며 (전날 풀었던 예제 중 User클래스 처럼) 몇몇 특징이 있다. ]
+
+<br><br>
+- 특징 1 : 프로퍼티가 있다. (User 클래스의 멤버변수를 생각하면 좋을 것이다.)<br><br>
+- 특징 2 : 프로퍼티 앞에 get과 set을 붙여 사용하는데 프로퍼티가 Boolean 타입일 경우 is를 붙일 수 있다.
+<br><br>
+
+
+
+</p>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . JAVA BEAN 활용 액션태그</h5>
+<br>
+<p>
+
+<b style = "color:blue;">▶ jsp:useBean 액션태그 :</b> JSP 페이지에서 사용할 자바빈 객체를 지정할 때 사용한다.
+</p>
+
+<img src="{{ site.baseurl }}/img/usebean.JPG" alt="Post Sample Image">
+<br>
+<p>
+id 값에는 JSP 페이지에서 자바빈 객체 (User 객체)에 접근할 때 사용할 임의의 이름 지정.<br><br>
+
+class 값에는 패키지 이름을 포함한 자바빈 클래스의 완전한 이름<br><br>
+
+scope 에는 자바빈 객체를 저장할 영역을 지정한다. default는 page이다. (20일날 포스팅한 기본객체 영역 확인하자. )
+</p>
+
+
+
+~~~jsp
+<%@ page contentType = "text/html; charset=utf8" %>
+<jsp:useBean id = "user" scope = "request" class = "com.codechobo.User"/>
+
+<%
+  user.setId("shj7242");
+  user.setName("신희준");
+%>
+
+<jsp:forward page="/sendObject.jsp"/>
+~~~
+
+<p>
+user 라는 이름의 객체를 하나 생성하여 request 기본객체에 저장한다. 이 user 객체의 Id는 shj7242 / Name 은 "신희준" 으로하여 user 속성에 저장한 뒤 request 객체에 담아 sendObject로 보낸다.
+</p>
+
+~~~jsp
+<%@ page contentType = "text/html; charset=utf8" %>
+<jsp:useBean id = "user" scope = "request" class = "com.codechobo.User"/>
+
+<%
+ String cid = user.getId()
+ String cname = user.getName()
+%>
+
+<jsp:forward page="/sendObject.jsp"/>
+~~~
+
+
+<p>위와 같이 request객체 담겨진 user 속성의 id , name 값들을 cid, cname 변수에 저장.<br><br>
+
+* useBean 액션태그의 class 속성대신 type 를 사용할 수 있다.(type 속성을 사용하면 지정한 scope에 이미 객체가 존재한다고 가정)</p>
+
+<br>
+<p>
+<b style = "color:blue;">▶ jsp:setProperty / jsp:getProperty :</b> setProperty 액션 태그는 자바빈 객체의 Property(속성)의 값을 변경할 수 있다.<br><br> getProperty 액션 태그는 자바빈 객체의 Property(속성)의 값을 가져온다.
+
+<br><br>request.setAttribute("속성","값") / request.getAttribute("속성") 와 매우 유사해 보인다.
+</p>
+<br>
+<p><b>setProperty 액션태그</b></p>
+<br>
+
+<img src="{{ site.baseurl }}/img/setproperty.JPG" alt="Post Sample Image">
+
+<br>
+<p>
+ ▶ name 에는 Propert(속성)의 값을 변경할 자바빈의 객체 이름을 지정한다. <br><br>
+ ▶ property 에는 값을 지정할 property이름을 정한다.<br><br>
+ ▶ value 에는 property(속성)의 값을 지정해준다. 즉 user객체에 있는 id 속성의 값을 shj7242로 세팅한다. value 속성 대신에 <b style="color:red;">param</b>으로 지정해줄 수도 있다.
+<br>
+<br>
+<p><b>getProperty 액션태그</b></p>
+<br>
+</p>
+
+
+<img src="{{ site.baseurl }}/img/getproperty.JPG" alt="Post Sample Image">
+<br>
+
+<p>▶ name 에는 자바빈 객체의 이름을 넣는다. <br><br>
+▶ property 에는 프로퍼티의 이름을 지정한다. <br><br>
+결국엔 request.getParameter느낌이다 User 객체에 어떠한 속성의 값을 가져온다. </p>

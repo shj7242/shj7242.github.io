@@ -1,0 +1,226 @@
+---
+layout:     post
+title:      "[JAVA] 지네릭스(Generics)"
+
+date:       2017-08-28 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 지네릭스(Generics)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA 지네릭스(Generics)">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 지네릭스(Generics)">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/28/JAVA9/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA 지네릭스(Generics)">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 지네릭스(Generics)">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/28/JAVA9/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA 지네릭스(Generics)">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 지네릭스(Generics)">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/28/JAVA9/">
+
+
+   </head>
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 28 (월)</H4>
+
+<li>Generics</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . Generics</h5>
+<br>
+
+>>Generics이란 ?
+
+<br>
+<p>
+<span style="font-size : 14px;"> 지네릭스는 타입 체크를 해주는 기능이다. 타입을 체크하여 객체의 타입 안정성을 높이고 형변환의 번거로움이 줄어든다.
+<br><br>
+ArrayList 같은 컬렉션 클래스는 다양한 종류의 객체를 담을 수 있지만 한종류를 담는 경우가 더 많다. 지네릭스를 활용하여 특정 타입으로 저장한다면 꺼내서 사용할 때도 계속 형변환이나 타입체크를 하지 않아도 된다.</span>
+</p>
+
+>>일반적인 클래스선언
+
+~~~java
+class Student{
+	Object id;
+	void setId(Object id){
+		this.id = id;
+	}
+	Object getId(){return id;}
+}
+~~~
+
+>>지네릭 클래스
+
+~~~java
+class Student<T>{
+	T id;
+	void setId(T id){this.id=id;}
+	T getId(){return id;}
+}
+~~~
+
+>>Generics 용어
+
+~~~java
+Student<T> : 지네릭 클래스. T의 Stduent 또는 T Student라고 함.
+T : 타입 변수
+ArrayList<E> : ArrayList의 경우 Element(요소)의 첫글자를 따서 사용
+Map<K,V> : Map의 경우 Key(속성)와 Value(값) 의 첫글자를 따서 사용
+~~~
+
+~~~java
+public class GenericTest {
+	public static void main(String[] args) {
+		Student st1 = new Student();
+		Student st2 = new Student();
+		st1.setId("shj");
+		st1.setPw("123");
+		ArrayList<Student> arr = new <Student> ArrayList(); //ArrayList에는 Student형태의 값을 저장
+		arr.add(st1);
+		arr.add(1); // 에러가 뜬다 Generic으로 Student 타입을 체크하여 ArrayList에 저장하기 때문에 다른 형태는 타입을 확인하여 저장을 못하게한다.
+		System.out.println(arr);
+	}
+}
+
+class Student<T>{ // 지네릭 클래스의 선언
+	T id;
+	T pw;
+	public T getId() {  //Getter Setter 메서드 생성
+		return id;
+	}
+	public void setId(T id) {
+		this.id = id;
+	}
+	public T getPw() {
+		return pw;
+	}
+	public void setPw(T pw) {
+		this.pw = pw;
+	}
+	public String toString() {
+		return "id : "+id+"  pw : "+pw;
+	}
+
+}
+}
+
+~~~
+
+>> 지네릭 상속
+
+<p><span style = "font-size :14px">지네릭 타입에 extends 를 사용하면 특정 타입의 자손들만 대입할 수 있게 제한할 수 있다.</span></p>
+
+~~~java
+class FruitBox<T extends Fruit>{  // Type 변수가 Fruit클래스를 상속받았기 때문에 Fruit 자손들만 담을 수 있다.
+	ArrayList<T> list = new ArrayList<T>(); // 이 ArrayList 에는 Fruit 의 자손만 담을 수 있다.
+}
+
+public class Test{
+	public static void main(String args[]){
+		FruitBox<Apple> AppleBox = new FruitBox<Apple>();
+		FruitBox<Toy> toyBox = new FruitBox<Toy>(); //에러이다 Toy는 Fruit의 자손이 아니기에
+	}
+}
+~~~
+
+<BR><BR>
+
+>>지네릭 활용해서 연습해보기
+
+~~~java
+
+//지원자 ArrayList 만들기.
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class HumanResource {
+	public static void main(String[] args) {
+		InternApplier<Applier> a = new InternApplier<Applier>();
+		RegulApplier<Applier> r = new RegulApplier<Applier>();
+		ArrayList<Applier> applyList = new ArrayList<Applier>();
+		Scanner sc;
+		while (true) {
+			sc = new Scanner(System.in);
+			System.out.println("인턴 지원자면 1 , 정규직 지원자면 2");
+			if (sc.nextInt() == 1) {
+				System.out.println("지원자 이름을 입력하세요.");
+				a.setName(sc.next());
+				System.out.println("지원자 나이를 입력하세요. ");
+				a.setAge(sc.nextInt());
+				applyList.add(a);
+				System.out.println(a.getType());
+				System.out.println(applyList);
+			} else {
+				System.out.println("지원자 이름을 입력하세요. ");
+				r.setName(sc.next());
+				System.out.println("지원자 나이를 입력하세요. ");
+				r.setAge(sc.nextInt());
+				System.out.println(applyList);
+				applyList.add(r);
+			}
+
+		}
+
+	}
+}
+
+class Applier {
+	String type;
+	String name;
+	int age;
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "Applier [type=" + type + ", name=" + name + ", age=" + age + "]";
+	}
+}
+
+class InternApplier<T extends Applier> extends Applier {
+	public InternApplier() {
+		super.type = "인턴";
+	}
+}
+
+class RegulApplier<T extends Applier> extends Applier{
+	public RegulApplier() {
+		super.type = "정규직";
+	}
+}
+~~~

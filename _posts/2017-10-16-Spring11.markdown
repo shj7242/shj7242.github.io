@@ -1,0 +1,138 @@
+---
+layout:     post
+title:      "[Spring] MVC구조 만들기 SUMMARY"
+
+date:       2017-10-16 11:30:00
+author:     "신희준"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
+comments : true
+---
+
+<meta name ="description" content = "프로젝트 생성 및 테스트, MVC구조 만들기, MVC , MVC 구조만들기 과정, WAS, SPRING MVC 과정, 스프링 메이븐(mvnrepostorty)MAVEN 의존성관리 Dependency, 버전, 프로젝트 버전, jdk ">
+
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 (Spring) MVC 구조 만들기 정리">
+ <meta property="og:description" content="스프링 (Spring) MVC 구조 만들기 정리">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/17/Spring11/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 (Spring) MVC 구조 만들기 정리">
+  <meta name="twitter:description" content="스프링 (Spring) MVC 구조 만들기 정리">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/17/Spring11/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 (Spring) MVC 구조 만들기 정리">
+   <meta name="facebook:description" content="스프링 (Spring) MVC 구조 만들기 정리">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/17/Spring11/">
+
+
+ </head>
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 10 - 16 (월)</H4>
+<li>MVC만들기 정리</li>
+
+<br>
+<H4 style ="font-weight:bold; color:black;">코드로 배우는 스프링 웹프로젝트[구멍가게 코딩단 지음] 참조</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. Summary</h5>
+
+<p style="color:red; font-size:14px;">참고 : <a href="https://github.com/shj7242/practice_Spring">https://github.com/shj7242/practice_Spring </a> </p>
+
+<br><br>
+
+<p style="font-size:14px">
+1 . 프로젝트 생성 및 테스트 실행
+
+<br><br>
+</p>
+
+<p style="font-size:14px">
+2 . pom.xml 수정 ( 버전관리 및 라이브러리 추가 )
+<br>
+version : jdk 1.8 / spring 4.3.8 /
+<br>
+(추가 라이브러리 : mybatis, mybatis-spring, spring-jdbc, spring-test, mysql-connector-java, jackson-databind, org.bgee.log4jdbc-log4j2 )
+<br><br>
+</p>
+
+<p style="font-size:14px">
+3 . rootcontext에서 namespace 추가 ( aop, beans, context, jdbc, mybatis)
+<br><br>
+</p>
+
+
+<p style="font-size:14px">
+4 . datasource 설정 및 테스트 (root-context에 datasource bean을 생성)
+<br><br>
+</p>
+
+
+<p style="font-size:14px">
+5 . mybatis 연결을 위해 root-context에 sqlSessionFactory bean생성/ mybatis-config.xml 파일 생성 후 mybatis 테스트
+<br><br>
+</p>
+
+<p style="font-size:14px">
+6 . WAS 없이 컨트롤러 테스트하기 ( pom.xml 에서 javax.servlet의 버전을 올려준다. )
+<br><br>
+</p>
+
+<p style="font-size:14px">
+7 . domain 패키지에 VO클래스 생성, persistence패키지에 DAO 인터페이스 생성.
+<br><br>
+</p>
+
+<p style="font-size:14px">
+8 . src/main/resources 에 mappers 패키지를 생성하고 Mapper클래스 생성
+<br><br>
+</p>
+
+<p style="font-size:14px">
+9 . root-context에 sqlsession 추가 및 매퍼를 인식할 수 있는 bean을 추가해준다.
+<br><br>
+</p>
+
+<p style="font-size:14px">
+10 . DAO 인터페이스를 구현할 클래스를 작성한다.
+<br><br>
+</p>
+
+<p style="font-size:14px">
+11 . root-context에 구현클래스 bean 등록하기  (component-scan)
+<br><br>
+</p>
+
+<p style="font-size:14px">
+12 . Mybatis 로그를 위해 root-context.xml의 dataSource Bean 수정 (driverClassName의 value가 "net.sf.log4jdbc.sql.jdbcapi.DriverSpy")
+<br><br>
+</p>
+
+<p style="font-size:14px">
+13 . log4jdbc.log4j2.properties 파일과 logback.xml 파일을 추가한다.
+<br><br>
+</p>
+
+<p style="font-size:14px">
+14 . DAOImpl(DAO 구현클래스)에서 사용할 SQL 문을 Mapper.xml에 정의해 놓는다.
+<br><br>
+</p>
+
+<p style="font-size:14px">
+15 . DAO에서는 사용할 메서드 껍데기들을 몇개 생성해주고 DAOInpl (구현클래스)에서 Mapper.xml의 쿼리를 가져다가 DAO인터페이스에서 상속받은 메서드를 구현한다.
+<br><br>
+</p>
+
+<p style="font-size:14px">
+16 . DAOImpl(DAO 구현클래스)에서 사용할 SQL 문을 Mapper.xml에 정의해 놓는다.
+<br><br>
+</p>
+
+
+<p>
+위 순서대로 MVC구조 뼈대를 잡는 연습을 지속적으로 하자.
+</p>

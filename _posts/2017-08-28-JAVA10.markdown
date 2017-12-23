@@ -1,0 +1,183 @@
+---
+layout:     post
+title:      "[JAVA] 에너테이션(Annotation)"
+
+date:       2017-08-28 23:40:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션 (Annotation)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="JAVA 애너테이션(Annotation)">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션(Annotation)">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/28/JAVA10/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="JAVA 애너테이션(Annotation)">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션(Annotation)">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/28/JAVA10/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="JAVA 애너테이션(Annotation)">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 애너테이션(Annotation)">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/28/JAVA10/">
+
+
+   </head>
+
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 28 (월)</H4>
+
+<li>Annotation</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . Annotation</h5>
+<br>
+
+>>Annotation이란 ?
+
+<br>
+<p>
+애너테이션은 @가 붙어서 프로그램의 소스코드 안에 다른 프로그램을 위한 정보를 미리 약속한 형식으로 포함시킨 것이다. 애너테이션은 주석처럼 프로그래밍 언어에 미치는 영향이 없으면서 유용한 정보를 줄 수 있다.
+</p>
+<br>
+<br>
+
+>>표준 에너테이션
+
+<br>
+<table style="font-size:14px;">
+  <thead>
+    <tr>
+      <th style="text-align: left">표준 애너테이션</th>
+      <th style="text-align: left"><center>설명</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>@Override</strong></td>
+      <td style="text-align: left">컴파일러에게 오버라이딩하는 메서드라는 것을 알린다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>@Deprecated</strong></td>
+      <td style="text-align: left">앞으로 사용하지 않을 것을 권장하는 대상에 붙인다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>@SuppressWarnings</strong></td>
+      <td style="text-align: left">컴파일러의 특정 경고메시지가 나타나지 않게 해준다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>@SafeVarargs</strong></td>
+      <td style="text-align: left">지네릭스 타입의 가변인자에 사용한다.(JDK1.7)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>@FunctionalInterface</strong></td>
+      <td style="text-align: left">함수형 인터페이스라는 것을 알린다.(JDK1.8)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>@Native</strong></td>
+      <td style="text-align: left">native메서드에서 참조되는 상수 앞에 붙인다.(JDK1.8)</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+
+>> 표준 에너테이션 적용
+
+<br>
+
+~~~java
+public class AnnotationTest {
+	public static void main(String[] args) {
+	Intern i = new Intern();
+	i.age=20;
+	@SuppressWarnings("unchecked") // ArrayList 생성시 지네릭스관련 경고를 억제한다.
+	ArrayList arr = new ArrayList();
+	i.name=3;  // @Depricated가 붙어서 에러발생
+	}
+}
+
+class Intern extends Personnel{
+	@Override
+	voic ovt1() {
+		System.out.println("오버라이딩실패"); // @Override가 붙었는데 Override 시 메서드명이 다를 경우 에러를 표시한다.
+	}
+}
+
+class Regular extends Personnel{
+	@Override
+	void ovt() {
+		System.out.println("오버라이딩");
+	}
+}
+
+class Personnel{
+	@Deprecated
+	String name; // name 의 더이상 사용을 금지시킨다.
+	int age;
+	void ovt() {
+		System.out.println("오버라이딩 테스트");
+	}
+}
+~~~
+
+<br>
+
+>>메타 에너테이션
+
+<br>
+<p>에너테이션을 위한 애너테이션으로 애너테이션을 정의할 때 애너테이션의 적용대상이나 유지기간을 지정하는데 사용</p>
+
+<br>
+
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left; font-size:14px;">메타 애너테이션</th>
+      <th style="text-align: left"><center>설명</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">@Target</td>
+      <td style="text-align: left">애너테이션이 적용가능한 대상을 지정하는데 사용한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">@Documented</td>
+      <td style="text-align: left">애너테이션 정보가 javadoc으로 작성된 문서에 포함되게 한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">@Inherited</td>
+      <td style="text-align: left">애너테이션이 자손 클래스에 상속되도록 한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">@Retention</td>
+      <td style="text-align: left">애너테이션이 유지되는 범위를 지정하는데 사용한다.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">@Repeatable</td>
+      <td style="text-align: left">애너테이션을 반복해서 적용할 수 있게 한다.(JDK1.8)</td>
+    </tr>
+  </tbody>
+</table>
+
+<br><br>

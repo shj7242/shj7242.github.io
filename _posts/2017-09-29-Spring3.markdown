@@ -1,0 +1,111 @@
+---
+layout:     post
+title:      "[Spring] WEB Spring"
+comments: true
+date:       2017-09-29 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 (STS) web 버전">
+ <meta property="og:description" content="스프링 (STS) web 버전">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/29/Spring3/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 (STS) web 버전">
+  <meta name="twitter:description" content="스프링 (STS) web 버전">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/29/Spring3/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 (STS) web 버전">
+   <meta name="facebook:description" content="스프링 (STS) web 버전">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/29/Spring3/">
+
+
+ </head>
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 29 (금)</H4>
+<li>WebSpring Start</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . WebSpring start</h5>
+<br>
+<p>
+1 .. spring lagacy project 를 하나 만든다. (maven-web-project)
+<br>
+<br>
+2 .. spring folder안의 application.xml 이름을 dispacher-servlet.xml 로 바꾼다.
+<br><br>
+3 .. namespace에서 aop/ bean / cache/ context / mvc / p 를선택한다.
+자바버전 1.8
+
+ <img src="{{ site.baseurl }}/img/namespace.JPG" alt="Post Sample Image">
+<br><br>
+4 .. mvnrepository에서 spring aop / aspectj weaver / aop alliance /Data Mapper For Jackson ≫ 1.8.11 를 mavenrepository 에서 복사 pom.xml dependency에 붙여넣기한다.
+<br><br>
+5 .. web.xml파일에 servlet 부분을 다음과 같이 수정해준다.
+ </p>
+
+~~~xml
+<servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+        <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/dispacher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+</servlet-mapping>
+~~~
+
+<p>
+<br>
+
+6.. 기본으로 생성된 index.jsp 를 실행한다. (성공하면 셋팅완료!) WEB_INF의 VIEW 에는 showMessage.jsp 파일이 하나 생성된다.
+<br><br>
+
+7.. 자바폴더안에 com.study.controller (서블릿처럼 컨트롤러 역할을 하는 패키지)를 하나 생성해준다.
+<br><br>
+8..index.jsp 에서 text 텍스트를 누르면 showMessage(view 폴더에 있는) jsp 파일을 화면에 랜더링 할 수 있도록 controller에 서블릿 역할을 할 수 있는 클래스를 하나 만든다.
+
+</p>
+
+~~~java
+package com.study.controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+@Controller
+public class StudyController {
+		@RequestMapping("/study/showMessage.html")
+		public String showMessage(Model model, HttpServletRequest req, HttpServletResponse res) {
+			model.addAttribute("message","Hello! Spring Web Programming");
+			return "showMessage"; //view 이름이다. 어떤 view를 보여줄지 이름을 정해줌.
+}
+~~~
+
+<br>
+
+<p>
+9 .. @Controller 에너테이션을 활용하여 메소드단위로 요청을 매핑한다. 이게 이전에 사용했던 1페이지 1서블릿 방식에 비해 하나의 클래스로 처리해주기 때문에 더 효율적이다.(메소드 단위로 매핑하기 떄문) <br><br> Model 객체에는 무엇을 보여줄지 정해준다. return 에는 어떤 view를 보여줄지 지정해준다. 예를들어 showMessage.html 을 랜더링하기 위해 showMessage를 반환한다.
+</p>

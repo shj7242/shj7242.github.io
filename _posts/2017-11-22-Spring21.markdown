@@ -1,0 +1,364 @@
+---
+layout:     post
+title:      "[Spring] 초기설정 후 회원가입 구현"
+
+date:       2017-11-22 17:55:00
+author:     "신희준"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 초기설정 및 회원가입 기능 구현">
+ <meta property="og:description" content="스프링 초기설정 및 회원가입 기능 구현">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/22/Spring21/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 초기설정 및 회원가입 기능 구현">
+  <meta name="twitter:description" content="스프링 초기설정 및 회원가입 기능 구현">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/22/Spring21/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 초기설정 및 회원가입 기능 구현">
+   <meta name="facebook:description" content="스프링 초기설정 및 회원가입 기능 구현">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/22/Spring21/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 22 (수)</H4>
+
+<br>
+
+<a href = "https://shj7242.github.io/2017/11/20/Spring20/">https://shj7242.github.io/2017/11/20/Spring20/</a> 로 초기 설정을 한다
+
+
+
+> servlet 버전 업그레이드
+
+~~~xml
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<version>3.1.0</version>
+	<scope>provided</scope>
+</dependency>
+~~~
+
+> VO 작성
+
+~~~java
+package com.bitproject.domain;
+
+public class UserVO {
+
+	private String email;
+	private String name;
+	private int password;
+
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getPassword() {
+		return password;
+	}
+	public void setPassword(int password) {
+		this.password = password;
+	}
+}
+~~~
+
+
+> DAO 작성
+
+~~~Java
+package com.bitproject.persistence;
+
+import com.bitproject.domain.UserVO;
+
+public interface UserDAO {
+
+	public void insertUser(UserVO vo) throws Exception;
+}
+~~~
+
+> Mapper 작성
+
+~~~xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+
+<insert id = "insertUser">
+insert into USER (user_email, user_password, user_name)
+values(#{email}, #{password}, #{name})
+</insert>
+</mapper>
+~~~
+
+> mybatis-spring 에서 XML Mapper 인식하도록 설정
+
+~~~xml
+<!-- sqlsessionFactory에 property 추가 -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+</bean>
+
+<!--sqlSession 객체 생성-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+~~~
+
+> UserDAO 인터페이스 구현
+
+~~~JAVA
+package com.bitproject.persistence;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.bitproject.domain.UserVO;
+
+@Repository
+public class UserDAOImpl implements UserDAO{
+	@Inject
+	private SqlSession sqlSession;
+
+	private static final String namespace = "UserMapper";
+
+	@Override
+	public void insertUser(UserVO vo) throws Exception {
+		// TODO Auto-generated method stub
+
+		sqlSession.insert(namespace +".insertUser", vo);
+
+	}
+
+}
+~~~
+
+> UserDAO 테스트
+
+~~~Java
+package com.bitproject.test;
+
+import javax.inject.Inject;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.bitproject.domain.UserVO;
+import com.bitproject.persistence.UserDAO;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(
+		locations = {"file:src/main/webapp/WEB-INF/spring/**/root-context.xml"})
+public class UserDAOTest {
+
+
+	@Inject
+	private UserDAO  dao;
+
+	@Test
+	public void testInsertUser() throws Exception{
+		UserVO vo = new UserVO();
+		vo.setEmail("TestEmail");
+		vo.setPassword("123");
+		vo.setName("shj");
+		dao.insertUser(vo);
+	}
+}
+~~~
+
+> MyBatis의 로그 log4jdbc-log4j2 설정
+
+MyBatis 의 로그를 보다 자세히 보기 위해 상기 라이브러리를 추가한다.
+
+* dependency 추가
+
+~~~xml
+<!-- log4jdbc-log4j2 -->
+<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
+<dependency>
+	<groupId>org.bgee.log4jdbc-log4j2</groupId>
+	<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+	<version>1.16</version>
+</dependency>
+~~~
+
+
+* 데이터소스 수정
+
+~~~xml
+<bean id="dataSource"
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+	<property name="url"
+		value="jdbc:log4jdbc:mysql://127.0.0.1:3306/allbody?useSSL=false"></property>
+
+	<property name="username" value="유저이름"></property>
+	<property name="password" value="비밀번호"></property>
+</bean>
+~~~
+
+* resources 에 log4jdbc.log4j2.properties 파일 추가
+
+~~~xml
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+~~~
+
+* resources 에 logback.xml 파일 추가
+
+~~~xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- log4jdbc-log4j2 -->
+	<logger name="jdbc.sqlonly"        level="DEBUG"/>
+    <logger name="jdbc.sqltiming"      level="INFO"/>
+    <logger name="jdbc.audit"          level="WARN"/>
+    <logger name="jdbc.resultset"      level="ERROR"/>
+    <logger name="jdbc.resultsettable" level="ERROR"/>
+    <logger name="jdbc.connection"     level="INFO"/>
+</configuration>
+~~~
+
+> 서비스 인터페이스 및 구현
+
+~~~java
+package com.bitproject.service;
+
+import com.bitproject.domain.UserVO;
+
+public interface UserService {
+	public void regist(UserVO user) throws Exception;
+}
+~~~
+
+~~~java
+package com.bitproject.service;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.bitproject.controller.UserController;
+import com.bitproject.domain.UserVO;
+import com.bitproject.persistence.UserDAO;
+
+@Service
+public class UserServiceImpl implements UserService{
+	@Inject
+	private UserDAO dao;
+
+
+
+	  private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+	@Override
+	public void regist(UserVO user) throws Exception {
+		// TODO Auto-generated method stub
+		logger.info("service "+user.toString());
+
+		dao.insertUser(user);
+	}
+
+
+}
+~~~
+
+> Controller 구현
+
+~~~java
+package com.bitproject.controller;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bitproject.domain.UserVO;
+import com.bitproject.service.UserService;
+
+@Controller
+@RequestMapping("/user/*")
+public class UserController {
+
+
+	  private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	  @Inject
+	  private UserService service;
+
+	  @RequestMapping(value = "/register", method = RequestMethod.POST)
+	  public String RegisterPost(UserVO user, Model model)throws Exception{
+
+		  logger.info("회원가입...");
+		  logger.info(user.toString());
+
+		  service.regist(user);
+
+		  return "home";
+	  }
+
+}
+~~~
+
+> home.jsp
+
+~~~html
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+
+<h1>첫번째 회원가입</h1>
+<form action = "/user/register" method="post">
+	email<input type = "email" name = "email"><br>
+	password<input type = "password" name = "password"><br>
+	name<input type = "text" name = "name"><br>
+	<input type = "submit" value = "회원가입">
+</form>
+
+</body>
+</html>
+~~~
+
+CRUD 중 Create 구현

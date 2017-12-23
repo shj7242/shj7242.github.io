@@ -1,0 +1,271 @@
+---
+layout:     post
+title:      "[JAVA] 객체지향이론2"
+
+date:       2017-08-23 23:30:00
+author:     "신희준"
+tags: [JAVA]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론2 (상속, 오버라이딩 , 제어자 , 다형성)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="상속, 오버라이딩, 제어자, 다형성">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 (상속, 오버라이딩, 제어자, 다형성)">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/23/JAVA4/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="상속, 오버라이딩, 제어자, 다형성">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론(상속, 오버라이딩, 제어자, 다형성)">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/23/JAVA4/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="상속, 오버라이딩, 제어자, 다형성">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 (상속, 오버라이딩, 제어자, 다형성)">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/23/JAVA4/">
+
+
+   </head>
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 23 (수)</H4>
+<li>상속/오버라이딩</li>
+<li>제어자/다형성</li>
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 상속/오버라이딩</h5>
+<br>
+<p>
+<b style="color:blue">상속</b> <br><br>
+ - 기존의 클래스를 재사용해서 새로운 클래스를 작성하는 것.<br><br>
+ - 두 클래스를 조상과 자손으로 관계를 맺어주는 것.<br><br>
+ - 자손은 조상의 모든 멤버를 상속받는다. ( 생성자와 초기화 블럭은 제외 ) <br><br>
+ - 자손은 조상의 멤버를 모드 포함하기 때문에 조상보다 멤버가 더 많거나 같다.  
+</p>
+
+~~~java
+class child extends parents{
+  // child 클래스가 parents 클래스의 상속을 받음. extends(확장) parents보다 확장된다는 의미.
+}
+~~~
+
+<p>
+ - 자바는 단일 상속만을 허용한다.
+ - 비중이 높은 클래스 하나만 상속관계로 사용하며, 나머지는 포함관계(인스턴스를 생성)로 사용한다.
+</p>
+
+~~~java
+class Human{
+  int height;
+  int weight;
+  void run(){}
+  void eat(){}
+}
+class Student extends Human{    // Human class 는 Student class 의 조상이다. 상속관계이다.
+  void learn(){}              //Student class 는 Human class 의 인스턴스를 가지며 이에 확장된 인스턴스를 가진다.
+  Book b = new Book();   //포함관계이다 . Book 클래스는 Student의 포함관계에 있다.
+}
+class Book{
+  String title;
+  int price;
+}  
+~~~
+
+<p>
+ - 모든 클래스의 최고 조상은 Object 클래스이다. 조상이 없는 클래스도 자동적으로 Object클래스를 상속받는다.
+</p>
+<br>
+<p>
+<b style="color:blue">오버라이딩</b> <br><br>
+ - 조상 클래스로부터 상속받은 메서드의 내용을 상속받는 클래스에 맞게 변경하는 것.(덮어씌우는 것) <br><br>
+ - 오버라이딩을 하기위해서는 선언부가 같아야한다.<br><br>
+ - 접근제어자의 범위를 좁힐 수 없다. (public 에서 protected 로 변경불가) <br><br>
+</p>
+
+~~~java
+class Human{
+  void run() //run() 메서드 정의
+}
+class Student extends Human{
+  void run(System.out.println("빨리뛰다.")) // 오버라이딩.
+}
+~~~
+
+<p>
+ - super : this 와 비슷하다. 조상의 멤버와 자신의 멤버를 구별하는데 사용한다. super.변수명으로 조상의 멤버변수에 접근.<br><br>
+ - super() : this() 와 비슷하다. 조상의 생성자를 호출한다.
+</p>
+
+~~~java
+public class Human {
+	int height;
+	int weight;
+	void run() {System.out.println("걷는다");}
+	void eat() {System.out.println("먹는다");}
+	public Human(int height, int weight) {
+		this.height = height;
+		this.weight = weight;
+	}
+}
+
+public class Student extends Human {
+	public Student(int height, int weight) {
+		super(height, weight); //조상클래스의 생성자를 호출한다.
+	}
+	void learn() {System.out.println("배운다.");}
+	void run() {System.out.println("키가 "+super.height+"이고  몸무게가"+ super.weight+"인 사람이 뛴다.");}
+} //오버라이딩. super.height 로 조상 클래스의 인스턴스 접근( this. 으로 자신의 인스턴스 접근하는 방법과 같다. )
+~~~
+
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">2 . 제어자/다형성</h5>
+<br><br>
+
+<p><b  style = "color:blue;">제어자</b> <br><br>
+ - 클래스, 변수, 메서드의 선언부에 사용되어 부가적인 의미 부여한다.<br><br>
+
+<b>접근제어자</b> : public, protected, defualt, private <br><br>
+그 외의 제어자들 : static, final, abstract, native, synchronized, etc,..
+<br><br>
+
+<b>static</b> : 멤버변수, 메서드, 초기화 블럭 앞에 붙을 수 있다. 클래스변수는 인스턴스를 따로 생성하지 않아도 되며 클래스 로드시 자동 생성된다.
+<br><br>
+<b>final</b> : 클래스, 메서드, 멤버변수, 지역변수에 붙을 수 있다. final을 붙이면 변경될 수 없으며 변수에 붙으면 상수가 되고 메서드에 붙으면 오버라이딩을 통한 재정의를 할 수 없다.<br><br>
+<b>abstract</b> : 클래스, 메서드 앞에 붙을 수 있으며 추상화만 시켜놓고 완성하지 않은 클래스 또는 메서드앞에 붙는다.
+
+</p>
+
+~~~java
+class Card{
+  final int NUM;
+  final String KIND;
+  Card(int n, String k){
+      NUM=n;
+      KIND=k;      
+  } //생성자를 통한 final변수 초기화
+}
+public static void main(String args[]){
+  Card c = new Card(1, "Spade"); // 생성자로 FINAL 변수 초기화.
+  c.NUM = 3; // 불가능하다. 생성자로 FINAL 변수를 초기화 해주었기 때문에 변경 불가능.
+}  
+~~~
+
+
+<p>
+<b>접근제어자</b><br><br>
+
+<b>private</b> : 같은 클래스 내에서만 접근이 가능하다.<br><br>
+<b>default</b> : 같은 패키지 내에서만 접근이 가능하다.<br><br>
+<b>protected</b> : 같은 패키지 내에서, 다른패키지의 자손클래스에서 접근가능<br><br>
+<b>public</b> : 접근제한이 없다.
+</p>
+
+~~~java
+package a;
+
+public class Client {
+	private String id;  //private는 다른 패키지에서 접근이 불가능하다. 그러므로 getter, setter로 접근한다.
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public client(String id) {
+		this.id = id;
+	} //보통 id 나 password 같은 개인정보는 유출의 우려가 있기에 외부로부터 보호하기위해 접근제어자를 private를 사용한다.
+}
+
+package b;   //다른패키지
+import a.Client; // 다른 패키지에있는 Client 클래스 임포트
+public class UserManage {
+	public static void main(String[] args) {
+		Client c1 = new Client("shj"); //Client 클래스는 public 으로 정의되어 접근가능.
+  	System.out.println(c1.getId()); //getId 메소드또한 public으로 정의되어 다른패키지임에도 불구하고 사용가능.
+	}
+}
+~~~
+
+
+<br>
+<p>
+<b  style = "color:blue;">다형성 (polymorphism)</b>
+<br><br>
+
+ - 하나의 참조변수로 여러 타입의 객체를 참조할 수 있는 것.
+ - 같은 메서드를 사용하더라도 결과가 다를 수 있음.
+<br><br>
+<b>참조변수의 형변환</b>
+<br><br>
+
+ - 서로 상속관계에 있는 타입간의 형변환만 가능.<br><br>
+ - 자손 타입에서 조상타입으로 형변환 하는 경우, 형변환 생략가능<br><br>
+ - instanceof 연산자로 참조하는 인스턴스의 실제 타입을 체크
+</p>
+
+~~~java
+class Human{
+  int height;
+  void run();
+}
+class Student extends Human{
+  void run(System.out.println("빨리뛰다."));
+}
+
+class Test{
+  public static void main(String args[]){
+    Human h = new Human();
+    Student s = new Student();
+    //h = s;   >> 생략가능  
+    //s = (Student)h;   >> 형변환 해주어야함.
+    if(h instanceof Human){ System.out.print("true")}
+    if(h instanceof Object){System.out.print("true")} //오브젝트 클래스는 모든 클래스의 조상
+    if(h instanceof Student){System.out.prinln("true")} // 보통 instanceof를 통해 확인 한 후 형변환 진행.
+
+  }
+}
+~~~
+
+<p>
+<br>
+<b>참조변수와 인스턴스 변수의 연결</b>
+<br>
+<br>
+ - 상속을 받으면서 멤버변수가 중복정의 될 시 참조변수의 타입(형태)에 따라 연결되는 멤버변수의 값이 달라진다.
+ <br><br>
+ - 메서드가 오버라이딩 될 경우에는 참조변수의 타입에 상관없이 실제 인스턴스 타입에 정의된 메서드가 호출된다.
+</p>
+
+~~~java
+class Human{
+  int height = 100;
+  void method(){System.out.println("사람");}
+}
+class Student extends Human{
+  int height = 130;
+  void method(){System.out.println("학생");}
+}
+class Test{
+  public static void main(String args[]){
+    Human s1 = new Student();
+    Student s2 = new Student();
+    s1.height; // 100이 저장된다.
+    s2.height; // 130이 저장된다.  >> 멤버변수의 경우 참조하는 타입에 영향을 받는다.
+    s1.method(); // 학생이 출력된다.
+    s2.method();// 학생이 출력된다. >> 메서드는(오버라이딩) 참조변수 타입에 영향을 받지 않는다.
+  }
+}
+~~~

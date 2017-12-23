@@ -1,0 +1,84 @@
+---
+layout:     post
+title:      "[Android] Android 초기설정"
+
+date:       2017-11-17 17:55:00
+author:     "신희준"
+tags: [jQuery]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="안드로이드 초기설정">
+ <meta property="og:description" content="안드로이드 초기설정">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/17/Android1/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="안드로이드 초기설정">
+  <meta name="twitter:description" content="안드로이드 초기설정">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/17/Android1/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="안드로이드 초기설정">
+   <meta name="facebook:description" content="안드로이드 초기설정">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/17/Android1/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 16 (목)</H4>
+<br>
+<li>안드로이드 초기설정</li>
+<li>레이아웃 종류</li>
+<br>
+<br>
+
+> 안드로이드 초기설정
+
+<br>
+
+1 . 안드로이드 스튜디오 다운로드 : <a href = "https://developer.android.com">developer.android.com</a>
+
+  - C:\Android\Android Studio 경로에 설치
+
+
+
+2 . SDK (개발도구) 설치 : 5.0 ~ 7.0 사이가 가장 많이 사용되어지고 있다.   
+
+  - c:\android\sdk 경로에 설치한다. ( 기본 경로가 복잡하므로 )
+
+
+3 . 첫번째 안드로이드 앱 만들어보기
+
+  - File>New>New Project...  Empty Activity선택
+
+  - app > res > layout > activity_main.xml (XML 파일은 activity UI의 레이아웃을 정의하며, "Hello world!" 텍스트가 있는 TextView 요소를 포함합니다.)
+
+  - app > manifests > AndroidManifest.xml (매니페스트 파일은 앱의 기본 특징을 설명하고 앱의 각 구성요소를 정의합니다.)
+
+  - Gradle Scripts > build.gradle (이 이름을 가진 파일이 2개 있음. 하나는 프로젝트용. 다른 하나는 "앱" 모듈용 각 모듈에는 자체 build.gradle 파일이 있지만, 현재 이 프로젝트에는 하나의 모듈만 있음. Gradle 도구에서 앱을 컴파일하고 빌드하는 방법을 구성하기 위해 대부분 모듈의 build.gradle 파일을 사용 )
+
+
+<br><br>
+
+> 안드로이드의 구성요소
+
+<br>
+
+- Activity : 우리가 보는 화면 ( 윈도우 , 버튼, 라디오 , 체크박스 -> 이러한 것들을 뷰라고한다. 레이아웃 - 뷰 그룹이라고 함)
+
+
+- Service : 백그라운드에서 실행되는 컴포넌트이다. 눈에는 보이지 않는다. ( bgm 이 대표적 )
+
+- broadcast Receiver : 시스템으로부터 전달되는 방송을 대기하고 신호 전달시 수신하는 역할 ( 핸들러 같은 느낌 )
+
+- Content Provider : 다른 응용프로그램을 위해 자신의 데이터를 제공한다. 본래 엄격한 보안때문에 다른 응용프로그램의 데이터를 쉽게 접근하기 힘들지만 콘텐트 제공자를 이용하여 데이터 공유를 할 수 있도록 한다.
+
+
+******
+
+안드로이드 API : <a href="https://developer.android.com/reference/classes.html">https://developer.android.com/reference/classes.html</a>

@@ -1,0 +1,102 @@
+---
+layout:     post
+title:      "[JSP/SERVLET] JSP jdbc 예제(회원관리)"
+comments: true
+date:       2017-09-23 19:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP jdbc 회원관리 CRUD">
+ <meta property="og:description" content="JSP jdbc 회원관리 CRUD">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/23/JSP6/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP jdbc 회원관리 CRUD">
+  <meta name="twitter:description" content="JSP jdbc 회원관리 CRUD">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/23/JSP6/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP jdbc 회원관리 CRUD">
+   <meta name="facebook:description" content="JSP jdbc 회원관리 CRUD">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/23/JSP6/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 23 (토)</H4>
+<li>JDBC/JSP 회원관리 예제</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 회원관리 예제</h5>
+<br>
+<p><b style="color: blue">1.. DB 연동 </b><br><br>
+CMD 에서 sqlplus 입력 >> ID , PASSWORD 입력 후 CREATE TABLE >> sqlDeveloper로 접속 >> 이클립스에서 웹프로젝트의 library에 Oracle DB lib 추가. >> DB연결을 위한 클래스 하나 생성 >> 아래 코드 입력.
+
+ </p>
+
+
+ ~~~java
+public class JdbcTest {
+     public static void main(String[] args) {
+         String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+         String DB_USER = "asdf1234";  // DB의 userid와 pwd를 알맞게 변경
+         String DB_PASSWORD = "1234";
+         Connection conn = null;
+         Statement stmt = null;
+         ResultSet rs = null;
+         String query = "SELECT sysdate FROM dual"; // 시스템의 날짜를 출력한다.
+         try {
+             // 드라이버를 로딩한다.
+             Class.forName("oracle.jdbc.driver.OracleDriver");
+             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); // 데이터베이스의 연결을 설정한다.
+             stmt = conn.createStatement();             // Statement를 가져온다.
+             rs = stmt.executeQuery(query); // SQL문을 실행한다.
+             while (rs.next()) {
+                 String curDate = rs.getString(1);
+                 System.out.println(curDate);
+             }
+         } catch ( Exception e ) {
+             e.printStackTrace();
+         } finally {
+             try {
+                 rs.close();
+                 stmt.close();
+                 conn.close();
+             } catch ( SQLException e ) {}
+         }
+     } // main()의 끝
+ } // 클래스의 끝
+ ~~~
+
+
+<p>위 코드를 실행해서 현재시간을 찍어내면 DB연결 완료 </p>
+
+
+<p><b style = " color:blue">2 .. 구조 구상</b><br><br>
+
+<p>
+DB와의 연동을 담당할 <b style = "color:red">DB클래스(JAVA : model 부분이라고 생각)</b> 를 생성하고 화면을 보여줄 이전에 만들었던 <b style = "color:red">index.jsp, loginform.jsp, resisterform.jsp (JSP : view 부분이라고 생각)</b> 를 가져온다. 또한 로그인과 회원가입 버튼을 눌렀을 때 DB와 연동하는 클래스 객체를 생성하여 Response 해주는 <b style = "color:red;">LoginAction.java, ResisterAction.java 등등 (Servlet : controller 부분이라고 생각)</b> 이렇게 나름의 MVC 구조를 생각해 보았다.
+
+</p>
+<p><b style = " color:blue">3 .. 코딩 시작 </b><br><br>
+
+<p>
+어느정도 구조를 생각해놓으니 코딩하는 부분은 어렵지 않았다.<br><br>
+<b style = "color:red">* WebContent의 Web_inf 라이브러리에 oracle lib를 추가하자.. 이것 때문에 sql이 안보내졌음..</b><br><br>
+우선 이전에 배운 쿠키나 세션을 새로만든 웹프로젝트에 모두 적용해주었다. (DB연동하여)
+이 후 DBTest.java(DB와 연동하는 부분) 에서 회원가입, 로그인, 회원 수정 등 메소드 정의한다.
+
+<br>
+각 JSP 파일에서는 이벤트를 처리할 서블릿으로 보내준다. (서블릿을 하나로 묶고 싶었지만 시행착오 끝에 실패.. 결국 각각의 JSP 마다 서블릿을 하나씩 두었다. ) 서블릿에서는 메소드를 불러와 실행시켜줌.
+</p>
+
+<p><b style = " color:blue">4 .. 코드보기 </b><br><br>
+
+<a style ="color:red;" href="https://github.com/shj7242/practice">회원관리예제코드파일</a>

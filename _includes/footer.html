@@ -1,0 +1,22 @@
+<div id="footer" class="container-fluid">
+    <ul id="links">
+        {% if site.github_url %}
+        <li>
+            <a id="link-github" href="http://github.com/{{ site.github_url.username }}" target="_blank">
+                <span class="sr-only">github</span>
+            </a>
+        </li>
+        {% endif %}
+        {% if site.facebook %}
+        <li>
+            <a id="link-facebook" href="http://facebook.com/{{ site.facebook.username }}" target="_blank">
+                <span class="sr-only">facebook</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    <p id="copyright">
+        <a href="//beam307.github.io/">Copyright &copy; Chanhee Corp.</a>
+        All rights reserved.
+    </p>
+</div><!--#footer-->

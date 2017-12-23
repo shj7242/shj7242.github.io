@@ -1,0 +1,141 @@
+---
+layout:     post
+title:      "[Node.js] node server to tomcat"
+
+date:       2017-11-21 17:55:00
+author:     "신희준"
+tags: [nodeJS]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링서버와 노드 서버 연동해보기">
+ <meta property="og:description" content="스프링서버와 노드 서버 연동해보기">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/21/Nodejs6/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링서버와 노드 서버 연동해보기">
+  <meta name="twitter:description" content="스프링서버와 노드 서버 연동해보기">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/21/Nodejs6/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링서버와 노드 서버 연동해보기">
+   <meta name="facebook:description" content="스프링서버와 노드 서버 연동해보기">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/21/Nodejs6/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 21 (화)</H4>
+
+<br>
+
+> 노드 서버와 스프링(톰캣)서버 연동
+
+Node.js 와 스프링(톰캣) 을 같이 활용할 수 있는 방법을 생각하던 중 Node에서 client 요청을 받고 이 요청을 tomcat 서버와 server to server 통신 데이터를 주고받는 실험을 하게 되었다.
+
+<br>
+
+> Node 서버 구성
+
+~~~JavaScript
+var http = require('http');
+var inputData = { data1 : 'node to tomcat testdata1', data2 : 'node to tomcat testdata2'};
+ // 전달하고자 하는 데이터 생성
+var opts = {
+    host: '127.0.0.1',
+    port: 81,
+    method: 'POST',
+    path: '/start',
+    headers: {'Content-type': 'application/json'},
+    body: inputData
+};
+
+// 포트 81 에서는 톰캣 서버가 대기하고 있다.
+// 스프링 컨트롤러에서 '/start' URI 에 매핑하는 메소드를 두었다.
+// 전달 방식은 json 형태로 하였다.
+var resData = '';
+var req = http.request(opts, function(res) {
+    res.on('end', function() {
+        console.log(resData);
+    });
+});
+
+opts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+req.data = opts ;
+opts.headers['Content-Length'] = req.data.length;
+
+req.on('error', function(err) {
+    console.log("에러 발생 : " + err.message);
+});
+
+// 요청 전송
+req.write(JSON.stringify(req.data.body));
+
+req.end();
+var server = http.createServer(function(request,response){
+
+    response.writeHead(200,{'Content-Type':'text/html'});
+    response.end('Hello node.js!!');
+
+});
+
+server.listen(80, function(){
+    console.log('Server is running...');
+});
+~~~
+
+위와 같은 형태의 코드로 간단하게 노드 서버를 생성하였으며 JSON 형식으로 서버가 구동되면 /start URI 로 매핑하게 된다. (포트 81 번의 로컬 서버에 HTTP 통신을 한다.)
+
+<br>
+
+> Spring ( 톰캣 서버 )
+
+<br>
+
+앞서 말했드시 톰캣서버의 HTTP 통신을 받기위한 포트는 81번으로 지정해준다.
+
+간단히 Maven mvc 프로젝트 생성후 기본 homeController 에 /start 로 매핑할 메서드를 작성한 후 노드서버에서 전송하는 데이터를 받는지 확인한다.
+
+~~~java
+package com.heejun.controller;
+@Controller
+public class HomeController {
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
+	//consumes 하는 형태는 application/json 형태이다.
+	@ResponseBody //json 데이터를 받기위해 @ResponseBody 애너테이션
+	public String startApp(@RequestBody String body) {
+			System.out.println(body);
+			return "/";
+	}
+}
+~~~
+
+<br>
+
+> 결과
+
+~~~javascript
+var inputData = { data1 : 'node to tomcat testdata1', data2 : 'node to tomcat testdata2'}; //전달하고자 하는 데이터 (node.js에서)
+~~~
+
+<img src="{{ site.baseurl }}/img/data.PNG" alt="Post Sample Image">
+
+
+~~~java
+	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
+public String startApp(@RequestBody String body) {
+		System.out.println(body);
+		return "/";
+}
+~~~
+
+
+위처럼 스프링(톰캣 서버)에서 노드에서 보낸 JSON 형식의 데이터를 /start URI 로 매핑하여 console창에 찍어주는 테스트를 해보았다.

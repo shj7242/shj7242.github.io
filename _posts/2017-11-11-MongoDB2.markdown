@@ -1,0 +1,166 @@
+---
+layout:     post
+title:      "[Node.js] mongoDB 쿼리"
+
+date:       2017-11-11 18:55:00
+tags: [jQuery]
+header-img: /files/covers/blog.jpg
+author:     "신희준"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="몽고디비 쿼리">
+ <meta property="og:description" content="몽고디비 쿼리">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/11/MongoDB2/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="몽고디비 쿼리">
+  <meta name="twitter:description" content="몽고디비 쿼리">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/11/MongoDB2/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="몽고디비 쿼리">
+   <meta name="facebook:description" content="몽고디비 쿼리">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/11/MongoDB2/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 11 (토)</H4>
+<li>MongoDB 구조</li>
+<li>MongoDB SQL</li>
+<br>
+<br>
+
+> MongoDB 구조
+
+<br>
+
+* 컬렉션(Collection) : MongoDB 에서는 Mysql 이나 Oracle 등에서 쓰는 테이블을 용어적으로 컬렉션이라 칭한다. 하지만 테이블과 조금 다른 점이 있다. 테이블은 데이터 저장 시 정해놓은 칼럼의 형태대로 컬렉션에 넣어야 하지만 MongoDB 의 경우 이러한 제약이 없다.
+
+<br>
+
+* 문서 객체(Document) : MongoDB 에서는 각각의 컬렉션에서 하나의 행을 문서객체라고 한다.
+
+<br>
+
+* 데이터베이스 생성 : use 데이터베이스명
+
+<br>
+
+~~~JavaScript
+//--이미 존재하는 db일 경우 해당 db를 사용하게되고 없을 경우 생성--//
+> use 데이터베이스명
+//--현재 사용하는 db 확인--//
+> db                           
+//--현재 존재하는 데이터베이스 리스트 확인--//
+> show dbs
+~~~
+
+<br>
+
+* Database 제거하기 : db.dropDatabase()
+
+<br>
+
+~~~javascript
+> use db명
+> db.dropDatabase()
+//--위에서 선택한 db제거--//
+~~~
+
+<br>
+
+* Collection 생성 : db.createCollection(name, [options])
+
+<br>
+
+~~~JavaScript
+//--옵션없이 컬렉션 생성--//
+> db.createCollection('users')
+//--옵션있는 컬렉션 생성--//
+> db.createCollection('users', {'옵션명' : '옵션값'})
+//--collection 리스트 확인--//
+> show collections
+~~~
+
+<br>
+
+* Collection 제거 : db.Collection명.drop()
+
+<br>
+
+~~~JavaScript
+> use db명
+//--유저 컬렉션 제거--//
+> db.users.drop()
+~~~
+
+
+<br>
+<br>
+
+> MongoDB 쿼리메소드
+
+
+<br>
+
+* 조회하기 : find()
+
+<br>
+
+~~~JavaScript
+> db.collection명.find()
+> db.collection명.find().pretty() //도큐먼트조회시 속성별로 줄바뀜해서 출력해준다.
+~~~
+
+<br>
+
+* 추가하기 : insert()
+
+<br>
+
+~~~JavaScript
+> db.collection명.insert([{'속성1':'속성값1', '속성2':'속성값2'}])
+~~~
+
+<br>
+
+* 제거하기 : remove()
+
+<br>
+
+~~~JavaScript
+//-- name 속성이 신희준인 document 제거 --//
+> db.collection명.remove({"name" : "신희준"})
+~~~
+
+<br>
+
+
+* 수정하기 : update()
+
+<br>
+
+~~~JavaScript
+> db.collection명.insert([{'name':'신희준', 'job' : 'accountant'}])
+//-- name 속성이 신희준인 document 의 job 속성의 값을 programmer 로 수정 --//
+> db.collection명.update({name:'신희준'}, {$set:{job: 'programmer'}})
+~~~
+
+<br>
+
+* 특정 속성 제거하기
+
+<br>
+
+~~~javascript
+//-- name 속성이 신희준인 document 의 job 속성을 제거 --//
+> db.collection명.update({name:'신희준'},{$unset: {job:'programmer'}})
+~~~
+
+<br>

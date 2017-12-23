@@ -1,0 +1,214 @@
+---
+layout:     post
+title:      "[JAVA] 배열"
+
+date:       2017-08-21 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 배열">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="자바 배열">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/21/JAVA2/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="자바 배열">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 배열">
+    <meta name="twitter:domain" content="http://shj7242.github.io/2017/08/21/JAVA2/">
+   </head>
+
+   <meta name="facebook:card" content="summary">
+    <meta name="facebook:title" content="자바 배열">
+    <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 배열">
+    <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/21/JAVA3/">
+   </head>
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 21 (월)</H4>
+<li>배열</li>
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 배열</h5>
+<br>
+<p>
+배열 : 같은 타입의 여러 변수를 하나의 묶음으로 다루는 것이다.
+--배열의 크기는 변형 불가능하다. (ArrayList 나 Vector 형태로 사용한다.)
+
+배열의 선언 및 방법
+</p>
+
+~~~java
+
+int score [];
+score [] = new int[5]; // 배열의 크기가 5인 배열을 생성해준다.
+// int score[] = new score[5];
+String name [] = {"a","b","c","d"};
+~~~
+
+<p>[ ] 의 위치는 변수명의 앞에오건 뒤에오건 상관없다. <br><br>
+
+배열 복사
+</p>
+
+~~~java
+String name [] = {"a","b","c","d","e"}
+
+String name1[] = new String[name.length];
+for(int i =0; i < name.length; i ++){
+  String temp = name[i];
+  name1[i]=temp;
+  //String name1[i]=name[i];
+}
+~~~
+
+<p>가변 배열 만들어보기(Vector)</p>
+
+~~~java
+import java.util.Arrays;
+
+class MyVector{
+	int capacity;
+	int size=0;
+	Object objArry[];
+	MyVector(){
+		this.capacity=2;
+		objArry = new Object[capacity];
+	}
+	MyVector(int capacity){
+		this.capacity = capacity;
+		objArry = new Object[capacity];
+	}
+	public int getSize(){
+		return size;
+	}
+	public int getCapacity(){
+		return capacity;
+	}
+	public boolean isEmpty(){
+		if(objArry.length==0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public void add(Object obj){
+		if(getSize()==getCapacity()) {
+			Object temp[] = new Object[capacity];
+			temp = objArry;
+			capacity = capacity*2;
+			objArry = new Object[capacity];
+			for(int i = 0 ; i<temp.length;i++) {
+				objArry[i]=temp[i];
+			}
+		}
+			objArry[size] = obj;
+			size++;
+	}
+	public Object get(int index){
+		return objArry[index];
+	}
+	public int indexof(Object obj) {
+		int i;
+		for(i = 0 ; i<objArry.length; i++) {
+			if(objArry[i]==obj) {
+				break;
+			}
+		}
+		return i;
+	}
+	public boolean delete(Object obj) {
+		if (objArry[indexof(obj)]==null)
+				return false;
+		else
+		{
+			for(int i = 0 ; i < objArry.length ; i++) {
+			if(objArry[i]==obj) {
+				objArry[i] = null;
+				break;
+			}
+		}
+		Object temp[] = new Object[objArry.length-1];
+		temp=objArry;
+		for(int i = 0 ; i < size ; i++) {
+			if(objArry[i]==null) {
+				for(int j = i; j<size; j++)
+					temp[j]=temp[j+1];
+			}
+
+		objArry = new Object[temp.length];
+		objArry = temp;
+
+
+		}
+		return true;}
+	}
+	/*public boolean delete(Object obj) {
+		Object temp[] = new Object[objArry.length];
+
+		temp = objArry;
+		for(int i = 0 ; i < objArry.length ; i++) {
+			if(objArry[i]==obj) {
+				objArry[i] = null;
+				break;
+			}
+		}
+		for(int i = 0 ; i < temp.length-1 ; i++) {
+			if(temp[i]==null) {
+				for(int j = i; j<temp.length-1; j++)
+					objArry[j]=temp[j+1];
+			}			
+		}
+		System.out.println();
+		return true;
+	}*/
+	public String toString() {
+	      return Arrays.toString(objArry);
+	  }
+
+	}
+
+public class VectorTest{
+	public static void main(String[] args) {
+		MyVector vc = new MyVector();
+		/*System.out.println("vc의 capacity : " + vc.getCapacity());
+		System.out.println("vc의 size : " + vc.getSize());
+		System.out.println("vc 가 비어있는가? " + vc.isEmpty());*/
+		vc.add(1);
+		vc.add(2);
+		/*System.out.println("vc의 capacity : " + vc.getCapacity());
+		System.out.println("vc의 size : " + vc.getSize());
+		System.out.println("vc 가 비어있는가? " + vc.isEmpty());*/
+		vc.add(3);
+		vc.add(4);
+		/*System.out.println("vc의 capacity : " + vc.getCapacity());
+		System.out.println("vc의 size : " + vc.getSize());
+		System.out.println("vc 가 비어있는가? " + vc.isEmpty());*/
+		vc.add(5);
+		vc.add(6);
+		/*System.out.println("vc의 capacity : " + vc.getCapacity());
+		System.out.println("vc의 size : " + vc.getSize());
+		System.out.println("vc 가 비어있는가? " + vc.isEmpty());*/
+		System.out.println(vc.toString());
+		vc.delete(2);
+		/*System.out.println("vc의 capacity : " + vc.getCapacity());
+		System.out.println("vc의 size : " + vc.getSize());
+		System.out.println("vc 가 비어있는가? " + vc.isEmpty());*/
+		System.out.println(vc.toString());
+
+	}
+}
+~~~

@@ -1,0 +1,135 @@
+---
+layout:     post
+title:      "[JQuery] DOM메서드"
+
+date:       2017-11-05 19:55:00
+author:     "신희준"
+tags: [jQuery]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="jQuery DOM 메서드">
+ <meta property="og:description" content="jQuery DOM 메서드">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/05/JQuery2/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="jQuery DOM 메서드">
+  <meta name="twitter:description" content="jQuery DOM 메서드">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/05/JQuery2/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="jQuery DOM 메서드">
+   <meta name="facebook:description" content="jQuery DOM 메서드">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/05/JQuery2/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 05 (일)</H4>
+<li>DOM 메서드</li>
+
+
+<br>
+<br>
+
+>JQuery DOM 메서드
+
+<br>
+
+* 필터 선택자
+
+<br>
+
+~~~javascript
+$(document).ready(function(){
+    $('h3:even').css({
+        color:'orange',
+        backgroundColor: 'black'
+    });
+});
+~~~
+
+<br>
+
+* JQuery 필터 메서드(특정위치 선택)  
+  - filter()
+  - eq() : 특정위치의 문서객체 선택
+  - first() , last()
+
+<br>
+
+~~~javascript
+//짝수 자리에 있는 element 선택
+$(document).ready(function(){
+      $('h3').filter(':odd').css({
+          backgroundColor : 'orange',
+          color : 'white'
+      })
+  })
+// 특정 위치에 있는 element 선택
+$(document).ready(function(){
+      $('h3').eq(0).css({
+          backgroundColor :'red'
+      })
+  })
+~~~
+
+
+<br>
+
+* xml 문자열 생성
+
+<br>
+
+~~~html
+<script>
+    // xml 문자열 생성
+    var xml = "";
+    xml+='<friends>';
+    xml+='    <friend>';
+    xml+='        <name>신희준</name>';
+    xml+='        <language>Ruby</language>';
+    xml+= '    </friend>';
+    xml += '    <friend>';
+    xml += '        <name>임하준</name>'
+    xml += '        <language>Basic</language>'
+    xml += '    </friend>';
+    xml += '    <friend>';
+    xml+= '        <name>최효준</name>';
+    xml += '        <language>C#</language>';
+    xml += '    </friend>';
+    xml += '</friends>'
+
+    $(document).ready(function(){
+        var xmlDoc = $.parseXML(xml);
+        console.log(xmlDoc)
+        $(xmlDoc).find('friend').each(function(index){
+            var output = '';
+            output += '<div>';
+            output += '  <h1>' + $(this).find('name').text() + '</h1>';
+            output += '  <p>' + $(this).find('language').text() +'</p>';
+            output += '</div>';
+            document.body.innerHTML +=output;
+        });
+    });
+</script>
+~~~
+
+<br>
+
+* parent() 메서드
+
+~~~html
+ <script>
+        $(document).ready(function(){
+            $('span').parent().css('background','red');
+        })
+
+ </script>
+<!--span 태그의 부모에게 css속성 주입-->
+~~~

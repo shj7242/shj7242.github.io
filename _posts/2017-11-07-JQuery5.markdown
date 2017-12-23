@@ -1,0 +1,97 @@
+---
+layout:     post
+title:      "[JQuery] 예제(정리)"
+
+date:       2017-11-07 20:55:00
+author:     "신희준"
+tags: [jQuery]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="jQuery Example">
+ <meta property="og:description" content="jQuery Example">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/07/JQuery5/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="jQuery Example">
+  <meta name="twitter:description" content="jQuery Example">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/07/JQuery5/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="jQuery Example">
+   <meta name="facebook:description" content="jQuery Example">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/07/JQuery5/">
+
+
+ </head>
+<br>
+<H4 style ="font-weight:bold; color:black;"> 모덴웹을 위한 Javascript, JQuery입문 [윤인성 지음] 참고</H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 07 (화)</H4>
+
+<br>
+<br>
+
+> 예제
+
+<br>
+
+* 모두 선택 버튼 누를 시 체크박스 전체 선택 / 모두 해제 버튼 누를 시 체크박스 전체 해제
+* 체크박스에 체크된 경우 TextArea 에 체크박스의 value 값 기록
+* 체크박스가 해제될 경우 TextArea 에 기록된 value 값 삭제
+* 주석으로 기록
+
+
+<br>
+<iframe src="/htmlpractice/homework.html" style ="width : 100%; height : 550px;">
+</iframe>
+<br>
+<br>
+
+~~~html
+<script>
+      $(document).ready(function() {
+          $("input[type='checkbox']").on('click',function(){
+              //checkbox 형태의 input태그 가 클릭될 때 다음 함수를 실행한다.
+              var write ='';
+              //write 변수 선언
+              $("input[type='checkbox']:checked").each(function(){
+                //checked 된 input 태그들 각각 write 변수에 내용을 합친다.
+                 write += $(this).val();
+              });
+              $('textarea').val(write);
+              //textarea 에 write 에 담긴 내용 셋팅
+          });
+          $('#alls').on('click',function(){
+
+              var alltext = '';
+              $("input[type='checkbox']").prop('checked',true).each(function(index){
+                  alltext += $(this).val()
+              });
+              $('textarea').val(alltext)
+          });
+          $('#allr').on('click',function(){
+              $('input').prop('checked',false)
+              $('textarea').val('');
+          });
+      });
+  </script>
+
+<!--body 부분 -->
+
+<body>
+  <button id="alls">전체선택</button>
+  <button id="allr">전체해제</button>
+  <br><br>
+  <form action="">
+  축구 <input type="checkbox" value ='축구'><br>
+  야구 <input type="checkbox" value ='야구'><br>
+  농구 <input type="checkbox" value ='농구'><br>
+  배구 <input type="checkbox" value ='배구'><br>
+  탁구 <input type="checkbox" value ='탁구'><br>
+  하키 <input type="checkbox" value ='하키'><br><br>
+  <textarea name="" id="" cols="30" rows="10"></textarea>
+</body>
+~~~

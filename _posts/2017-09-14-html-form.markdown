@@ -1,0 +1,88 @@
+---
+layout:     post
+title:      "[Front-end] Form태그 / CSS Links, display 속성"
+comments: true
+date:       2017-09-14 14:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+ <meta property="og:description" content=" HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/14/html-form/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+  <meta name="twitter:description" content=" HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/14/html-form/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+   <meta name="facebook:description" content=" HTML Form 태그 , CSS Links, display 속성 , Psudo selector ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/14/html-form/">
+
+
+ </head>
+
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 14 (목)</H4>
+<li>Form Element</li>
+<li>css Psuedo Selector </li>
+<li>practice</li>
+
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . Form element</h5>
+
+~~~html
+<form action="index.html" method="post">  
+<!--action 값은 정보를 보낼 곳을 말하며 method는 전송 방식이다. 전송방식에는 POST와 GET이있다.-->
+</form>
+~~~
+<p>전송방식으로는 <b style="color:red">POST</b>와 <b style="color:red;">GET</b>방식이 있다. 간단히 알아본 결과 GET 방식의 경우 URL뒤에 사이트의 정보 및 쿼리가 붙어 전송된다. POST의 경우 GET방식과 달리 BODY에 포함하고 URL뒤를 생략해서 보내는 방식이다.</p>
+
+~~~HTML
+<form action="index.html" method="post">
+  <input type="text" name="" value="">
+  <!--type은 어떤형식으로 보내는지를 정하는 속성이다. 위에서 보는 text value 이외에도 password, email등의 value가있다. name에는 <input>을 구별해주기 위함이다.-->
+</form>
+<form action="index.html" method="post">
+  <select class="" name="">
+    <option value="">1</option>
+    <option value="">2</option>
+  </select>
+  <textarea name="name" rows="8" cols="80"></textarea>
+  <button type="button" name="button"></button>
+</form>
+<!--select태그는 콤보박스를 만들어준다 Textarea태그는 나중에 게시판 만들 때 활용할 수 있을것으로 본다. Button 이벤트를 발생시키기 위해서 생성한다.-->
+~~~
+<p>위의 속성 뿐만 아니라 input 태그에는 size, maxlength(최대길이), placeholder(입력예시),autofocus(focus를 가지게함),required(필수입력) 등이 있다.</p>
+<h5 style = "font-size: 17px; font-weight : bold;">2 .CSS Psuedo selector</h5>
+
+
+~~~css
+a:link{}   /*아직 방문하지 않은 링크*/
+a:visited{} /*방문한 적이 있는 링크 */
+a:hover{} /*사용자가 마우스를 올려놓은 링크 */
+a:active{} /*클릭되었을 때의 링크 */
+input:checked{} /*체크된 input element를 선택*/
+input:disabled{} /*사용할수 없는 input element를 선택*/
+p:empty{} /*children이 없는 p element를 모두 선택*/
+~~~
+
+
+<p>a 태그의 경우 위에서 보이는 순서를 지켜서 사용해야한다.</p>
+
+<h5 style = "font-size: 17px; font-weight : bold;">3 .practice</h5>
+
+<p>form 태그를 활용하여 내일부터 학습할 jsp에 활용하기위한 로그인 페이지 및 회원가입 페이지 제작</p>
+<iframe src="/htmlpractice/index.html" style ="width : 100%; height : 300px;">
+</iframe>
+<iframe src="/htmlpractice/LoginForm.html" style ="width : 100%; height : 300px;">
+</iframe>
+<p>로그인 화면</p>
+<iframe src="/htmlpractice/registerForm.html" style ="width : 100%; height : 300px;">
+</iframe>
+<p>회원가입 화면</P>

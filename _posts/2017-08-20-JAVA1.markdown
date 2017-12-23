@@ -1,0 +1,160 @@
+---
+layout:     post
+title:      "[JAVA] 변수/연산자/조건문/반복문"
+tags: [JAVA]
+date:       2017-08-20 23:30:00
+author:     "신희준"
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="자바 변수,연산자,조건문,반복문">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+   <meta property="og:url" content="http://shj7242.github.io">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="자바 변수,연산자,조건문,반복문">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
+    <meta name="twitter:domain" content="http://shj7242.github.io">
+   </head>
+
+
+
+
+
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 20 (일)</H4>
+<li>변수</li>
+<li>연산자</li>
+<li>조건문/반복문</li>
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 변수</h5>
+<br>
+<p>
+<b style="color:red">변수</b> : 하나의 값을 저장할 수 있는 기억공간.
+<br><br>
+
+
+<b style="color:red">기본형</b> : boolean , char , byte , short, int, long, float, double ( 실제 값을 저장한다. )
+
+<br>
+<b style="color:red">참조형</b> : String, system ,etc.. ( 객체의 주소를 저장한다. )
+<br>
+
+</p>
+
+<img src="{{ site.baseurl }}/img/bv.JPG" alt="Post Sample Image">
+
+
+~~~java
+String a = "b"; //힙영역에 a라는 공간에 b가 저장됨.
+String b = "b"; //저장하려는 값이 이미 힙영역에 존재해서 좀더 효율적으로 메모리를 관리하기위해서 같은 주소를 가르키는 듯.
+String c = new String("a");
+String d = new String("a"); // 위와 다르게 새로운 주소 공간을 만들어 준것
+if(a.equals(b)) {
+  System.out.println("true");
+}else {
+  System.out.println("false");
+} // true 가 나온다. String 타입의 a와 b처럼 값을 정의하면 같은 주소를 가르키게 된다. "==" 으로 비교해도 true 가 나온다.
+if(c.equals(d)) {
+  System.out.println("true");
+}else {
+  System.out.println("false");
+} // if 문의 결과는 true 가 나온다. String은 객체의 주소를 저장하기 때문에 equals 로 비교해야한다. 서로다른 주소를 만들어 주었기에 "=="으로 비교하면 false가 나온다.
+~~~
+
+
+<p>
+<b style="color: red;">형변환</b> : 값의 타입을 다른 타입으로 변환하는 것이다.
+</p>
+
+~~~java
+int a = 38;
+double b = 38.9;
+a = (int)b; // 실수 -> 정수로 변환할 떄는 명시적형변환을 해줘야한다.
+b = a; // 정수 -> 실수 변환 시 묵시적형변환을 한다. (자동형변환 된다.)
+System.out.println("b : " +b); // 38 출력
+System.out.println("a : " + a); // 38.0 출력
+~~~
+
+<h5 style = "font-size: 17px; font-weight : bold;">2 . 연산자</h5>
+
+
+<img src="{{ site.baseurl }}/img/op.JPG" alt="Post Sample Image">
+
+<BR>
+<h5 style = "font-size: 17px; font-weight : bold;">3 . 조건문/반복문</h5>
+
+<p>
+조건문 : Switch / if 문 두가지로 쓰이며 각각의 용도가 약간씩 다르다.
+반복문 : for / while / do-while 문이 있다.
+</p>
+
+~~~java
+//if 문
+int a = 7;
+int b = 8;
+if(a>b){
+  System.out.println("a가 크다");
+}else{
+  System.out.println("b가 크다")
+} //( ) 안에는 조건식을 넣어주며 {  } 안에는 조건을 만족할 경우 결과를 나타내준다.
+~~~
+
+~~~java
+//switch문
+int month = 2;
+        String monthString;
+        switch (month) {
+            case 1:  monthString = "January";
+                     break;
+            case 2:  monthString = "February";
+                     break;
+            case 3:  monthString = "March";
+                     break;
+                     //if문과 달리 특정 경우에 수를 정해서 그 경우일 때 값 또는 처리를 반환해주는 방식이다.
+~~~
+
+
+~~~java
+//while 문
+int treeHit = 0;
+while (treeHit < 10) {
+    treeHit++;
+    System.out.println("나무를  " + treeHit + "번 찍었습니다.");
+    if (treeHit == 10) {
+        System.out.println("나무 넘어갑니다.");
+    }
+}
+//while ( 조건문 ) 형식이며 조건문을 만족할 때까지 {  } 안의 내용을 반복적으로 돌린다.
+~~~
+
+
+~~~java
+//for 문
+int[] marks = {90, 25, 67, 45, 80};
+for(int i=0; i<marks.length; i++) {
+    if (marks[i] >= 60) {
+        System.out.println((i+1)+"번 학생은 합격입니다.");
+    }else {
+        System.out.println((i+1)+"번 학생은 불합격입니다.");
+    }
+}
+// for (초기값 설정 ; 조건식 ; 증감식) 처럼 쓰이며 while 문과 마찬가지로 조건문을 만족하지 않을 때 까지 {  } 안의 내용을 반복적으로 돌린다.
+~~~

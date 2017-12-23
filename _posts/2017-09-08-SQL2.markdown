@@ -1,0 +1,177 @@
+---
+comments: true
+layout:     post
+title:      "[DB] SQL 3"
+date:       2017-09-08 21:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
+ <meta property="og:description" content=" SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/08/SQL2/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
+  <meta name="twitter:description" content=" SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/08/SQL2/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
+   <meta name="facebook:description" content=" SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/08/SQL2/">
+
+
+ </head>
+
+
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 08 (금)</H4>
+<li>CONSTRAINT</li>
+<li>TRANSACTION</li>
+<li>Dictionary</li>
+<li>OBJECT</li>
+<li>ADVANCED_SQL</li>
+
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+
+
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . CONSTRAINT</h5>
+<BR>
+<P>Constraint 는 데이터 무결성을 위해 필요하며 말그대로 제약조건 같은 것으로 사용자가 지정할 수 있는 성질이다. <br><br>
+<b style = "color:blue; ">Constraint 종류</b>
+<br>
+<br>
+NOT NULL : 컬럼이 NULL 값을 가질 수 없음.
+<BR>
+UNIQUE : 컬럼이나 컬럼의 조합이 테이블의 모든 행에서 고유한 값을 가져야 함.
+<br>
+Primary key : 유일하게 구별될 수 있는 컬럼
+<BR>
+Foreign key : 다른 테이블에서 참조할 수 있는 컬럼
+<br>
+CHECK : 컬럼값이 반드시 참이어야한다.
+</P>
+
+<BR>
+<P>
+아래는 본 교육에서 실습한 제약조건을 검색하는 쿼리이다.
+</P>
+
+~~~SQL
+select constraint_name , constraint_type, search_type, r_constraint_name from user_constraints where table_name = 's_emp';
+---제약조건 검색
+
+select constraint_name, column_name from user_cons_columns
+where table_name ='s_emp';
+
+select object_name from user_objects
+where object_type = 'TABLE';
+
+SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE, SEARCH_CONDITION, R_CONSTRAINT_NAME FROM USER_CONSTRAINTS
+WHERE TABLE_NAME = 'S_EMP';
+
+SELECT CONSTRAINT_NAME, COLUMN_NAME FROM USER_CONS_COLUMNS
+WHERE TABLE_NAME = 'S_EMP';
+~~~
+
+<h5 style = "font-size: 17px; font-weight : bold;">2 . TRANSACTION</h5>
+
+<p>트랜잭션 (DB에서 가장 작은 작업단위라고 정의 됨) 에는 몇가지 명령어들이 있다. <BR>
+
+<BR>
+<b style="color:red"> COMMIT</b> : D아직 저장되지 않은 데이터 변경 사항을 DB에 저장하고 현재 트랜잭션 종료
+(DDL 혹은 DCL 명령실행시 자동으로 COMMIT 된다. COMMIT 이 되고나면 이전 데이터는 사라지고 DB에 변경사항이 반영되며 다른 유저들도 수정 가능.)<BR><BR>
+<b style="color:red"> SAVEPOINT</b> 이름 : 현재의 트랜잭션에 SAVEPOINT 지정<BR><BR>
+<b style="color:red"> ROLLBACK</b> : 아직 저장되지 않은 모든 데이터 변경 사항 취소하고 트랜잭션 종료. ( 즉 커밋 되지 않은 상태에 대해 변경사항을 돌린다 Ctrl z 같은 느낌이라고 해도될것 같습니다. 하지만 다른 유저들이 조작을 할 수 없습니다.)
+
+
+
+</p>
+<br>
+<h5 style = "font-size: 17px; font-weight : bold;">3 . Dictionary</h5>
+<br>
+<p>
+Dictionary는 오라클 서버에 의해 생성되고 데이터베이스 그 자체에 대한 정보를 가진다. 뷰와 테이블로 구성되어 있다.
+<br>
+<br>
+Dictionary는 사용자에게 주어진 권한이나 테이블의 제약조건, sequence, view, index같은 DB객체명을 볼 수 있다.
+</p>
+
+~~~SQL
+
+--discribe dictionary
+disc dictionary;
+
+select * from dictionary;
+
+select * from dictionary where table_name like 'USER%';
+---DICTIONARY의 종류에는 4가지가 있다 각각 접두어를 쓰는데 USER, ALL_, DBA_, V$를 쓴다 위에 쿼리문은 USER가 접두어인 모든 필드를 데이터사전에서 가져오는 것이다.
+
+
+~~~
+
+<br>
+<h5 style = "font-size: 17px; font-weight : bold;">4 . OBJECT</h5>
+<br>
+<p>
+
+<b style ="color:blue;">▶ Sequence : </b>  시퀀스는 자동으로 고유한 숫자값을 생성해주기 위해 사용한다. 컬럼 하나가 추가될 때마다 순서대로 기본키 값이 1, 2, 3, 4 이렇게 증가되는 것이죠.
+ </p>
+
+~~~SQL
+CREATE SEQUENCE c_emp_id
+  INCREMENT BY 1       --- 값이 얼마씩 증가할 것인지
+  START WITH 26       --- 값이 몇부터 시작할 것인지
+  MAXVALUE 9999999    --- 최대 SEQUENCE 가능한 값
+  NOCACHE         --- 메모리에 유지할 값// 있을 경우 CACHE n
+  NOCYCLE;        --- 최대값이나 최소값까지 값이 생성된 경우에도 값을 생성시킬것인지
+
+select sequence_name, min_value, max_value, increment_by, last_number
+from user_sequences;
+--- 시퀀스 조회하기
+~~~
+
+<p>
+
+<b style ="color:blue;">▶ Index : </b>  테이블의 데이터를 빠르게 검색하기 위해서 사용되는 DB의 Object 중 하나이다. 마치 사전에서 ㄱ ,ㄴ ,ㄷ ,ㄹ 초성순서대로 나누어 검색에 용이하게 하듯이 DB또한 컴퓨터가 하더라도 좀더 빠른 방법으로 찾기 위해 INDEX를 한다. 인덱스는 각 행의 ROWID와 인덱스 컬럼으로 구성된다.
+ </p>
+
+~~~SQL
+CREATE INDEX 인덱스명
+ON 테이블명 (컬럼, [, 컬럼] ...);
+--- 같이 정의한다. 하지만 sqlDeveloper 를 활용하면 간단히 index를 관리할 수 있다.
+~~~
+
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">5 . ADVANCED_SQL</h5>
+
+<p>decode, pivot 등 몇몇 sql 내장 함수들이 있다. 아래는 몇개의 예제 분석</p>
+
+
+~~~SQL
+select name salary, decode(trunc(salary/1000), 0 , 'E', 1, 'D', 2, 'C', 3, 'B', 'A') 급여등급 FROM S_EMP;
+---decode 함수를 사용하여 1000으로 급여를 나누었을 때 0 이면 E등급 1이면 D등급,.... 나누어준다. 마치 JAVA에서 Switch case 문을 보는것 같았다.
+
+select id, name,
+    case salary
+        when 1000 then 'low'
+        when 5000 then 'high'
+        else 'medium'
+    end
+from s_emp;
+
+--- salary가 1000이면 low 5000 이면 high, 그 밖에는 medium/// 위의 SQL 문장과 비슷하게 보인다.  
+
+select * from(select dept_id, title from s_emp)
+pivot(
+    count(*)
+    for title in('사원', '과장', '부장', '이사', '사장')
+)
+order by dept_id;
+
+--- 엑셀의 피벗테이블처럼 사원, 과장, 부장, 이사, 사장의 숫자를 세서 새로운 테이블을 생성시킨다.
+
+~~~

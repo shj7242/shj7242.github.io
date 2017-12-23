@@ -1,0 +1,156 @@
+---
+layout:     post
+title:      "[JSP/SERVLET] BHCPInitListener / Filter"
+comments: true
+date:       2017-09-26 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="BHCPInitListener, Filter , 커넥션 풀(DBCP) ">
+ <meta property="og:description" content="BHCPInitListener, Filter , 커넥션 풀(DBCP) ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/26/JSP10/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BHCPInitListener, Filter , 커넥션 풀(DBCP) ">
+  <meta name="twitter:description" content="BHCPInitListener, Filter , 커넥션 풀(DBCP) ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/26/JSP10/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="BHCPInitListener, Filter , 커넥션 풀(DBCP) ">
+   <meta name="facebook:description" content="BHCPInitListener, Filter , 커넥션 풀(DBCP) ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/26/JSP10/">
+
+
+ </head>
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 26 (화)</H4>
+<li>BHCPInitListener</li>
+<li>Filter</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . BHCPInitListener</h5>
+<br>
+<p>
+<b>커넥션 풀</b><br>
+
+데이터베이스와 연결된 커넥션을 미리 만들어 풀 속에 저장해 두고 있다가 필요할 때에 커넥션을 풀에서 가져다 쓰고 다시 풀에 반환하는 기법.<br>
+
+<b>DBCP LIBRARY</b> - 요즘은 많이 쓰기 때문에 APACHI 등등에서 제공을해줌<br>
+<br><br>
+BHCPInitListener 저장과정
+<br><br>
+<b style = "color:blue;">1.WEB.XML 에 아래 코드 저장</b>
+</p>
+<br>
+
+~~~xml
+<listener>
+		<listener-class>com.codechobo.DBCPInitListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>jdbcDriver</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</context-param>
+~~~
+
+<p>
+listener를 추가하여 어플리케이션 실행시 com.codechobo.DBCPInitListener가 실행되도록 한다. <br><br>
+jdcbcDriver 라는 이름의 파라미터에 oracle.jdbc.driver.OracleDriver 값 지정해준다. </p>
+<br><br>
+<b style = "color:blue;">2.DHCPInitListener 클래스 정의</b><br>
+
+~~~java
+public class DBCPInitListener implements ServletContextListener {
+    public void contextInitialized(ServletContextEvent sce) {
+        try {
+            ServletContext context = sce.getServletContext();
+            String drivers = context.getInitParameter("jdbcDriver");
+            Class.forName(drivers);
+            System.out.println("로딩완료");
+    }catch(Exception e){
+        throw new RuntimeException(e);
+    }
+}
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		// TODO Auto-generated method stub		
+	}
+}
+~~~
+
+<p>어플리케이션이 실행되면 본 리스너가 실행된다. drivers 변수에 1번에서 받은 파라미터 값을 넣어준다. Class.forName으로 DB에 로딩을 시도한다. 이와 같이 DB로딩을 어플리케이션 실행시 해주면 종료시까지 DB로딩을 다시 해주지 않아도 된다. 기존에 UserDao 에 DB와 로딩하는 부분을 빼주자.</p>
+<br>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . Filter</h5>
+<br>
+<br>
+<p>필터는 말그대로 필터링한다고 생각하면 쉽다. 요청 (request), 응답 (response) 이 JSP또는 서블릿에 보내질 때 그 사이에 존재하여 적절히 여과시켜주는 것이다. <br><br>
+예를 들면 비회원이 구매버튼을 클릭할 때, 비회원이 게시물보기 버튼을 눌렀을 때 상황을 생각해보면 간단하다. 이들은 분명히 요청한 페이지를 받아볼 수 없다. <br>&nbsp;그 이유가 이 필터링이다. 필터에 의해 이 상황에서 응답받는 페이지는 로그인화면일 것이다.
+<br><br>
+</p>
+<p>
+<b>로그인체크 필터 적용 과정</b>
+<br> <br>
+<b style = "color:blue;">1 . web.xml에 filter태그와 filter-mapping 정의</b>
+</p>
+<br>
+
+~~~xml
+<filter>
+  <filter-name>LoginCheck</filter-name>
+  <filter-class>com.codechobo.LoginCheckFilter</filter-class>
+</filter>
+
+<filter-mapping>
+  <filter-name>LoginCheck</filter-name>
+  <url-pattern>/GetBoard</url-pattern>
+</filter-mapping>
+~~~
+
+<p>filter 이름인 LoginCheck / filter를 구현하는 클래스인 com.codechobo.LoginCheckFilter를 각각 저장한다.<br><br>
+
+LoginCheck 필터를 /GetBoard 과 매핑 (누군가 게시물을 자세히 보고자할 떄 /GetBoard와 매핑되는 서블릿으로 이동한다.)
+<br><br>
+<b style = "color:blue;">1 . web.xml에 filter태그와 filter-mapping 정의</b><br></p>
+
+~~~java
+public class LoginCheckFilter implements Filter {
+	@Override
+	public void destroy() {
+	}
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		// TODO Auto-generated method stub
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpSession session = httpRequest.getSession(false);
+		boolean login = false;
+		if(session!=null){
+			if(session.getAttribute("cid")!=null){
+				login=true;
+			}
+		}
+		if(login){
+			chain.doFilter(request, response);
+		}else{
+			RequestDispatcher dispacher = request.getRequestDispatcher("LoginForm.jsp");
+			dispacher.forward(request, response);
+		}
+	}
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
+	}
+}
+~~~
+
+<p>destropy() 는 필터가 웹컨테이너에서 삭제될 때 불러진다. <br>
+doFilter() 메소드는 실제 필터 역할을 하는 부분이다. session을 확인하여 로그인 상태를 확인하고 로그인값이 False이면 LoginForm 으로 forward한다. </p>

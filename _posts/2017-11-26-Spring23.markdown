@@ -1,0 +1,197 @@
+---
+layout:     post
+title:      "[Spring] 페이스북 로그인 API"
+
+date:       2017-11-29 17:55:00
+author:     "신희준"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 페이스북 로그인 api">
+ <meta property="og:description" content="스프링 페이스북 로그인 api">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/26/Spring23/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 페이스북 로그인 api">
+  <meta name="twitter:description" content="스프링 페이스북 로그인 api">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/26/Spring23/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 페이스북 로그인 api">
+   <meta name="facebook:description" content="스프링 페이스북 로그인 api">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/26/Spring23/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 29 (수)</H4>
+
+<br>
+
+1 . <a href="https://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook/2.0.3.RELEASE">facebookAPI Dependency</a> 를 추가한다.
+
+2 . 페이스북 개발자 사이트로 접속한다. 주소는 <a href =https://developers.facebook.com> https://developers.facebook.com</a> 이다.
+
+
+3 . FACEBOOK로그인 설정탭의 OAuth 설정에서 리디렉션 URI 를 추가한다.
+
+<img src="{{ site.baseurl }}/img/fb.PNG" alt="Post Sample Image">
+
+
+4 . 설정에서 앱ID 및 앱 시크릿코드를 확인한다.
+
+5 . src/main/resources 에 application.properties 파일 생성후 아래처럼 페이스북 앱 ID 및 시크릿코드를 붙여넣는다. ( 아래코드는 SPRING.IO에서 예시해준 예제 코드 )
+
+~~~xml
+spring.social.facebook.appId=233668646673605
+spring.social.facebook.appSecret=33b17e044ee6a4fa383f46ec6e28ea1d
+~~~
+
+6 . root-context.xml 에 다음 코드를 추가한다. ()
+
+~~~xml
+<context:property-placeholder location="classpath:/application.properties" />
+
+<bean id = "connectionFactoryLocator" class="org.springframework.social.connect.support.ConnectionFactoryRegistry">
+  <property name = "connectionFactories">
+    <bean class = "org.springframework.social.facebook.connect.FacebookConnectionFactory">
+      <constructor-arg value = "${spring.social.facebook.appId}"/>
+      <constructor-arg value = "${spring.social.facebook.appSecret}"/>
+
+    </bean>
+  </property>
+</bean>
+<bean id = "inMemoryConnectionRepository" class = "org.springframework.social.connect.mem.InMemoryConnectionRepository">
+  <constructor-arg ref=  "connectionFactoryLocator"/>
+</bean>
+~~~
+
+7 . Controller 작성 (/connect/facebook 으로 요청시 페이스북의 컨트롤러에의해 해당 컨트롤러로 콜백된다.)
+
+~~~java
+package com.bitproject.controller;
+
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.connect.web.ConnectController;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.servlet.view.RedirectView;
+
+import com.bitproject.domain.UserVO;
+import com.bitproject.service.UserService;
+
+@Controller
+@RequestMapping("/connect")
+public class FacebookTestController extends ConnectController {
+	final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private String TARGET_URL = new String();
+
+	@Inject
+	private UserService service;
+
+	@Resource(name="inMemoryConnectionRepository")
+	private ConnectionRepository connectionRepository;
+
+	@Inject
+	public FacebookTestController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
+		super(connectionFactoryLocator, connectionRepository);
+	}
+
+	@RequestMapping(value="/{providerId}", method=RequestMethod.POST)
+	public RedirectView connect(@PathVariable String providerId, NativeWebRequest request) {
+		HttpServletRequest httpServletRequest = (HttpServletRequest)request.getNativeRequest();
+		TARGET_URL = httpServletRequest.getHeader("REFERER");
+		return super.connect(providerId, request);
+	}
+
+	@RequestMapping(value="/{providerId}", method= RequestMethod.GET, params="code")
+	public RedirectView oauth2Callback(@PathVariable String providerId, NativeWebRequest request) {
+		RedirectView redirectView = super.oauth2Callback(providerId, request);
+
+		// 사용자 정보 가져오기
+		Connection<Facebook> connection = connectionRepository.findPrimaryConnection(Facebook.class);
+		Facebook facebook = connection.getApi();
+		String [] fields = { "id", "age_range", "email", "first_name", "gender",
+				"last_name", "link", "locale", "name", "third_party_id", "verified"};
+		User userProfile = facebook.fetchObject("me", User.class, fields);
+		UserVO vo = null;
+		// 로그인 처리
+		try {
+			vo = service.onAuthenticationBinding(new UserVO(), userProfile);
+
+			request.setAttribute("login",vo,1);
+			logger.info("facebook 서비스 처리");
+			logger.info("facebook : " + vo);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		redirectView.setUrl(TARGET_URL);
+		return redirectView;
+	}
+}
+~~~
+
+8 . Service 작성
+
+~~~java
+@Override
+	public UserVO onAuthenticationBinding(UserVO user, User facebookUser) throws Exception {
+		// TODO Auto-generated method stub
+		user.setUser_snsId(facebookUser.getId());
+		user.setUser_email(facebookUser.getEmail());
+		user.setUser_name(facebookUser.getName());
+
+		int sex=0;
+		if(facebookUser.getGender().equals("male")) {
+			sex = 1;
+		}else {
+			sex = 0;
+		}
+		user.setUser_sex(sex);
+
+
+//		dao.insertUser(user);
+		System.out.println(dao.snsLogin(user.getUser_snsId()));
+
+		if(dao.snsLogin(user.getUser_snsId())==null) {
+			dao.insertUser(user);
+		}
+
+		System.out.println(user.toString());
+		return dao.snsLogin(user.getUser_snsId());
+
+	}
+
+~~~
+
+9 . DAO 작성
+
+~~~Java
+@Override
+public UserVO snsLogin(String str) throws Exception {
+  // TODO Auto-generated method stub
+
+  return sqlSession.selectOne(namespace+".snsLogin", str);
+}
+~~~

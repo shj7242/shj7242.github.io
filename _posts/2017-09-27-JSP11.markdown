@@ -1,0 +1,120 @@
+---
+layout:     post
+title:      "[JSP/SERVLET] EL/JSTL"
+comments: true
+date:       2017-09-27 23:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP EL 태그, JSTL (자바 표준 태그 라이브러리) ">
+ <meta property="og:description" content="JSP EL 태그, JSTL (자바 표준 태그 라이브러리) ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/27/JSP11/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP EL 태그, JSTL (자바 표준 태그 라이브러리) ">
+  <meta name="twitter:description" content="JSP EL 태그, JSTL (자바 표준 태그 라이브러리) ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/27/JSP11/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP EL 태그, JSTL (자바 표준 태그 라이브러리) ">
+   <meta name="facebook:description" content="JSP EL 태그, JSTL (자바 표준 태그 라이브러리) ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/27/JSP11/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 27 (수)</H4>
+<li>EL</li>
+<li>JSTL</li>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . EL</h5>
+<br>
+<p>
+표현언어(EL)를 사용하는 이유는 JSP 파일 내에 스크립트립을 활용하여 자바 코드를 사용한다. 이렇게 쓰다보면 가끔 코드를 보는데 힘들 때가 있다. 표현언어을 쓰면 간결하게 코드를 쓸 수 있으며 이해가 쉽다는 장점이 있다.
+</p>
+
+~~~jsp
+<%= user.getId() %>   //표현식
+${user.id}      //표현언어
+${sessionScope.user.id}  
+~~~
+
+<p>
+<b style = "color:blue;">▶ EL 기본객체 </b><br><br>
+(개인적인 생각으로 이 기본객체들이 자동완성이 안먹히므로 어느정도 외워둘 필요가 있을 듯)<br><br>
+pageContext / pageScope / requestScope / sessionScope / applicationScope >>이 기본객체들은 속성 : 값 처럼 Map 형태로 저장한다.(각 기본객체의 영역에 따라)<br><br>
+
+param : 요청 파라미터의 파라미터이름 : 값 형태로 저장한 Map 객체 (파라미터 값의 타입은 <b style = "color:red;">String</b> request.getParameter와 동일)
+<br><br>
+paramValues : request.getParameterValues()와 동일하다. 값의 타입은 (<b style="color:red;">String[]</b> 으로 값은 중복이되도 파라미터 이름은 중복될 수 없기 때문!)
+<br><br>
+◈getParameter()의 경우 String 값을 불러오는데에 반해 getAttribute는 객체나 Map형식으로 불러옴 / 또한 표현언어에 저장된 값이 없을 떄는 "" 로 받아오지만 getAttribute는 null 로 받아온다. 약간의 상이한 점이 있는것 같다.
+<br><br>
+
+Cookie / header / headerValues 등이 있다.
+
+~~~JSP
+${cookie.ID.value} //쿠키의 속성이 id인 값을 출력
+~~~
+
+<p> " . " 또는 "[ ]" 를 통해서 객체에 저장된 값에 접근한다. <B>EX) cookie 객체의 ID 속성의 값.</B><br><br>
+
+추가적으로 앞서 기본객체의 영역을 설명했는데 ${name} 처럼 영역이 지정되있지 않으면 영역이 작은 순서대로(PAGE, REQUEST, SESSION, APPLICATION) 순으로 name 이라는 이름을 가진 속성이 있으면 그 속성의 값을 가져와 사용한다.
+<br><br>
+
+empty 연산자 : 말그대로 값이 비어있는지 확인하는 연산자로 empty< value > 형식으로 쓰인다.
+<br><br>
+
+EL을 자세히 공부하기위해서는 람다 스트림에 대한 이해가 추가적으로 필요할것 같다.
+</p>
+<BR>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . JSTL</h5>
+<BR>
+JSTL(JSP Standard Tag Library) : JSTL 또한 쓰는 이유는 HTML과 스크립트코드가 뒤섞여 가독성이 떠러질 수 있다. JSTL은 논리적판단/반복처리/포맷 처리를 수행한다.<BR><BR>
+
+JSTL 추가 :
+
+https://mvnrepository.com/artifact/javax.servlet/jstl/1.2 에 들어가서 다운로드 후 WEB_INF 에 Library에 추가
+<br><br>
+
+코어태그 : 변수설정 혹은 if / choose 같은 논리처리에 사용하는 스크립트 코드를 대체한다.
+<br>
+<br>
+ - 변수 설정 : set (JSP 에서 변수를 설정한다) , remove ( JSP 에서 변수를 제거한다.)
+
+
+ <img src="{{ site.baseurl }}/img/coreset.JPG" alt="Post Sample Image">
+
+
+<p> c:set 태그는 위와 같이 쓰인다. var에는 저장할 EL의 변수명을 지정하고 value 에는 변수의 값을 넣어준다.</p>
+
+ <img src="{{ site.baseurl }}/img/coreset2.JPG" alt="Post Sample Image">
+
+<p>target을 쓰는 경우는 해당 대상이 객체일 경우 또는 Map 이여야한다. 가령 user 객체를 생성했고 이 객체를 대상으로 id 변수 값에 shj7242 라는 값을 세팅한다. 아래도 동일한 개념이다. u라는 변수에 user객체를 넣는다. <br>아래는 위의 코드와 같은 의미이다 (표현식/표현언어) </p>
+
+<br>
+<p>
+ - 흐름제어 태그 : for문이나 if 문 같은 코드가 들어가면 jsp 파일에는 스크립트립으로 도배가 된다.. 뿐만 아니라 중첩까지 된다면 코드를 읽는데 수월하지만은 않을 것이다. 이러한 복잡한 부분을 깨고자  c:if / c:choose / c:forEach 같은 태그를 사용한다.  
+</p>
+
+<img src="{{ site.baseurl }}/img/cif.JPG" alt="Post Sample Image">
+
+
+
+
+<img src="{{ site.baseurl }}/img/cchoose.JPG" alt="Post Sample Image">
+
+
+//choose 태그 when 태그 otherwise 태그로 구분해서 쓰인다.  empty(값이 비어있으면 true를 반환한다.)
+
+<img src="{{ site.baseurl }}/img/cforeach.JPG" alt="Post Sample Image">
+
+//이외에도 foreach에서 사용하는 몇몇 속성들이 있다. items(반복 처리할 데이터로 Map, Collection등), varStatus (루프 상태를 저장할 EL변수이름이다. )

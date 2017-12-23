@@ -1,0 +1,48 @@
+---
+layout:     post
+title:      "[JavaScript] 카드게임"
+
+date:       2017-11-04 18:55:00
+author:     "신희준"
+tags: [JavaScript]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="자바스크립트 카드게임 구현">
+ <meta property="og:description" content="자바스크립트 카드게임 구현">
+ <meta property="og:url" content="http://shj7242.github.io/2017/11/04/JavaScript13/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="자바스크립트 카드게임 구현">
+  <meta name="twitter:description" content="자바스크립트 카드게임 구현">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/11/04/JavaScript13/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="자바스크립트 카드게임 구현">
+   <meta name="facebook:description" content="자바스크립트 카드게임 구현">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/11/04/JavaScript13/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 04 (토)</H4>
+<li>같은카드 맞추기 게임</li>
+
+<br>
+<br>
+
+>카드 뒤집기 게임
+
+<br>
+
+
+<iframe src="/htmlpractice/card.html" style ="width : 100%; height : 750px;">
+</iframe>
+<br>
+
+* 소스코드 : <a href='https://github.com/shj7242/Practice_js/blob/master/jspractice/card.js'>https://github.com/shj7242/Practice_js/blob/master/jspractice/card.js</a>

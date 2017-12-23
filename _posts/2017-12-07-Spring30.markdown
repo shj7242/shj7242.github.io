@@ -1,0 +1,503 @@
+---
+layout:     post
+title:      "[Spring] 이미지 업로드하기"
+
+date:       2017-12-07 17:55:00
+author:     "신희준"
+tags: [Spring]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="스프링 AJAX 이미지 업로드하기 (프로필 이미지)">
+ <meta property="og:description" content="스프링 AJAX 이미지 업로드하기 (프로필 이미지)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/07/Spring30/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="스프링 AJAX 이미지 업로드하기 (프로필 이미지)">
+  <meta name="twitter:description" content="스프링 AJAX 이미지 업로드하기 (프로필 이미지)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/07/Spring30/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="스프링 AJAX 이미지 업로드하기 (프로필 이미지)">
+   <meta name="facebook:description" content="스프링 AJAX 이미지 업로드하기 (프로필 이미지)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/07/Spring30/">
+
+
+ </head>
+
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 07 (목)</H4>
+
+<br>
+
+> 이미지 업로드하기
+
+<br>
+
+1 . pom.xml 에서 라이브러리를 추가한다. ( spring version : 4.1.7 )
+
+~~~xml
+<!-- 이미지 업로드 -->
+<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib-->		<dependency>
+	<groupId>org.imgscalr</groupId>
+	<artifactId>imgscalr-lib</artifactId>
+	<version>4.2</version>
+</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+	<groupId>commons-fileupload</groupId>
+	<artifactId>commons-fileupload</artifactId>
+	<version>1.3.2</version>
+</dependency>
+~~~
+
+2 . servlet-context.xml 에 multipartResolver 빈 등록 : maxUploadSize 의 경우 10485760 으로 정했는데 이는 10MB 정도를 의미한다. 해당 빈을 통해 multipart타입의 데이터 처리를 가능하게 한다.
+
+~~~xml
+<beans:bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="10485760"></beans:property>
+</beans:bean>
+~~~
+
+3 . 한글이름의 이미지파일이 올라가기 위해서 web.xml 에 인코딩 필터를 추가한다.
+
+~~~xml
+<filter>
+	  <filter-name>encoding</filter-name>
+	  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	  <init-param>
+	   <param-name>encoding</param-name>
+	   <param-value>UTF-8</param-value>
+	  </init-param>
+	</filter>
+
+	<filter-mapping>
+	  <filter-name>encoding</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+~~~
+
+4 . servlet-context.xml 에 이미지 파일폴더 생성 후 저장할 경로를 지정해준다. 실제로 데이터베이스에 저장할 값은 이미지 경로이며 이미지 파일은 uploadPath 빈에서 지정해준 경로에 저장이된다.
+
+~~~xml
+<beans:bean id = "uploadPath" class="java.lang.String">
+	<beans:constructor-arg value="C:\WorkSpace_Spring\login\src\main\webapp\resources\profileImage">
+
+	</beans:constructor-arg>
+</beans:bean>
+~~~
+
+
+5 . uploadController 생성
+
+~~~java
+
+@Controller
+public class UploadController {
+
+	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public void uploadForm() throws Exception {
+	}
+
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
+	public String uploadForm(MultipartFile file, Model model) throws Exception {
+
+		logger.info("originalName: " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contentType: " + file.getContentType());
+
+		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+
+		model.addAttribute("savedName", savedName);
+
+		return "uploadResult";
+	}
+
+	private String uploadFile(String originalName, byte[] fileData) throws Exception {
+
+		UUID uid = UUID.randomUUID();
+		String savedName = uid.toString() + "_" + originalName;
+		File target = new File(uploadPath, savedName);
+		FileCopyUtils.copy(fileData, target);
+		return savedName;
+	}
+}
+
+~~~
+
+6 . jsp 생성후 테스트 진행 : 스크립트를 보면 profileImg(이미지) 클릭시
+<input type = "file"> 형식의 버튼이 클릭 되도록 한다. 버튼을 클릭하여 파일 선택시 fileChange(e) 함수가 실행되고 서버로 비동기 요청을 보내게된다.
+
+~~~html
+<script>
+$(document).ready(function(){
+	$("#profileImg").click(function(){
+		$("#input_img").click() ;
+		})			
+	})
+
+</script>
+
+
+<script>
+var sel_file;
+
+$(document).ready(function() {
+    $("#input_img").on("change", fileChange);
+});
+
+function fileChange(e) {
+	e.preventDefault();
+
+
+	var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+
+    filesArr.forEach(function(f) {
+        if(!f.type.match("image.*")) {
+            alert("확장자는 이미지 확장자만 가능합니다.");
+            return;
+        }
+
+        sel_file = f;
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $("#profileImg").attr("src", e.target.result);
+        	$("#profileImg").css("height", "100px")
+        }
+        reader.readAsDataURL(f);
+    });
+
+    var file = files[0]
+    console.log(file)
+    var formData = new FormData();
+
+    formData.append("file", file);
+
+		$.ajax({
+    	url: '/uploadAjax',
+		  data: formData,
+		  dataType:'text',
+		  processData: false,
+		  contentType: false,
+		  type: 'POST',
+		  success: function(data){
+
+			alert("프로필 이미지가 변경 되었습니다.")
+
+		  }
+		})
+
+
+ 		function checkImageType(fileName){
+ 			var pattern = /jpg$|gif$|png$|jpeg$/i;
+ 			return fileName.match(pattern);
+ 		}
+
+
+ 		function getOriginalName(fileName){
+ 			if(checkImageType(fileName)){
+ 				return;
+ 			}
+
+ 			var idx = fileName.indexOf("_") + 1 ;
+ 			return fileName.substr(idx);
+
+ 		}
+
+
+ 		function getImageLink(fileName){
+
+ 			if(!checkImageType(fileName)){
+ 				return;
+ 			}
+ 			var front = fileName.substr(0,12);
+ 			var end = fileName.substr(14);
+
+ 			return front + end;
+
+ 		}
+
+}
+</script>
+
+<c:choose>
+			 	<c:when test="${empty userImage }">
+				<div>
+					<img id ="profileImg" src = "/displayFile?fileName=/lion.gif" style = "border-radius:0%; padding-top : 10px; height:100px; width:100px;">
+				</div>
+				</c:when>
+				<c:otherwise>
+				<div>
+					<img id ="profileImg" src = "/displayFile?fileName=${userImage }" style = "border-radius:0%; padding-top : 10px; height:100px; width:100px;">
+				</div>
+				</c:otherwise>
+</c:choose>
+~~~
+
+7 . controller 생성 : ajax 요청을 받는 컨트롤러를 생성한다. 이 컨트롤러에서는 이미지 파일을 변환하여 servlet-context.xml 에서 지정한 저장공간으로 업로드와 동시에 service를 통해 database에 이미지 경로를 저장하게 된다.
+
+~~~java
+@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public String uploadAjax(MultipartFile file, String str, HttpSession session,
+			HttpServletRequest request, Model model) throws Exception {
+
+		logger.info("originalName: " + file.getOriginalFilename());
+
+			ResponseEntity<String> img_path = new ResponseEntity<>(
+					UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
+					HttpStatus.CREATED);
+			String user_imgPath = (String) img_path.getBody();
+
+			logger.info(user_imgPath);
+			UserVO vo = new UserVO();
+			vo.setUser_profileImagePath(user_imgPath);
+			UserVO id = (UserVO) session.getAttribute("login");
+			System.out.println(id.getUser_id());
+			vo.setUser_id(id.getUser_id());
+			logger.info("file name : " + user_imgPath);
+
+			return user_imgPath;
+	}
+
+	@ResponseBody
+	@RequestMapping("/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+
+		logger.info("FILE NAME: " + fileName);
+
+		try {
+
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+			MediaType mType = MediaUtils.getMediaType(formatName);
+
+			HttpHeaders headers = new HttpHeaders();
+
+			in = new FileInputStream(uploadPath + fileName);
+
+			if (mType != null) {
+				headers.setContentType(mType);
+			} else {
+
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition",
+						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			}
+
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName) {
+
+		logger.info("delete file: " + fileName);
+
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+		MediaType mType = MediaUtils.getMediaType(formatName);
+
+		if (mType != null) {
+
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+		}
+
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+~~~
+
+8 . Util 파일 작성 java/com/almom/util/UploadFileUtil.java : 업로드에 공통적으로 쓰일 클래스를 생성한다.
+
+~~~java
+package com.almom.util;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.UUID;
+
+import javax.imageio.ImageIO;
+
+import org.imgscalr.Scalr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.FileCopyUtils;
+
+public class UploadFileUtils {
+
+  private static final Logger logger =
+      LoggerFactory.getLogger(UploadFileUtils.class);
+
+
+  public static String uploadFile(String uploadPath,
+                              String originalName,
+                              byte[] fileData)throws Exception{
+
+    UUID uid = UUID.randomUUID();
+
+    String savedName = uid.toString() +"_"+originalName;
+
+    String savedPath = calcPath(uploadPath);
+
+    File target = new File(uploadPath +savedPath,savedName);
+
+    FileCopyUtils.copy(fileData, target);
+
+    String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
+
+    String uploadedFileName = null;
+
+    if(MediaUtils.getMediaType(formatName) != null){
+      uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
+    }else{
+      uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
+    }
+
+    return uploadedFileName;
+
+  }
+
+  private static  String makeIcon(String uploadPath,
+      String path,
+      String fileName)throws Exception{
+
+    String iconName =
+        uploadPath + path + File.separator+ fileName;
+
+    return iconName.substring(
+        uploadPath.length()).replace(File.separatorChar, '/');
+  }
+
+
+  private static  String makeThumbnail(
+              String uploadPath,
+              String path,
+              String fileName)throws Exception{
+
+    BufferedImage sourceImg =
+        ImageIO.read(new File(uploadPath + path, fileName));
+
+    BufferedImage destImg =
+        Scalr.resize(sourceImg,
+            Scalr.Method.AUTOMATIC,
+            Scalr.Mode.FIT_TO_HEIGHT,100);
+
+    String thumbnailName =
+        uploadPath + path + File.separator +"s_"+ fileName;
+
+    File newFile = new File(thumbnailName);
+    String formatName =
+        fileName.substring(fileName.lastIndexOf(".")+1);
+
+
+    ImageIO.write(destImg, formatName.toUpperCase(), newFile);
+    return thumbnailName.substring(
+        uploadPath.length()).replace(File.separatorChar, '/');
+  }
+
+
+  private static String calcPath(String uploadPath){
+
+    Calendar cal = Calendar.getInstance();
+
+    String yearPath = File.separator+cal.get(Calendar.YEAR);
+
+    String monthPath = yearPath +
+        File.separator +
+        new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
+
+    String datePath = monthPath +
+        File.separator +
+        new DecimalFormat("00").format(cal.get(Calendar.DATE));
+
+    makeDir(uploadPath, yearPath,monthPath,datePath);
+
+    logger.info(datePath);
+
+    return datePath;
+  }
+
+
+  private static void makeDir(String uploadPath, String... paths){
+
+    if(new File(paths[paths.length-1]).exists()){
+      return;
+    }
+
+    for (String path : paths) {
+
+      File dirPath = new File(uploadPath + path);
+
+      if(! dirPath.exists() ){
+        dirPath.mkdir();
+      }
+    }
+  }
+
+
+}
+~~~
+
+9 . main/java/com/almom/util/MediaUtils.java 생성 해당 클래스의 경우 이미지 파일로드시 (JPG, GIF, PNG) 의 데이터형식을 맵에 넣어주는 클래스를 만든다.
+
+~~~JAVA
+package com.almom.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.MediaType;
+
+public class MediaUtils {
+
+	private static Map<String, MediaType> mediaMap;
+
+	static{
+
+		mediaMap = new HashMap<String, MediaType>();		
+		mediaMap.put("JPG", MediaType.IMAGE_JPEG);
+		mediaMap.put("GIF", MediaType.IMAGE_GIF);
+		mediaMap.put("PNG", MediaType.IMAGE_PNG);
+	}
+
+	public static MediaType getMediaType(String type){
+
+		return mediaMap.get(type.toUpperCase());
+	}
+}
+~~~
+
+10 .  Service / DAO / Mapper 생성 : 데이터베이스 관련해서 처리해 줄것은 프로필 이미지 업데이트이다.

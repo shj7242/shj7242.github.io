@@ -1,0 +1,78 @@
+---
+layout:     post
+title:      "[JSP/SERVLET] JSP jdbc (허접한 게시판)"
+comments: true
+date:       2017-09-24 19:30:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="JSP jdbc 게시판 CRUD">
+ <meta property="og:description" content="JSP jdbc 게시판 CRUD">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/24/JSP7/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JSP jdbc 게시판 CRUD">
+  <meta name="twitter:description" content="JSP jdbc 게시판 CRUD">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/24/JSP7/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="JSP jdbc 게시판 CRUD">
+   <meta name="facebook:description" content="JSP jdbc 게시판 CRUD">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/24/JSP7/">
+
+
+ </head>
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 09 - 24 (일)</H4>
+<li>JDBC/JSP 게시판 기능 구상</li>
+<li>JDBC/JSP 게시판 만들기 연습</li>
+
+<br>
+<H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 게시판 기능 구상</h5>
+
+<p>최초의 계획은 게시물 작성 및 수정 삭제, 댓글 등 다양한 게시판 기능을 완성하고자 하였으나.. 시간적인 문제로 기간을 연장하였다. <br><br>구현한 기능 <Br><br>
+<b style="color:blue; font-size: 14px;"> * 로그인이 활성화 되있지 않을 경우 글쓰기, 게시물 자세히보기 불가능 </b><br><br>
+<b style="color:blue; font-size: 14px;"> * 로그인을 한 후 게시판 페이지에 들어오면 목록형식으로 게시글들을 띄워줌 </b><br><br>
+<b style="color:blue; font-size: 14px;"> * 게시물 제목을 클릭하면 게시글 자세히 보기 </b> <br><br>
+<b style="color:blue; font-size: 14px;"> * 글쓰기를 입력하면 게시물 등록 </b>
+</p>
+
+
+<br>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . 게시판 만들기</h5>
+
+<br>
+<p>완벽하지는 않지만 회원가입 / 로그인 / 회원수정 등 회원관리에 해당하는 기능을 모두 구현해보니 자신감이 붙었고, 게시판 만들기에 도전하게되었다.</p>
+<br>
+
+<p><b style="color:blue; font-size: 14px;"> >> 게시판 테이블 추가 </b><br><br>
+
+
+</p>
+
+<img src="{{ site.baseurl }}/img/boardImg.JPG" alt="Post Sample Image">
+<p>위와 같이 게시물 번호, 제목, 내용, 업로드시간, 아이디, 조회수로 컬럼을 정하였다. (SQL 시퀀스 복습의 필요성 느낌..) </p>
+
+<p><b style="color:blue; font-size: 14px;"> >> 게시판 클래스 / 게시판 전용 DB연동 클래스 생성 </b><br><br>
+DB에 있는 Column 명과 동일하게 인스턴스 변수 생성하여 Client 클래스와 유사하게 getter,setter로 값을 가져올 수 있도록 정의함.
+<BR>
+<BR>
+회원관리를 위한 DB연동 클래스와 분리시켜 게시판에 관련된 DB연동을 하는 새로운 클래스를 정의함.
+</p>
+
+<p><b style="color:blue;">게시글 쓰기</b></P><br>
+<img src="{{ site.baseurl }}/img/bw.JPG" alt="Post Sample Image">
+<p><b style="color:blue;">게시물 목록보기</b></P><br>
+<img src="{{ site.baseurl }}/img/bl.JPG" alt="Post Sample Image">
+<p><b style="color:blue;">본인이 쓴 게시물 보기/수정</b></P><br>
+<img src="{{ site.baseurl }}/img/bu.JPG" alt="Post Sample Image">
+<br>
+<a style ="color:red;" href="https://github.com/shj7242/practice">게시판 연습코드</a>

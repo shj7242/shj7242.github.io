@@ -1,0 +1,127 @@
+---
+layout:     post
+title:      "[JAVA] 객체지향이론3"
+
+date:       2017-08-24 23:30:00
+author:     "신희준"
+tags: [JAVA]
+header-img: /files/covers/blog.jpg
+comments: true
+---
+
+<head>
+ <meta name="robots" content="index,follow">
+ </head>
+ <head>
+  <meta name="description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론3 (추상 클래스, 인터페이스)">
+  </head>
+
+  <head>
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="인터페이스, 추상클래스">
+   <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 3(추상클래스 ,인터페이스 )">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/24/JAVA5/">
+
+   <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="인터페이스, 추상클래스">
+    <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 3(추상클래스 ,인터페이스)">
+    <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/08/24/JAVA5/">
+    <meta name="facebook:card" content="summary">
+     <meta name="facebook:title" content="인터페이스, 추상클래스">
+     <meta name="facebook:description" content="자바의 정석책을 참고하여 요약한 JAVA 객체지향이론 3(추상클래스 ,인터페이스)">
+     <meta name="facebook:domain" content="http://shj7242.github.io/2017/08/24/JAVA5/">
+
+
+   </head>
+
+
+
+
+<br>
+<H4 style ="font-weight:bold; color : black">2017 - 08 - 24 (목)</H4>
+
+<li>추상클래스</li>
+<li>인터페이스</li>
+
+<br>
+<H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
+<br>
+
+<h5 style = "font-size: 17px; font-weight : bold;">1 . 추상클래스</h5>
+<br>
+
+<p>
+- 클래스가 설계도라면 추상클래스는 미완성 설계도 같은 것이다. <br><br>
+- 추상 클래스는 추상 메서드를 포함하고 있다.<br><br>
+- 인스턴스를 생성할 수 없다. <br><br>
+- 기존클래스의 공통 부분을 뽑아서 추상 클래스를 만든다.
+</p>
+<br><br>
+<h5 style = "font-size: 17px; font-weight : bold;">2 . 인터페이스</h5>
+<br>
+<p>
+- 일종의 추상클래스 같은 것이다. <br><br>
+- 실제로 구현된 것은 없고 그냥 껍데기 같은 것이다. (추상화의 정도가 더 크다.) <br><br>
+- 인스턴스를 생성할 수 없다. <br><br>
+- implements 인터페이스명 으로 쓰이며 여러개의 인터페이스를 상속받을 수 있다.
+</p>
+
+~~~java
+public interface Able {
+	 void bark();
+	 void run();
+	 void sleep();  // 인터페이스에서는 추상적인 껍데기만 만들어준다.
+
+} //able 인터페이스
+
+
+public class Cat implements Able{
+	@Override
+	public void bark() {
+		System.out.println("냐옹");
+	}
+	@Override
+	public void run() {
+    System.out.println("냥냥뛴다.");
+	}
+	@Override
+	public void sleep() {
+    System.out.println("냥냥잔다");
+	} //Able 인터페이스를 상속받고 오버라이딩 하여 각각 메소드를 재정의해줘야함.
+}
+
+public class Dog implements Able{
+	@Override
+	public void bark() {
+		// TODO Auto-generated method stub
+		System.out.println("멍멍");
+	}
+	@Override
+	public void run() {
+		System.out.println("멍멍뛴다");
+	}
+	@Override
+	public void sleep() {
+		System.out.println("멍멍잔다");
+	}	//Able 인터페이스를 상속받고 오버라이딩 하여 각각 메소드를 재정의해줘야함.
+}
+
+public class Test {
+	public static void main(String[] args) {
+		Dog d = new Dog();
+		Cat c = new Cat();
+		d.bark();  // 멍멍
+		c.bark(); // 냐옹
+	}  
+} // 같은 bark() 메소드지만 결과가 다르다. Dog, Cat 클래스에서 각각 인터페이스를 상속받아 오버라이딩하여 메소드를 각자에 맞게 재정의하였다. 이와 같이 인터페이스를 활용한다.
+
+// >> 다형성을 볼 수 있는 예제이다.
+~~~
+
+
+<br>
+<p>
+- 메서드를 재정의하는 쪽에서는 선언부만 알면된다. 그러므로 양방향 개발이 가능하게되어 개발시간이 단축된다. <br><br>
+- 인터페이스 활용의 이점은 분업을 효율적으로 할 수 있게 해준다는 것이다. (독립적인 프로그래밍 가능) <br><br>
+- 인터페이스를 사용하면 클래스간의 결합도를 떨어 뜨릴 수 있다. (디자인 패턴)
+</p>
