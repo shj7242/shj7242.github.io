@@ -2,7 +2,7 @@
 layout:     post
 title:      "[JQuery] 핸들바 템플릿"
 
-date:       2017-12-21 20:55:00
+date:       2017-12-22 20:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -10,18 +10,18 @@ comments: true
 
 <head>
  <meta property="og:type" content="website">
- <meta property="og:title" content="jQuery DOM">
- <meta property="og:description" content="jQuery DOM">
- <meta property="og:url" content="http://shj7242.github.io/2017/12/21/JQuery7/">
+ <meta property="og:title" content="jQuery 핸들바">
+ <meta property="og:description" content="jQuery 핸들바">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/22/JQuery8/">
 
  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="jQuery DOM">
-  <meta name="twitter:description" content="jQuery DOM">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/21/JQuery7/">
+  <meta name="twitter:title" content="jQuery 핸들바">
+  <meta name="twitter:description" content="jQuery 핸들바">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/22/JQuery8/">
   <meta name="facebook:card" content="summary">
-   <meta name="facebook:title" content="jQuery DOM">
-   <meta name="facebook:description" content="jQuery DOM">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/21/JQuery7/">
+   <meta name="facebook:title" content="jQuery 핸들바">
+   <meta name="facebook:description" content="jQuery 핸들바">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/22/JQuery8/">
 
 
  </head>

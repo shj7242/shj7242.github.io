@@ -1,0 +1,84 @@
+---
+layout:     post
+title:      "[JQuery] select box"
+
+date:       2017-12-25 19:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="jQuery select box">
+ <meta property="og:description" content="jQuery select box">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/25/JQuery9/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="jQuery select box">
+  <meta name="twitter:description" content="jQuery select box">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/25/JQuery9/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="jQuery select box">
+   <meta name="facebook:description" content="jQuery select box">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/25/JQuery9/">
+
+
+ </head>
+
+
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 25 (일)</H4>
+
+<br>
+
+> select box 초기값 설정하기
+
+<br>
+
+* 정보를 업데이트 화면에서 select box 의 초기 값을 띄워주고자 한다. 우선 업데이트 화면에는 업데이트 하고자 하는 정보들을 액션태그를 활용하여 특정 변수에 저장한 상태이다.
+
+* 이러한 경우 select box 에 특정 커스텀 속성을 준 후 해당 속성에 받아온 값을 저장해 둔다.
+
+
+~~~html
+<div class="col-12 row justify-content-start trRow">
+					<div class="col-3">대학원 상태</div>
+					<div class="col-9">
+						<select class="form-control" id="tutor_graduateStatus" name="tutor_graduateStatus" target = "${tutorProfile.tutor_graduateStatus }">
+							<option value = "::선택안함::">::선택안함::</option>
+							<option value = "석사 재학중">석사 재학중</option>
+							<option value = "석사 휴학중">석사 휴학중</option>
+							<option value = "석사 졸업">석사 졸업</option>
+							<option value = "박사 재학중">박사 재학중</option>
+							<option value = "박사 휴학중">박사 휴학중</option>
+							<option value = "박사 졸업">박사 졸업</option>
+						</select>
+				  </div>
+</div>
+~~~
+
+* 위 상황은 tutorProfile 에 tutor의 정보가 담겨져 있고 EL 태그를 활용하여 target 이라는 커스텀 속성에 값을 집어 넣어준다.
+
+~~~html
+<script>
+  $(document).ready(function(){
+    var tg = $("#tutor_graduateStatus").attr("target");
+    $("#tutor_graduateStatus").val(tg).prop("selected",true);
+  })
+</script>
+~~~
+
+
+* jQuery 를 활용하여 해당 target 속성의 값과 일치하는 option 의 속성을 selected 로 지정해준다.
+
+* 간혹 option 의 값을 DB에 1,2,3,4 순서로 저장할 경우 가 있다. 이러한 경우에는 OPTION 의 인덱스를 찾아 해당 속성을 컨트롤 할 수 있다.
+
+~~~html
+<script>
+  $(document).ready(function(){
+    var tg = $("#tutor_graduateStatus").attr("target");
+    // 이 경우 tg 에는 특정 인덱스 값이 들어갈 것이다.
+    $("#tutor_graduateStatus option:eq(tg)").prop("selected",true);
+  })
+</script>
+~~~
