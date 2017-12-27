@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[Spring] 에러처리"
+title:      "[Spring] 예외처리"
 comments: true
 date:       2017-10-11 15:30:00
 author:     "신희준"
@@ -9,31 +9,31 @@ header-img: "img/post-bg-02.jpg"
 
 <head>
  <meta property="og:type" content="website">
- <meta property="og:title" content="스프링 (Spring) Controller , AJAX , JSON">
- <meta property="og:description" content="스프링 (Spring) Controller , AJAX , JSON">
- <meta property="og:url" content="http://shj7242.github.io/2017/10/10/Spring4/">
+ <meta property="og:title" content="스프링 (Spring) 예외처리 (Exception)">
+ <meta property="og:description" content="스프링 (Spring) 예외처리 (Exception)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/11/Spring5/">
 
  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="스프링 (Spring) Controller , AJAX , JSON">
-  <meta name="twitter:description" content="스프링 (Spring) Controller , AJAX , JSON">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/10/Spring4/">
+  <meta name="twitter:title" content="스프링 (Spring) 예외처리 (Exception)">
+  <meta name="twitter:description" content="스프링 (Spring) 예외처리 (Exception)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/11/Spring5/">
   <meta name="facebook:card" content="summary">
-   <meta name="facebook:title" content="스프링 (Spring) Controller , AJAX , JSON">
-   <meta name="facebook:description" content="스프링 (Spring) Controller , AJAX , JSON">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/10/Spring4/">
+   <meta name="facebook:title" content="스프링 (Spring) 예외처리 (Exception)">
+   <meta name="facebook:description" content="스프링 (Spring) 예외처리 (Exception)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/11/Spring5/">
 
 
  </head>
 
 <br>
 <H4 style ="font-weight:bold; color : black">2017 - 10 - 11 (수)</H4>
-<li>에러처리</li>
+<li>예외처리</li>
 
 <br>
 <H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
 <br>
 
-<h5 style = "font-size: 17px; font-weight : bold;">1 .. 에러처리</h5>
+<h5 style = "font-size: 17px; font-weight : bold;">1 .. 예외처리</h5>
 
 <br>
 
@@ -125,16 +125,16 @@ public class CommonExceptionHandler {
 <br><br>
 <b style="color:red;">@ExceptionHandler</b>애너테이션을 메소드에 붙여줌으로써 예외처리들을 구체화할 수 있다. 또한 사용자들에게 특정한 에러페이지로 redirect 해준다. 완전히 커스터마이즈된 에러응답을 만들어준다.
 
-~~~xml
+
+```
 <!--dispatcher-servlet.xml 에 다음 bean을 추가해준다-->
 	<bean class="com.study.common.exception.CommonExceptionHandler"/>
-~~~
+```
 
 <br>
 
 <p>BY zero Error 를 눌렀을 때 테스트</p>
 <br>
 
-<img src="{{ site.baseurl }}/img/exce.JPG" alt="Post Sample Image">
 
 <p>getMessageByZero 로 리다이렉트된다. / 커스터마이즈된 화면을가진 에러 응답가능</p>
