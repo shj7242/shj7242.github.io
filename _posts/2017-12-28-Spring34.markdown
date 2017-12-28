@@ -1,0 +1,431 @@
+---
+layout:     post
+title:      "[AWS] S3 이미지 서버"
+
+date:       2017-12-28 19:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="AWS S3 이미지 서버">
+ <meta property="og:description" content="AWS S3 이미지 서버">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/28/Spring34/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AWS S3 이미지 서버">
+  <meta name="twitter:description" content="AWS S3 이미지 서버">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/28/Spring34/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="AWS S3 이미지 서버">
+   <meta name="facebook:description" content="AWS S3 이미지 서버">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/28/Spring34/">
+
+
+ </head>
+
+
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 27 (화)</H4>
+
+<br>
+
+> AWS S3 이미지 서버 구성 [ 버킷 ]
+
+<br>
+
+https://aws.amazon.com/ko/free/?sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=google&sc_medium=english_cloud_computing_hv_b&sc_content=aws_core_e&sc_detail=aws&sc_category=cloud_computing&sc_segment=188903893174&sc_matchtype=e&sc_country=KR&s_kwcid=AL!4422!3!188903893174!e!!g!!aws&ef_id=Wjp@@gAABb1G2SmL:20171226033303:s
+
+에서 로그인 후 S3 서비스 를 활용하고자 한다. 기존에 RDS 서버는 생성했고 (Mysql 서버) S3 는 이미지 업로딩 서버로 쓸 계획이다.
+
+* https://s3.console.aws.amazon.com/s3/home?region=ap-northeast-2 에서 버킷 만들기 버튼을 클릭한다.
+
+<img src="{{ site.baseurl }}/img/bucket.PNG" alt="Post Sample Image">
+
+* 위의 사진같은 화면에서 버킷이름은 소문자로 프로젝트이름 + bucket 으로 간단히 정했다.
+
+* 버킷을 만든 후 이미지를 저장해줄 폴더를 생성한다. 기존 로컬에서 만들어논 폴더트리와 동일하게 구성하였다.
+
+<br>
+
+> ACCESS KEY 발급
+
+
+<img src="{{ site.baseurl }}/img/access.PNG" alt="Post Sample Image">
+
+
+* 위의 사진에서 보이는바와 같은 탭에서 엑세스키를 발급받는다.
+
+* ACCESS KEY ID 를 발급받고 (Access key 및 보안 Access Key) 를 노출안되게 기억해 둔다.
+
+<br>
+
+> 스프링에서 연동하기
+
+<br>
+
+* 라이브러리 다운로드 : aws sdk 라이브러리는 지속적으로 업데이트 되므로 알맞은 버전을 사용하도록 하자.
+
+~~~xml
+<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
+<dependency>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk</artifactId>
+    <version>1.9.2</version>
+</dependency>
+~~~
+
+* S3Util 구현 : 아마존 서버와 connect 하여 상호작용하기 위한 공통적인 메서드를 생성한다.
+
+~~~java
+package com.almom.util;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.Protocol;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+
+public class S3Util {
+
+	private String accessKey = "엑세스키"; // 엑세스 키
+	private String secretKey = "보안 엑세스키"; // 보안 엑세스 키
+
+	private AmazonS3 conn;
+
+	public S3Util() {
+		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+		ClientConfiguration clientConfig = new ClientConfiguration();
+		clientConfig.setProtocol(Protocol.HTTP);
+		this.conn = new AmazonS3Client(credentials, clientConfig);
+		conn.setEndpoint("s3.ap-northeast-2.amazonaws.com"); // 엔드포인트 설정 [ 아시아 태평양 서울 ]
+	}
+
+	// 버킷 리스트를 가져오는 메서드이다.
+	public List<Bucket> getBucketList() {
+		return conn.listBuckets();
+	}
+
+	// 버킷을 생성하는 메서드이다.
+	public Bucket createBucket(String bucketName) {
+		return conn.createBucket(bucketName);
+	}
+
+	// 폴더 생성 (폴더는 파일명 뒤에 "/"를 붙여야한다.)
+	public void createFolder(String bucketName, String folderName) {
+		conn.putObject(bucketName, folderName + "/", new ByteArrayInputStream(new byte[0]), new ObjectMetadata());
+	}
+
+	// 파일 업로드
+	public void fileUpload(String bucketName, String fileName, byte[] fileData) throws FileNotFoundException {
+
+		String filePath = (fileName).replace(File.separatorChar, '/'); // 파일 구별자를 `/`로 설정(\->/) 이게 기존에 / 였어도 넘어오면서 \로 바뀌는 거같다.
+		ObjectMetadata metaData = new ObjectMetadata();
+
+		metaData.setContentLength(fileData.length);   //메타데이터 설정 -->원래는 128kB까지 업로드 가능했으나 파일크기만큼 버퍼를 설정시켰다.
+	    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData); //파일 넣음
+
+		conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
+
+	}
+
+	// 파일 삭제
+	public void fileDelete(String bucketName, String fileName) {
+		String imgName = (fileName).replace(File.separatorChar, '/');
+		conn.deleteObject(bucketName, imgName);
+		System.out.println("삭제성공");
+	}
+
+	// 파일 URL
+	public String getFileURL(String bucketName, String fileName) {
+		System.out.println("넘어오는 파일명 : "+fileName);
+		String imgName = (fileName).replace(File.separatorChar, '/');
+		return conn.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, imgName)).toString();
+	}
+
+}
+~~~
+
+* UploadFileUtils 생성 : 직접적으로 S3Util 의 메서드를 사용하는 클래스이다.
+
+~~~java
+package com.almom.util;
+
+import java.io.File;
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class UploadFileUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
+
+
+	public static String uploadFile(String uploadPath, String originalName, byte[] byteData) throws Exception {
+		S3Util s3 = new S3Util();
+		String bucketName = "almombucket";
+		//랜덤의 uid 를 만들어준다.
+		UUID uid = UUID.randomUUID();
+
+		//savedName : 570d570a-7af1-4afe-8ed5-391d660084b7_g.JPG 같은 형식으로 만들어준다.
+		String savedName = "/"+uid.toString() + "_" + originalName;
+
+		logger.info("업로드 경로 : "+uploadPath);
+		//\2017\12\27 같은 형태로 저장해준다.
+		String savedPath = calcPath(uploadPath);
+
+		String uploadedFileName = null;
+
+		uploadedFileName = (savedPath + savedName).replace(File.separatorChar, '/');
+		//S3Util 의 fileUpload 메서드로 파일을 업로드한다.
+		s3.fileUpload(bucketName, uploadPath+uploadedFileName, byteData);
+
+
+		logger.info(uploadedFileName);
+//		s3.fileUpload(bucketName, new File(fileName))
+
+		return uploadedFileName;
+
+	}
+
+	private static String calcPath(String uploadPath) {
+
+		Calendar cal = Calendar.getInstance();
+
+		String yearPath = File.separator + cal.get(Calendar.YEAR);
+
+		String monthPath = yearPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+
+		String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+
+		makeDir(uploadPath, yearPath, monthPath, datePath);
+
+		logger.info(datePath);
+
+		return datePath;
+	}
+
+	private static void makeDir(String uploadPath, String... paths) {
+
+		if (new File(paths[paths.length - 1]).exists()) {
+			return;
+		}
+
+		for (String path : paths) {
+
+			File dirPath = new File(uploadPath + path);
+
+			if (!dirPath.exists()) {
+				dirPath.mkdir();
+			}
+		}
+	}
+}
+~~~
+
+* UploadController : 클라이언트 단에서 요청을 받는 컨트롤러로 UploadFileUtils에서 정의한 메서드를 사용하는 부분이다.
+
+~~~java
+
+@Controller
+public class UploadController {
+
+	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
+
+	@Inject
+	private ImageService service;
+
+	S3Util s3 = new S3Util();
+	String bucketName = "almombucket";
+
+	@Inject
+	private UserService userService;
+
+	//자격증 & 신분증 이미지 업로드
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjaxCert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public String uploadAjaxCertificate(MultipartFile file) throws Exception {
+
+		logger.info("자격증");
+		logger.info("originalName: " + file.getOriginalFilename());
+		String uploadpath = "almom/certificate";
+
+		ResponseEntity<String> img_path = new ResponseEntity<>(
+				UploadFileUtils.uploadFile(uploadpath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+		String certificatePath = (String) img_path.getBody();
+
+		return certificatePath;
+	}
+
+	//커버이미지 업로드
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjaxCover", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public String uploadAjaxCoverImg(MultipartFile file) throws Exception {
+
+		logger.info("커버이미지");
+		logger.info("originalName: " + file.getOriginalFilename());
+		String uploadpath = "almom/coverImage";
+
+		ResponseEntity<String> img_path = new ResponseEntity<>(
+				UploadFileUtils.uploadFile(uploadpath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+		String coverImagePath = (String) img_path.getBody();
+
+		return coverImagePath;
+	}
+
+	// 프로필 이미지 업로드
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public String uploadAjax(MultipartFile file, String str, HttpSession session, HttpServletRequest request,
+			Model model) throws Exception {
+
+		logger.info("originalName: " + file.getOriginalFilename());
+		//프로필 이미지의 추가경로
+		String uploadpath = "almom/profileImage";
+
+		ResponseEntity<String> img_path = new ResponseEntity<>(
+				UploadFileUtils.uploadFile(uploadpath, file.getOriginalFilename(), file.getBytes()),
+				HttpStatus.CREATED);
+
+		String user_imgPath = (String) img_path.getBody();
+
+		logger.info(user_imgPath);
+
+		UserVO vo = new UserVO();
+		vo.setUser_profileImagePath(user_imgPath);
+		UserVO userSession = (UserVO) session.getAttribute("login");
+		vo.setUser_id(userSession.getUser_id());
+		logger.info("file name : " + user_imgPath);
+
+		userService.uploadImg(vo);
+
+		userSession.setUser_profileImagePath(user_imgPath);
+		session.setAttribute("login", userSession);
+		logger.info(user_imgPath);
+		return user_imgPath;
+	}
+
+
+	//프로필 이미지
+	@SuppressWarnings("resource")
+	@ResponseBody
+	@RequestMapping("/displayFile")
+	public ResponseEntity<byte[]> displayFile(String fileName, String directory) throws Exception {
+		logger.info(directory);
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+		HttpURLConnection uCon = null;
+		logger.info("FILE NAME: " + fileName);
+
+		String inputDirectory = null;
+		if(directory.equals("profile")) {
+			inputDirectory = "almom/profileImage";
+		}
+		else if(directory.equals("certificate")) {
+			inputDirectory = "almom/certificate";
+		}else {
+			inputDirectory = "almom/coverImage";
+		}
+
+
+
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			URL url;
+			try {
+				url = new URL(s3.getFileURL(bucketName, inputDirectory+fileName));
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream(); // 이미지를 불러옴
+			} catch (Exception e) {
+				url = new URL(s3.getFileURL(bucketName, "default.jpg"));
+				uCon = (HttpURLConnection) url.openConnection();
+				in = uCon.getInputStream();
+			}
+
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+		return entity;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName, String directory)throws Exception {
+
+		logger.info("delete file: " + fileName);
+		logger.info("delete foloder:"+directory);
+		String inputDirectory = null;
+		if(directory.equals("profile")) {
+			inputDirectory = "almom/profileImage";
+		}
+		else if(directory.equals("certificate")) {
+			inputDirectory = "almom/certificate";
+		}else {
+			inputDirectory = "almom/coverImage";
+		}
+		URL url;
+		HttpURLConnection uCon = null;
+
+		try {
+			s3.fileDelete(bucketName, inputDirectory+fileName);
+		} catch (Exception e) {
+//			s3.fileDelete(bucketName, "s_user.jpg");
+			e.printStackTrace();
+		}
+
+		new File(inputDirectory + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/deleteFileDB", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFileDB(String fileName, String directory)throws Exception {
+
+		logger.info("delete file: " + fileName);
+		logger.info("delete foloder:"+directory);
+		String inputDirectory = null;
+		if(directory.equals("profile")) {
+			inputDirectory = "almom/profileImage";
+		}
+		else if(directory.equals("certificate")) {
+			inputDirectory = "almom/certificate";
+		}else {
+			inputDirectory = "almom/coverImage";
+		}
+		URL url;
+		HttpURLConnection uCon = null;
+
+		try {
+			s3.fileDelete(bucketName, inputDirectory+fileName);
+		} catch (Exception e) {
+//			s3.fileDelete(bucketName, "s_user.jpg");
+			e.printStackTrace();
+		}
+		service.deleteImage(fileName);
+		new File(inputDirectory + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+
+
+}
+~~~
