@@ -1,0 +1,131 @@
+---
+layout:     post
+title:      "[Spring] 자주쓰는 JSTL 정리"
+
+date:       2017-12-29 19:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="자주쓰는 JSTL 정리">
+ <meta property="og:description" content="자주쓰는 JSTL 정리">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/28/Spring35/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="자주쓰는 JSTL 정리">
+  <meta name="twitter:description" content="자주쓰는 JSTL 정리">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/28/Spring35/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="자주쓰는 JSTL 정리">
+   <meta name="facebook:description" content="자주쓰는 JSTL 정리">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/28/Spring35/">
+
+
+ </head>
+
+
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 29 (금)</H4>
+
+<br>
+
+> 자주쓰는 jstl 코드 정리
+
+* core tag
+
+~~~html
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+~~~
+
+* c:set : userInfo 변수에 request 객체에 담긴 userVO 에트리뷰트의 값을 가져와 집어넣는다. ${userInfo} 처럼 el 태그로 사용가능
+
+~~~html
+<c:set var = userInfo value = '<%=request.getAttribute("userVO")%>'/>
+~~~
+
+* c:if
+
+~~~html
+<c:if test = '${user_id != null}'>
+  <div>if 조건이 true 일경우</div>
+</c:if>
+~~~
+
+* c:choose
+
+~~~html
+<c:choose>
+  <c:when test = '${empty userVO}'>
+    <div>userVO에 값이 비어있다(NULL이다)</div>
+  </c:when>
+  <c:otherwise>
+    <div>userVO 에 값이 채워져있다.</div>
+  </c:otherwise>
+</c:choose>
+~~~
+
+* c:forEach : certificateVO 에 객체 배열이 담겨있는 경우
+
+~~~html
+<c:forEach var = "list" items = '${certificateVO}' varStatus = "status">
+  <!--1부터 순서대로-->
+  <div>${status.count} 번째 자격증</div>
+  <!--현재 아이템 -->
+  <div>${status.current}</div>
+  <!--0부터 순서대로-->
+  <div>${status.index} 번째 배열입니다.</div>
+  <!--현재 반복문이 처음인지-->
+  <div>${status.first}</div>
+  <!--현재 루프가 마지막 인지 반환 -->
+  <div>${status.last}</div>
+  <!--시작값-->
+  <div>${status.begin}</div>
+  <!--끝 값 -->
+  <div>${status.end}</div>
+  <!-- 증가값 -->
+  <div>${status.step}</div>
+
+  <div>${list.certificate_name}</div>
+</c:forEach>
+~~~
+
+* function 태그 : fn 태그는 단독이 아닌 el 태그와 함께 사용한다.
+
+~~~html
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+~~~
+
+* length
+
+~~~html
+<!--FALSE / TRUE 반환 형 : CONTAINS-->
+${fn:contains("010-2658-7242", "-")}
+<!--c:set 을 활용하여 abcde 중 c가 처음 나타나는 인덱스를 변수에 저장-->
+<c:set var ="index" value = "${fn:indexOf("abcde", "c")}"/>
+
+<!--fn:split : 구분자로 짜르기 -->
+<c:set var = "splitText" value = "${fn:split('010-2658-7242', '')}"/>
+
+<!--replace : 문자열 대체-->
+<c:set var = "replace" value = "${fn:replace("전체 문자열","바뀔 문자열", "바꿀 문자열") }"/>
+
+<!--substring : string 에서 특정 인덱스부터 특정 인덱스 까지의 문자열-->
+<c:set var = "substring" value = "${fn:substring("1234"),시작인덱스, 종료인덱스}"/>
+
+<!--substringafter-->
+<c:set var = "substringafter" value = "${fn:substringAfter("오후1시~오후2시", "~")}"/>
+
+<!--substringBefore-->
+<c:set var = "substringBefore" value = "${fn:substringBefore("오후1시~오후2시", "~")}"/>
+
+<!--string 모두 대문자로-->
+<c:set var = "upper" value = "${fn:toUpperCase("abc")}"/>
+
+<!--string 모두 소문자로-->
+<c:set var = "lower" value = "${fn:toUpperCase("ABC")}"/>
+
+<!--trim : string 앞뒤의 공백을 모두 제거하여 리턴-->
+<c:set var = "trim" value ="${fn::trim("   text    ")}"/>
+~~~

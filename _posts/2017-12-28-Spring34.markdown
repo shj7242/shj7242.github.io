@@ -27,7 +27,7 @@ comments: true
  </head>
 
 
-<H4 style ="font-weight:bold; color : black">2017 - 12 - 27 (화)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 28 (목)</H4>
 
 <br>
 
