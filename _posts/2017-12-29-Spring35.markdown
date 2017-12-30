@@ -12,16 +12,16 @@ comments: true
  <meta property="og:type" content="website">
  <meta property="og:title" content="자주쓰는 JSTL 정리">
  <meta property="og:description" content="자주쓰는 JSTL 정리">
- <meta property="og:url" content="http://shj7242.github.io/2017/12/28/Spring35/">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/29/Spring35/">
 
  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="자주쓰는 JSTL 정리">
   <meta name="twitter:description" content="자주쓰는 JSTL 정리">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/28/Spring35/">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/29/Spring35/">
   <meta name="facebook:card" content="summary">
    <meta name="facebook:title" content="자주쓰는 JSTL 정리">
    <meta name="facebook:description" content="자주쓰는 JSTL 정리">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/28/Spring35/">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/29/Spring35/">
 
 
  </head>

@@ -1,0 +1,90 @@
+---
+layout:     post
+title:      "[Spring] jqGrid"
+
+date:       2017-12-29 19:00:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="jqGrid">
+ <meta property="og:description" content="jqGrid">
+ <meta property="og:url" content="http://shj7242.github.io/2017/12/30/jQuery10/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="jqGrid">
+  <meta name="twitter:description" content="jqGrid">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/12/30/jQuery10/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="jqGrid">
+   <meta name="facebook:description" content="jqGrid">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/12/30/jQuery10/">
+
+
+ </head>
+
+
+<H4 style ="font-weight:bold; color : black">2017 - 12 - 30 (토)</H4>
+
+<br>
+
+> jqGrid
+
+<br>
+
+* jqgrid 사용 용도 : admin 을 좀더 쉽고 빠르게 제작하고자 하던 중, 지인의 추천으로 알게 되었고 서칭 해본 결과 다양한 예제와 용이성을 인지하고 해당 플러그인을 적용하고자 함.
+
+* jQuery ui download <a href = "http://jqueryui.com/download/">http://jqueryui.com/download/</a> 맨 아래에서 테마를 설정하고 다운로드 받는다.
+
+* jqGrid plugin download <a href ="http://www.trirand.com/blog/?page_id=6">http://www.trirand.com/blog/?page_id=6</a> 에서 jqGrid plugin 다운로드
+
+* 압축을 풀고 현재 사용하고 있는 프로젝트에 적용하고 임포트 해준다.
+
+
+> jqGrid
+
+~~~html
+<script>
+	$(document).ready(function(){
+		var cnames = ['아이디','이메일','이름', '전화번호','성별','직업','유입경로'] //필요한 컬럼 명을 나열해준다.
+
+		$("#jqGrid").jqGrid({
+			url: "admin/jqGridStartMain",
+			datatype :"local",
+			colNames:cnames, // columns 이름을 말한다.
+			colModel:[ // 칼럼에 들어갈 값들을 모델링 한것이다.
+				{name:'seq', index:'seq', width : 100, key :true, align :"center"},
+				{name : 'user_email' , index :'user_email', width : 150, align : "center"},
+				{name : 'user_name', index :'user_name' , width :  150, align : "center"},
+				{name : 'user_phoneNumber', index : 'user_phoneNumber', width : 100, align :"center"},
+				{name : 'user_sex', index : 'user_sex', width : 150, align : "center"},
+				{name : 'user_job', index : 'user_job', width : 100},
+				{name : 'user_snsId' , index : 'user_snsId' , width : 150}
+			],
+			height: '480', //표의 높이를 정한다.
+			rowNum : 10, // 몇줄까지 보여줄지 정하는 부분
+			rowList : [10, 20, 30], //
+			pager : "#jqGridePager", //페이징 처리를 위해
+			rownumbers : true, //true 로 하면 줄 번호를 자동으로 그리드에 매겨준다.
+			ondblClickRow : function(rowId, iRow, iCol , e){
+
+				if(iCol ==1){
+					alert(rowId + " 째 줄 입니다.");
+				}
+			},
+			viewrecords : true,
+			caption : "회원 정보"
+		})
+	})
+</script>
+
+<div class = "row">
+ <div>
+   <table id = "jqGrid"></table>
+   <div id = "jqGridePager"></div>
+ </div>
+</div>
+~~~
