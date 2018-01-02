@@ -92,400 +92,143 @@ comments: true
 * userGrid.js
 
 ~~~javascript
-$( document ).ready(function() {
+<script>
+$(document).ready(function() {
+	jqgridTable.init();
+	jqgridTable.search();
+	jqgridTable.navGrid();
+})
 
-	setJqGridInti();
+var jqgridTable =
+{
+		init : function () {
+			var cnames = ['ID', '이메일', '이름', '휴대폰번호', '직업' , '생년월일', '성별', '유입경로','회원 상태'],
+				$jqGrid = $("#jqGrid");
 
-});
+			$jqGrid.jqGrid({
+				url			:	"getUserList",
+				datatype	:	"local",
+				colNames	:	cnames,
+				colModel	:	[
+					{name	: 	"user_id" , index : "user_id", width : 50 },
+					{name	: 	"user_email" , index : "user_email", width : 200
 
-/**
- * jqGrid 관련 옵션 설정
- *  
- * */
-function setJqGridInti(){
+						,formatter : function(cellValue, options, rowObject){                    
 
-	$("#list").jqGrid({
+	        	  			var resultStr = "";
 
-		url:"getUserList",   	// 데이터를 요청할 url
-		datatype:"json",   			// url을 통해 받아오는 데이터의 타입.
-		mytype:"POST",				// 요청방식을 설정(GET/POST)
-		/*postData     : {
+	        	  			if(cellValue == "카카오 로그인 계정"){
+	        	  				resultStr = "Kakao";        	  				
+	        	  			}else if(cellValue== "네이버 로그인 계정"){
+	        	  				resultStr = "naver";
+	        	  			}else if(cellValue =="페이스북 로그인 계정"){
+	        	  				resultStr = "facebook";
+	        	  			}else if(cellValue == "구글 로그인 계정"){
+	        	  				resultStr = "google";
+	        	  			}else{
+	        	  				resultStr = cellValue
+	        	  			}
 
-			id : $("#test").val()
-		},*/
-		jsonReader : {     			
-			// json 데이터의 타입을 정의
-			root		: "rows", 	// 실제 출력되는 데이터의 JSON 키값
-		    page		: "page",
-		    total		: "total", 	// 총 페이지 수
-		    records		: function(obj){return obj.lenght;},
-		    repeatitems	: false,
-		    cell		: "",
-		    id			: "user_id",  
+	        	  			return resultStr;
+	        	  		}
+
+
+
+
+
+
+
+					},
+					{name	: 	"user_name" , index : "user_name", width : 100 },
+					{name	: 	"user_phoneNumber" , index : "user_phoneNumber", width : 150 },
+					{name	: 	"user_job" , index : "user_job", width : 100 },
+					{name	: 	"user_birth" , index : "user_birth", width : 100 },
+					{name	:	"user_sex"	, index : "user_sex"	, width : 100
+
+						,formatter : function(cellValue, options, rowObject){                    
+
+	        	  			var resultStr = "";
+
+	        	  			if(cellValue == 1){
+	        	  				resultStr = "남자";        	  				
+	        	  			}else if(cellValue== 0){
+	        	  				resultStr = "여자";
+	        	  			}else{
+	        	  				resultStr = cellValue;
+	        	  			}
+
+	        	  			return resultStr;
+	        	  		}
+
+
+					},
+					{name	: 	"user_snsId" , index : "user_snsId", width : 150
+
+					 	,formatter : function(cellValue, options, rowObject){                    
+	        	  			if(cellValue !=null){
+								var first = cellValue.charAt(0);
+
+	        	  			}
+	        	  			var resultStr = "";
+
+	        	  			if(first == 'k'){
+	        	  				resultStr = "Kakao 회원";        	  				
+	        	  			}else if(first== 'n'){
+	        	  				resultStr = "naver 회원";
+	        	  			}else if(first =='f'){
+	        	  				resultStr = "facebook 회원";
+	        	  			}else if(first == 'g'){
+	        	  				resultStr = "google 회원";
+	        	  			}else{
+	        	  				resultStr = "알몸 자체 회원"
+	        	  			}
+
+	        	  			return resultStr;
+	        	  		}
+
+
+
+
+
+
+					},
+					{name	: 	"user_status" , index : "user_status", width : 100 }
+				],
+				height		: 480,
+				rowNum		: 10,
+				rowList		: [10,20,30],
+				pager		: "#jqGridPager",
+				rownumbers	: true,
+				viewrecords : true,
+				cellEdit	: true,
+				cellsubmit	: "clientArray",
+				caption		: "회원 리스트"
+			})
 		},
 
-		colNames:['ID' ,'이메일','직업', '휴대폰번호', '이름' ,'생년월일' ,'성별' ,'유입경로', '계정상태'], // 컬럼명
-		colModel:[        		
-		          /*
-		           * name 		: 출력할 데이터의 이름(서버에서 받은 데이터의 변수명을 명시)
-		           * index 		: 컬럼 정렬 시 서버에 넘어가는 값(미지정 시에는 name값이 전송)
-		           *
-		           * optionName / optionValue
-		           *
-		           * align		: 컬럼 내에서의 데이터 정렬(left, right, center)		           *
-		           * width 		: 컬럼의 넓이를 설정		           *  
-		           * hidden 	: 특정 컬럼의 내용을 보이지 않게 하기 위해서 사용
-		           * formatter 	: 데이터로 들어온 값을 특정 형식으로 변환
-		           * resizable  : 컬럼 사이즈를 조절
-		           * search     : searchToobar, searchButton 사용 시 컬럼 찾기 사용 가능
-		           *
-		           * sortable   : 컬럼 간의 위치를 변경 (editable, multiselect 기능과 중복 사용 불가)
-		           * sorttype   : data / integer / text / function
-		           *
-		           * editable   : 셀 값을 변경
-		           * edittype   : text / select / checkbox / textarea
-		           * editoptions : {optionName : optionValue}  
-		           *
-		           * key는 DB의 PrimaryKey를 지정(ID를 지정)
-		           * */        	  	
-        	  	{name:'user_id'			,index:'user_id'			,width:30  ,align:'left'},
-        	  	//{name:'name'		,index:'name'		,width:80	,align:'left'	,editable:true ,edittype:'text' ,editrules: { required: true}},        	  	
-        	  	{name :'user_email' , index : 'user_email' , width: 150, align : 'center'},
-        	  	{name :'user_job' , index : 'user_job' , width: 80, align : 'center'},
-        		{name :'user_phoneNumber' , index : 'user_phoneNumber' , width: 100, align : 'center'},
-
-        	  	{name:'user_name'		,index:'user_name'		,width:80	,align:'left'	},
-        	  	{name:'user_birth'			,index:'user_birth'		,width:60	,align:'center'	},
-        	  	// Custom - formatter 적용
-                {name:'user_sex'			,index:'user_sex'		,width:60	,align:'center'
-        	  		,formatter : function(cellValue, options, rowObject){                    
-
-        	  			var resultStr = "";
-
-        	  			if(cellValue == 0){
-        	  				resultStr = "남자";        	  				
-        	  			}else if(cellValue== 1){
-        	  				resultStr = "여자";
-        	  			}else{
-        	  				resultStr = cellValue;
-        	  			}
-
-        	  			return resultStr;
-        	  		}
-        	  	},
-        	  	// 동적으로 SelectBox 적용
-        	  	{name:'user_snsId'	,index:'user_snsId'	,width:120	,align:'center'		,formatter : function(cellValue, options, rowObject){                    
-
-    	  			var resultStr = "";
-    	  			var a;
-    	  			if(cellValue !=null){
-
-    	  				sns = cellValue.charAt(0);
-    	  			}
-    	  			if(cellValue == null){
-    	  				resultStr = "알몸 자체 회원가입";        	  				
-    	  			}else if(sns== "k"){
-    	  				resultStr = "카카오 회원가입";
-    	  			}else if(sns=="n"){
-    	  				resultStr = "네이버 회원가입";
-    	  			}else if(sns =="f"){
-    	  				resultStr = "페이스북 회원가입";
-    	  			}else{
-    	  				resultStr = "구글 회원가입"
-    	  			}    	  			
-    	  			return resultStr;
-    	  		}
-        	  	}
-        	  	,       	  	
-                {name:'user_status'			,index:'user_status'		,width:60	,align:'center'
-        	  		,formatter : function(cellValue, options, rowObject){                    
-
-        	  			var resultStr = "";
-
-        	  			if(cellValue == null){
-        	  				resultStr = "";        	  				
-        	  			}else if(cellValue!= null){
-        	  				resultStr = "탈퇴요청";
-        	  			}else{
-        	  				resultStr = cellValue;
-        	  			}
-
-        	  			return resultStr;
-        	  		}
-        	  	}
-
-		], // 각 컬럼별 디자인 속성 등을 설정
-
-
-		// rowNum / sortname / sortorder (Parameter로 전송 값)
-		rowNum:5,					// 한 화면에서 보여주는 row의 수
-		rowList: [5, 10, 15],	// 한 화면에 보여주는 row의 수를 변경
-
-		gridview : true,
-
-		// 크기
-		//width:'540px',				// Grid의 전체 넗이 설정(Auto 조절 가능)
-		autowidth:true,				// Auto 조절 가능(width 옵션과 동시 사용 불가)
-		height:560,				// Grid의 높이 설정
-
-		// 정렬
-		sortable: true,				// 초기 sort조건과 관련되며 true이면 초기 데이터가 정렬		
-		sortname:'id',				// 처음 Grid를 불러올 때에 정렬 기준 컬럼
-		sortorder:"asc",			// 정렬 기준[desc / asc]
-
-		// 행 관련
-		//rownumbers:true,			// 각 row의 맨 앞줄에 각 row의 번호가 자동으로 부여
-		//rownumWidth:"20px",			// 줄번호의 size 지정
-
-		// 로딩
-		//loadonce:false,				// 페이징(다음/이전) 처리
-									// reload 여부이면 true로 설정하며 한번만 데이터를 받아오고 그 다음부터는 데이터를 받아오지 않음
-		loadtext:"Loading",			// 서버연동시 loading 중이라는 표시에 문자열 지정
-		emptyrecords:"검색된 결과가 없습니다.",	// 데이터가 없을 경우 보열줄 문자열 지정(페이징 위치)
-
-		pager:'#pager',				// 페이징을 처리할 <div> 태그의 id 값
-
-		viewrecords:true,			// Grid가 보여줄 총 페이지 / 현재 페이지 정보
-		multiselect:true,			// MultiSelect Box가 첫번째 컬럼에 생성 사용여부
-
-		caption:"알몸 유저 관리",		// Grid 제목
-
-		// jqGrid - url
-		editurl:"/user/jqGridCRUD.do",	// cell이 수정될 때 수정 요청을 받아서 처리할 URL
-
-		cellEdit	:true,				// cell 수정 기능		
-		cellsubmit	:'remote',
-		cellurl		:'/user/updateUserCell.do',
-
-		// jqGrid Event 관련		
-		// 각 row가 추가된 후 호출되는 이벤트
-		afterInsertRow: function(rowId ,rowData ,rowElement){
-
-	    },  
-
-		// 수정 가능한 셀 변경 완료 후 호출되는 이벤트(리턴 값은 array로 반환)
-	    afterSubmitCell : function(res, rowid, cellname, value, iRow, iCol) { // 변경 후
-
-	    	var result 	= res.responseJSON;	    	
-	    	var errMsg = "";
-
-	    	if(!(result == "SUCCESS")) {
-	    		errMsg = "수정을 실패하였습니다.";
-	    	}else{
-	    		$('#list').trigger("reloadGrid");
-	    	}
-
-	    	// [정상처리여부, 에러메세지]
-	    	return [(result == "SUCCESS") ? true : false, errMsg];
-	    },
-
-	    // 서버로부터 데이터를 받은 후 화면에 찍기 위한 processing을 진행하기 직전에 호출되는 이벤트
-	    beforeProcessing:function(data, status, xhr){
-
-	    },
-
-	    // 서버로 데이터를 요청하기 직전에 호출되는 이벤트
-	    beforeRequest:function(none){
-
-	    },
-
-	    // row를 클릭하는 순간 호출되는 이벤트 (ture이면 다음 이벤트 발생 / fasle이면 다음 이벤트 중지)
-		beforeSelectRow:function(id){
-
-			return true;
+		search : function () {
+			$("#jqGrid").setGridParam({
+				datatype		: "json",
+			}).trigger("reloadGrid");
 		},
 
-		// 수정 가능한 셀 변경 시 호출되는 이벤트
-		beforeSubmitCell:function(rowId, cellName, value, iRow, iCol){
+		navGrid : function() {
+			$("#jqGrid").jqGrid('navGrid', '#jqGridPager',
 
-			var result = false;
-
-			if(confirm("선택한 Cell을 수정하시겠습니까?") == false){
-				result = {};
-			}else{
-				result = {"id":rowId, "cellName":cellName, "cellValue":value};
-			}
-
-			return result;
-		},
-
-		// 그리드가 모든 작업을 완료한 후 호출되는 이벤트
-		gridComplete:function(){
-
-			var obj = $("#list").jqGrid('getRowData');
-
-			var str = "";
-
-			// 검색 결과가 없을 때
-			if(obj.length < 1){
-
-				str += '<tr>';
-				str += '<td style="text-align:center">검색 결과가 없습니다.</td>';		
-				str += '</tr>';
-
-				$('#list').html(str);
-			}
-		},
-
-		// xhr에 의해 서버로 요청이 들어가기 전에 호출되는 이벤트
-		loadBeforeSend:function(xhr, settings){
-
-		},
-
-		// 서버에 요청을 보낸 직후 호출되는 이벤트
-		loadComplete:function(data){
-
-		},
-
-		// 요청 실패시 호출되는 이벤트
-		loadError:function(xhr, status, error) {
-
- 			alert(xhr.reponseText);
-		},
-
-	    // 셀을 선택하였을 때 호출되는 이벤트(모든 셀)
-	    onCellSelect:function(rowId ,status ,eventObject){
-
-	    },
-
-	    // 그리드 화면의 header 부분이 선택되었을 호출되는 이벤트 - 그리드 헤더의 접었다 폈다를 지원하는 아이콘을 클릭시
-	    onHeaderClick:function(gridState){
-
-	    },
-
-	    // 페이지 버튼을 클릭시 호출되는 이벤트
-	    onPaging:function(pgButton){
-
-	    },
-
-	    // 그리드 화면에서 오른쪽 마우스 버튼을 클릭할 때 호출되는 이벤트
-	    onRightClickRow:function(rowId, iRow, iCol, e){
-	    	console.log("onRightClickRow");
-	    },
-
-		// 행을 모두 선택하였을 때 호출되는 이벤트(컬럼 체크박스 선택/해제 시)
-		onSelectAll:function(aSel, selected){
-
-		},
-
-		// 그리드의 행을 선택하였을 때 호출되는 이벤트 - 체크박스(multiselect:true)에 마우스 클릭했을때 동작
-		onSelectRow:function(rowId ,status ,eventObject){
-
-		},
-
-		// 셀을 선택하였을 때 호출되는 이벤트 (수정 가능한 셀이 아닌 데이터 셀, 키보드로 셀 이동 중일 때 동작)
-	    onSelectCell:function(rowId, status, eventObject){
-
-	    },
-
-		// 정렬하기 전에(컬럼 헤더를 클릭 후) 호출되는 이벤트(sortable: true 상태에서만 가능)
-		onSortCol:function(index ,indexColumn ,sortOrder){
-
-			/*$("#list").jqGrid('setGridParam', {datatype: 'local', loadonce : true});
-
-		    // 그리드의 데이터를 가져와서 json sort 해줍니다.
-		    var obj = $("#list").jqGrid('getRowData');
-		    obj = sortByKey(obj, index);
-
-		    // 그리드의 데이터를 clear하고 정렬된 json을 다시 세팅합니다.
-		    $("#list").clearGridData();
-		    $("#list").setGridParam({data:obj}).trigger("reloadGrid");
-		    $("#list").setGridParam({datatype: 'json', loadonce : false});
-
-		    // onSortCol 이벤트를 커스터마이징 한것이므로 기존의 이벤트를 부르지 못하게 stop 해줍니다.
-			return 'stop';*/
-		},
-
-	    // 컬럼 사이즈가 변경되는 순간 호출되는 이벤트
-	    resizeStart:function(event, index){
-
-	    },
-
-	    // 컬럼 사이즈가 변경된 후 호출되는 이벤트
-	    resizeStop:function(newWidth, index){
-
-	    }	    
-	});
-
-	//$("#list").jqGrid('navGrid', '#pager', {edit:false, add:false, del:false, search:false, refresh:false});
-
-	$("#list").jqGrid('navGrid', '#pager',
-			{
-				edit:true ,add:true ,del:true ,search:true ,refresh:true},
-			{
-				// 수정 옵션
-				beforeShowForm: function(formid) {					
-					$('#id').attr('readonly','readonly');
+				{
+					edit:false ,add:false ,del:true ,search:true ,refresh:true
 				},
-			},
-			{
-				// 등록 옵션
-				beforeShowForm: function(formid) {					
-					$('#id').attr('readonly','readonly');
-				},
-			},
-			{
-				// 삭제 옵셥
-			},			
-			{
-				// 찾기 옵션				
-			});
+				{
+					// 삭제 옵셥
+				},			
+				{
+					// 찾기 옵션				
+				});
+		}
+
 }
 
-
-/**
- * buildSelect에서 호출하는 함수
- *  - json형태로 받아 select 구문을 생성하여 return
- *
- * @return result
- * */
-function setSelectBox(data){
-
-	var value 	=  $.parseJSON(data).result;
-
-	var result 	= "";
-
-	result = '<select>';
-
-	for (var idx = 0; idx < value.length; idx++) {
-
-		result +='<option value="'+ value[idx] +'">' + value[idx] +'</option>';
-	}
-
-	result +='</select>';
-
-	return result;
-}
-
-
-/**
- * selectBox 변경시에 호출 함수
- * */
-function changeSelect(e){
-
-	var selectedRowId = "";
-	selectedRowId = $("#list").getGridParam('selrow');			// 선택한 열의 ID 값(Key로 지정된 컬럼 값)
-
-	console.log(selectedRowId);
-
-	//return false;
-}
-
-
-/**
- * 정렬을 구현한 함수
- * */
-function sortByKey(array, key) {
-
-	return array.sort(
-		 function(a, b) {
-			 var x = a[key];
-             var y = b[key];
-
-             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-		 }
-	);
-}
+</script>
 ~~~
 
 * JsonObj.java
@@ -536,82 +279,26 @@ public class JsonObj {
 * Controller
 
 ~~~java
-package com.almom.controller;
-
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.almom.domain.JsonObj;
-import com.almom.domain.UserVO;
-import com.almom.service.UserService;
-
-/**
- * Handles requests for the application home page.
- */
-@Controller
-@RequestMapping("/admin/*")
-public class AdminController {
-
-	@Inject
-	private UserService service;
-
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		System.out.println("aa");
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate );
-
-		/* main page list */
-
-		return "/admin/test";
-	}
-
-
-	@RequestMapping("/getUserList")
+@RequestMapping("/getUserList")
 	@ResponseBody
 	public JsonObj getJqGridJson(
-			@RequestParam(value="page", required=false, defaultValue="1") int page,
-			@RequestParam(value="rows", required=false, defaultValue="10") int rows,
-			@RequestParam(value="sidx", required=false, defaultValue="id") String sidx,
-			@RequestParam(value="sord", required=false, defaultValue="sort") String sord,
-			@RequestParam(value="id", required=false, defaultValue="") String id)throws Exception{
+			@RequestParam(value="page", required=false, defaultValue="1") String page,
+			@RequestParam(value="rows", required=false, defaultValue="") String rows)throws Exception{
 
-		// dao에서 리스트 형식으로된 데이터를 DB에서 가져옴.				
-		List<UserVO> list = service.getAllUser();
+		// dao에서 리스트 형식으로된 데이터를 DB에서 가져옴.			
+		System.out.println(page);
+		List<UserVO> list = service.getAllUser(page, rows);
 		System.out.println(list);
 		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+
+		JsonObj totalCnt = service.getCount();
 
 		HashMap<String, Object> tempMap = new HashMap<String, Object>();
 		System.out.println(page);
 		// list 형식으로 된 데이터의 크기를 구함.
 		int size = list.size();
+		System.out.println(size);
+
 
 		for(int i=0; i<size; i++){
 
@@ -632,25 +319,65 @@ public class AdminController {
 		}
 
 		JsonObj jsonObj = new JsonObj();
-		System.out.println(resultList);
 		//임시
-		int total = Integer.parseInt(String.valueOf(Math.round( Math.ceil( size / rows ))));
-
-		try {
-			// jQgrid용(설정)
-			jsonObj.setPage(page);
-			jsonObj.setRecords(rows);
-			jsonObj.setTotal(total+1);		
-			jsonObj.setRows(resultList);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println(jsonObj.toString());
-		// map 형식의 데이터를 JSON Object로 변환하여 리턴
+		jsonObj.setRecords(totalCnt.getTotalCnt());
+		jsonObj.setTotal(totalCnt.getTotalPage());
+		jsonObj.setPage(page);
+		jsonObj.setRows(resultList);
 		return jsonObj;
 	}
+~~~
 
+* service
+
+~~~java
+
+	@Override
+	public List<UserVO> getAllUser(String page, String rows) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getAllUser(page, rows);
+	}
+
+	@Override
+	public JsonObj getCount() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.getCount();
+	}
+~~~
+
+* DAO
+
+~~~JAVA
+@Override
+public List<UserVO> getAllUser(String page, String rows) throws Exception {
+  // TODO Auto-generated method stub
+  HashMap <String, Object> map = new HashMap<String,Object>();
+  map.put("page", page);
+  map.put("rows", rows);
+  return sqlSession.selectList(namespace+".selectAllUser", map);
 }
 
+
+@Override
+public JsonObj getCount() throws Exception {
+  return sqlSession.selectOne(namespace+".getCount");
+}
+~~~
+
+
+
+* mapper
+
+~~~xml
+<select id = "selectAllUser" resultType = "UserVO">
+select aa.*
+from(select a.*,@rownum:=@rownum+1 as rnum, FLOOR((@rownum -1)/#{rows}+1) pageNumber
+from( SELECT @rownum := 0 )b , (select * from USER order by user_id asc)a)aa
+where aa.pageNumber = #{page} order by aa.rnum
+<!-- select * from USER -->
+</select>
+
+<select id = "getCount" resultType="JsonObj">
+select count(*) totalCnt, CEIL(count(*)/5) totalPage from USER;
+</select>
 ~~~
