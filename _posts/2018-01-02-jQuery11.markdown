@@ -35,4 +35,69 @@ comments: true
 
 <br>
 
-jqGrid 검색 기능 구현
+* jqGrid 검색 기능 구현
+
+
+<img src="{{ site.baseurl }}/img/search.JPG" alt="Post Sample Image">
+
+위 화면같이 검색 타입을 설정해주고 text 박스에 특정 값을 넣어 검색을 해주면 jqGrid 에 데이터를 리로드 해주는 방식이다.
+
+생각보다 방법은 간단하였다.
+
+~~~html
+<div style = "margin-top : 20px; margin-left : 15px; font-size : 12px;">
+    <select class = "form-control" style  = "width : 10%; float : left;" id = "searchType">
+        <option value = "All" selected>전체 검색</option>
+        <option value = "user_status">회원상태</option>
+      	<option value = "user_sex">성별</option>
+        <option value = "user_name">이름</option>
+        <option value = "user_email">이메일</option>
+    </select>
+    <input type ="text" id = "searchData" class ="form-control" style  = "width : 30%; float : left; margin-bottom : 50px; margin-left : 10px;">
+    <button class = "btn btn-info btn-fill" id = "search" value = "검색 " style  = "width : 10%; float : left; margin-left : 10px;">
+      검색
+    </button>
+</div>
+~~~
+
+* 간단하게 위와 같은 검색 폼을 만들어 준 후 json 형태로 검색을 위한 데이터 / 검색 타입 을 json 형태의 데이터로 만들어주며 이를 jqGrid 내장 함수를 통해 AJAX 요청을 보낸다.   
+[ex : $("#그리드 리스트 ID").setGridParam({postData : JSON 데이터}).trigger("reloadGrid"); ] 형태로 그리드를 다시 로딩한다.
+
+~~~html
+<script>
+$("#search").on("click",function(){
+      var data = $("#searchData").val()
+     var searchType = $("#searchType").val();
+     var rows = $("[title  ='Records per Page']").val();
+     var postData  = {'data' : data , 'searchType' : searchType, 'rows' :  rows }
+
+
+     rowData = null
+
+
+     $("#jqGrid").jqGrid("clearGridData", true);
+
+
+     $("#jqGrid").setGridParam({
+    	 datatype	: "json",
+    	 postData	: postData,
+    	 loadComplete	: function(data) {
+    		 console.log(data);
+    	 }
+     }).trigger("reloadGrid");
+})
+</script>
+~~~
+
+* 대표적으로 한개 타입 ( "user_name" 타입의 검색을 위해 Mapper 를 좀 수정하였다. ) 특이 한점은 MySQL 의 경우 Mapper 에서 like 를 사용하고자 할 때
+[ex : 칼럼명 like CONCAT('%',#{칼럼의 값},'%') ] 형식으로 쓰인다.
+
+~~~xml
+<select id = "searchAllUser" resultType = "UserVO">
+select aa.*
+from(select a.*,@rownum:= @rownum+1 as rnum, FLOOR((@rownum -1)/#{rows}+1) pageNumber
+from( SELECT @rownum := 0 )b ,
+(select * from USER where user_name like CONCAT('%',#{user_name},'%') order by user_id asc)a)aa
+where aa.pageNumber = #{page} order by aa.rnum
+</select>
+~~~

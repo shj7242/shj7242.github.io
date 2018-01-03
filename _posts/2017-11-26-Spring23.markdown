@@ -2,7 +2,7 @@
 layout:     post
 title:      "[Spring] 페이스북 로그인 API"
 
-date:       2017-11-29 17:55:00
+date:       2017-11-26 17:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -29,7 +29,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
 <br>
-<H4 style ="font-weight:bold; color : black">2017 - 11 - 29 (수)</H4>
+<H4 style ="font-weight:bold; color : black">2017 - 11 - 26 (수)</H4>
 
 <br>
 
