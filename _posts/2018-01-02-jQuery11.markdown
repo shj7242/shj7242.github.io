@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "[Spring] jqGrid 검색기능"
+title:      "[jQuery] jqGrid 검색기능"
 
-date:       2017-12-29 19:00:00
+date:       2018-01-02 19:00:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
@@ -27,7 +27,7 @@ comments: true
  </head>
 
 
-<H4 style ="font-weight:bold; color : black">2018 - 01 - 02 (월)</H4>
+<H4 style ="font-weight:bold; color : black">2018 - 01 - 02 (화)</H4>
 
 <br>
 
