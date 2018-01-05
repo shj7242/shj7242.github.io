@@ -50,3 +50,5 @@ Chart.js 튜토리얼 : https://github.com/cdnjs/tutorials
 
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 ~~~
+
+Chart.js download : https://www.jsdelivr.com/package/npm/chart.js?path=dist
