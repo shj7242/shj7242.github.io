@@ -141,3 +141,8 @@ select count(*) from almom.user where user_sex = 0;
 select count(*) from almom.user where user_sex = 1;
 </select>
 ~~~
+
+* 다음같은 결과를 얻는다. 
+
+
+<img src="{{ site.baseurl }}/img/sex.JPG" alt="Post Sample Image">
