@@ -31,13 +31,14 @@ comments: true
 
 <br>
 
-> chart.js 시작부터
+> chart.js
 
 <br>
 
 현재 진행중인 어드민 페이지의 대시보드 작업을 위해 Chart.js 을 활용해 보고자 한다. https://github.com/chartjs 에서 Chart.js 오픈소스 코드를 활용하여 해당 프로젝트에 적용하고자 한다.
 
-Chart.js 튜토리얼 : https://github.com/cdnjs/tutorials
+* Chart.js 튜토리얼 : https://github.com/cdnjs/tutorials
+* Chart.js 따라하기 : http://www.chartjs.org/docs/latest/
 
 * chart.js CDN
 
@@ -51,4 +52,92 @@ Chart.js 튜토리얼 : https://github.com/cdnjs/tutorials
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 ~~~
 
-Chart.js download : https://www.jsdelivr.com/package/npm/chart.js?path=dist
+* Chart.js download : https://www.jsdelivr.com/package/npm/chart.js?path=dist
+
+<br>
+
+> chart.js + Spring
+
+* 응용하여 스프링과 연동을해보았다. 예제로 현재 프로젝트 중인 데이터베이스에서 성별 회원 수를 가져올 것이다.(스프링과 연동하여)
+
+JSP
+
+~~~html
+
+<script>
+var ctx = document.getElementById("logChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["남자 회원", "여자 회원"],
+        datasets: [{
+
+
+            data: ['${menCount}', '${womenCount}'], //컨트롤러에서 모델로 받아온다.
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)'
+
+            ],
+            borderWidth: 1
+        }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
+~~~
+
+Controller
+
+~~~java
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+
+	@Inject
+	private UserService service;
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  	public String home(Locale locale, Model model)throws Exception {
+
+
+  		int womenCount = service.getWomenCount();
+  		int menCount = service.getMenCount();
+
+  		model.addAttribute("menCount", menCount);
+  		model.addAttribute("womenCount", womenCount);
+
+  		return "/admin/index";
+
+  	}
+}
+~~~
+
+Mapper
+
+~~~xml
+<select id = "getWomenCount" resultType="int">
+select count(*) from almom.user where user_sex = 0;
+
+</select>
+<select id = "getMenCount" resultType="int">
+select count(*) from almom.user where user_sex = 1;
+</select>
+~~~
