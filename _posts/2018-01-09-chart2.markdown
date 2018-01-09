@@ -1,0 +1,40 @@
+---
+layout:     post
+title:      "[JavaScript] AmChart"
+
+date:       2018-01-09 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="website">
+ <meta property="og:title" content="AmChart">
+ <meta property="og:description" content="AmChart">
+ <meta property="og:url" content="http://shj7242.github.io/2018/01/09/JavaScript14/">
+
+ <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AmChart">
+  <meta name="twitter:description" content="AmChart">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/09/JavaScript14/">
+  <meta name="facebook:card" content="summary">
+   <meta name="facebook:title" content="AmChart">
+   <meta name="facebook:description" content="AmChart">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/09/JavaScript14/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 01 - 09 (화)</H4>
+<li>AmChart</li>
+
+<br>
+<br>
+
+>AmChart
+
+<br>
