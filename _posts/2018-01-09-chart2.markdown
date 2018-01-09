@@ -38,3 +38,73 @@ comments: true
 >AmChart
 
 <br>
+
+* AmChart.js는 Chart.js 처럼 대쉬보드를 작업하기위해 알게된 javascript 라이브러리이다.
+
+<br>
+
+AmChart.js : https://www.amcharts.com/
+
+AmChart.js Demo 페이지 : https://www.amcharts.com/demos/
+
+<br>
+
+* 예제로 이전에 chart.js 로 만든 회원의 성비율을 보여주는 원형 차트를 만들어 보았다. chart.js 로 만들었을 때 사용한 Service, DAO , Mapper 를 동일하게 사용하였다. 아래는 변형시킨 jsp 코드
+
+~~~html
+<html>
+<head>
+<script src = "../../../resources/chart/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src = "../../../resources/js/adminChart.js"></script>
+
+<style>
+  #chartSex {
+    width: 100%;
+    height: 350px;
+  }
+</style>
+</head>
+<body>
+  <div id="chartSex"></div>
+</body>
+
+
+
+<script>
+  var chart = AmCharts.makeChart("chartSex", {
+    "type": "pie",
+    "theme": "light",
+    "dataProvider": [
+    {
+    "sex": "Women",
+    "litres": '${womenCount}'
+    }, {
+    "sex": "man",
+    "litres": '${menCount}',
+
+    }],
+    "valueField": "litres",
+    "titleField": "sex",
+    "balloon": {
+    "fixedPosition": true
+    },
+    "export": {
+    "enabled": true,
+    "menu": []
+    }
+    });
+</script>
+
+</html>
+~~~
+
+
+
+* 다음같은 결과를 얻는다.
+
+
+<img src="{{ site.baseurl }}/img/sex2.JPG" alt="Post Sample Image">
