@@ -1,0 +1,128 @@
+---
+layout:     post
+title:      "[MySQL] 쿼리 예제"
+
+date:       2018-01-09 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="MySQL">
+ <meta property="og:title" content="MySQL">
+ <meta property="og:description" content="MySQL rownum, 회원의 성비율 구하기, 회원의 연령대별 쿼리, 회원의 접속량 쿼리">
+ <meta property="og:url" content="http://shj7242.github.io/2018/01/13/MySQL/">
+
+ <meta name="twitter:card" content="MySQL">
+  <meta name="twitter:title" content="MySQL">
+  <meta name="twitter:description" content="MySQL rownum, 회원의 성비율 구하기, 회원의 연령대별 쿼리, 회원의 접속량 쿼리">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/13/MySQL/">
+  <meta name="facebook:card" content="MySQL">
+   <meta name="facebook:title" content="MySQL">
+   <meta name="facebook:description" content="MySQL rownum, 회원의 성비율 구하기, 회원의 연령대별 쿼리, 회원의 접속량 쿼리">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/13/MySQL/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 01 - 13 (토)</H4>
+<li>MySQL</li>
+
+<br>
+<br>
+
+>MySQL
+
+<br>
+
+* MySQL 을통해 몇가지 예제 쿼리를 짜보았다. 현재 진행중인 프로젝트 어드민의 대시보드를 구현하기위한 쿼리중 일부이다.
+
+* 회원들의 요일별 접속량
+
+~~~sql
+
+select
+
+CASE DAYOFWEEK(log_userLog)
+
+WHEN '1' THEN '일요일'
+
+WHEN '2' THEN '월요일'
+
+WHEN '3' THEN '화요일'
+
+WHEN '4' THEN '수요일'
+
+WHEN '5' THEN '목요일'
+
+WHEN '6' THEN '금요일'
+
+WHEN '7' THEN '토요일'
+
+
+END AS week
+, count(log_userLog) as 'log_count'
+from LOG where DAYOFWEEK(log_userLog) = '5';
+---목요일 접속량을 보여준다.
+~~~
+
+
+
+<img src="{{ site.baseurl }}/img/query1.JPG" alt="Post Sample Image">
+
+
+* 성별 연령대 카운트 쿼리
+
+~~~sql
+
+select
+if(user_sex = 1 , "남자회원", "여자회원") as sex,
+if(user_birth = null
+	, null ,
+
+	if((year(now())-(mid(user_birth,1,2)+ 1900)) > 100
+		, left((year(now())-(mid(user_birth,1,2)+ 2000)),1)
+		, left((year(now())-(mid(user_birth,1,2)+ 1900)),1)
+	)
+
+
+) AS ages,
+
+count(*) as age_count
+from USER
+where user_birth >0 and user_sex = 0
+GROUP BY user_sex , LEFT((YEAR(NOW()) - (MID(user_birth,1,2)+ 1900)),1);
+~~~
+
+
+<img src="{{ site.baseurl }}/img/query2.JPG" alt="Post Sample Image">
+
+
+* MySQL 에서 Rownum 쓰기 : 해당 쿼리는 Spring 에서 사용한것으로 페이징 처리(pages) 및 가져올 데이터의 갯수(rows) 를 정해주어 특정량의 데이터를 가져온다.
+
+~~~sql
+select aa.*
+from(select a.*,@rownum:=@rownum+1 as rnum, FLOOR((@rownum -1)/#{rows}+1) pageNumber
+from( SELECT @rownum := 0 )b ,
+(select * from USER order by user_id asc)a)aa
+where aa.pageNumber = #{page} order by aa.rnum
+~~~
+
+
+<img src="{{ site.baseurl }}/img/query3.JPG" alt="Post Sample Image">
+
+* 위에서는 회원테이블의 데이터를 페이징, 로우 처리를 하여 특정 범위의 데이터를 긁어온다. 이번에는 특정 값을 보내 검색해오는 쿼리이다. ( Oracle 과 차이점은 like CONCAT('%', 값 , '%') 형태로 쓴다는 점이 조금 다르다. )
+
+~~~sql
+select aa.*
+from(select a.*,@rownum:= @rownum+1 as rnum, FLOOR((@rownum -1)/#{rows}+1) pageNumber
+from( SELECT @rownum := 0 )b ,
+(select * from USER where user_email like CONCAT('%',#{user_email}, '%')
+or user_name like CONCAT('%', #{user_name}, '%') or user_phoneNumber like CONCAT ('%',#{user_phoneNumber},'%') or user_status like CONCAT('%', #{user_status},'%')
+or user_sex like CONCAT('%',#{user_sex},'%') or user_birth like CONCAT('%',#{user_birth},'%') order by user_id asc)a)aa
+where aa.pageNumber = #{page} order by aa.rnum
+~~~
