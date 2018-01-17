@@ -36,6 +36,13 @@ header-img: "img/post-bg-02.jpg"
 
 <br>
 <H4 style ="font-weight:bold; color:black;">기본사항 정리</H4>
+
+
+* AJAX/JSON 활용 예제 [참고]
+ ID 중복 여부 확인 예제: https://shj7242.github.io/2017/12/03/Spring27/
+ ID 찾기 : https://shj7242.github.io/2017/12/05/Spring29/
+ 한국지도 활용한 데이터 시각화 : https://shj7242.github.io/2018/01/16/geoInfo/
+
 <br>
 
 <h5 style = "font-size: 17px; font-weight : bold;">1 .. 공통 Controller 관리</h5>
