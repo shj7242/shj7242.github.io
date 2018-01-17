@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[jQuery] jqGrid"
+title:      "[jQuery] Spring jqGrid"
 
 date:       2017-12-29 19:00:00
 author:     "신희준"
@@ -381,3 +381,6 @@ where aa.pageNumber = #{page} order by aa.rnum
 select count(*) totalCnt, CEIL(count(*)/5) totalPage from USER;
 </select>
 ~~~
+
+
+<img src="{{ site.baseurl }}/img/grid.JPG" alt="Post Sample Image">
