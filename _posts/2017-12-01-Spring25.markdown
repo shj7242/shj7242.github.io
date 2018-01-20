@@ -44,7 +44,7 @@ comments: true
 
 2 . 좌측의 사용자 관리탭에서 사용자관리 사용을 활성화 한다.
 
-<img src="{{ site.baseurl }}/img/kakao2.jpg" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/kakao2.PNG" alt="Post Sample Image">
 
 3 . Spring 에서 pom.xml 을 추가해준다.
 

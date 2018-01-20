@@ -169,7 +169,7 @@ util.requestSync = function(url,param, method, callback){
 }
 ~~~
 
-<br><p>Controller 에서 getMessage.html 을 매핑해준다. JSON형식(KEY:VALUE) 형태와 같게 MAP에 result , item Key 값에 대한 value 를 각각 저장한다. ModelAndView 를 통해 jsonView 에 저장된 값을 return 한다.   </p><br>
+<br>Controller 에서 getMessage.html 을 매핑해준다. JSON형식(KEY:VALUE) 형태와 같게 MAP에 result , item Key 값에 대한 value 를 각각 저장한다. ModelAndView 를 통해 jsonView 에 저장된 값을 return 한다. <br>
 
 ~~~java
 //Controller.java
