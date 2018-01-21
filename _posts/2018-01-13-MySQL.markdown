@@ -2,7 +2,7 @@
 layout:     post
 title:      "[MySQL] 쿼리 예제"
 
-date:       2018-01-09 18:55:00
+date:       2018-01-13 18:55:00
 author:     "신희준"
 header-img: "img/post-bg-02.jpg"
 comments: true
