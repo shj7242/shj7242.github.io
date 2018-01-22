@@ -39,9 +39,17 @@ header-img: "img/post-bg-02.jpg"
 
 
 * AJAX/JSON 활용 예제 [참고]
+
+<br>
  ID 중복 여부 확인 예제: https://shj7242.github.io/2017/12/03/Spring27/
+<br>
  ID 찾기 : https://shj7242.github.io/2017/12/05/Spring29/
+<br>
  한국지도 활용한 데이터 시각화 : https://shj7242.github.io/2018/01/16/geoInfo/
+<br>
+ AJAX 대시보드 작업 [데이터 시각화] : https://shj7242.github.io/2018/01/18/chart3/
+<br>
+ AJAX jQgrid : https://shj7242.github.io/2017/12/29/jQuery10/
 
 <br>
 

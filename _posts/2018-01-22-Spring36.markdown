@@ -1,0 +1,413 @@
+---
+layout:     post
+title:      "[Spring] 간단하게 페이징처리 / 공지사항 CRUD 만들기"
+
+date:       2018-01-18 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="MySQL">
+ <meta property="og:title" content="MySQL">
+ <meta property="og:description" content="간단하게 페이징처리로 공지사항 CRUD">
+ <meta property="og:url" content="http://shj7242.github.io/2018/01/18/chart3/">
+
+ <meta name="twitter:card" content="MySQL">
+  <meta name="twitter:title" content="MySQL">
+  <meta name="twitter:description" content="간단하게 페이징처리로 공지사항 CRUD">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/18/chart3/">
+  <meta name="facebook:card" content="MySQL">
+   <meta name="facebook:title" content="MySQL">
+   <meta name="facebook:description" content="간단하게 페이징처리로 공지사항 CRUD">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/18/chart3/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 01 - 22 (월)</H4>
+<br>
+
+>페이징 처리
+
+<br>
+
+이번에는 jqGrid 를 활용하여 리스트를 출력하는 것이 아니라 Table 로 간단하게 리스트를 보여주면서 페이징 처리를 해보았다. 예전에 https://shj7242.github.io/2017/10/24/Spring15/ 에서 한 페이징과 다르게 이번에는 SQL을 좀더 활용해보았다.
+
+* 구현하고자 하는 화면은 다음과 같다.
+
+<img src="{{ site.baseurl }}/img/paging.JPG" alt="Post Sample Image">
+
+* 사전에 페이징을 처리해줄 클래스로 PageMaker , Criteria 생성
+
+~~~java
+package com.almom.domain;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+public class PageMaker {
+
+  private int totalCount;
+  private int startPage;
+  private int endPage;
+  private boolean prev;
+  private boolean next;
+
+  private int displayPageNum = 5;
+
+  private Criteria cri;
+
+  public void setCri(Criteria cri) {
+    this.cri = cri;
+  }
+
+  public void setTotalCount(int totalCount) {
+    this.totalCount = totalCount;
+
+    calcData();
+  }
+
+  private void calcData() {
+
+    endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
+
+    startPage = (endPage - displayPageNum) + 1;
+
+    int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
+
+    if (endPage > tempEndPage) {
+      endPage = tempEndPage;
+    }
+
+    prev = startPage == 1 ? false : true;
+
+    next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+
+  }
+
+  public int getTotalCount() {
+    return totalCount;
+  }
+
+  public int getStartPage() {
+    return startPage;
+  }
+
+  public int getEndPage() {
+    return endPage;
+  }
+
+  public boolean isPrev() {
+    return prev;
+  }
+
+  public boolean isNext() {
+    return next;
+  }
+
+  public int getDisplayPageNum() {
+    return displayPageNum;
+  }
+
+  public Criteria getCri() {
+    return cri;
+  }
+
+  public String makeQuery(int page) {
+
+    UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+        .queryParam("perPageNum", cri.getPerPageNum()).build();
+
+    return uriComponents.toUriString();
+  }
+
+  public String makeSearch(int page){
+
+    UriComponents uriComponents =
+              UriComponentsBuilder.newInstance()
+              .queryParam("page", page)
+              .queryParam("perPageNum", cri.getPerPageNum())
+              .queryParam("searchType", ((SearchCriteria)cri).getSearchType()==null?"All":((SearchCriteria)cri).getSearchType())
+              .queryParam("place_district", ((SearchCriteria)cri).getPlace_district()==null?"place_all":((SearchCriteria)cri).getPlace_district())
+              .queryParam("class_category", ((SearchCriteria)cri).getClass_category()==null?"category_all":((SearchCriteria)cri).getClass_category())
+              .queryParam("keyword", ((SearchCriteria)cri).getKeyword())
+              .build();
+
+    return uriComponents.toUriString();
+  }
+
+  private String encoding(String keyword) {
+	  if(keyword == null || keyword.trim().length() ==0) {
+		  return "";
+	  }
+	  try {
+		  return URLEncoder.encode(keyword,"UTF-8");
+	  } catch(UnsupportedEncodingException e) {
+		  return "";
+	  }
+  }
+
+  public String makeNotice(int page) {
+      UriComponents uriComponents = UriComponentsBuilder.newInstance()
+            .queryParam("page", page)
+            .queryParam("perPageNum", cri.getPerPageNum())
+            .queryParam("keyword", encoding(((SearchCriteria) cri).getKeyword()))
+            .build();
+      return uriComponents.toString();
+   }
+
+}
+~~~
+
+~~~java
+package com.almom.domain;
+
+public class Criteria {
+	private int page;
+	  private int perPageNum;
+
+	  public Criteria() {
+	    this.page = 1;
+	    this.perPageNum = 10;
+	  }
+
+	  public void setPage(int page) {
+
+	    if (page <= 0) {
+	      this.page = 1;
+	      return;
+	    }
+
+	    this.page = page;
+	  }
+
+	  public void setPerPageNum(int perPageNum) {
+
+	    if (perPageNum <= 0 || perPageNum > 100) {
+	      this.perPageNum = 10000;
+	      return;
+	    }
+
+	    this.perPageNum = perPageNum;
+	  }
+
+	  public int getPage() {
+	    return page;
+	  }
+
+	  // method for MyBatis SQL Mapper -
+	  public int getPageStart() {
+
+	    return (this.page - 1) * perPageNum;
+	  }
+
+	  // method for MyBatis SQL Mapper
+	  public int getPerPageNum() {
+
+	    return this.perPageNum;
+	  }
+
+	  @Override
+	  public String toString() {
+	    return "Criteria [page=" + page + ", "
+	        + "perPageNum=" + perPageNum + "]";
+	  }
+}
+
+~~~
+
+
+* 우선 데이터베이스는 MYSQL 을 활용하고 NOTIFICATION 테이블을 생성하고 VO를 만들어주었다.
+
+~~~JAVA
+package com.almom.domain;
+
+import java.util.Date;
+
+public class NoticeVO {
+
+
+
+	private int notification_id;
+
+	private String notification_title;
+
+	private String notification_writer;
+
+	private Date notification_regDate;
+
+	private Date notification_modDate;
+
+	private String notification_contents;
+
+	private int pageNumber;
+
+
+
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+	public int getNotification_id() {
+		return notification_id;
+	}
+
+	public void setNotification_id(int notification_id) {
+		this.notification_id = notification_id;
+	}
+
+	public String getNotification_title() {
+		return notification_title;
+	}
+
+	public void setNotification_title(String notification_title) {
+		this.notification_title = notification_title;
+	}
+
+	public String getNotification_writer() {
+		return notification_writer;
+	}
+
+	public void setNotification_writer(String notification_writer) {
+		this.notification_writer = notification_writer;
+	}
+
+	public Date getNotification_regDate() {
+		return notification_regDate;
+	}
+
+	public void setNotification_regDate(Date notification_regDate) {
+		this.notification_regDate = notification_regDate;
+	}
+
+	public Date getNotification_modDate() {
+		return notification_modDate;
+	}
+
+	public void setNotification_modDate(Date notification_modDate) {
+		this.notification_modDate = notification_modDate;
+	}
+
+	public String getNotification_contents() {
+		return notification_contents;
+	}
+
+	public void setNotification_contents(String notification_contents) {
+		this.notification_contents = notification_contents;
+	}
+
+	@Override
+	public String toString() {
+		return "NotificationVO [notification_id=" + notification_id + ", notification_title=" + notification_title
+				+ ", notification_writer=" + notification_writer + ", notification_regDate=" + notification_regDate
+				+ ", notification_modDate=" + notification_modDate + ", notification_contents=" + notification_contents
+				+ "]";
+	}
+
+}
+~~~
+
+
+* Controller 를 생성한다.
+
+~~~java
+	@RequestMapping("/goNotify")
+	public String goNotify(@ModelAttribute("cri") SearchCriteria cri,  Model model,  @RequestParam(value="page", required=false, defaultValue="1") String page)throws Exception {
+
+
+		model.addAttribute("list", noticeService.listNotice(page));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(noticeService.listNoticeCount(cri));
+		System.out.println(noticeService.listNoticeCount(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("page", page);
+		return "/notice/notification";
+	}
+~~~
+
+
+* service / serviceImpl
+
+~~~java
+public List<NoticeVO> listNotice(String page) throws Exception;
+
+public int listNoticeCount(SearchCriteria cri) throws Exception;
+
+~~~
+
+~~~java
+@Override
+public List<NoticeVO> listNotice(String page) throws Exception {
+  return dao.list(page);
+}
+
+@Override
+public int listNoticeCount(SearchCriteria cri) throws Exception{
+  return dao.listCount(cri);
+}
+~~~
+
+* DAO / DAOImpl
+
+~~~java
+public List<NoticeVO> list(String page) throws Exception;
+
+public int listCount(SearchCriteria cri) throws Exception;
+~~~
+
+~~~java
+@Override
+public List<NoticeVO> list(String page) throws Exception {
+  return session.selectList(namespace + ".list",page);
+}
+
+@Override
+public int listCount(SearchCriteria cri) throws Exception{
+  return session.selectOne(namespace + ".listCount",cri);
+}
+~~~
+
+* Mapper
+
+~~~xml
+<select id="list" resultType="NoticeVO">
+
+select aa.*
+from(select a.*,@rownum:=@rownum+1 as rnum, FLOOR((@rownum -1)/10+1) pageNumber
+from( SELECT @rownum := 0 )b ,
+(select * from NOTIFICATION order by notification_id asc)a)aa
+where aa.pageNumber = #{pageNumber} order by aa.rnum ;
+
+</select>
+
+<select id="listCount" resultType="int">
+   <![CDATA[
+      select count(*) from NOTIFICATION where notification_id>0
+   ]]>
+   <include refid="search"></include>
+</select>
+
+<!-- 검색 sql 모듈 -->
+<sql id="search">
+   <if test="keyword != null">
+      and (notification_title like CONCAT('%', #{keyword}, '%')
+      OR notification_contents like CONCAT('%', #{keyword}, '%')
+      )
+   </if>
+</sql>
+
+~~~
