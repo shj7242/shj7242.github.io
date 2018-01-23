@@ -9,17 +9,17 @@ comments: true
 ---
 
 <head>
- <meta property="og:type" content="MySQL">
- <meta property="og:title" content="MySQL">
+ <meta property="og:type" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
+ <meta property="og:title" content="My한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링SQL">
  <meta property="og:description" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
  <meta property="og:url" content="http://shj7242.github.io/2018/01/16/geoInfo/">
 
- <meta name="twitter:card" content="MySQL">
-  <meta name="twitter:title" content="MySQL">
+ <meta name="twitter:card" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
+  <meta name="twitter:title" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
   <meta name="twitter:description" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
   <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/16/geoInfo/">
-  <meta name="facebook:card" content="MySQL">
-   <meta name="facebook:title" content="MySQL">
+  <meta name="facebook:card" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
+   <meta name="facebook:title" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
    <meta name="facebook:description" content="한국지도 데이터 시각화 , SHP 파일 , QGIS 활용, 스프링">
    <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/16/geoInfo/">
 

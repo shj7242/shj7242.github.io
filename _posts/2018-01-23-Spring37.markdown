@@ -1,0 +1,68 @@
+---
+layout:     post
+title:      "[Spring] 웹 소켓으로 채팅구현"
+
+date:       2018-01-23 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="스프링 웹소켓 채팅">
+ <meta property="og:title" content="스프링 웹소켓 채팅">
+ <meta property="og:description" content="웹 소켓으로 채팅구현">
+ <meta property="og:url" content="http://shj7242.github.io/2018/01/23/Spring37/">
+
+ <meta name="twitter:card" content="스프링 웹소켓 채팅">
+  <meta name="twitter:title" content="스프링 웹소켓 채팅">
+  <meta name="twitter:description" content="웹 소켓으로 채팅구현">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/23/Spring37/">
+  <meta name="facebook:card" content="스프링 웹소켓 채팅">
+   <meta name="facebook:title" content="스프링 웹소켓 채팅">
+   <meta name="facebook:description" content="웹 소켓으로 채팅구현">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/23/Spring37/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 01 - 23 (화)</H4>
+<br>
+
+
+> 웹 소켓
+
+<br>
+
+프로젝트에 웹소켓을 활용하여 쪽지, 채팅 기능을 구현할 필요성이 생기게되어 웹 소켓에대해서 공부해 보았다.
+
+사실 학교다닐 적에 통신관련 수업시간에 소켓에 대해서 수업을 들은적이 있다. 기억하기로는 OSI 5계층 중 4계층인 전송계층(Transport layer) 와 5계층인 응용계층 (Application layer) 사이에 존재하여 전송계층에 의존하고 이 두계층 사이에서 게이트? 역활을 한다. 라고 기억하고 있습니다.  
+
+결국 .. COMPUTER NETWORKING A TOP-DOWN Approach 라는 (전공서적) 을 펼쳐서 소켓부분을 찾게되었다. 해당 책에서는 UDP / TCP 소켓 프로그래밍을 소개하는데 이를 파이썬으로 소개한다.
+
+<br>
+
+프로젝트에 TCP 소켓 프로그래밍을 해야하는 나는 TCP 부분을 중점적으로 보았다.
+
+TCP는 UDP 와 달리 손실? 을 싫어한다.(데이터의 정확하고 안정적인 전달이 핵심) 기본적으로 TCP 는 3Way handshaking 을 통해 연결지향적인 통신을 한다.
+이 때 클라이언트 소켓 (IP 주소 및 포트번호) 와 서버 소켓 (IP주소 및 포트번호) 에 연결을 시도한다.
+
+1 . 클라이언트가 TCP 연결을 위해 서버로 요청 메시지를 보낸다. 이 메시지는 소켓을 거쳐 서버에 전달된다.
+
+2 . 서버는 반대로 클라이언트 주소로 응답 메시지를 보내고 이는 출입문이라고 할 수 있는 소켓을 통해 전달된다.
+
+3 . 승인하는 응답을 보낼 경우 핸드셰이킹이 이루어진다. 소켓을 연결하는 파이프를 통해 바이트를 송수신 할 수 있게 된다.  
+
+웹소켓은 TCP 접속에 양방향 통신 채널하는 프로토콜이며 웹소켓의 API 는 W3C 에의해 표준화 되어있다.
+
+<br>
+
+
+> 실습
+
+<br>
+
+스프링 웹소켓을 사용하기위해 간단한 예제 파일을 찾아서 실행시켜보았다.

@@ -9,17 +9,17 @@ comments: true
 ---
 
 <head>
- <meta property="og:type" content="MySQL">
- <meta property="og:title" content="MySQL">
+ <meta property="og:type" content="AJAX 를 활용한 차트">
+ <meta property="og:title" content="AJAX 를 활용한 차트">
  <meta property="og:description" content="AJAX 를 활용한 차트">
  <meta property="og:url" content="http://shj7242.github.io/2018/01/18/chart3/">
 
- <meta name="twitter:card" content="MySQL">
-  <meta name="twitter:title" content="MySQL">
+ <meta name="twitter:card" content="AJAX 를 활용한 차트">
+  <meta name="twitter:title" content="AJAX 를 활용한 차트">
   <meta name="twitter:description" content="AJAX 를 활용한 차트">
   <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/18/chart3/">
-  <meta name="facebook:card" content="MySQL">
-   <meta name="facebook:title" content="MySQL">
+  <meta name="facebook:card" content="AJAX 를 활용한 차트">
+   <meta name="facebook:title" content="AJAX 를 활용한 차트">
    <meta name="facebook:description" content="AJAX 를 활용한 차트">
    <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/18/chart3/">
 

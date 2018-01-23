@@ -9,19 +9,19 @@ comments: true
 ---
 
 <head>
- <meta property="og:type" content="MySQL">
- <meta property="og:title" content="MySQL">
+ <meta property="og:type" content="페이징처리">
+ <meta property="og:title" content="페이징처리">
  <meta property="og:description" content="간단하게 페이징처리로 공지사항 CRUD">
- <meta property="og:url" content="http://shj7242.github.io/2018/01/18/chart3/">
+ <meta property="og:url" content="http://shj7242.github.io/2018/01/22/Spring36/">
 
- <meta name="twitter:card" content="MySQL">
-  <meta name="twitter:title" content="MySQL">
+ <meta name="twitter:card" content="페이징처리">
+  <meta name="twitter:title" content="페이징처리">
   <meta name="twitter:description" content="간단하게 페이징처리로 공지사항 CRUD">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/18/chart3/">
-  <meta name="facebook:card" content="MySQL">
-   <meta name="facebook:title" content="MySQL">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/22/Spring36/">
+  <meta name="facebook:card" content="페이징처리">
+   <meta name="facebook:title" content="페이징처리">
    <meta name="facebook:description" content="간단하게 페이징처리로 공지사항 CRUD">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/18/chart3/">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/22/Spring36/">
 
 
  </head>
