@@ -1,0 +1,72 @@
+---
+layout:     post
+title:      "[Spring] Jrebel"
+
+date:       2018-01-25 18:55:00
+author:     "신희준"
+header-img: "img/post-bg-02.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="Jrebel">
+ <meta property="og:title" content="Jrebel">
+ <meta property="og:description" content="Jrebel">
+ <meta property="og:url" content="http://shj7242.github.io/2018/01/25/Spring38/">
+
+ <meta name="twitter:card" content="Jrebel">
+  <meta name="twitter:title" content="Jrebel">
+  <meta name="twitter:description" content="Jrebel">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/01/25/Spring38/">
+  <meta name="facebook:card" content="Jrebel">
+   <meta name="facebook:title" content="Jrebel">
+   <meta name="facebook:description" content="Jrebel">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/01/25/Spring38/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 01 - 25 (목)</H4>
+<br>
+
+
+> jRebel
+
+<br>
+
+ 보통 스프링 프로젝트를 하다보면 서버단의 코딩(컨트롤러 , 서비스 , DAO) 등을 수정할 경우 서버를 재시작해야되는 상황이 발생한다. 이러한 경우가 쌓이고 쌓면 엄청난 시간낭비가 될 것이다.
+
+프로젝트 마무리 단계에 와서 나도 jRebel 이란걸 알게되었다..
+
+jRebel을 사용할경우 서버단의 코드가 변경될때마다 즉시 적용이 가능하다. (mapper 와 같은 xml 설정 파일의 경우는 서버를 재시작해야 하지만 매우 편리한 설정이다.)
+<br>
+
+> jRevel 설정 과정
+
+<br>
+
+* jRevel 은 이클립스[본인은 sts를 쓰고 있습니다.] 상단의 help 탭에보면 이클립스 마켓스토어에서 jRebel 을 검색하여 다운로드 할 수 있다.
+
+<img src="{{ site.baseurl }}/img/marketstore.JPG" alt="Post Sample Image">
+
+* 다운로드를 받고나면 재실행하라고 뜰 것이다. 이클립스를 재실행한다.
+
+* https://my.jrebel.com/  에 접속하여 회원가입을 진행한다. 회원가입 진행시 전화번호입력과 함께 POSTAL CODE 를 적어야 하는데 여기에 ks013 를 입력해준다. (한국에 거주시)
+
+
+* INSTALL AND ACTIVATE 라는 탭에 들어가면 code 가 생성이 되었을 것이다. 이 코드를 복사한다.
+
+* sts 가 재실행 되었으면 help 에 jRebel 탭에 들어가 activation 에 아까 복사한 코드를 붙여넣고 저장해준다.
+
+* 특히 jRebel 탭의 configuration 에서는 프로젝트를 지정해주어야한다.
+
+<img src="{{ site.baseurl }}/img/jRevelSetting1.JPG" alt="Post Sample Image">
+
+* 위의 사진처럼 한개의 프로젝트를 선택해야한다. 프로젝트는 하나만 지정가능하며 다른 프로젝트로 바꿀 경우 체크를 해제해준 후 진행해야한다.
+
+<img src="{{ site.baseurl }}/img/jRevelSetting2.JPG" alt="Post Sample Image">
+
+* 위 셋팅의 경우 속도인데 1s 로 해주었다. 참고로 jRebel을 실행하면 최초 서버를 시작하는 시간이 조금더 걸릴 수 있다. 하지만 계속해서 서버를 껏다켰다 하는시간을 생각한다면 엄청난 절약이다.
