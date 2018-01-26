@@ -44,7 +44,7 @@ comments: true
 jRebel을 사용할경우 서버단의 코드가 변경될때마다 즉시 적용이 가능하다. (mapper 와 같은 xml 설정 파일의 경우는 서버를 재시작해야 하지만 매우 편리한 설정이다.)
 <br>
 
-> jRevel 설정 과정
+> jRebel 설정 과정
 
 <br>
 
