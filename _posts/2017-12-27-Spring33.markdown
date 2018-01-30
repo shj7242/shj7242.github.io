@@ -97,3 +97,42 @@ public class CommonExceptionAdvice {
 
 
 * 위의 CommonExceptionAdvice 컨트롤러는 공통적인 예외 상황을 담으므로 특정 예외를 다루고자 하면 해당 예외상황에 대한 메서드를 작성해줘야한다.
+
+
+> 에러페이지 처리
+
+<br>
+
+404 , 400 , 403 , 500 등 몇가지 에러가 발생할 가능성이 있다. 이 때 유저들에게 친근한 화면을 보여줄 수 있도록 사전에 만들어놓은 에러상황의 페이지로 보내준다.
+
+스프링에서는 web.xml 에 특정 코드의 에러상황에 따라 반환해주는 jsp 페이지를 설정해줄 수 있다.
+
+~~~xml
+
+<error-page>
+<error-code>400</error-code>
+<location>/WEB-INF/views/error/400error.jsp</location>
+</error-page>
+
+<error-page>
+<error-code>403</error-code>
+<location>/WEB-INF/views/error/403error.jsp</location>
+</error-page>
+
+<error-page>
+<error-code>404</error-code>
+<location>/WEB-INF/views/error/404error.jsp</location>
+</error-page>
+
+<error-page>
+<error-code>500</error-code>
+<location>/WEB-INF/views/error/500error.jsp</location>
+</error-page>
+
+<error-page>
+<exception-type>java.lang.Throwable</exception-type>
+<location>/WEB-INF/views/error/error.jsp</location>
+</error-page>
+
+
+~~~
