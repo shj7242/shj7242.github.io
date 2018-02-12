@@ -7,7 +7,7 @@ layout: default
 
 
 <!-- Page Header -->
-<header class="intro-header" style="background-size: 100% 100%; height: 50%; background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
+<header class="intro-header" style="background-size: 100% 100%; background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -15,7 +15,7 @@ layout: default
                     <img src = "{{ site.baseurl }}/img/profile.jpg" style = "margin: 0 auto; width: 80px; border-radius: 100%">
 
                     <span class="subheading typed"></span>
-신희준 블로그
+{{ description }}
                 </div>
             </div>
         </div>
