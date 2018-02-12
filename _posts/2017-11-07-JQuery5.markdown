@@ -4,7 +4,7 @@ title:      "[JQuery] 예제(정리)"
 
 date:       2017-11-07 20:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

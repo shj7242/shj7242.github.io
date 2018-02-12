@@ -4,7 +4,7 @@ title:      "[Chart.js] Chart.js"
 
 date:       2018-01-04 19:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 
@@ -142,7 +142,7 @@ select count(*) from almom.user where user_sex = 1;
 </select>
 ~~~
 
-* 다음같은 결과를 얻는다. 
+* 다음같은 결과를 얻는다.
 
 
 <img src="{{ site.baseurl }}/img/sex.JPG" alt="Post Sample Image">

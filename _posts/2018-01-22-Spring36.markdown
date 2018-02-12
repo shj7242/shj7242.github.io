@@ -4,7 +4,7 @@ title:      "[Spring] 간단하게 페이징처리 / 공지사항 CRUD 만들기
 
 date:       2018-01-22 18:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

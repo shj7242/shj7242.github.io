@@ -4,24 +4,24 @@ title:      "[Spring] 트랜잭션 처리"
 
 date:       2017-10-27 11:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 
 <head>
  <meta property="og:type" content="website">
- <meta property="og:title" content="스프링 (Spring) REST API">
- <meta property="og:description" content="스프링 (Spring) REST API">
- <meta property="og:url" content="http://shj7242.github.io/2017/10/26/Spring17/">
+ <meta property="og:title" content="스프링 (Spring) 트랜잭션 (병행 제어)">
+ <meta property="og:description" content="스프링 (Spring) 트랜잭션 (병행 제어)">
+ <meta property="og:url" content="http://shj7242.github.io/2017/10/27/Spring18/">
 
  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="스프링 (Spring) REST API">
-  <meta name="twitter:description" content="스프링 (Spring) REST API">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/26/Spring17/">
+  <meta name="twitter:title" content="스프링 (Spring) 트랜잭션 (병행 제어)">
+  <meta name="twitter:description" content="스프링 (Spring) 트랜잭션 (병행 제어)">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/10/27/Spring18/">
   <meta name="facebook:card" content="summary">
-   <meta name="facebook:title" content="스프링 (Spring) REST API">
-   <meta name="facebook:description" content="스프링 (Spring) REST API">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/26/Spring17/">
+   <meta name="facebook:title" content="스프링 (Spring) 트랜잭션 (병행 제어)">
+   <meta name="facebook:description" content="스프링 (Spring) 트랜잭션 (병행 제어)">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/10/27/Spring18/">
 
 
  </head>

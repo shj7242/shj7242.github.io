@@ -4,7 +4,7 @@ title:      "[JAVA] 입출력(I/O)"
 
 date:       2017-08-29 23:40:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

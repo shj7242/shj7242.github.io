@@ -4,7 +4,7 @@ title:      "[JavaScript] Chart.js"
 
 date:       2018-01-04 19:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

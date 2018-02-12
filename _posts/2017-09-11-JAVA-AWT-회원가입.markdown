@@ -4,23 +4,23 @@ title:      "[DB] JAVA AWT활용한 DB응용"
 comments: true
 date:       2017-09-11 00:01:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 <head>
  <meta property="og:type" content="website">
- <meta property="og:title" content="SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
- <meta property="og:description" content=" SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
- <meta property="og:url" content="http://shj7242.github.io/2017/09/08/SQL2/">
+ <meta property="og:title" content="JAVA AWT로 CRUD 만들기 ( 회원가입, 로그인 , 회원수정, 회원탈퇴 ) , DATABASE :ORACLE ">
+ <meta property="og:description" content=" JAVA AWT로 CRUD 만들기 ( 회원가입, 로그인 , 회원수정, 회원탈퇴 ) , DATABASE :ORACLE ">
+ <meta property="og:url" content="http://shj7242.github.io/2017/09/11/JAVA-AWT-회원가입/">
 
  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
-  <meta name="twitter:description" content=" SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/08/SQL2/">
+  <meta name="twitter:title" content="JAVA AWT로 CRUD 만들기 ( 회원가입, 로그인 , 회원수정, 회원탈퇴 ) , DATABASE :ORACLE ">
+  <meta name="twitter:description" content=" JAVA AWT로 CRUD 만들기 ( 회원가입, 로그인 , 회원수정, 회원탈퇴 ) , DATABASE :ORACLE ">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2017/09/11/JAVA-AWT-회원가입/">
   <meta name="facebook:card" content="summary">
-   <meta name="facebook:title" content="SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
-   <meta name="facebook:description" content=" SQL 제약사항(CONSTRAINT), 트랜잭션(TRANSACTION) , 데이터 사전(DICTIONARY), 객체(Object), Advanced_sql ">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/08/SQL2/">
+   <meta name="facebook:title" content="JAVA AWT로 CRUD 만들기 ( 회원가입, 로그인 , 회원수정, 회원탈퇴 ) , DATABASE :ORACLE ">
+   <meta name="facebook:description" content=" JAVA AWT로 CRUD 만들기 ( 회원가입, 로그인 , 회원수정, 회원탈퇴 ) , DATABASE :ORACLE ">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2017/09/11/JAVA-AWT-회원가입/">
 
 
  </head>

@@ -4,7 +4,7 @@ title:      "[javascript] 스프링에서 한국지도 데이터 시각화  "
 
 date:       2018-01-16 18:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

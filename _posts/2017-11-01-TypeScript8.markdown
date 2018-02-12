@@ -4,7 +4,7 @@ title:      "[TypeScript] Decorator"
 
 date:       2017-11-01 16:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

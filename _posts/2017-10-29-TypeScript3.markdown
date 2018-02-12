@@ -4,7 +4,7 @@ title:      "[TypeScript] var/const/let"
 
 date:       2017-10-29 11:50:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

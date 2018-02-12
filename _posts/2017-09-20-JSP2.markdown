@@ -4,7 +4,7 @@ title:      "[JSP/SERVLET] JSP 기본객체와 영역, 속성"
 comments: true
 date:       2017-09-20 22:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 <head>

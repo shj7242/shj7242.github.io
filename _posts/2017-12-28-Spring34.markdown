@@ -4,7 +4,7 @@ title:      "[AWS] S3 이미지 서버 Spring 과 연동"
 
 date:       2017-12-28 19:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

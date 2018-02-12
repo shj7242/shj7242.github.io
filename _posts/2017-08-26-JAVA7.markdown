@@ -4,7 +4,7 @@ title:      "[JAVA] java.lang패키지"
 
 date:       2017-08-26 23:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

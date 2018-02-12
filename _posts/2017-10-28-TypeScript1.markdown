@@ -4,7 +4,7 @@ title:      "[TypeScript] 개발환경 구축"
 
 date:       2017-10-28 11:40:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

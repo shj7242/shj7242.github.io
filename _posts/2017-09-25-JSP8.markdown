@@ -4,7 +4,7 @@ title:      "[JSP/SERVLET] JSP MVC"
 comments: true
 date:       2017-09-25 19:30:00
 author:     "신희준"
-header-: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 <head>

@@ -3,7 +3,7 @@ layout:     post
 title:      "[Spring] AOP"
 comments: true-09-28 23:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 <head>

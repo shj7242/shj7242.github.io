@@ -4,7 +4,7 @@ title:      "[JAVA] 변수/연산자/조건문/반복문"
 
 date:       2017-08-20 23:30:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 
@@ -20,12 +20,12 @@ comments: true
    <meta property="og:type" content="website">
    <meta property="og:title" content="자바 변수,연산자,조건문,반복문">
    <meta property="og:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
-   <meta property="og:url" content="http://shj7242.github.io">
+   <meta property="og:url" content="http://shj7242.github.io/2017/08/20/JAVA1/">
 
    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="자바 변수,연산자,조건문,반복문">
     <meta name="twitter:description" content="자바의 정석책을 참고하여 요약한 JAVA 변수와 연산자, 조건문, 반복문">
-    <meta name="twitter:domain" content="http://shj7242.github.io">
+    <meta name="twitter:domain" content="http://shj7242.github.io/2017/08/20/JAVA1/">
    </head>
 
 

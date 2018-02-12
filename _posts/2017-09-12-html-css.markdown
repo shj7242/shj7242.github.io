@@ -4,7 +4,7 @@ title:      "[Front-end] HTML / CSS / 과거 자료"
 comments: true
 date:       2017-09-12 12:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 

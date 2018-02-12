@@ -4,7 +4,7 @@ title:      "[JSP/SERVLET] JSP-TOMCAT-SERVLET START"
 comments: true
 date:       2017-09-15 21:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 <head>

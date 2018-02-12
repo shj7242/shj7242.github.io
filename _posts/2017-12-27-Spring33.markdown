@@ -4,7 +4,7 @@ title:      "[Spring] 예외 처리"
 
 date:       2017-12-27 19:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

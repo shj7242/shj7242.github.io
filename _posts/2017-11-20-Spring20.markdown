@@ -4,7 +4,7 @@ title:      "[Spring] 초기설정"
 
 date:       2017-11-20 17:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

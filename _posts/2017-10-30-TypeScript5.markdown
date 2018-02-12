@@ -4,7 +4,7 @@ title:      "[TypeScript] 클래스"
 
 date:       2017-10-30 11:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 
@@ -25,7 +25,7 @@ comments: true
 
 
  </head>
- 
+
 
 
 <br>

@@ -4,7 +4,7 @@ title:      "[jQuery] Spring jqGrid 검색기능"
 
 date:       2018-01-02 19:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

@@ -4,7 +4,7 @@ title:      "[Spring] 스프링 비밀번호 암호화"
 
 date:       2017-12-10 17:55:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 comments: true
 ---
 

@@ -4,7 +4,7 @@ title:      "[Front-end] CSS / Form 태그"
 comments: true
 date:       2017-09-13 19:00:00
 author:     "신희준"
-header-img: "img/post-bg-02.jpg"
+header-img: "img/background.jpg"
 ---
 
 
