@@ -29,7 +29,7 @@ comments: true
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
 
-<H4 style ="font-weight:bold; color : black">2018 - 02 - 12 (목)</H4>
+<H4 style ="font-weight:bold; color : black">2018 - 02 - 12 (월)</H4>
 <br>
 
 
@@ -41,7 +41,7 @@ comments: true
 
 <br>
 
-1 . 하루에 자료구조 , 컴퓨터 구조 등 전공관련 기본서를 2시간씩 투자해서 읽어보기.
+1 . 하루에 자료구조 C언어 통신 등 전공관련 기본서를 2시간씩 투자해서 읽어보기.
 
 2 . 백준 알고리즘 단계별로 하루에 한챕터씩 풀어보기.
 
@@ -207,5 +207,5 @@ Scanner sc = new Scanner(System.in);
 			}
 			System.out.println(msg.substring(count*10));
 		}
-		
+
 ~~~

@@ -1,0 +1,131 @@
+---
+layout:     post
+title:      "[알고리즘] 백준 알고리즘 if 문"
+
+date:       2018-02-13 00:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="백준알고리즘 if문">
+ <meta property="og:title" content="백준알고리즘 if문">
+ <meta property="og:description" content="백준알고리즘 if문">
+ <meta property="og:url" content="http://shj7242.github.io/2018/02/13/Algorithm2/">
+
+ <meta name="twitter:card" content="백준알고리즘 if문">
+  <meta name="twitter:title" content="백준알고리즘 if문">
+  <meta name="twitter:description" content="백준알고리즘 if문">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/02/13/Algorithm2/">
+  <meta name="facebook:card" content="백준알고리즘 if문">
+   <meta name="facebook:title" content="백준알고리즘 if문">
+   <meta name="facebook:description" content="백준알고리즘 if문">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/02/13/Algorithm2/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 02 - 13 (화)</H4>
+<br>
+
+
+> 백준알고리즘 if문
+
+<br>
+
+전날 for 문 문제를 풀면서 나름 여러가지 방법을 생각하면서 문제를 풀어보았다. 뭔가 동기부여를 하기위해서 나는 친구한명과 까페에 앉아서 성능이 더좋은 코드를 짜는 사람이 딱밤한대를 때리기로 했다.
+
+확실히 뭔가 걸리니까 나 자신도 더 좋은 코드를 짜고자 노력했던것 같았고 더 재밌게 했다.
+
+
+오늘도 마찬가지로 백준알고리즘을 단계별로 풀었다. 지난번에 풀었던 for 문에 이어 if 문을 풀어보았다.
+
+https://www.acmicpc.net/step
+
+
+문제번호 : 9498 [https://www.acmicpc.net/problem/9498]
+
+- 특정 정수를 입력받아 90 ~ 100 점 : A , 80 ~ 89 : B , 70 ~ 79 : C , 60 ~ 69 : D , 나머지는 F를 출력하는 것이다.
+
+~~~JAVA
+Scanner sc = new Scanner(System.in);
+		int score = sc.nextInt();
+
+		if(score>=90) {
+			System.out.println("A");
+		}else if(score>=80&&score<90) {
+			System.out.println("B");
+		}else if(score>=70&&score<80) {
+			System.out.println("C");
+		}else if(score>=60&&score<70) {
+			System.out.println("D");
+		}else {
+			System.out.println("F");
+		}
+~~~
+
+<br>
+
+문제번호 : 10817 [https://www.acmicpc.net/problem/10817]
+
+- 세 정수 A, B, C 가 주어져있다. 이 때 두번째로 큰 정수를 출력해라 ( A, B, C의 값은 Scanner 객체로 입력 받음) : 사실 이문제는 if 스캐너 객체로 입력받아 3개의 숫자를 비교할 수 있지만 좀 다르게 풀어보았다. Arrays 객체의 sort 메서드를 활용해서 2번째 숫자를 출력했다. 코드는 매우 간단하게 나왔다.
+
+~~~java
+Scanner sc = new Scanner(System.in);
+
+		int numArray[] = {sc.nextInt(), sc.nextInt(), sc.nextInt()};
+		Arrays.sort(numArray);
+		System.out.println(numArray[1]);
+~~~
+
+<br>
+
+문제번호 : 10871 [https://www.acmicpc.net/problem/10871]
+
+- 정수 2개를 입력 받는다. 첫번째 정수는 몇개를 입력할 것인지 정해주는 수이다. 두번째 입력 받은 정수는 기준점? 같은것으로 다음에 입력받을 10개의 수 중 기준점보다 작은 수를 차례대로 출력받을 것이다.
+
+~~~JAVA
+Scanner sc = new Scanner(System.in);
+		int numArrayCount = sc.nextInt();
+		int num = sc.nextInt();
+		int arr[] = new int[numArrayCount];
+		int i =0;
+		while(i < numArrayCount) {
+			arr[i] = sc.nextInt();
+			if(arr[i]<num) {
+				System.out.print(arr[i]+" ");
+			}
+			i++;
+		}
+~~~
+
+문제번호 : 17072 [https://www.acmicpc.net/problem/1546]
+
+- 정수 하나를 입력받는다. 이 때 이정수는 과목의 수를 의미한다. 또한 과목의 수만큼 점수를 입력해준다. 이 때 입력받은 점수 중 가장 큰수를 알아내어 각각의 점수를  특정점수/최고점수*100 을 하여 각각의 점수들을 변형시켜준다. 이 후 평균을 구하여 출력한다.
+
+
+~~~java
+Scanner sc = new Scanner(System.in);
+		int testCount = sc.nextInt();
+
+		double array [] = new double[testCount];
+		double sum = 0;
+		double max = 0;
+		for(int i =0; i < testCount; i ++) {
+			array[i] = sc.nextInt();
+			if(max < array[i]) {
+				max = array[i];
+
+			}
+
+		}
+		for(int i =0; i <testCount; i ++) {
+			array[i] = (array[i]/max)*100;
+			sum = sum+array[i];
+		}
+		System.out.print(sum/testCount);
+~~~
