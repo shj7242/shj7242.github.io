@@ -1,0 +1,38 @@
+---
+layout:     post
+title:      "[알고리즘] 백준 알고리즘 함수"
+
+date:       2018-02-15 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="백준알고리즘 함수">
+ <meta property="og:title" content="백준알고리즘 함수">
+ <meta property="og:description" content="백준알고리즘 함수">
+ <meta property="og:url" content="http://shj7242.github.io/2018/02/15/Algorithm3/">
+
+ <meta name="twitter:card" content="백준알고리즘 함수">
+  <meta name="twitter:title" content="백준알고리즘 함수">
+  <meta name="twitter:description" content="백준알고리즘 함수">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/02/15/Algorithm3/">
+  <meta name="facebook:card" content="백준알고리즘 함수">
+   <meta name="facebook:title" content="백준알고리즘 함수">
+   <meta name="facebook:description" content="백준알고리즘 함수">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/02/15/Algorithm3/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 02 - 15 (목)</H4>
+<br>
+
+
+> 백준알고리즘 함수
+
+<br>

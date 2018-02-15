@@ -103,7 +103,7 @@ Scanner sc = new Scanner(System.in);
 		}
 ~~~
 
-문제번호 : 17072 [https://www.acmicpc.net/problem/1546]
+문제번호 : 1546 [https://www.acmicpc.net/problem/1546]
 
 - 정수 하나를 입력받는다. 이 때 이정수는 과목의 수를 의미한다. 또한 과목의 수만큼 점수를 입력해준다. 이 때 입력받은 점수 중 가장 큰수를 알아내어 각각의 점수를  특정점수/최고점수*100 을 하여 각각의 점수들을 변형시켜준다. 이 후 평균을 구하여 출력한다.
 
@@ -128,4 +128,79 @@ Scanner sc = new Scanner(System.in);
 			sum = sum+array[i];
 		}
 		System.out.print(sum/testCount);
+~~~
+
+문제번호 : 4344 [ https://www.acmicpc.net/problem/4344]
+
+- 첫번째 입력받는 값은 반의 갯수를 입력받는다. 두번째 줄에서 첫번째 받는 값은 한반의 인원수 이 후 같은줄에 각 인원의 점수를 임의로 입력받고 각 반마다 반의 정원수 및 인원들의 점수를 입력받는다. 이 후 각의 평균점수를 구해 평균을 초과하는 인원의 비율을 구하는 문제이다. 이번엔 입력받을 때 BufferedReader 로 입력을 받았고 Scanner 보다 성능이 좋다는걸 깨달았다.
+
+~~~java
+BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+
+		int count = Integer.parseInt(rd.readLine());
+		double arr[] = new double[count];
+		for(int i =0; i <count; i ++) {
+			int tmpSum  = 0;
+			double avg = 0;
+
+			String a = rd.readLine();
+			String temp[] = a.split(" ");
+			for(int j=1; j<=Integer.parseInt(temp[0]); j++) {
+				tmpSum = tmpSum + Integer.parseInt(temp[j]);
+
+			}
+			avg = tmpSum/Integer.parseInt(temp[0]);
+			double percent= 0;
+			int upCount = 0;
+			for(int j = 1; j <=Integer.parseInt(temp[0]); j++) {
+					if(Integer.parseInt(temp[j])>avg) {
+						upCount++;
+					}
+			}
+			percent = (double)(upCount*100)/(double)Integer.parseInt(temp[0]);
+
+			arr[i] = Math.round(percent*1000d)/1000d;
+		}
+
+
+		for(int i =0; i <arr.length; i ++) {
+			System.out.printf("%.3f%%%n",arr[i]);
+		}
+~~~
+
+문제번호 : 1110 [ https://www.acmicpc.net/problem/1110]
+
+- 0~ 99 사이의 정수를 입력받는다. 10 보다 작을경우 앞자리에 0을 붙여 두자리로 만든 후 입력받은 수의 1의 자리수와 각자리의 수를 더한 값의 1의 자리수를 합쳐 두자리로 만든다. 예를들어  2+6 = 8이다. 새로운 숫자는 68이다. 6+8 = 14이다. 새로운 숫자는 84이다. 8+4 = 12이다. 새로운 숫자는 42이다. 4+2 = 6이다. 새로운 숫자는 26 초기에 26 을 입력하고 다시 26으로 돌아오는데 4번의 사이클이 필요했다. 임의의 값이 입력되었을 때 사이클 수를 구하는 문제이다.
+
+~~~java
+BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+		String read = rd.readLine();
+		if(read.length()==1) {
+			read = "0"+read;
+		}
+		int count = 0;
+		int sum =0;
+		String temp = read;
+		int tmp = 0;
+		while(true) {
+			if(temp.length() ==1) {
+				temp = "0"+temp;
+			}
+			sum = Integer.parseInt(temp.substring(0,1))+Integer.parseInt(temp.substring(1));
+			if(sum>=10) {
+				sum = sum%10;
+			}
+			temp = temp.substring(1, 2);
+
+			tmp = Integer.parseInt(temp)*10+sum;
+			System.out.println(tmp);
+			if(tmp==Integer.parseInt(read)) {
+				count++;
+				break;
+			}else {
+				temp = ""+tmp;
+				count++;
+			}
+		}
+		System.out.println(count);
 ~~~
