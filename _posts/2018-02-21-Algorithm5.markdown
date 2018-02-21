@@ -1,0 +1,133 @@
+---
+layout:     post
+title:      "[알고리즘] 백준 알고리즘 문자열 사용하기"
+
+date:       2018-02-21 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="백준알고리즘 문자열 사용하기">
+ <meta property="og:title" content="백준알고리즘 문자열 사용하기">
+ <meta property="og:description" content="백준알고리즘 문자열 사용하기">
+ <meta property="og:url" content="http://shj7242.github.io/2018/02/21/Algorithm5/">
+
+ <meta name="twitter:card" content="백준알고리즘 문자열 사용하기">
+  <meta name="twitter:title" content="백준알고리즘 문자열 사용하기">
+  <meta name="twitter:description" content="백준알고리즘 문자열 사용하기">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/02/21/Algorithm5/">
+  <meta name="facebook:card" content="백준알고리즘 문자열 사용하기">
+   <meta name="facebook:title" content="백준알고리즘 문자열 사용하기">
+   <meta name="facebook:description" content="백준알고리즘 문자열 사용하기">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/02/21/Algorithm5/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 02 - 21 (수)</H4>
+<br>
+
+
+> 백준알고리즘 문자열 사용하기
+
+<br>
+
+문제이름 : 아스키 코드
+문제번호 : 11654 [https://www.acmicpc.net/problem/11654]
+
+* 알파벳 소문자, 대문자, 숫자 0-9중 하나가 주어졌을 때, 주어진 글자의 아스키 코드값을 출력하는 프로그램을 작성하시오.
+
+
+~~~java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Ascii {
+	public static void main(String args[]) throws IOException{
+		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+
+		String read = rd.readLine();
+
+		System.out.println(read.charAt(0)-0);
+	}
+}
+~~~
+
+<br>
+문제이름 : 알파벳 찾기
+문제번호 : 12299 [https://www.acmicpc.net/problem/10809]
+
+* 알파벳 소문자로만 이루어진 단어 S가 주어진다. 각각의 알파벳에 대해서, 단어에 포함되어 있는 경우에는 처음 등장하는 위치를, 포함되어 있지 않은 경우에는 -1을 출력하는 프로그램을 작성하시오.
+
+~~~java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class Find {
+	public static void main(String args[])throws IOException{
+		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+
+		String read = rd.readLine();
+		int alpha[] = new int[26];
+		for(int i =0; i <alpha.length; i ++) {
+			alpha[i] = -1;
+		}
+		for(int k=0; k < read.length(); k ++) {
+			if(alpha[read.charAt(k)-97]==-1) {
+
+				alpha[read.charAt(k)-97] = k;
+			}
+		}
+		for(int i=0; i <alpha.length; i ++) {
+
+			System.out.print(alpha[i]+" ");
+		}
+	}
+}
+~~~
+
+<br>
+문제이름 : 문자열 반복
+문제번호 : 2675 [https://www.acmicpc.net/problem/2675]
+
+* 첫번째로 몇개의 줄을 입력받을지 정한다. 이 후 첫번째 글자로 몇번씩 반복할지를 정하고 반복할 문자열을 입력받는다. 예를들어 3 ABC 일경우 AAABBBCCC 가 나오도록 반복하여 출력한다.
+
+~~~java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Duplicate {
+	public static void main(String args[])throws IOException {
+		BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
+
+		String read = rd.readLine();
+		int num = Integer.parseInt(read);
+		String tmp[] = new String[num];
+		for(int i =0; i < num; i ++) {
+			String value = "";
+			String temp = rd.readLine();
+			int count = temp.charAt(0)-48;
+			String input = temp.substring(2);
+			for(int k=0; k < input.length(); k ++) {
+				for(int j = 0; j <count; j ++) {
+					value = value + input.charAt(k);
+				}
+			}
+			tmp[i] = value;
+		}
+
+		for(int i =0; i <tmp.length; i ++) {
+			System.out.println(tmp[i]);
+		}
+	}
+}
+~~~
