@@ -126,6 +126,6 @@ public class Memoization {
 ~~~
 
 
-<img src="{{ site.baseurl }}/img/memoization.jpg" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/memoization.JPG" alt="Post Sample Image">
 
 위 처럼 재귀함수보다 더 빠른 성능을 보여준다.
