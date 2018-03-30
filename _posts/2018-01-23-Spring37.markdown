@@ -61,6 +61,17 @@ TCP는 UDP 와 달리 손실? 을 싫어한다.(데이터의 정확하고 안정
 <br>
 
 
+> DB설계
+
+1 .. 두개의 테이블을 생성해주었다. CHATROOM 테이블과 MESSAGE 테이블
+
+
+
+<img src="{{ site.baseurl }}/img/MESSAGEDB.JPG" alt="Post Sample Image">
+
+<img src="{{ site.baseurl }}/img/CHATROOMDB.JPG" alt="Post Sample Image">
+
+
 > 실습
 
 <br>
@@ -494,3 +505,780 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
 }
 ~~~
+
+
+> UserVO , MessageVO , ChatRoomVO, ChatDAOImpl
+
+~~~JAVA
+package com.almom.domain;
+
+import java.util.Date;
+
+public class UserVO {
+	private String user_id;
+	private String user_email;
+	private String user_name;
+	private String user_password;
+	private String user_profileImagePath;
+	private int user_sex;
+	private String user_birth;
+	private String user_job;
+	private String user_phoneNumber;
+	private String user_authCode;
+	private String user_authStatus;
+	private String user_isTutor;
+	private String user_status;
+	private String pageNumber;
+	private String rnum;
+	private Date user_log;
+	private int ages;
+	private int age_count;
+	private int user_isAdmin;
+	private int unReadCount;
+	
+	
+	
+	public int getUnReadCount() {
+		return unReadCount;
+	}
+
+
+	public void setUnReadCount(int unReadCount) {
+		this.unReadCount = unReadCount;
+	}
+
+
+	public int getUser_isAdmin() {
+		return user_isAdmin;
+	}
+
+
+	public void setUser_isAdmin(int user_isAdmin) {
+		this.user_isAdmin = user_isAdmin;
+	}
+
+
+	public int getAges() {
+		return ages;
+	}
+
+
+	public void setAges(int ages) {
+		this.ages = ages;
+	}
+
+
+	public int getAge_count() {
+		return age_count;
+	}
+
+
+	public void setAge_count(int age_count) {
+		this.age_count = age_count;
+	}
+
+
+	public Date getUser_log() {
+		return user_log;
+	}
+
+
+	public void setUser_log(Date user_log) {
+		this.user_log = user_log;
+	}
+
+
+	public String getPageNumber() {
+		return pageNumber;
+	}
+
+
+	public void setPageNumber(String pageNumber) {
+		this.pageNumber = pageNumber;
+	}
+
+
+	public String getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
+	}
+
+
+	public String getUser_status() {
+		return user_status;
+	}
+
+
+	public void setUser_status(String user_status) {
+		this.user_status = user_status;
+	}
+
+
+	public String getUser_isTutor() {
+		return user_isTutor;
+	}
+
+
+	public void setUser_isTutor(String user_isTutor) {
+		this.user_isTutor = user_isTutor;
+	}
+
+
+	public String getUser_authCode() {
+		return user_authCode;
+	}
+
+
+	public void setUser_authCode(String user_authCode) {
+		this.user_authCode = user_authCode;
+	}
+
+
+	public String getUser_authStatus() {
+		return user_authStatus;
+	}
+
+
+	public void setUser_authStatus(String user_authStatus) {
+		this.user_authStatus = user_authStatus;
+	}
+
+
+	public void setUser_birth(String user_birth) {
+		this.user_birth = user_birth;
+	}
+	
+
+	public String getUser_birth() {
+		return user_birth;
+	}
+
+
+	private String user_snsId;
+	
+	
+	public void setUser_snsId(String user_snsId) {
+		this.user_snsId = user_snsId;
+	}
+	
+	public String getUser_snsId() {
+		return user_snsId;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getUser_password() {
+		return user_password;
+	}
+	public void setUser_password(String user_password) {
+		this.user_password = user_password;
+	}
+	public String getUser_profileImagePath() {
+		return user_profileImagePath;
+	}
+	public void setUser_profileImagePath(String user_profileImagePath) {
+		this.user_profileImagePath = user_profileImagePath;
+	}
+	public int getUser_sex() {
+		return user_sex;
+	}
+	public void setUser_sex(int user_sex) {
+		this.user_sex = user_sex;
+	}
+	
+	public String getUser_job() {
+		return user_job;
+	}
+	public void setUser_job(String user_job) {
+		this.user_job = user_job;
+	}
+	public String getUser_phoneNumber() {
+		return user_phoneNumber;
+	}
+	public void setUser_phoneNumber(String user_phoneNumber) {
+		this.user_phoneNumber = user_phoneNumber;
+	}
+
+
+	@Override
+	public String toString() {
+		return "UserVO [user_id=" + user_id + ", user_email=" + user_email + ", user_name=" + user_name
+				+ ", user_password=" + user_password + ", user_profileImagePath=" + user_profileImagePath
+				+ ", user_sex=" + user_sex + ", user_birth=" + user_birth + ", user_job=" + user_job
+				+ ", user_phoneNumber=" + user_phoneNumber + ", user_authCode=" + user_authCode + ", user_authStatus="
+				+ user_authStatus + ", user_isTutor=" + user_isTutor + ", user_status=" + user_status + ", pageNumber="
+				+ pageNumber + ", rnum=" + rnum + ", user_log=" + user_log + ", ages=" + ages + ", age_count="
+				+ age_count + ", user_isAdmin=" + user_isAdmin + ", unReadCount=" + unReadCount + ", user_snsId="
+				+ user_snsId + "]";
+	}
+
+}
+
+~~~
+
+~~~JAVA
+package com.almom.domain;
+
+import java.util.Date;
+
+import com.google.gson.Gson;
+
+public class MessageVO {
+	
+	private String message_id;
+	private String message_sender;
+	private String message_receiver;
+	private String message_content;
+	private Date message_sendTime;
+	private Date message_readTime;
+	private String CHATROOM_chatroom_id;
+	private String USER_user_id;
+	private String TUTOR_USER_user_id;
+	private int CLASS_class_id;
+	private String user_profileImagePath;
+	private String receiver_user_profileImagePath;
+	private String user_name;
+	private String receiver_user_name;
+	private String class_name;
+	private int class_id;
+	private String TUTOR_tutor_id;
+	private String tutor_name;
+	private String tuti_id;
+	private int unReadCount;
+	
+	
+	public int getUnReadCount() {
+		return unReadCount;
+	}
+	public void setUnReadCount(int unReadCount) {
+		this.unReadCount = unReadCount;
+	}
+	public String getTuti_id() {
+		return tuti_id;
+	}
+	public void setTuti_id(String tuti_id) {
+		this.tuti_id = tuti_id;
+	}
+	public String getTutor_name() {
+		return tutor_name;
+	}
+	public void setTutor_name(String tutor_name) {
+		this.tutor_name = tutor_name;
+	}
+	public int getClass_id() {
+		return class_id;
+	}
+	public void setClass_id(int class_id) {
+		this.class_id = class_id;
+	}
+	public String getTUTOR_tutor_id() {
+		return TUTOR_tutor_id;
+	}
+	public void setTUTOR_tutor_id(String tUTOR_tutor_id) {
+		TUTOR_tutor_id = tUTOR_tutor_id;
+	}
+	public String getClass_name() {
+		return class_name;
+	}
+	public void setClass_name(String class_name) {
+		this.class_name = class_name;
+	}
+	public String getReceiver_user_name() {
+		return receiver_user_name;
+	}
+	public void setReceiver_user_name(String receiver_user_name) {
+		this.receiver_user_name = receiver_user_name;
+	}
+	public String getUser_profileImagePath() {
+		return user_profileImagePath;
+	}
+	public void setUser_profileImagePath(String user_profileImagePath) {
+		this.user_profileImagePath = user_profileImagePath;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getReceiver_user_profileImagePath() {
+		return receiver_user_profileImagePath;
+	}
+	public void setReceiver_user_profileImagePath(String receiver_user_profileImagePath) {
+		this.receiver_user_profileImagePath = receiver_user_profileImagePath;
+	}
+	public Date getMessage_sendTime() {
+		return message_sendTime;
+	}
+	public void setMessage_sendTime(Date message_sendTime) {
+		this.message_sendTime = message_sendTime;
+	}
+	public Date getMessage_readTime() {
+		return message_readTime;
+	}
+	public void setMessage_readTime(Date message_readTime) {
+		this.message_readTime = message_readTime;
+	}
+	public String getMessage_id() {
+		return message_id;
+	}
+	public void setMessage_id(String message_id) {
+		this.message_id = message_id;
+	}
+	public String getMessage_sender() {
+		return message_sender;
+	}
+	public void setMessage_sender(String message_sender) {
+		this.message_sender = message_sender;
+	}
+	public String getMessage_receiver() {
+		return message_receiver;
+	}
+	public void setMessage_receiver(String message_receiver) {
+		this.message_receiver = message_receiver;
+	}
+	public String getMessage_content() {
+		return message_content;
+	}
+	public void setMessage_content(String message_content) {
+		this.message_content = message_content;
+	}
+
+	public String getCHATROOM_chatroom_id() {
+		return CHATROOM_chatroom_id;
+	}
+	public void setCHATROOM_chatroom_id(String cHATROOM_chatroom_id) {
+		CHATROOM_chatroom_id = cHATROOM_chatroom_id;
+	}
+	public String getUSER_user_id() {
+		return USER_user_id;
+	}
+	public void setUSER_user_id(String uSER_user_id) {
+		USER_user_id = uSER_user_id;
+	}
+
+	public int getCLASS_class_id() {
+		return CLASS_class_id;
+	}
+	public void setCLASS_class_id(int cLASS_class_id) {
+		CLASS_class_id = cLASS_class_id;
+	}
+	public String getTUTOR_USER_user_id() {
+		return TUTOR_USER_user_id;
+	}
+	public void setTUTOR_USER_user_id(String tUTOR_USER_user_id) {
+		TUTOR_USER_user_id = tUTOR_USER_user_id;
+	}
+	
+	public static MessageVO convertMessage(String source) {
+		MessageVO message = new MessageVO();
+		Gson gson = new Gson();
+		message = gson.fromJson(source,  MessageVO.class);
+		return message;
+	}
+	@Override
+	public String toString() {
+		return "MessageVO [message_id=" + message_id + ", message_sender=" + message_sender + ", message_receiver="
+				+ message_receiver + ", message_content=" + message_content + ", message_sendTime=" + message_sendTime
+				+ ", message_readTime=" + message_readTime + ", CHATROOM_chatroom_id=" + CHATROOM_chatroom_id
+				+ ", USER_user_id=" + USER_user_id + ", TUTOR_USER_user_id=" + TUTOR_USER_user_id + ", CLASS_class_id="
+				+ CLASS_class_id + ", user_profileImagePath=" + user_profileImagePath
+				+ ", receiver_user_profileImagePath=" + receiver_user_profileImagePath + ", user_name=" + user_name
+				+ ", receiver_user_name=" + receiver_user_name + ", class_name=" + class_name + ", class_id=" + class_id
+				+ ", TUTOR_tutor_id=" + TUTOR_tutor_id + ", tutor_name=" + tutor_name + ", tuti_id=" + tuti_id
+				+ ", unReadCount=" + unReadCount + "]";
+	}
+
+	
+}
+
+~~~
+
+
+~~~JAVA
+package com.almom.domain;
+
+public class ChatRoomVO {
+
+	
+	private String chatroom_id;
+	private String USER_user_id;
+	private String TUTOR_USER_user_id;
+	private int CLASS_class_id;
+	public String getChatroom_id() {
+		return chatroom_id;
+	}
+	public void setChatroom_id(String chatroom_id) {
+		this.chatroom_id = chatroom_id;
+	}
+	public String getUSER_user_id() {
+		return USER_user_id;
+	}
+	public void setUSER_user_id(String uSER_user_id) {
+		USER_user_id = uSER_user_id;
+	}
+	public String getTUTOR_USER_user_id() {
+		return TUTOR_USER_user_id;
+	}
+	public void setTUTOR_USER_user_id(String tUTOR_USER_user_id) {
+		TUTOR_USER_user_id = tUTOR_USER_user_id;
+	}
+	public int getCLASS_class_id() {
+		return CLASS_class_id;
+	}
+	public void setCLASS_class_id(int cLASS_class_id) {
+		CLASS_class_id = cLASS_class_id;
+	}
+	@Override
+	public String toString() {
+		return "ChatRoomVO [chatroom_id=" + chatroom_id + ", USER_user_id=" + USER_user_id + ", TUTOR_USER_user_id="
+				+ TUTOR_USER_user_id + ", CLASS_class_id=" + CLASS_class_id + "]";
+	}
+	
+	
+	
+
+	
+	
+}
+
+~~~
+
+
+~~~JAVA
+package com.almom.persistence;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.almom.domain.ChatRoomVO;
+import com.almom.domain.MessageVO;
+
+@Repository
+public class ChatDAOImpl implements ChatDAO{
+	
+	@Inject
+	private SqlSession session;
+
+	private static String namespace = "com.almom.mapper.ChatMapper";
+
+	
+	
+	@Override
+	public void createRoom(ChatRoomVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("ㅅㅂ");
+		session.insert(namespace+".createRoom" , vo);
+		System.out.println("시팔");
+	}
+
+
+
+	@Override
+	public ChatRoomVO isRoom(ChatRoomVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		ChatRoomVO roomvo = null;
+		roomvo = session.selectOne(namespace+".isRoom", vo);
+		System.out.println("ss");
+		System.out.println(roomvo);
+		
+		return roomvo;
+	}
+
+
+
+	@Override
+	public void insertMessage(MessageVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		session.insert(namespace+".insertMessage" , vo);
+	}
+
+
+
+	@Override
+	public String getPartner(ChatRoomVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+		List<MessageVO> mvo = session.selectList(namespace+".getPartner", vo);
+		
+		return mvo.get(0).getUSER_user_id();
+	}
+
+
+
+	@Override
+	public String getProfile(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".getProfile" , str);
+	}
+
+
+
+	@Override
+	public String getName(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".getName" , str);
+	}
+
+
+
+	@Override
+	public List<MessageVO> getMessageList(String str) throws Exception {
+		// TODO Auto-generated method stub
+
+			return session.selectList(namespace+".getMessageList" , str);
+		
+		
+	}
+
+
+
+	@Override
+	public List<ChatRoomVO> getRoomList(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getRoomList",str);
+	}
+
+
+
+	@Override
+	public List<ChatRoomVO> getRoomList2(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getRoomList2" , str);
+	}
+
+
+
+	@Override
+	public MessageVO getRecentMessage(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".getRecentMessage" , str);
+	}
+
+
+
+	@Override
+	public String getTutorId(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".getTutorId" , str) ;
+	}
+
+
+
+	@Override
+	public List<ChatRoomVO> getRoomListTutor(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".getRoomListTutor" , str);
+	}
+
+
+
+	@Override
+	public void updateReadTime(int class_id, String user_id, String TUTOR_USER_user_id) throws Exception {
+		// TODO Auto-generated method stub
+		
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		
+		map.put("TUTOR_USER_user_id", TUTOR_USER_user_id);
+		map.put("USER_user_id", user_id);
+		map.put("CLASS_class_id", class_id);
+		session.update(namespace+".updateReadTime" , map);
+	}
+
+
+
+	@Override
+	public int getUnReadCount(String TUTOR_USER_user_id, int class_id, String user_id) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		
+		map.put("TUTOR_USER_user_id", TUTOR_USER_user_id);
+		map.put("USER_user_id", user_id);
+		map.put("CLASS_class_id", class_id);
+		
+		
+		return session.selectOne(namespace+".getUnReadCount" , map);
+	}
+
+
+
+	@Override
+	public int getAllCount(String str) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		
+		map.put("USER_user_id", str);
+		map.put("TUTOR_USER_user_id", str);
+		if(session.selectOne(namespace+".getAllCount" ,map) ==null) {
+			return 0;
+		}else {
+			
+			return session.selectOne(namespace+".getAllCount" ,map);
+		}
+		
+	}
+
+
+
+	@Override
+	public void updateReadTimeTutor(int class_id , String user_id , String TUTOR_USER_user_id) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		
+		map.put("TUTOR_USER_user_id", TUTOR_USER_user_id);
+		map.put("USER_user_id", user_id);
+		map.put("CLASS_class_id", class_id);
+		session.update(namespace+".updateReadTimeTutor" , map);
+	}
+
+
+
+	@Override
+	public int getUnReadCountTutor(String TUTOR_USER_user_id, int class_id, String user_id) throws Exception {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> map = new HashMap<String, Object> ();
+		
+		map.put("TUTOR_USER_user_id", TUTOR_USER_user_id);
+		map.put("USER_user_id", user_id);
+		map.put("CLASS_class_id", class_id);
+		
+		
+		return session.selectOne(namespace+".getUnReadCountTutor" , map);
+	}
+
+
+
+
+	
+}
+
+~~~
+
+> SQL(ChatMapper.xml)
+
+~~~xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.almom.mapper.ChatMapper">
+
+<insert id = "createRoom">
+insert into CHATROOM (USER_user_id , TUTOR_USER_user_id, CLASS_class_id) 
+values(#{USER_user_id}, #{TUTOR_USER_user_id} , #{CLASS_class_id} )
+
+
+</insert>
+
+
+<select id ="isRoom" resultType = "ChatRoomVO">
+
+select * from CHATROOM WHERE USER_user_id = #{USER_user_id} and TUTOR_USER_user_id = #{TUTOR_USER_user_id} 
+and CLASS_class_id = #{CLASS_class_id} 
+</select>
+
+<insert id = "insertMessage">
+insert into MESSAGE (message_sender , message_receiver, message_content, 
+CHATROOM_chatroom_id, USER_user_id , TUTOR_USER_user_id, CLASS_class_id)
+values (#{message_sender}, #{message_receiver}, #{message_content} , #{CHATROOM_chatroom_id} , #{USER_user_id},
+#{TUTOR_USER_user_id} , #{CLASS_class_id})
+</insert>
+
+<select id = "getPartner" resultType = "MessageVO">
+SELECT USER_user_id from MESSAGE where TUTOR_USER_user_id = #{TUTOR_USER_user_id} and CLASS_class_id = #{CLASS_class_id}
+</select>
+<select id = "getProfile" resultType = "String">
+select user_profileImagePath from USER WHERE user_id = #{user_id}
+</select>
+
+<select id = "getName" resultType = "String">
+select user_name from USER where user_id = #{user_id}
+</select>
+
+<select id = "getMessageList" resultType = "MessageVO">
+select m.* , user_name, user_profileImagePath from MESSAGE m left outer join USER u on m.message_sender = u.user_id where CHATROOM_chatroom_id = #{CHATROOM_chatroom_id}
+
+</select>
+
+<select id = "getRoomList" resultType = "ChatRoomVO">
+select * from CHATROOM where USER_user_id = #{USER_user_id}
+</select>
+<select id = "getRoomList2" resultType = "ChatRoomVO">
+select * from CHATROOM where TUTOR_USER_user_id = #{TUTOR_USER_user_id}
+</select>
+
+<select id = "getRecentMessage" resultType = "MessageVO">
+
+select m.* , class_name, class_id , TUTOR_tutor_id from MESSAGE m left outer join CLASS c on m.CLASS_class_id = c.class_id 
+where CHATROOM_chatroom_id = #{CHATROOM_chatroom_id} order by message_id desc limit 1;
+
+
+</select>
+
+
+<select id = "getTutorId" resultType = "String">
+select tutor_id from TUTOR where USER_user_id = #{USER_user_id}
+</select>
+
+<update id ="updateReadTime">
+update MESSAGE set message_readTime = NOW() where TUTOR_USER_user_id = #{TUTOR_USER_user_id} AND CLASS_class_id = #{CLASS_class_id} AND message_readTime = message_sendTime and message_sender = TUTOR_USER_user_id and USER_user_id = #{USER_user_id};
+</update>
+<update id ="updateReadTimeTutor">
+update MESSAGE set message_readTime = NOW() where TUTOR_USER_user_id = #{TUTOR_USER_user_id} AND CLASS_class_id = #{CLASS_class_id} AND message_readTime = message_sendTime and message_sender = USER_user_id and USER_user_id = #{USER_user_id};
+
+</update>
+
+
+<select id = "getUnReadCount" resultType = "int">
+
+select count(*) from MESSAGE where USER_user_id = #{USER_user_id} and TUTOR_USER_user_id = #{TUTOR_USER_user_id} AND CLASS_class_id = #{CLASS_class_id} AND message_readTime = message_sendTime and message_sender = TUTOR_USER_user_id;
+
+</select>
+<select id = "getUnReadCountTutor" resultType = "int">
+
+select count(*) from MESSAGE where TUTOR_USER_user_id =#{TUTOR_USER_user_id} and CLASS_class_id = #{CLASS_class_id} AND message_readTime = message_sendTime and message_sender = USER_user_id and USER_user_id = #{USER_user_id};
+
+</select>
+
+<select id = "getAllCount" resultType = "int">
+select count(*) from MESSAGE WHERE (TUTOR_USER_user_id = #{TUTOR_USER_user_id} and message_readTime = message_sendTime and message_sender != #{USER_user_id}) or (USER_user_id = #{USER_user_id} and message_readTime = message_sendTime and message_sender != #{USER_user_id}); 
+
+</select>
+</mapper>
+~~~
+
+
+> 최종 구현 화면
+
+<img src="{{ site.baseurl }}/img/chat.JPG" alt="Post Sample Image">
+
+<img src="{{ site.baseurl }}/img/chatlist.JPG" alt="Post Sample Image">
