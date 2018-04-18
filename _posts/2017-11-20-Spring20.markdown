@@ -139,10 +139,11 @@ public class MySQLConnectionTest {
 </dependency>
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 <dependency>
-  <groupId>org.springframework</groupId>
-  <artifactId>spring-jdbc</artifactId>
-  <version>${org.springframework-version}</version>
+<groupId>org.springframework</groupId>
+<artifactId>spring-jdbc</artifactId>
+<version>4.3.8.RELEASE</version>
 </dependency>
+
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 <dependency>
   <groupId>org.springframework</groupId>
@@ -156,7 +157,7 @@ public class MySQLConnectionTest {
 
 이 후 root-context.xml 의 namespace 에 다음 configuration 파일을 체크하고 메이븐 업데이트 한다.
 
-<img src="{{ site.baseurl }}/img/namespace2.PNG" alt="Post Sample Image">
+<img src="{{ site.baseurl }}/img/namespace.JPG" alt="Post Sample Image">
 
 <br>
 <hr>
