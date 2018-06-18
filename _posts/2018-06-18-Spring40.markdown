@@ -1,0 +1,226 @@
+---
+layout:     post
+title:      "[Spring] JSTL 정리2"
+
+date:       2018-06-18 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="JSTL 정리 C , FN , FMT">
+ <meta property="og:title" content="JSTL 정리 C , FN , FMT">
+ <meta property="og:description" content="JSTL 정리 C , FN , FMT">
+ <meta property="og:url" content="http://shj7242.github.io/2018/05/31/SNMP/">
+
+ <meta name="twitter:card" content="JSTL 정리 C , FN , FMT">
+  <meta name="twitter:title" content="JSTL 정리 C , FN , FMT">
+  <meta name="twitter:description" content="JSTL 정리 C , FN , FMT">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/05/31/SNMP/">
+  <meta name="facebook:card" content="JSTL 정리 C , FN , FMT">
+   <meta name="facebook:title" content="JSTL 정리 C , FN , FMT">
+   <meta name="facebook:description" content="JSTL 정리 C , FN , FMT">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/05/31/SNMP/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 06 - 18 (월)</H4>
+<br>
+
+
+* JSP 를 다시 공부하면서 가장많이 쓰는 JSTL (자바 표준 태그 라이브러리) 를 다시한번 전체적으로 정리하고자한다.
+
+
+> tablib 디렉티브
+
+~~~html
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+~~~
+
+
+
+> C 태그 라이브러리 
+
+
+~~~HTML
+<h1>C 태그 라이브러리</h1>
+	<hr>
+	<h1>C:out 태그</h1>
+	<!-- c:out 태그는 웹서버를 통해 받은 정보를 출력하기위한 태그이다. -->
+
+	<c:out value='${cout }' />
+
+	<h1>c:set 태그</h1>
+	<!-- c:set 태그는 특정 값을 변수에 할당하기위한 태그이다 -->
+	<c:set var="ga" value='${cout }' />
+
+	<h1>c:remove 태그</h1>
+	<!--정의된 변수를 삭제하기 위한 태그이다. -->
+
+	<c:set value="Hello World" var="msg" />
+	before remove :
+	<c:out value="${msg}" />
+	<br>
+	<c:remove var="msg" />
+	after remove :
+	<c:out value="${msg}" />
+	<br>
+
+	<h1>c:if 태그</h1>
+	<!-- 조건에 따라 화면을 달리 표현할 수 있다. 예를 들어서 로그인 세션이 있을 경우 마이페이지 탭을 추가로 표시하고 아닐경우 표시하지 않는다. -->
+	<c:if test='${sex eq "man" }'>
+
+   남자
+</c:if>
+
+    <h1>c:choose 태그</h1>
+    <!-- if와 마찬가지로 조건에 따른 화면을 표현한다. 예를들어서 로그인 세션이 있을 경우 로그아웃 화면을 로그인 세션이 없을 경우에는 로그인 화면을-->
+    <c:choose>
+		<c:when test='${sex eq "man" }'>
+      남자
+   </c:when>
+		<c:otherwise>
+      여자
+   </c:otherwise>
+	</c:choose>
+
+	<h1>c:forEach 태그</h1>
+	<!-- 배열의 값을 각각 띄워주기 위해 사용하는 태그이다. 반복문 같은 개념이다. -->
+	<c:forEach var="list" items='${list }' varStatus="status">
+   ${list }
+
+</c:forEach>
+~~~
+
+
+> FN 태그 라이브러리
+
+~~~HTML
+<hr>
+	<h1>fn 태그라이브러리</h1>
+	<hr>
+
+	<h1>fn:indexOf 태그</h1>
+	<!--특정 값이 문자열의 몇번째에 있는지 인덱스를 찾을 때 사용하는 태그이다. -->
+	<c:set var="index" value="${fn:indexOf('abcde', 'c')}" />
+	${index }
+
+	<h1>fn:split 태그</h1>
+	<!-- 특정 문자열을 구분자에 의해 나눌 때 사용하는 태그이다. -->
+	<c:set var="splitText" value='${fn:split("010-2658-7242", "-")}' />
+	<c:forEach var="text" items='${splitText }'>
+
+		<div>${text }</div>
+	</c:forEach>
+
+
+	<h1>fn:replace 태그</h1>
+	<!-- 특정 문자열의 일부를 교체할 때 사용하는 태그이다. -->
+	<c:set var="replace"
+		value='${fn:replace("전체 문자열","문자열", "문자열이 바뀌었다.") }' />
+
+	${replace }
+
+	<h1>fn:substring 태그</h1>
+	<!-- 특정 문자열의 시작 인덱스와 종료 인덱스 사이의 값만 사용하기 위해 사용하는 태그이다. -->
+	<c:set var="substring" value='${fn:substring("1234", 1 ,3)}' />
+	${substring }
+
+	<h1>fn:substringAfter 태그</h1>
+	<!-- 특정 문자열에서 특정 인덱스의 문자를 기준으로 뒤에 있는 문자열을 출력하기 위해 사용하는 태그이다 -->
+
+	<c:set var="substringafter"
+		value='${fn:substringAfter("오후1시~오후2시", "~")}' />
+	${substringafter }
+
+	<h1>fn:substringBefore 태그</h1>
+	<!-- 특정 문자열에서 특정 인덱스의 문자를 기준으로 앞에 있는 문자열을 출력하기 위해 사용하는 태그이다 -->
+
+	<c:set var="substringBefore"
+		value='${fn:substringBefore("오후1시~오후2시", "~")}' />
+	${substringBefore }
+
+	<h1>fn:upper 태그</h1>
+	<!-- 특정 문자열을 대문자로 표현할 때 사용하는 태그이다. -->
+	<c:set var="upper" value='${fn:toUpperCase("abc")}' />
+	${upper }
+
+	<h1>fn:lower 태그</h1>
+	<!-- 특정 문자열을 소문자로 표현할 때 사용하는 태그이다. -->
+	<c:set var="lower" value='${fn:toUpperCase("ABC")}' />
+
+	${lower }
+
+
+	<h1>fn:trim 태그</h1>
+	<!-- 문자열의 앞뒤 공백을 모두 제거하여 반환하기 위한 태그이다. -->
+	<c:set var="trim" value='${fn:trim("   text    ")}' />
+	${trim }
+
+	<h1>fn:contains 태그</h1>
+
+	<!--문자열에 특정 서브문자열이 포함되는지 여부를 확인할 때 사용한다.  -->
+	<c:set var="contains" value='${fn:contains("지에이시스템", "지에이") }' />
+	${contains }
+
+	<h1>fn:containsIgnoreCase 태그</h1>
+	<!--대소문자 구분없이 문자열에 특정 서브문자열이 포함되는지 여부를 확인할 때 사용한다.  -->
+
+	<c:set var="containsIgnoreCase"
+		value='${fn:containsIgnoreCase("지에이시스템", "지에이") }' />
+	${containsIgnoreCase }
+
+	<h1>fn:endsWith 태그</h1>
+	<!--문자열이 특정 서브스트링으로 끝나는지의 여부를 판단하기위해 사용한다. -->
+	<c:set var="endsWith" value='${fn:endsWith("지에이시스템", "지에이") }' />
+
+	${endsWith }
+
+	<h1>fn:length 태그</h1>
+	<!-- 문자열의 길이를 알아내기 위해 사용한다. -->
+	<c:set var="length" value='${fn:length("지에이시스템") }' />
+	${length }
+
+	<h1>fn:escapeXml 태그</h1>
+	<!-- 문자열에서  XML, HTML의 < >& ' " 문자들을 각각 &lt; &gt; &amp; &#039; &#034;1로 변환한다. -->
+	<c:set var="excapeXml" value='${fn:escapeXml("<>")}' />
+	${excapeXml }
+~~~
+
+
+> FMT 태그라이브러리
+
+
+~~~HTML
+
+	<h1>fmt:formatNumber 태그</h1>
+	<!-- 숫자의 포맷을 지정해주기 위한 태그이다. 예를들어서 가격형식중 1000단위로 , 를 찍어줄 때 유용하다. -->
+	<fmt:formatNumber value="${price }" pattern="#,###" />
+
+	<h1>fmt:formatDate 태그</h1>
+	<!-- 날자 포맷을 지정해주기 위한 태그이다. -->
+	<p>
+		<fmt:formatDate type="time" value="${now}" />
+	</p>
+	<p>
+		<fmt:formatDate type="both" value="${now}" />
+	</p>
+	<p>
+		<fmt:formatDate type="date" value="${now}" />
+	</p>
+
+	<h1>fmt:parseDate</h1>
+	<!-- 문자열로 되어있는 값을 date형식으로 바꾸어 줄 때 사용하는 태그이다. -->
+	<fmt:parseDate value="19920815" var="dateFmt" pattern="yyyyMMdd" />
+
+	${dateFmt }
+~~~
