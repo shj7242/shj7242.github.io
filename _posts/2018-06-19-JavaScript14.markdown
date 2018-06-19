@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[TOMCAT] WAS 와 Web Server의 차이"
+title:      "[JavaScript] JavaScript 내장함수"
 
 date:       2018-06-19 12:55:00
 author:     "신희준"
