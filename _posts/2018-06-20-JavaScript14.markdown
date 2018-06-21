@@ -9,18 +9,18 @@ comments: true
 ---
 
 <head>
- <meta property="og:type" content=" WAS 와 Web Server의 차이">
- <meta property="og:title" content=" WAS 와 Web Server의 차이">
- <meta property="og:description" content=" WAS 와 Web Server의 차이">
+ <meta property="og:type" content="JavaScript 내장함수">
+ <meta property="og:title" content="JavaScript 내장함수">
+ <meta property="og:description" content="JavaScript 내장함수">
  <meta property="og:url" content="http://shj7242.github.io/2018/06/18/ETC/">
 
- <meta name="twitter:card" content=" WAS 와 Web Server의 차이">
-  <meta name="twitter:title" content=" WAS 와 Web Server의 차이">
-  <meta name="twitter:description" content=" WAS 와 Web Server의 차이">
+ <meta name="twitter:card" content="JavaScript 내장함수">
+  <meta name="twitter:title" content="JavaScript 내장함수">
+  <meta name="twitter:description" content="JavaScript 내장함수">
   <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/06/18/ETC/">
-  <meta name="facebook:card" content=" WAS 와 Web Server의 차이">
-   <meta name="facebook:title" content=" WAS 와 Web Server의 차이">
-   <meta name="facebook:description" content=" WAS 와 Web Server의 차이">
+  <meta name="facebook:card" content="JavaScript 내장함수">
+   <meta name="facebook:title" content="JavaScript 내장함수">
+   <meta name="facebook:description" content="JavaScript 내장함수">
    <meta name="facebook:domain" content="http://shj7242.github.io/2018/06/18/ETC/">
 
 
