@@ -1,0 +1,211 @@
+---
+layout:     post
+title:      "[MongoDB] mongoDB Query"
+
+date:       2018-06-22 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="MongoDB">
+ <meta property="og:title" content="MongoDB">
+ <meta property="og:description" content="MongoDB">
+ <meta property="og:url" content="http://shj7242.github.io/2018/06/18/ETC/">
+
+ <meta name="twitter:card" content="MongoDB">
+  <meta name="twitter:title" content="MongoDB">
+  <meta name="twitter:description" content="MongoDB">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/06/18/ETC/">
+  <meta name="facebook:card" content="MongoDB">
+   <meta name="facebook:title" content="MongoDB">
+   <meta name="facebook:description" content="MongoDB">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/06/18/ETC/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 06 - 22 (금)</H4>
+<br>
+
+
+> MongoDB
+
+* MongoDB Documentation 참조
+
+- Insert a Single Document (inventory db에 단일 row insert )
+
+~~~sql
+
+db.inventory.insertOne(
+    { item : "canvas" , qty : 100 , tags : ["cotton"] , size : {h: 28, w 35.5, uom : "cm"}}
+)
+~~~
+
+- insert multiple document
+
+~~~sql
+
+db.inventory.insertMany([
+   { item: "journal", qty: 25, tags: ["blank", "red"], size: { h: 14, w: 21, uom: "cm" } },
+   { item: "mat", qty: 85, tags: ["gray"], size: { h: 27.9, w: 35.5, uom: "cm" } },
+   { item: "mousepad", qty: 25, tags: ["gel", "blue"], size: { h: 19, w: 22.85, uom: "cm" } }
+])
+
+
+db.inventory.find( {} )
+
+~~~
+
+
+- select (단일조건)
+
+~~~sql
+db.inventory.find( { item: "canvas" } )
+
+db.inventory.find( { status: "D" } )
+SELECT * FROM inventory WHERE status = "D"
+
+--위 두 쿼리는 rdb 와 mongodb(nosql) 의 쿼리비교이다. (동일한 결과 값)
+
+
+db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+SELECT * FROM inventory WHERE status in ("A", "D")
+
+
+db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+
+--$lt 는 < 을 뜻한다. $qte 이상을 뜻함 
+
+SELECT * FROM inventory WHERE status = "A" AND qty < 30
+
+
+db.inventory.find( { $or: [ { status: "A" }, { qty: { $lt: 30 } } ] } )
+
+SELECT * FROM inventory WHERE status = "A" OR qty < 30
+
+-- like 처럼 사용하기
+
+db.inventory.find( {
+     status: "A",
+     $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]
+} )
+
+
+SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+~~~
+
+
+- update 
+
+~~~sql
+
+db.inventory.updateOne(
+   { item: "paper" },
+   {
+     $set: { "size.uom": "cm", status: "P" },
+     $currentDate: { lastModified: true }
+   }
+)
+
+
+db.inventory.updateMany(
+   { "qty": { $lt: 50 } },
+   {
+     $set: { "size.uom": "in", status: "P" },
+     $currentDate: { lastModified: true }
+   }
+)
+
+
+db.inventory.replaceOne(
+   { item: "paper" },
+   { item: "paper", instock: [ { warehouse: "A", qty: 60 }, { warehouse: "B", qty: 40 } ] }
+)
+~~~
+
+
+- delete
+
+~~~sql
+
+db.inventory.deleteMany({})
+
+db.inventory.deleteMany({ status : "A" })
+
+
+db.inventory.deleteOne( { status: "D" } )
+
+~~~
+
+-aggregate
+
+
+* $limit
+
+~~~sql
+db.article.aggregate(
+    { $limit : 5 }
+); 
+
+-- sql limit 와 같다.
+~~~
+
+
+* $sort
+
+~~~sql
+
+db.users.aggregate(
+   [
+     { $sort : { age : -1, posts: 1 } }
+   ]
+)
+
+--오름차순 정렬 (-1 은 내림차순)
+~~~
+
+* $skip
+
+~~~sql
+db.article.aggregate(
+    { $skip : 5 }
+);
+
+--처음부터 5개 스킵
+~~~
+
+* $match
+
+~~~sql
+db.articles.aggregate(
+    [ { $match : { author : "dave" } } ]
+);
+
+--저자가 dave 인애들
+~~~
+
+* $count
+
+~~~sql
+
+db.scores.aggregate(
+  [
+    {
+      $match: {
+        score: {
+          $gt: 80
+        }
+      }
+    },
+    {
+      $count: "passing_scores"
+    }
+  ]
+)
+-- passing_scores 80점보다 높은 스코어 갯수
+~~~
