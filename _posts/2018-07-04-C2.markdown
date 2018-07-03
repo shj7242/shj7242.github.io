@@ -1,0 +1,139 @@
+---
+layout:     post
+title:      "[C] C언어 변수"
+
+date:       2018-07-04 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클 인덱스">
+ <meta property="og:title" content="오라클 인덱스">
+ <meta property="og:description" content="오라클 인덱스">
+ <meta property="og:url" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+
+ <meta name="twitter:card" content="오라클 인덱스">
+  <meta name="twitter:title" content="오라클 인덱스">
+  <meta name="twitter:description" content="오라클 인덱스">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+  <meta name="facebook:card" content="오라클 인덱스">
+   <meta name="facebook:title" content="오라클 인덱스">
+   <meta name="facebook:description" content="오라클 인덱스">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 07 - 04 (수)</H4>
+<br>
+
+* 참고 문헌 : C언어의 정석 [남궁성 지음]
+
+> C 언어 변수
+
+변수란 자바와 마찬가지로 단 하나의 값을 저장할 수 있는 메모리 공간이라고 한다. 
+
+하나의 변수에는 단하나의 값만 저장할 수 있으므로, 새로운 값을 저장하면 기존의 값은 사라진다.
+
+
+> 변수의 선언과 초기화
+
+~~~
+변수 타입 변수 이름;
+~~~
+
+변수를 선언하면 메모리의 빈공간에 <b style = "color:red">변수타입</b>에 알맞은 크기의 저장공간이 확보된다.
+
+자바는 가비지컬렉터에 의해서 메모리관리가 되지만 c언어의 경우 초기화를 하지 않는 경우 garbage value 가 남게 된다. 효율적인 메모리 관리를 위해 계속 덮어서 사용하는 방법을 활용하면 좋다.
+
+
+> 변수의 값 교환
+
+자바와 마찬가지의 방법
+
+~~~
+int a = 10;
+int b = 20;
+int tmp;
+
+tmp = a;
+a = b;
+b = tmp
+~~~
+
+> 기본 자료형
+
+기본 자료형은 크게 문자와 숫자로 나뉘며 또한 숫자는 실수형과 정수형으로 나뉜다.
+
+* 문자형 : char [문자를 저장하는데 사용되며 변수당 하나의 문자만 저장]
+* 정수형 : short, int, long, long long [정수를 저장하는데 사용되며, 주로 int가 사용된다.]
+* 실수형 : float, double, long double [실수를 저장하는데 사용되며, 주로 double이 사용된다.]
+
+>> 문자형 : char
+
+>> 정수형 : short, int, long, long long
+
+* char : 1byte   -> 8bit 
+* short : 2 byte
+* int : 4 byte
+* long : 4 byte
+* long long : 8 byte
+
+~~~
+n비트로 표현할 수 있는 정수의 개수 : 2의 n승 개
+~~~
+
+* float : 정밀도[7자리] 4byte
+* double : 정밀도[15자리] 8byte
+* long double : 정밀도[15자리] 8byte
+
+~~~C
+int score = 100;
+print(sizeof(int));
+//sizeof(타입) : 타입의 크기를 byte단위 정수로 반환
+//sizeof 변수 : 변수의 크기를 byte 단위 정수로 반환
+~~~
+
+
+>> 상수와 리터럴
+
+자바에서는 상수를 선언할 때 final 키워드를 붙인다 C언어에서는 const 를 붙여준다.
+<b style = "color:red">주의점</b> : 상수는 선언과 함께 초기화를 해주어야한다.
+
+~~~C
+const int MAX_SPEED = 10;
+// 변수 : MAX_SPEED
+// 상수 : MAX_SPEED
+// 리터럴 : 10
+~~~
+
+
+* #define을 이용한 상수정의
+
+~~~C
+#define WIDTH 20 // WIDTH를 20으로 정의
+~~~
+
+* #include 와 #define 은 '#' 로 시작한다 이부분은 전처리기 지시자라고 한다. 세미콜론을 붙이지 않는다.
+* 전처리는 컴파일 전에 프로그램 코드에 가하는 작업이며 이 프로그램을 <b style = "color:red">전처리기</b>라고 한다.
+
+
+> 파생형 ( 유도 자료형 )
+
+기본형 외에도 파생형이 있다, 파생형은 기본형으로부터 파생된 것으로 보다 복잡한 형태를 가진다
+
+* 배열 : 같은 타입의 여러 변수를 하나로 묶은 타입
+* 구조체 : 다른 타입의 여러 변수를 하나로 묶은 탕비
+* 공용체(union) : 다른 타입의 여러 변수가 하나의 저장공간을 공유하는 타입
+* 포인터 : 메모리 주소를 저장하기 위한 타입
+* 함수 : 함수를 선언하기 위한 타입
+
+
+
+
+

@@ -1,0 +1,62 @@
+---
+layout:     post
+title:      "[C] C언어 개발환경 설정"
+
+date:       2018-07-03 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클 인덱스">
+ <meta property="og:title" content="오라클 인덱스">
+ <meta property="og:description" content="오라클 인덱스">
+ <meta property="og:url" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+
+ <meta name="twitter:card" content="오라클 인덱스">
+  <meta name="twitter:title" content="오라클 인덱스">
+  <meta name="twitter:description" content="오라클 인덱스">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+  <meta name="facebook:card" content="오라클 인덱스">
+   <meta name="facebook:title" content="오라클 인덱스">
+   <meta name="facebook:description" content="오라클 인덱스">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 07 - 03 (화)</H4>
+<br>
+
+
+> C 언어 Eclipse 설치
+
+* 참고 : http://kanaris-tt.tistory.com/5
+
+* 참고 문헌 : C언어의 정석 [남궁성 지음]
+
+
+> Hello world 프린트
+
+~~~
+
+#include <stdio.h>
+// stdio.h 를 인클루드하는 부분 여기에 printf 뿐만아니라 여러 함수를 포함한다.
+
+int main(void)
+
+{
+	printf("Hello, world.");
+
+	return 0;
+}
+
+~~~
+
+이클립스를 설치하고 첫번째 관문인 hello world 를 찍어보았다. 첫 단추를 잘 꿰어낸 느낌이 든다.
+
+
