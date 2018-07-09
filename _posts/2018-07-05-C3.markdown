@@ -1,0 +1,71 @@
+---
+layout:     post
+title:      "[C] C언어 연산자"
+
+date:       2018-07-05 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클 인덱스">
+ <meta property="og:title" content="오라클 인덱스">
+ <meta property="og:description" content="오라클 인덱스">
+ <meta property="og:url" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+
+ <meta name="twitter:card" content="오라클 인덱스">
+  <meta name="twitter:title" content="오라클 인덱스">
+  <meta name="twitter:description" content="오라클 인덱스">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+  <meta name="facebook:card" content="오라클 인덱스">
+   <meta name="facebook:title" content="오라클 인덱스">
+   <meta name="facebook:description" content="오라클 인덱스">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/06/21/ORACLE/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 07 - 04 (수)</H4>
+<br>
+
+* 참고 문헌 : C언어의 정석 [남궁성 지음]
+
+> C 언어 일반 산술 변환
+
+~~~C
+int i = 10;
+float f = 20.0f
+
+float result = f + (float) i; // 형변환으로 두 피연산자의 타입을 일치
+~~~
+
+
+* 일반 산술 변환 규칙
+
+1 . 두 피연산자의 타입을 같게 일치시킨다. ( 보다 큰 타입으로 일치 )
+
+
+2 . 피연산자의 타입이 int 보다 작은 타입이면 int로 변환된다.
+
+
+ex) char + short -> int + int - > int
+
+ex) unsigned short + int -> int + int -> int
+
+
+
+* 단항 연산자
+
+sizeof 연산자
+
+~~~c
+sizeof는 피연산자의 '타입의 크기'를 byte단위의 정수로 반환한다." sizeof(피연산자)
+~~~
+
+~~~c
+printf("%d\n", sizeof(int)); //4 
+~~~

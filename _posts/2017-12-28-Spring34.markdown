@@ -429,3 +429,10 @@ public class UploadController {
 
 }
 ~~~
+
+> 프론트단에서 이미지 디스플레이하기
+
+~~~html		
+    <img id="profileImg" class="img-fluid"	src="/displayFile?fileName=${userImage}&directory=profile">
+
+~~~
