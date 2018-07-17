@@ -69,3 +69,83 @@ sizeof는 피연산자의 '타입의 크기'를 byte단위의 정수로 반환�
 ~~~c
 printf("%d\n", sizeof(int)); //4 
 ~~~
+
+* 문자열의 비교
+
+strcmp함수
+
+~~~C
+#include <stdio.h> //<stdio.h>
+#include <string.h>
+
+int main(void)
+
+
+{
+	char str[] = "abc";
+
+	printf("\"abc\"==\"abc\" ? %d\n" , "abc"=="abc");
+
+	printf("strcmp(str, \"abc\") ? %d\n" , strcmp(str, "abc"));
+
+	return 0;
+
+}
+// 출력 결과
+//"abc"=="abc" ? 1
+//strcmp(str, "abc") ? 0
+~~~
+
+
+* "abc" == "abc" -> 1 (참)
+* strcmp("abc", str) -> 0 (참)
+
+
+* 조건 연산자
+
+
+~~~c
+result = (x>y)? x:y;
+//x 가 y 보다 클 경우 result = x , 아닐 경우 result = y
+
+if(x>y){
+    result = x;
+}else{
+    result = y;
+}
+
+// 위 조건식과 동일한 결과를 낳는다
+~~~
+
+* 콤마 연산자
+
+~~~c
+#include <stdio.h> //<stdio.h>
+#include <string.h>
+
+int main(void)
+
+
+{
+
+	int i =0, j= 0;
+
+	int result =0;
+
+	result = i = 3, i ++ , j ++;
+
+	printf("i=%d , j=%d, result = %d\n", i, j, result);
+
+	result = (i = 3, i ++, j ++);
+	printf("i = $d, j = $d, result = %d\n", i, j , result);
+
+	return 0;
+}
+
+//결과
+//i=4 , j=1, result = 3
+//i = $d, j = $d, result = 4
+
+~~~
+
+
