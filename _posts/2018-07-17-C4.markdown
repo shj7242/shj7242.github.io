@@ -1,0 +1,122 @@
+---
+layout:     post
+title:      "[C] C언어 배열"
+
+date:       2018-07-17 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="C언어 배열">
+ <meta property="og:title" content="C언어 배열">
+ <meta property="og:description" content="C언어 배열">
+ <meta property="og:url" content="http://shj7242.github.io/2018/07/17/C4/">
+
+ <meta name="twitter:card" content="C언어 배열">
+  <meta name="twitter:title" content="C언어 배열">
+  <meta name="twitter:description" content="C언어 배열">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/07/17/C4/">
+  <meta name="facebook:card" content="C언어 배열">
+   <meta name="facebook:title" content="C언어 배열">
+   <meta name="facebook:description" content="C언어 배열">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/07/17/C4/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2018 - 07 - 17 (화)</H4>
+<br>
+
+* 참고 문헌 : C언어의 정석 [남궁성 지음]
+
+> 배열
+
+우선 배열이란 같은 타입의 변수 여러개를 하나의 묶음으로 다루는 것이다.
+
+대부분의 내용이 자바나 다른 언어들과 비슷한 맥락이다.
+
+* 배열의 길이 계산
+
+~~~c
+#include <stdio.h> //<stdio.h>
+
+int main(void)
+
+
+{
+
+	int i;
+	int arr[10];
+	const int LEN = sizeof(arr)/sizeof(arr[0]); //배열의 길이 계산
+
+	printf("sizeof(arr)= %d\n" , sizeof(arr));
+	printf("sizeof(arr[0)=%d\n", sizeof(arr[0]));
+	printf("LEN = %d\n ", LEN);
+
+}
+
+//출력결과
+//sizeof(arr)= 40
+//sizeof(arr[0)=4
+//LEN = 10
+~~~
+
+
+
+* 배열의 초기화
+
+변수처럼 배열도 선언된 직후에 쓰레기 값이 저장되어 있으므로 적절한 값으로 초기화할 필요가 있다.
+
+~~~c
+int score[@]; //배열을 선언
+
+score[0] = 50;
+score[1] = 10;  //배열 초기화
+
+int score[2]= {50, 10}; //배열의 선언과 초기화 동시에 
+
+int score[2] = {0};
+int score[2] = {0 , 0}; // 다음 두문장은 동일하다.
+int score[] = {0, 0}; // 배열의 길이를 생략할 수도 있다.
+~~~
+
+위와 같이 배열의 선언 및 초기화는 자바와 동일하다. 특이점은 int score[2] = {0} 과 같이 배열 요소를 한번에 초기화 하는 것은 조금 특이하다.
+
+
+
+
+* 배열의 복사와 비교
+
+
+~~~C
+
+int arr1[5];
+int arr2[5];
+
+
+for(i=0;i<5;i++){
+   
+    arr2[i] = arr1[i];  // 배열 arr1 의 모든 요소를 arr2 에 복사
+}
+~~~
+
+
+보통 위와 같은 방법으로 복사를 하게 된다. 또는 memcpy(arr2, arr1, sizeof(arr1)); 방식으로 복사하기도 한다.
+이방법은 arr1배열에서 arr2 로 메모리를 통째로 복사하기 때문에 성능이 더 뛰어나다.
+
+
+
+* memcmp는 메모리를 통째로 비교한다
+
+
+~~~c
+int chk = memcmp(arr2, arr1, sizeof(arr1)); // 두 배열이 같을경우 0 이 저장된다
+~~~
+
+
+* 문자열 저장하기
