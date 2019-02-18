@@ -35,14 +35,12 @@ comments: true
 > 튜닝 도구 : SQL AUTOTRACE
 
 
-SET AUTOTRACE를 사용하기 위해서 PLAN_TABLE 이 존재해야하며 구문을 활성화 하기 위해 
+SET AUTOTRACE를 사용하기 위해서 PLAN_TABLE 이 존재해야하며 구문을 활성화 하기 위해 해준다.
 
 ~~~
 SET AUTOTRACE ON
 -- 비화성화 SET AUTOTRACE OFF
 ~~~
-
-해준다. 
 
 [DB_BLOCK_GETS 및 CONSISTENCE GET]
 
@@ -67,7 +65,10 @@ for
 select * from table(dbms_xplan.display);
 ~~~
 
+
 > 실행계획 해석(predicate)
+
+~~~
 
 ----------------------------------------------------------------------------------------
 | Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
@@ -79,6 +80,8 @@ select * from table(dbms_xplan.display);
 |*  4 |   SORT JOIN                  |         |    13 |   169 |     4  (25)| 00:00:01 |
 |*  5 |    TABLE ACCESS FULL         | EMP     |    13 |   169 |     3   (0)| 00:00:01 |
 ----------------------------------------------------------------------------------------
+
+~~~
 
 위와 같은 plan 에서 옆에 * 가 있으면 predicate 가 있다는 의미이다.
 
