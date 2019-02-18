@@ -1,0 +1,358 @@
+---
+layout:     post
+title:      "오라클 교육 4일차"
+
+date:       2019-02-14 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클">
+ <meta property="og:title" content="오라클">
+ <meta property="og:description" content="오라클">
+ <meta property="og:url" content="http://shj7242.github.io/2018/09/23/C5/">
+
+ <meta name="twitter:card" content="오라클">
+  <meta name="twitter:title" content="오라클">
+  <meta name="twitter:description" content="오라클">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/09/23/C5/">
+  <meta name="facebook:card" content="오라클">
+   <meta name="facebook:title" content="오라클">
+   <meta name="facebook:description" content="오라클">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/09/23/C4/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 02 - 14 (목)</H4>
+<br>
+
+> DML
+
+* Unconditional Insert All : 서브쿼리의 결과를 조건없이 모든 테이블에 입력
+
+~~~
+create table emp_job_info as select ename, job from emp where 1 > 100;  --100 은 1 보다 클 수 없음 (항상 false)
+create table emp_sal_info as select ename, sal from emp where 1 > 100;  
+~~~
+
+
+emp 테이블에서모든행을 선택하여 emp_job_info에는 10번부서데이터를 , emp_sal_info에는 20부서 데이터를 입력하시오
+
+~~~
+insert all
+    when deptno = 10 then
+        into emp_job_info values (ename, job)
+    when deptno= 20 then
+        into emp_sal_infovalues (ename, sal);
+        
+select ename, sal , job, deptno from emp;
+~~~
+
+* MERGE : 테이블 데이터를 병합하기 위한 명령어
+
+
+emp 테이블을 원본으로 emp_20 에 데이터가 이미 있으면 sal 값을 10% 증가, 없으면 insert
+
+~~~
+merge into emp_20 e20
+    USING emp e
+    ON(e20.empno = e.empno)
+    WHEN MATCHED THEN
+        UPDATE SET e20.sal = e.sal*1.1
+    WHEN NOT MATCHED THEN
+        INSERT(empno, ename, sal) VALUES(e.empno, e.ename, e.sal);
+        
+select * from emp_20;
+~~~
+
+
+> 인덱스
+
+테이블의 칼럼에대해 생성되는 객체로 별도의 영역에 칼럼값들을 정렬한 후 생성한다. 검색속도를 향상시키기 위해 사용된다.
+
+
+* 단일 / 복합 인덱스 : 단일 인덱스는 하나의 컬럼으로 인덱스가 구성된 것이며, 복합 인덱스란 두개 이상의 칼럼으로 인덱스가 생성된 경우이다.
+
+~~~
+
+-- ename 칼럼에 단일 인덱스 생성
+
+CREATE INDEX idx_emp_ename on emp(ename)
+
+-- emp 테이블에서 ename, sal 로 복합 인덱스 구성
+
+create index idx_emp_ename_sal on emp(ename, sal);
+
+select table_name, index_name, visibility from user_indexes where table_name = 'EMP';
+~~~
+
+
+* 고유/ 비고유 인덱스 (UNIQUE / NON UNIQUE)
+
+EMP 테이블에서 ENAME 칼럼에 대해 생성되 어있는 인덱스를 제거하시오
+
+~~~
+SELECT a.index_name
+    from USER_IND_COLUMNS a, USER_INDEXES b
+    where a.table_name = 'EMP'
+      and a.table_name = b.index_name
+      and a.column_name = 'ENAME'
+~~~
+
+      
+> VIEW
+
+하나 또는 그 이상의 테이블이나 뷰를 이용하여 생성되는 논리적인 테이블로 실제 데이터는 저장하지 않는다.
+
+
+* EMP 테이블에서 20 번 부서 사원의 사번, 이름, 급여를 정의하는 v_emp20이라는 이름의 단순뷰를 작성하시오.
+
+
+~~~
+create or replace view v_emp20
+as
+select empno, ename, sal fromemp
+where deptno = 20;
+
+~~~
+
+
+
+> Sequence
+
+다중 사용자 환경에서 사용하는 숫자 자동 생성
+
+~~~
+CREATE SEQUENCE sequence_name
+    [INCREMENT BY n]
+    [START WITH n]
+    [{MAXVALUE n| NOMAXVALUE}]
+    [{MINVALUE n| MINVALUE}]
+    [{CYCLE | NOCYCLE}]
+    [{CACHE n | NOCACHE}]
+
+-- 보통 실무에서는 DEFAULT 옵션을 쓴다.
+~~~
+
+1. INCREMENT BY n : 생성되는 Sequence 번호의 간격을 정수 n으로 정의. 시퀀스는 1씩 증가한다.
+2. START WITH n : 첫 번째 Sequence 번호를 정의, 옵션이 생략되면 시퀀스는 기본적으로 1부터 시작한다.
+
+
+
+> SQL 처리 과정
+
+1. 사용자가 SQL 문장 실행 - > 오라클 서버측 리스너가 서버 프로세스로 SQL 문장 전달.
+
+2. SQL 파싱을 한다.
+    
+    2.1 클라이언트에서 보내온 SQL 구문이 서버프로세스의 PGA 내부의 Private SQL Area 에서 문법체크를 하고 이상이 없는 경우 
+    
+    2.2 Library Cache 에 세션이 있다면 재활용하여 Execution Plan을 태워 쿼리를 실행시키고(Soft Parsing) 없다면 cache 에 저장한다.
+    2.3 Optimizer 로 넘어가 쿼리실행
+    
+    일반적으로 소프트 파싱은 Optimization, row source generation 과정을 생략하고 직접 execute 단계로 가서 처리한다.
+    SQL 커서가 없다면 Parsing 된 SQL 문장(쿼리 블럭의 set)을 Optimizer로 전달한다.
+    
+
+* Query Transformer : 쿼리블록으로 나누어 변형된 몇 종류의 쿼리문을 생산, 서브쿼리를 조인으로 변경, 뷰의 해체작업, 인라인뷰의 해체작업, FROM절의 테이블 제거작업, 조인조건 푸시, 뷰 조건 푸시, 서브쿼리를 조인으로 변경 등 쿼리를 변형한다.
+
+* Estimator : 주어진 SQL 문장의 모든 Cost 를 측정한다. ( Selectivity - 선택도 , Cardinality, Cost 등) 세가지 다른 측정방법을 이용하여 최소의 비용을 갖는 SQL 문장을 Plan Generator에게 넘긴다.
+
+* Plan Generator : 선택된 저비용 SQL문의 실행계획을 생성하여 Row Source Generator에게 넘긴다. 이렇게 생성한 실행계획도 나중을 위해 Library Cache에 저장해 둔다.
+
+
+
+>
+
+오라클은 뒤에서부터 읽는다.
+
+~~~
+set autotrace on
+
+select empno, ename, dname 
+from emp e, dept d 
+where e.deptno = d.deptno;
+~~~
+
+----------------------------------------------------------------------------------------
+| Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |         |    13 |   338 |     6  (17)| 00:00:01 |
+|   1 |  MERGE JOIN                  |         |    13 |   338 |     6  (17)| 00:00:01 |
+|   2 |   TABLE ACCESS BY INDEX ROWID| DEPT    |     4 |    52 |     2   (0)| 00:00:01 |
+|   3 |    INDEX FULL SCAN           | PK_DEPT |     4 |       |     1   (0)| 00:00:01 |
+|*  4 |   SORT JOIN                  |         |    13 |   169 |     4  (25)| 00:00:01 |
+|*  5 |    TABLE ACCESS FULL         | EMP     |    13 |   169 |     3   (0)| 00:00:01 |
+----------------------------------------------------------------------------------------
+
+
+
+dept 부터읽는다. (dept 에 index가 잡힘) --> dept 의 pk_dept 스캐닝 
+dept 의 pk_dept < rowid, deptno >  --> select dname from dept where rowid = pk_dept.rowid (인덱스)
+
+
+~~~
+select count(*) from emp;
+~~~
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2937609675
+
+-------------------------------------------------------------------
+| Id  | Operation        | Name   | Rows  | Cost (%CPU)| Time     |
+-------------------------------------------------------------------
+|   0 | SELECT STATEMENT |        |     1 |     1   (0)| 00:00:01 |
+|   1 |  SORT AGGREGATE  |        |     1 |            |          |
+|   2 |   INDEX FULL SCAN| PK_EMP |    14 |     1   (0)| 00:00:01 |
+-------------------------------------------------------------------
+
+
+> pl/sql ==> stored function, stored procedure
+
+
+DBMS_STATS 패키지
+
+1. Optimizer Statistics (옵티마이저 통계) 는 데이터베이스 모든 오브젝트에 대한 자료를 모아 기술한 통계인데 데이터 사전에 
+
+
+* 통계정보 수집용 테이블 생성은 DBMS_STATS 패키지의 create_stat_table 프로시저를 이용하여 만든다.
+
+
+~~~
+execute dbms_stats.create_stat_table(USER, 'stat_tab', 'users');
+~~~
+
+
+~~~
+select table_name, last_analyzed from user_tables where table_name in ('EMP', 'DEPT');
+~~~
+
+TABLE_NAME                                                   LAST_ANALYZE
+------------------------------------------------------------ ------------
+DEPT                                                         11-FEB-19
+EMP                                                          11-FEB-19
+
+
+데이터 딕셔너리에서 생성된 통계정보 확인 , LAST_ANALYZED 칼럼확인
+
+~~~
+SELECT * FROM USER_TABLES WHERE TABLE_NAME = 'EMP';
+~~~
+
+테이블 내의 인덱스된 컬럼들 및 대상 테이블과 연관된 모든 인덱스에 대한 통계 정보 생성
+
+~~~
+begin
+dbms_stats.gather_table_stas(
+        USER, 'myemp1',
+        method_opt => 'for all indexed columns',
+        cascade => true);
+~~~
+
+
+
+~~~
+select column_name, num_distinct, num_nulls
+    from user_tab_col_statistics
+    where table_name ='MYEMP1';
+~~~
+
+COLUMN_NAME                                                  NUM_DISTINCT  NUM_NULLS
+------------------------------------------------------------ ------------ ----------
+EMPNO                                                            10000002          0
+ENAME                                                             9982976          0
+DEPTNO                                                                  4          0
+ADDR                                                              9976832          0
+SAL                                                               6039040          0
+JOB                                                                     6          0
+COMM                                                               989888    8333335
+SUNGBYUL                                                                2          0
+HIREDATE                                                          3574016          0
+OUTDATE                                                                 1    8333335
+MGR                                                                     0   10000002
+
+
+
+~~~
+execute dbms_stats.gather_schema_stats(ownname => USER, estimate_percen => dbms_stats.auto_sample_size);
+~~~
+
+
+>Optimizer Statistics 
+
+옵티마이저 통계는 데이터베이스 모든 오브젝트에 대한 자료를 모아 기술한 통계이다.
+
+~~~
+show parameter DB_FILE_MULTIBLOCK_READ_COUNT --(외워야됨) 
+~~~
+
+NAME                                 TYPE                   VALUE
+------------------------------------ ---------------------- ------------------------------
+db_file_multiblock_read_count        integer                111
+
+111개씩 읽어온다. (1개씩 읽는거보다 훨씬 빠를 수 밖에 없다.)
+
+access full emp, idx ==> (block 단위로 읽고 쓴다) index fast full scan
+
+
+- 칼럼 통계정보는 칼럼의 distinct values 의 수(NUMBER OF DISTICT VALUES, NDV), 칼럼의 최소값, 최대값과 같은 정보를 가지고 있다.
+- 옵티마이저는 테이블 통계정보(데이터 건수등)과 결합하여 SQL의 오퍼레이션에서 리턴되는 로우 수 (레코드 건수)를 예측한다.
+
+
+> Literal SQL / Bind Variable SQL (Soft Parsing / Hard Parsing)
+
+SOFT PARSING 100% : BIND VARIABLE
+        20% ~ 30% : FORCE PARAMETER
+        
+
+리터럴이란 SQL 작성시 WHERE 절의 비교되는 값에 문자/숫자 상수값을 하드코딩해서 작성한 것을 말한다.
+이를 소프트 파싱하기 위해서는 BIND VARIABLE 로 바꾸어주어 다이나믹 SQL로 처리하게한다.
+
+
+~~~        
+SELECT * FROM EMP WHERE DEPTNO = 10;        
+SELECT * FROM EMP WHERE DEPTNO = 20;        
+SELECT * FROM EMP WHERE DEPTNO = 30;        
+~~~
+
+위 같은 문장은 WHERE 조건만 바뀔 뿐이지만 전부 하드파싱을 하게된다.
+
+~~~
+DECLAR
+ v_sql VARCHAR2(500);
+ v_cnt NUMBER;
+ BEGIN
+ FOR I IN 1..5 LOOP
+ v_sql :='SELECT /*+ LITERAL_SHJ */ COUNT(*) FROM MYEMP1 WHERE EMPNO ='|| i;
+ DBMS_OUTPUT.PUT_LINE(v_sql);
+ EXECUTE IMMEDIATE v_sql INTO v_cnt;
+END LOOP;
+END;
+~~~
+
+위 문장의 쿼리블록을 만들어 실행한다.
+
+
+[오라클에서 HINT 주는 방법]
+
+~~~
+SELECT /*+ 힌트 */ EMPNO, ENAME, SAL, DEPTNO
+FROM EMP, DEPT -- 오라클은 뒤에서부터 읽는다 (DEPT 부터)
+WHERE ~
+~~~
+
+
+> CURSOR_SHARING 파라미터
+
+CURSOR_SHARING 변수는 Bind 변수를 쓰는 것보다는 빠르지 않지만 Literal SQL 문을 이용하는것보다 20~30 % 이상의 성능향상을 보여준다.
+
+
+

@@ -1,0 +1,694 @@
+---
+layout:     post
+title:      "오라클 교육 5일차"
+
+date:       2019-02-15 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클">
+ <meta property="og:title" content="오라클">
+ <meta property="og:description" content="오라클">
+ <meta property="og:url" content="http://shj7242.github.io/2018/09/23/C5/">
+
+ <meta name="twitter:card" content="오라클">
+  <meta name="twitter:title" content="오라클">
+  <meta name="twitter:description" content="오라클">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/09/23/C5/">
+  <meta name="facebook:card" content="오라클">
+   <meta name="facebook:title" content="오라클">
+   <meta name="facebook:description" content="오라클">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/09/23/C4/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 02 - 15 (금)</H4>
+<br>
+
+> 튜닝 도구 : SQL AUTOTRACE
+
+
+SET AUTOTRACE를 사용하기 위해서 PLAN_TABLE 이 존재해야하며 구문을 활성화 하기 위해 
+
+~~~
+SET AUTOTRACE ON
+-- 비화성화 SET AUTOTRACE OFF
+~~~
+
+해준다. 
+
+[DB_BLOCK_GETS 및 CONSISTENCE GET]
+
+Consistent Mode : 읽기 일관성이 보장된 상태에서 데이터 블록을 읽는 것인데 대부분 SELECT 쿼리가 해당됨
+쿼리가 시작된 시점을 기준으로 일관성있게 읽어 들이며 읽는 도중에 값이 바뀌어도 쿼리시자점의 값으로 읽는다. 
+그러므로 SCN의값을 확인하면서 읽는데 값이 변경되면 SCN 번호가 증가되므로 이 경우에는 Rollback Segment에서 과거의 블록을 읽는다.
+AUTOTRACE에는 consistent gets로 표시된다.
+
+
+
+> 튜닝 도구 : DBMS_XPLAN
+
+사용법
+
+~~~
+set autotrace off
+
+explain plan
+for
+(쿼리문)
+
+select * from table(dbms_xplan.display);
+~~~
+
+> 실행계획 해석(predicate)
+
+----------------------------------------------------------------------------------------
+| Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |         |    13 |   338 |     6  (17)| 00:00:01 |
+|   1 |  MERGE JOIN                  |         |    13 |   338 |     6  (17)| 00:00:01 |
+|   2 |   TABLE ACCESS BY INDEX ROWID| DEPT    |     4 |    52 |     2   (0)| 00:00:01 |
+|   3 |    INDEX FULL SCAN           | PK_DEPT |     4 |       |     1   (0)| 00:00:01 |
+|*  4 |   SORT JOIN                  |         |    13 |   169 |     4  (25)| 00:00:01 |
+|*  5 |    TABLE ACCESS FULL         | EMP     |    13 |   169 |     3   (0)| 00:00:01 |
+----------------------------------------------------------------------------------------
+
+위와 같은 plan 에서 옆에 * 가 있으면 predicate 가 있다는 의미이다.
+
+
+> 초기화 파라미터 OPTIMIZER_MODE
+
+RBO : Rule based optimizer : rule exists (level 1 ~ 15)
+CBO : Cost based optimizer : (dbms_stats ==> statistics)
+
+
+
+- OPTIMIZER_MODE 
+
+~~~
+SHOW OPTIMIZER_MODE
+~~~
+
+NAME                                 TYPE                   VALUE
+------------------------------------ ---------------------- ------------------------------
+optimizer_mode                       string                 ALL_ROWS
+
+기본적으로 ALL_ROWS 모드이다.
+ALL_ROWS 는 통계정보의 유무와 상관없이 모든 SQL 문에 CBO를 이용하며 최대 처리량을 목표로한다.
+
+
+- CHOOSE  
+
+~~~
+--CHOOSE 모드로 변경
+ALTER SESSION SET OPTIMIZER_MODE =CHOOSE;ALTER SESSION SET OPTIMIZER_MODE =CHOOSE;
+~~~
+
+CBO와 RBO중 하나를 선택한다. 이용가능 여부에 따라 결정한다. 통계정보를 이용 가능하면 CBO 아니면 RBO를 사용한다.
+ALL_ROWS 와 마찬가지로 CBO를 사용하며 최대 처리량을 목표로 최적화를 수행한다. 
+
+
+- FIRST_ROWS_(1|10|100|1000) 
+
+통계정보의 유무와 상관없이 모든 SQL문에 대해 CBO를 이용하며 처음 N개의 레코드를 가장 빨리 추출할 수 있는최적의 경로를 찾음
+
+- FIRST_ROWS 
+
+옵티마이저는 첫번째 레코드의추출을 가장 빠르게 하는 최적의 경로를 찾는다.
+
+- RULE
+
+통계정보의 유무와 관계없이 모든 SQL에 RBO를 사용하도록 한다.
+
+
+
+
+
+~~~
+
+~~~
+
+
+> 규칙 기반 옵티마이저 (RBO : Rule-Based Optimizer)
+
+
+1. rowid에 의한 single row access
+
+rowid에 의한 단일 행 검색이 우선순위가 가장 높다.
+
+> 비용 기반 옵티마이저 (CBO : Cost_Based Optimizer )
+
+
+
+
+> Optimizer Mode를 변경하는 힌트 (Rule)
+
+
+EMP 테이블의 DEPTNO 칼럼에 현재 인덱스가 생성되지 않은 상태이다. RBO에서 조인시 칼럼인덱스가 없는쪽이 드라이빙 테이블이 되니 확인해 보라.
+
+--EMP 테이블의 DEPTNO 칼럼에 인덱스가 있다면 옵티마이저가 사용하지 못하도록 숨기자.
+
+~~~
+--인덱스 확인
+desc user_indexes;
+
+ALTER INDEX IDX_EMP_DEPTNO INVISIBLE;  -- 인덱스가 있어도 invisible로 하면 못잡는다. ( index를 invisible로 해놓고 쿼리를 돌리면 hash join이 됨 - CBO)
+
+SELECT /*+ RULE*/
+    e.empno,
+    e.ename,
+    d.dname
+FROM emp e, dept d
+WHERE e.deptno = d.deptno;
+~~~
+
+
+
+
+~~~
+select
+	a.table_name, a.index_name, a.visibility, a.last_analyzed,
+	b.column_name, b.column_position
+from	user_indexes a , user_ind_columns b
+where	a.table_name = b.table_name
+   and	a.index_name = b.index_name
+   and    a.table_name in ('EMP', 'DEPT')
+;
+  
+~~~
+
+
+~~~
+select table_name, last_analyzed from user_tables where table_name in ('EMP','DEPT');
+~~~
+
+TABLE_NAME                                                   LAST_ANALYZE
+------------------------------------------------------------ ------------
+DEPT                                                         11-FEB-19
+EMP                                                          11-FEB-19
+
+
+
+~~~
+select *
+from emp a, dept d
+where a.deptno = d.deptno
+~~~
+
+1. 테이블을 읽는 순서가 어떤게 맞을것인가?
+    1-1. FROM EMP, DEPT
+    1-2. FROM DEPT, EMP
+
+EMP(ROW 14 column 8)  DEPT(ROW 4 COLUMN 3)
+--> 읽어야할 데이터가 dept가 훨신 적기 때문에 DEPT 부터 읽어야 함.
+
+
+2. 일반적으로는 뒤에서 부터 읽기 때문에... dept를읽고 emp를 읽는다. 어떤 경우에는 앞에 위치한 EMP를 읽고 DEPT를 읽는다. 어떨 때 일까요?
+
+예외:) DEPT INDEX가 있는데 EMP INDEX가 없을 경우에 EMP 테이블을 먼저 읽는다.
+
+
+
+> Optimizer Mode를 변경하는 힌트 (ALL_ROWS)
+
+ALL_ROWS는 CBO의 기본값이며 전체 데이터를 가지고오는데 있어 비용이 가장 적게드는 실행계획을 만들어 내므로 FULL TABLE SCAN할 가능성이 많다. 그러므로 OLTP성업무보다 Batch성 업무에 적합하다.
+
+
+ALL_ROWS 힌트가 제성능을 발휘하기 위해서 통계정보가 필요하다.
+
+~~~
+SELECT /*+ ALL_ROWS*/ e.empno, e.ename, d.dname
+FROM myemp1 e, mydept1 d
+WHERE e.deptno = d.deptno;
+~~~
+
+> Optimizer Mode 를 변경하는 힌트 (CHOOSE)
+
+CHOOSE CBO의 ALL_ROWS 로 동작하지만 통계정보가 없다면 RBO가 된다.
+
+
+~~~
+SET AUTOTRACE EXPLAIN
+
+--통계정보 생성
+ANALYZE TABLE myemp1 COMPUTE STATISTICS;
+ANALYZE 
+~~~
+
+
+> 실행계획 SQL 연산 (AND-EQUAL)
+
+ ROW 연산이며 인덱스에 의해 반환되는 값들(ROWID)을 병합해서 공통적인 값을 반환하는 연산이다.
+ 
+ 
+ 
+> 실행계획 SQL 연산 (CONCATEATION)
+
+ 반환된 로우를 유니온처럼 합산하는 연산
+ 
+~~~
+
+--테이블에 생성되어있는 인덱스 및칼럼 확인
+
+SELECT a.index_name, a.column_name b.visibility
+    FROM user_ind_columns a, user_indexes b
+WHERE a.table_name = 'EMP'
+AND   a.index_name = b.index_name;
+
+-- 인덱스가 없으면 생성
+create index idx_emp_job ON EMP(job);
+create index idx_emp_deptno on EMP(deptno);
+
+-- RBO로 변경
+ALTER SESSION SET OPTIMIZER_MODE =RULE;
+
+~~~
+ 
+~~~
+select *
+from emp
+where job = 'SALESMAN' and DEPTNO IN(20,40)
+;
+~~~
+
+~~~
+SELECT *
+FROM EMP
+WHERE (JOB = 'SALESMAN' AND DEPTNO =20)
+OR    (JOB = 'SALESMAN' AND DEPTNO =40)
+~~~
+
+위 둘은 같은 실행계획을 가진다. (성능이 똑같다.)
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3388938709
+
+-------------------------------------------------------
+| Id  | Operation                    | Name           |
+-------------------------------------------------------
+|   0 | SELECT STATEMENT             |                |
+|   1 |  CONCATENATION               |                |
+|   2 |   TABLE ACCESS BY INDEX ROWID| EMP            |
+|   3 |    AND-EQUAL                 |                |
+|*  4 |     INDEX RANGE SCAN         | IDX_EMP_DEPTNO |
+|*  5 |     INDEX RANGE SCAN         | IDX_EMP_JOB    |
+|   6 |   TABLE ACCESS BY INDEX ROWID| EMP            |
+|   7 |    AND-EQUAL                 |                |
+|*  8 |     INDEX RANGE SCAN         | IDX_EMP_DEPTNO |
+|*  9 |     INDEX RANGE SCAN         | IDX_EMP_JOB    |
+-------------------------------------------------------
+
+위 같은 결과가 나온다.
+
+이 때 OR 확장(CONCATENATION) 을 막기위해 no_expand 힌트를 사용한다.
+
+~~~
+select /*+ no_expand */ *
+    from emp
+    WHERE job = 'SALESMAN'
+    AND DEPTNO IN(20,40);
+~~~
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3286489891
+
+-------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |             |     1 |    38 |     2   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS BY INDEX ROWID| EMP         |     1 |    38 |     2   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | IDX_EMP_JOB |     3 |       |     1   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------------
+
+
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter("DEPTNO"=20 OR "DEPTNO"=40)
+   2 - access("JOB"='SALESMAN')
+   
+   
+PREDICATE를 보면 DEPTNO가 20인 데이터를 인덱스를 이용하여 추출하며 JOB이 'SALESMAN'이면서 DEPTNO 가 40인 데이터를 서로합산하여 결과를 만들어냄을 알 수 있다.
+
+
+> 실행계획 SQL 연산(COUNT)
+
+COUNT 연산은 PSEUDO COLUMNS(의사 칼럼)이 WHERE절이 아닌 SELECT 문장에 나타날 때 실행계획에 나타나는 SQL연산이다.
+
+
+> 실행계획 SQL 연산 (FILTER)
+
+SQL ROW 연산인데 WHERE 조건 절에서 인덱스를 사용하지 못할 때 발생한다. NESTED LOOP 방식으로 해석할 수 있는데 서브쿼리라면 메인쿼리 로우를 하나씩 읽을 때 마다 서브쿼리를 한번씩 실행하는 형태이다.
+
+FILTER OPERATION은 IN, NOT IN, EXISTS, NOT EXISTS 를 사용하는 경우 발견할 수 있는 OPERATION 이며 NESTED LOOP JOIN과 유사하다.
+
+
+~~~
+SELECT /*+ RULE */ ENAME, SAL, JOB
+FROM MYEMP1 A
+WHERE SAL = (SELECT MIN(SAL)
+		FROM MYEMP1 B
+		WHERE B.DEPTNO = A.DEPTNO);
+~~~
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2687344997
+
+--------------------------------------
+| Id  | Operation           | Name   |
+--------------------------------------
+|   0 | SELECT STATEMENT    |        |
+|*  1 |  FILTER             |        |
+|   2 |   TABLE ACCESS FULL | MYEMP1 |
+|   3 |   SORT AGGREGATE    |        |
+|*  4 |    TABLE ACCESS FULL| MYEMP1 |
+--------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter("SAL"= (SELECT MIN("SAL") FROM "MYEMP1" "B" WHERE
+              "B"."DEPTNO"=:B1))
+   4 - filter("B"."DEPTNO"=:B1)
+   
+   
+바깥쪽 메인쿼리에서 한건씩 읽어서 읽은 레코드의 급여가 자신의 속한 부서의 최소급여와 같은지를 반복적으로 비교한다.(중첩 루프 방식으로 해석)
+
+
+> 실행계획 SQL연산 (HASH ANTI-JOIN)
+
+ANTI 조인은 조인의 대상이 되는 테이블과 일치하지 않는 데이터를 추출하는 연산이다.
+NOT IN, NOT EXISTS, MINUS 등이 있을 때 나타나는 실행계획 연산자이다.
+
+~~~
+SQL> set linesize 130
+SQL> set autotrace on
+SQL> select count(e1.ename)
+  2  from myemp1 E1
+  3  WHERE ENAME NOT IN (SELECT ENAME FROM MYEMP1_OLD E2);
+~~~
+
+
+COUNT(E1.ENAME)
+---------------
+        8333335
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1210096379
+
+-----------------------------------------------------------------------------------------------
+| Id  | Operation                | Name       | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
+-----------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT         |            |     1 |    27 |       | 40795   (1)| 00:08:10 |
+|   1 |  SORT AGGREGATE          |            |     1 |    27 |       |            |          |
+|*  2 |   HASH JOIN RIGHT ANTI NA|            |    10M|   257M|    41M| 40795   (1)| 00:08:10 |
+|   3 |    TABLE ACCESS FULL     | MYEMP1_OLD |  1666K|    22M|       |  1592   (2)| 00:00:20 |
+|   4 |    TABLE ACCESS FULL     | MYEMP1     |    10M|   123M|       | 25172   (1)| 00:05:03 |
+-----------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("ENAME"="ENAME")
+
+NOT IN 을 별다른 힌트없이 실행하면 HASH JOIN RIGHT ANTI NA 연산을 한다.
+
+
+* HASH_AJ 힌트를 사용할 경우
+
+
+SQL> SELECT count(e1.ename)
+  2  from myemp1 E1
+  3  WHERE ENAME NOT IN(SELECT /* + HASH_AJ*/ ENAME
+  4  FROM MYEMP1_OLD E2);
+
+COUNT(E1.ENAME)
+---------------
+        8333335
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1210096379
+
+-----------------------------------------------------------------------------------------------
+| Id  | Operation                | Name       | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
+-----------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT         |            |     1 |    27 |       | 40795   (1)| 00:08:10 |
+|   1 |  SORT AGGREGATE          |            |     1 |    27 |       |            |          |
+|*  2 |   HASH JOIN RIGHT ANTI NA|            |    10M|   257M|    41M| 40795   (1)| 00:08:10 |
+|   3 |    TABLE ACCESS FULL     | MYEMP1_OLD |  1666K|    22M|       |  1592   (2)| 00:00:20 |
+|   4 |    TABLE ACCESS FULL     | MYEMP1     |    10M|   123M|       | 25172   (1)| 00:05:03 |
+-----------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("ENAME"="ENAME")
+
+
+> 실행계획 SQL 연산 (HASH SEMI-JOIN)
+
+ 세미 조인은 보통 EXISTS 를 사용하는 서브쿼리의 형태로 나타나며 이러한 경우 서브 쿼리에 인덱스가 존재하지 않는다면 상당히 비효율적인데 이러한 서브쿼리에 인덱스가 없는 경우
+ SEMI-JOIN이 일어나도록 유도한다면 성능의 향상을 꽤할 수있다. 즉, 인덱스 없이 EXISTS를 사용하는 쿼리라면 HASH_SJ or MERGE_SJ or NL_SJ 힌트를 이용하여 세미조인이 일어나도록 푸는 것이 좋다.
+ 
+ 
+ 
+ > 실행 계획 SQL 연산 (INDEX RANGE SCAN)
+ 
+ WHERE절에 인덱스 구성 컬럼이 '<' OR '>' 와 같이 범위 제한 연산자에 의해 이용되거나 BETWEEN OR LIKE 와 같은 조건 절에 이용될 때 INDEX RANGE SCAN을 하게 된다. 만약 결합 인덱스라면 범위 제한자에 사용되는 컬럼은 인덱스 구성 컬럼 중 선두 컬럼 이어야 하며 조건을 만족하는 첫번째 레코드를 인덱스 블록에서 추출 후 조건에 맞는 데이터가 나올 때 까지 계속 스캔하는 나가는 방식으로 INDEX, INDEX_ASC 힌트를 사용할 때 나타나는 연산자이다.
+
+인덱스가 없는 경우 search
+
+ ~~~
+ SQL> SELECT ENAME, SAL FROM EMP WHERE SAL > 1000;
+~~~
+
+ENAME                       SAL
+-------------------- ----------
+ALLEN                      1600
+WARD                       1250
+JONES                      2975
+MARTIN                     1250
+BLAKE                      2850
+CLARK                      2450
+SCOTT                      3000
+KING                       5000
+TURNER                     1500
+ADAMS                      1100
+FORD                       3000
+
+ENAME                       SAL
+-------------------- ----------
+MILLER                     1300
+
+12 rows selected.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3956160932
+
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      |    12 |   120 |     3   (0)| 00:00:01 |
+|*  1 |  TABLE ACCESS FULL| EMP  |    12 |   120 |     3   (0)| 00:00:01 |
+--------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   1 - filter("SAL">1000)
+   
+인덱스 생성 후 search
+
+~~~
+SQL> create index idx_emp_sal ON EMP(sal);
+
+Index created.
+
+SQL> SELECT ENAME, SAL FROM EMP WHERE SAL > 1000;
+~~~
+
+ENAME                       SAL
+-------------------- ----------
+ADAMS                      1100
+WARD                       1250
+MARTIN                     1250
+MILLER                     1300
+TURNER                     1500
+ALLEN                      1600
+CLARK                      2450
+BLAKE                      2850
+JONES                      2975
+SCOTT                      3000
+FORD                       3000
+
+ENAME                       SAL
+-------------------- ----------
+KING                       5000
+
+12 rows selected.
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 946658323
+
+-------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |             |    12 |   120 |     2   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| EMP         |    12 |   120 |     2   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN          | IDX_EMP_SAL |    12 |       |     1   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access("SAL">1000)
+
+
+참고로 기본 인덱스를 생성하면 오름차순으로 생성이된다. 특정 컬럼에 대해 인덱스가 구성되어 있다면 인덱스 생성할 때 내림차순이라고 명시하지 않으면 
+ 컬럼 값에 대해 오름차순으로 인덱스가 구성되므로 인덱스를 경유하게 되면 자동으로 오름차순 형태로 데이터가 추출되게 된다.
+ 
+ 
+ 
+
+> 실행계획 SQL연산 (MERGE JOIN)
+
+ MERGE JOIN은 조인 시 각 테이블을 따로 정렬 후 그 결과를 병합 하는 집합 연산으로 SORT MERGE JOIN 이라고도 한다.
+ BATCH성 작업에 효율적이다. OLTP 성능에는 좋지 않다.
+
+~~~ 
+ SQL> SHOW PARAMETER OPTIMIZER_MODE
+~~~
+
+NAME                                 TYPE                   VALUE
+------------------------------------ ---------------------- ------------------------------
+optimizer_mode                       string                 ALL_ROWS
+
+
+**** CASE1
+
+~~~
+SQL> SELECT /*+ RULE*/ COUNT(E.ENAME)
+  2  FROM MYEMP1 E, MYDEPT1 D
+  3  WHERE TO_CHAR(E.DEPTNO) = TO_CHAR(D.DEPTNO);
+~~~
+
+COUNT(E.ENAME)
+--------------
+      10000002
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3462355838
+
+----------------------------------------
+| Id  | Operation            | Name    |
+----------------------------------------
+|   0 | SELECT STATEMENT     |         |
+|   1 |  SORT AGGREGATE      |         |
+|   2 |   MERGE JOIN         |         |
+|   3 |    SORT JOIN         |         |
+|   4 |     TABLE ACCESS FULL| MYDEPT1 |
+|*  5 |    SORT JOIN         |         |
+|   6 |     TABLE ACCESS FULL| MYEMP1  |
+----------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   5 - access(INTERNAL_FUNCTION("E"."DEPTNO")=INTERNAL_FUNCTION("D"."DEP
+              TNO"))
+       filter(INTERNAL_FUNCTION("E"."DEPTNO")=INTERNAL_FUNCTION("D"."DEP
+              TNO"))
+
+Note
+-----
+   - rule based optimizer used (consider using cbo)
+
+
+**** CASE2
+
+~~~
+SQL> SELECT /*+ USER(MERGE(D E)*/ COUNT(E.ENAME)
+  2  FROM MYEMP1 E, MYDEPT1 D
+  3  WHERE TO_CHAR(E.DEPTNO) = TO_CHAR(D.DEPTNO);
+~~~
+
+COUNT(E.ENAME)
+--------------
+      10000002
+
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2924099767
+
+----------------------------------------------------------------------------------
+| Id  | Operation           | Name       | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT    |            |     1 |     3 | 25258   (1)| 00:05:04 |
+|   1 |  SORT AGGREGATE     |            |     1 |     3 |            |          |
+|*  2 |   HASH JOIN         |            |   700K|  2050K| 25258   (1)| 00:05:04 |
+|   3 |    INDEX FULL SCAN  | PK_MYDEPT1 |     7 |    14 |     1   (0)| 00:00:01 |
+|   4 |    TABLE ACCESS FULL| MYEMP1     |    10M|  9765K| 25186   (1)| 00:05:03 |
+----------------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+
+   2 - access(INTERNAL_FUNCTION("E"."DEPTNO")=INTERNAL_FUNCTION("D"."DEPTN
+              O"))
+
+[위의 힌트에 따른 쿼리실행속도를 비교해보면 CASE 1 에 비해 CASE 2의 성능이 훨씬 좋다]
+
+
+By William Scott [WHERE 조건절 Tip]
+
+* Where 절을 검토한다
+    Where 절은 크게 Rows를 제한 하는 것과 Table간의 Join에 사용된다.
+
+* 2후보 Driving Table 을 정한다.
+    가장 적은 Rows 를 가져오는 [가장 제한적 (where) 절을 가진] 테이블을 선택
+    후보가 2개 이상 시에는 한개 찍기
+
+* From 절의 모든 Table 을 List 하고, 후보 Driving Table을 시작으로 하여, Join 조건을 이용하여 모든 Table 간의 Join을 진행한다.
+    이것은 후보 Driving Table로 시작된, Database 가 접근 해야만 하는 테이블 순서 리스트를 보여준다.
+
+* Driving Table 의 인덱스를 찾고 인덱스 혹은 Full Table Scan을 이용하는 것이 좋을지 결정하고 Optimizer가 선택한 Index 보다 좋은 Index가 있다면 
+    인덱스 Hint 사용을 통해서 보다 좋은 Index를 사용하도록 한다.
+
+* 제한적 Where절을 가진 Table을 우선적으로 Join 하려고 한다.
+
+
+
+- Union 보다는 Union All 을 사용하라
+
+- Outer Join, IS NULL 을 이용한 안티조인보다는 NOT IN, NOT EXISTS 를 사용하자.
+
+- 레코드 필터링을 위해서 HAVING 보다는 WHERE 를 사용하자.
+
+- WHERE 절에 선행 INDEX칼럼을 명시하라.
+
+
+++ bitmap index vs b-tree index

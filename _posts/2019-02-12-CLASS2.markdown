@@ -1,0 +1,448 @@
+---
+layout:     post
+title:      "오라클 교육 2일차"
+
+date:       2019-02-12 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클">
+ <meta property="og:title" content="오라클">
+ <meta property="og:description" content="오라클">
+ <meta property="og:url" content="http://shj7242.github.io/2018/09/23/C5/">
+
+ <meta name="twitter:card" content="오라클">
+  <meta name="twitter:title" content="오라클">
+  <meta name="twitter:description" content="오라클">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/09/23/C5/">
+  <meta name="facebook:card" content="오라클">
+   <meta name="facebook:title" content="오라클">
+   <meta name="facebook:description" content="오라클">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/09/23/C4/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 02 - 12 (화)</H4>
+<br>
+
+> 집합 연산자
+
+합집합, 교집합, 차집합 등을 말한다.
+
+
+* UNION : 합집합
+
+* UNION ALL : 합집합 + 교집합
+
+* INTERSECT : 교집합
+
+* MINUS : 합집합 - 교집합
+
+
+사용방법
+
+~~~
+SELECT * FROM CUSTOMER1
+UNION -- 또는 INTERSECT, UNIONALL, MINUS
+SELECT * FROM CUSTOMER2
+~~~
+
+> ROWNUM 및 NULL 값, NLS_DATE_FORMAT
+
+* ROWNUM : 가상컬럼 이라고도 한다 ( ROWNUM , ROWID )
+
+사용방법
+
+~~~
+select * , rownum from emp;
+~~~
+
+예외
+
+~~~
+select rownum, ename from emp order by ename;
+~~~
+
+이 결과 rownum 이 깨지게 된다. 
+쿼리의 실행순서는 
+첫번째로 FROM 절에서 테이블의 데이터를 가져온다
+두번째로 WHERE 절에서 조건에 따라 필터링을하고
+세번째로 GROUP BY 절에서 그룹화를한다.
+네번째로는 HAVING 절에서 집계함수컬럼에 조건을 넣는다.
+다섯번째로 SELECT 
+마지막으로 ORDER BY 가 돌아간다. 이 때 ORDER BY는 메모리에서 돌아가는데 사이즈가 오버되면 디스크에서 돌아가게된다.
+
+ROWNUM 은 ORDER BY 절 전에 돌아가기 때문에 정렬시 ROWNUM이 깨지게 된다.
+
+
+~~~
+SELECT ROWNUM , EMP.*
+FROM EMP
+WHERE 1  = 0
+ORDER BY SAL DESC
+~~~
+
+1. EMP 읽어서 Temp table 생성
+2. temp table 에 emp 저장된 순서대로 읽어서 fetch
+3. fetch 하면서 각 row에 rownum 이 붙는다.
+4. order by 하기 전에 select 절을 보고 선택이 안된 컬럼은 temp table 에서 지운다.
+5. select 절에 fetch를 할 때 where절 ( 1 =0 , 1 > 100 ) 을 보고 참 거짓을 확인 후에 패치한다.
+
+
+> NLS Parameters
+
+NLS는 언어 지원과 관련된 파라미터이다. 
+
+* NLS_DATE_FORMAT 을 통해 날짜 형식을 지정해준다
+
+~~~
+ALTER SESSION SET nls_date_format = 'yyyy.mm.dd';
+~~~
+
+이와같이 형식을 바꾸어줄 수 있다. -> 2018.01.01
+
+~~~
+ALTER SESSION SET nls_language = 'KOREAN';
+
+SELECT TO_CHAR(SYSDATE, 'DAY') FROM DUAL ;  -- 화요일 출력
+~~~
+
+* NLS_LANG 은 오라클 DB 환경변수 값이 아니라 사용자 환경울 ORACLE DB에 알려주는 역할이다.
+
+
+
+> 오라클 형변환
+
+1. to_char
+2. to_date
+3. to_number
+4. chartorowid : char 를 rowid 로 바꿈.
+
+
+* 함수와 프로시져 차이
+
+둘은 매우 유사하다 다른점은 함수는 리턴값이 하나라서 SELECT 문에도 쓸 수 있지만, 프로시져는 리턴값이 0 , 1 또는 여러개일 수 도 있기 때문에 SELECT 문에는 사용할 수 없다.
+
+> SQL 함수
+
+
+* CONCAT(a1, a2) 함수 : 문자열 두개를 합친다.
+
+~~~
+SELECT CONCAT('A' , 'B') FROM DUAL;   -- AB 반환
+~~~
+
+* INITCAP(a1) 함수 : 문자열의 첫 문자를 대문자 나머지를 소문자로 반환
+
+~~~
+SELECT INICAP('abc') from DUAL ; -- Abc 반환
+~~~
+
+* INSTR(a1, a2) 함수 : a1 문자열중 a2 문자열이 시작하는 위치 반환
+
+~~~
+select INSTR('abc' , 'b') from dual ; -- 2 반환
+~~~
+
+* INSTR(a1, a2 , c1, c2) 함수 : a1 문자열중  c1 번째자리부터 c2 번째 자리 중 a2 가 시작하는 문자의 위치를 반환 ( c1이 음수이면 뒤에서부터 검색 )
+
+~~~
+select INSTR('abababab' , 'b' , 4 , 8) from dual; -- 5 반환
+select INSTR('abababab' , 'b' , 4 , 8) from dual; -- 5 반환
+
+~~~
+
+* LENGTH(A1) : A1 문자열의 길이 반환
+
+* LOWER(a1) : a1 인수를 소문자로 변환
+
+
+> Number function
+
+* CEIL : 올림 함수
+
+~~~
+SELECT CEIL(12.7) FROM DUAL;  -- 13 반환
+~~~
+
+* FLOOR : 내림 함수
+
+~~~
+SELECT FLOOR(12.7) FROM DUAL;  --12 반환
+~~~
+
+* ROUND : 반올림 함수
+
+~~~
+SELECT ROUND(12.456, 1) FROM DUAL ; -- 12.6 반환
+~~~
+
+* TRUNC : 버림 ( 소수점 )
+
+~~~
+SELECT TRUNC(12.567, 1 ) FROM DUAL ; -- 12.5 반환
+~~~
+
+
+> Date function
+
+* ADD_MONTHS(date, n) : date에 n달을 추가한다. date 값을 반환하며 n은 정수이다.
+
+* EXTRACT({year/month/day/hour/minute/second} FROM (a1)) : 날짜 값을 가진 a1 으로부터 원하는 날짜영역 출력
+
+* LAST_DAY(a1) : a1 의 마지막 일자 반환
+
+* 1980/12/17 ~ 현재 까지 How long days? How long months? 
+
+
+
+날짜형식 연산
+
+ex1) : 입사년도 1981 보다 큰 사원의 사번, 이름
+
+~~~
+select empno, ename from emp
+where extract(year from hiredate) > 1981
+order by hiredate;
+~~~
+
+ex2) : 오늘부터 100일 후는?
+
+~~~
+select sysdate + 100 from dual;
+~~~
+
+ex3) : 현재월의 마지막 날을 반환
+
+~~~
+select last_day(sysdate) from dual;
+~~~
+
+ex4) : emp 테이블에서 사원들의 근속월수, 첫째 자리에서 절삭 ( MONTH_BETWEEN 은 앞날짜에서 뒷날짜를 뺀다.)
+
+~~~
+select ename, hiredate, sysdat, trunc(months_between(sysdate, hiredate)) from emp;
+~~~
+
+
+> 일반 함수 및 조건식
+
+* NVL(a1 , a2) : a1이 null 이면 a2 아니면 a1
+
+* NVL2(a1 , a2, a3) : a1이 null 이면 a3 아니면 a2  ,, a1은 어떠한 datatype 이든 가능하며 a2 , a3 의 경우 long 타입을 제회한 datatype 이어야한다. 만약 a2, a3 이 datatype 이 다르다면 a3을 a2로 변환한다
+
+* DECODE : 조건식
+
+사용법
+
+~~~
+SELECT ENAME, DECODE(DEPTNO , 10, 'Accounting' , 20 , 'Research' ,30 , 'Sales', 40 , 'Operations' , 'Unknown') department from emp
+~~~
+
+* CASE : 조건식 ( decode 와 비슷하게 사용할 수 있다. )
+
+~~~
+    SELECT ENAME
+    (CASE DEPTNO
+        WHEN 10 THEN 'Accounting'
+        WHEN 20 THEN 'Research'
+        WHEN 30 THEN 'Sales'
+        WHEN 40 THEN 'Operations'
+        else 'Unknown'
+        end) department
+    from emp
+~~~
+
+* NULLIF(a1, a2) : a1과 a2가 같으면 Null , 같지 않으면 a2를 리턴한다.
+
+
+> 오라클 조인
+
+1. inner join
+2. outer join
+    2.1. left outer join
+    2.2. right outer join
+
+~~~
+select *
+from emp a dept b
+where a.deptno = b.deptno;
+~~~
+
+> ANSI 조인
+
+1. inner join
+2. outer join
+    2.1. left outer join
+    2.2. right outer join
+    2.3. full outer join
+    
+~~~
+select *
+from emp a , dept b
+on a.deptno = b.deptno; 
+~~~
+
+> EquiJoin : = 로 조인한다.
+
+> Non EquiJoin :  = 연산자 이외의 연산자를 사용하여 조인
+
+~~~
+--ORACLE JOIN
+
+select e.ename "name" , e.sal "pay" , s.grade "grade"
+    from emp e , salgrade s
+    where e.deptno = 10
+    and e.sal between s.losal and s.hisal;
+
+--between join 이다.
+
+--ANSI JOIN
+
+select e.ename "name" , e.sal "pay" , s.grade "grade"
+    from emp e left outer join salgrade s on e.sal between s.losal and s.hisal;
+~~~
+
+
+>Self Join
+
+
+
+>서브쿼리
+
+1. SELECT --> (SELECT) : SCHOLAR SUB-QUERY
+
+2. FROM   --> (SELECT) : INLINE - VIEW
+
+3. WHERE  --> (SELECT) : NESTED SUB-QUERY ==> 4. CO-RELATED SUB-QUERY ( 상관 서브 쿼리 )
+
+
+
+* smith 가 받는 급여보다 돈을 더 많이 받는 사람 추출
+
+~~~
+select ename.sal
+from emp
+where sal > (select sal from emp where ename = 'smith');
+~~~
+
+* emp 에 존재하는 부서만 보여주기
+
+~~~
+select dname
+from dept
+where deptno exists(select deptno from emp group by deptno)  -- exist 대신 in을 쓸 수 있지만 exist 가 DB성능상 알고리즘이 더 효율적이다.
+~~~
+
+
+* EMP 에서 부서별 최소급여를 받는 사람의 내역 보여주기
+
+~~~
+--(nested sub-query)
+SELECT DEPTNO, ENAME, SAL
+FROM EMP
+WHERE (DEPTNO, SAL) IN (SELECT DEPTNO, MIN(SAL) FROM EMP GROUP BY DEPTNO);
+
+--(inline sub-q)
+SELECT A.DEPTNO, A.ENAME, A.SAL
+FROM EMP A , (SELECT DEPTNO, min(SAL) as sal FROM EMP GROUP BY DEPTNO) B
+WHERE A.DEPTNO = B.DEPTNO
+AND   A.SAL = B.sal;
+~~~
+
+
+* EMP 테이블에서 부서별 최대급여 (상관서브쿼리)
+
+~~~
+SELECT * FROM EMP E1
+WHERE SAL = (SELECT MAX(SAL)
+             FROM EMP E2
+             WHERE E1.DEPTNO = E2.DEPTNO); -- 조건이 추가될때마다 가령, 부서별, 직책별 등등..
+~~~
+
+
+* 각 직무별로 최대급여를 받는 사원의 직무, 이름, 급여를 출력하는데 직무명으로 오름차순 정렬하여 출력하는 예문
+
+~~~
+SQL> SELECT JOB, ENAME, SAL 
+        FROM EMP A 
+        WHERE SAL = (SELECT MAX(SAL) 
+                                FROM EMP B  
+                                WHERE A.JOB = B.JOB) 
+        ORDER BY JOB;
+        
+
+--INLINE VIEW
+
+SQL> SELECT A.JOB, A.ENAME, A.SAL 
+        FROM EMP A , ( SELECT JOB, MAX(SAL) SAL FROM EMP GROUP BY JOB) B 
+        WHERE A.JOB = B.JOB
+          AND A.SAL = B.SAL
+        ORDER BY JOB;      
+        
+--NESTED SUB-Q
+
+SQL> SELECT A.JOB , ENAME, SAL
+     FROM EMP A
+     WHERE (A.JOB,A.SAL) IN (SELECT JOB, MAX(SAL) MAX_SAL FROM EMP GROUP BY JOB);
+~~~
+
+* 자신이 속한 부서의 평균 급여보다 급여를 적게 받는 사원의부서, 사원명, 급여를 출력하되 부서 순으로 오름차순 정렬하여 출력
+
+1.상관서브쿼리로 구현
+
+~~~
+SELECT A.DEPTNO, ENAME, SAL
+FROM EMP A
+WHERE A.SAL < (SELECT AVG(SAL) FROM EMP B WHERE A.DEPTNO = B.DEPTNO)
+GROUP BY A.DEPTNO;
+~~~
+
+* EMP 테이블에서 급여가 높은사원 5명 출력
+
+~~~
+SELECT ENAME, SAL
+FROM EMP A
+WHERE 5 > (SELECT COUNT(*) FROM EMP B WHERE B.SAL > A.SAL);
+~~~
+
+* EMP 테이블에서 직무가 "SALESMAN" 인 사람들의 이름, 부서명, 직무를 출력하는 예문
+
+~~~
+
+--inline view
+
+select b.ename, a.dname, b.job
+from dept a, (select ename, job, deptno from emp where job = 'SALESMAN') b
+where a.deptno = b.deptno;
+
+-- oracle join
+
+select a.ename, b.dname, a.job 
+from emp a, dept b
+where a.deptno = b.deptno
+  and a.job = 'SALESMAN'; 
+~~~
+
+
+> WITH 구문
+
+복잡한 SQL 에서 동일 쿼리블록이 반복적으로 사용될 경우사용
+
+~~~
+WITH emps AS(
+SELECT DEPTNO, COUNT(*) AS EMP_COUNT
+FROM EMP GROUP BY DEPTNO)
+SELECT E.ENAME, EMPS.EMP_COUNT
+FROM EMP E, EMPS
+WHERE E.DEPTNO = EMPS.DEPTNO;
+~~~
+
+

@@ -1,0 +1,150 @@
+---
+layout:     post
+title:      "오라클 교육 3일차"
+
+date:       2019-02-12 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="오라클">
+ <meta property="og:title" content="오라클">
+ <meta property="og:description" content="오라클">
+ <meta property="og:url" content="http://shj7242.github.io/2018/09/23/C5/">
+
+ <meta name="twitter:card" content="오라클">
+  <meta name="twitter:title" content="오라클">
+  <meta name="twitter:description" content="오라클">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/09/23/C5/">
+  <meta name="facebook:card" content="오라클">
+   <meta name="facebook:title" content="오라클">
+   <meta name="facebook:description" content="오라클">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/09/23/C4/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 02 - 13 (수)</H4>
+<br>
+
+
+> 계층형 쿼리
+
+형식
+
+~~~
+SELECT 칼럼
+FROM 테이블
+WHERE 조건
+START WITH 조건
+CONNECT BY [PRIOR] [NOCYCLE]
+[ORDER SIBLING BY 칼럼, 칼럼]
+
+~~~
+
+* START WITH : 시작 데이터지정
+* CONNECT BY : 계층 구조에서 다음에 연결될 데이터를 지정
+* PRIOR : CONNECT BY 절에 이용되며 현재 읽은 컬럼을 지정한다.
+          PRIOR 자식 = 부모 (TOP DOWN  형태 출력) 
+          PRIOR 부모 = 자식 (BOTTOM UP 형태 출력)
+* NOCYCLE : 데이터를 펼치면서 이미 나타났던 데이터가 다시 나타나는 경우 CYCLE이 형성되었다고한다. 이 때 오류가 발생하는데 NOCYCLE을 추가하면 사이클이 발생한 이후의 데이터를 출력하지 않는다.
+* ORDER SIBLING BY : 동일한 LEVEL인 경우 노드를 형제 노드라고 하고 형제노드들의 정렬순서를 지정한다.
+
+계층형 질의에서 사용되는 가상컬럼
+    
+    1. LEVEL : 최상위 루트 데이터가 1 , 하위로 갈 수록 1씩 증가
+    2. CONNECT_BY_ISLEAF : 최하단 리프데이터이면 1, 아니면 0
+    3. CONNECT_BY_ISCYCLE : 해당데이터가 조상으로 존재하면 1, 아니면 0 , 조상이란 자신으로부터 루트까지의 경로에 존재하는 데이터를 위미한다.
+    
+계층형 쿼리 함수
+
+sys_connect_by_path ( 칼럼, 경로분리자 ) : 루트데이터에서전개할 데이터 까지의 경로를 표시한다.
+
+
+~~~
+select lpad(' ', level) || ename, sal, deptno
+ename
+from emp
+start with ename = 'KING'
+CONNECT BY PRIOR EMPNO = mgr;
+
+~~~
+
+
+> 오라클 분석함수 (오라클 버전 11이상)
+
+분석을 위한 행들의 그룹을 윈도우라고 부르며  analytics_caluse(OVER 절)에서 정의한다.
+
+~~~
+select empno, ename, sal, deptno,
+            max(sal) over(partition by deptno) max_sal,
+            min(sal) over(partition by deptno) min_sal
+from emp;
+~~~
+
+
+* 분선함수 기본형식 ( PARTITION BY, ORDER BY, WINDOW 구, MAX , MIN, SUM, AVG, DENSE RANK FIRST/LAST, KEEP, OVER)
+
+~~~
+analytic_function([arguments]) OVER (analytic_caluse)
+~~~
+
+* DENSE_RANK() 공동 순위 존재
+
+~~~
+select empno, ename, sal, comm,
+       DENSE_RANK() OVER (ORDER BY COMM DESC) D_RANK FROM EMP;
+~~~
+
+모든 사원출력 하면서 자신이 속한 부서에서 수당을 가장많이 받는 사원의 이름을 같이 출력
+
+~~~
+SELECT EMPNO, ENAME, DEPTNO,
+       MAX(SAL) KEEP(DENSE_RANK FIRST ORDER BY comm DESC) OVER (partition by deptno) SAL FROM EMP;
+~~~
+
+모든 사원들을 대상으로 그 사원이 속한 부서의 급여 최소, 최대, 급여합, 급여순위를 출력
+
+~~~
+SELECT ENAME, DEPTNO , SAL ,
+       MIN(SAL) OVER (PARTITION BY DEPTNO) "WORST",
+       MAX(SAL) OVER (PARTITION BY DEPTNO) "BEST",
+       SUM(SAL) OVER (PARTITION BY DEPTNO) "합계",
+       AVG(SAL) OVER (PARTITION BY DEPTNO) "평균",
+       RANK() OVER (PARTITION BY DEPTNO ORDER BY SAL DESC) "RANK"
+       FROM EMP
+       ;
+~~~
+
+MYEMP1에서 직무가 'CLERK'인 사원을 출력하면서 사번, 이름, 급여, 그 사원이 속한 부서의 급여 평균을 같이 출력하라.
+
+~~~
+SELECT EMPNO, ENAME, SAL,
+       TRUNC(AVG(SAL) OVER(PARTITION BY DEPTNO)) AVG_SAL 
+       FROM MYEMP1
+       WHERE JOB = 'CLERK';
+~~~
+
+> LISTAGG : String Aggregation함수로 하나의 칼럼의 값을 그루핑하고 결합시키는 함수.
+
+~~~
+select deptno,
+       LISTAGG(ENAME, '') WITHIN GROUP (ORDER BY ENAME) AS EMPLOYEES
+       FROM EMP
+       GROUP BY DEPTNO;
+       
+~~~
+
+EMP 테이블의 데이터를 출려하면서 같은 부서 사원들을 EMPLOYEES 칼럼에 보여주세요
+
+~~~
+SELECT DEPTNO ,ENAME, HIREDATE LISTAGG()
+~~~
+
+
+
