@@ -133,12 +133,6 @@ ALL_ROWS 와 마찬가지로 CBO를 사용하며 최대 처리량을 목표로 �
 
 
 
-
-~~~
-
-~~~
-
-
 > 규칙 기반 옵티마이저 (RBO : Rule-Based Optimizer)
 
 
@@ -192,11 +186,13 @@ where	a.table_name = b.table_name
 select table_name, last_analyzed from user_tables where table_name in ('EMP','DEPT');
 ~~~
 
+
+~~~
 TABLE_NAME                                                   LAST_ANALYZE
 ------------------------------------------------------------ ------------
 DEPT                                                         11-FEB-19
 EMP                                                          11-FEB-19
-
+~~~
 
 
 ~~~
@@ -291,6 +287,7 @@ OR    (JOB = 'SALESMAN' AND DEPTNO =40)
 위 둘은 같은 실행계획을 가진다. (성능이 똑같다.)
 
 
+~~~
 Execution Plan
 ----------------------------------------------------------
 Plan hash value: 3388938709
@@ -309,6 +306,7 @@ Plan hash value: 3388938709
 |*  8 |     INDEX RANGE SCAN         | IDX_EMP_DEPTNO |
 |*  9 |     INDEX RANGE SCAN         | IDX_EMP_JOB    |
 -------------------------------------------------------
+~~~
 
 위 같은 결과가 나온다.
 
@@ -321,7 +319,7 @@ select /*+ no_expand */ *
     AND DEPTNO IN(20,40);
 ~~~
 
-
+~~~
 Execution Plan
 ----------------------------------------------------------
 Plan hash value: 3286489891
@@ -341,7 +339,7 @@ Predicate Information (identified by operation id):
 
    1 - filter("DEPTNO"=20 OR "DEPTNO"=40)
    2 - access("JOB"='SALESMAN')
-   
+~~~   
    
 PREDICATE를 보면 DEPTNO가 20인 데이터를 인덱스를 이용하여 추출하며 JOB이 'SALESMAN'이면서 DEPTNO 가 40인 데이터를 서로합산하여 결과를 만들어냄을 알 수 있다.
 
@@ -364,7 +362,7 @@ FROM MYEMP1 A
 WHERE SAL = (SELECT MIN(SAL)
 		FROM MYEMP1 B
 		WHERE B.DEPTNO = A.DEPTNO);
-~~~
+
 
 Execution Plan
 ----------------------------------------------------------
@@ -387,7 +385,8 @@ Predicate Information (identified by operation id):
               "B"."DEPTNO"=:B1))
    4 - filter("B"."DEPTNO"=:B1)
    
-   
+~~~
+
 바깥쪽 메인쿼리에서 한건씩 읽어서 읽은 레코드의 급여가 자신의 속한 부서의 최소급여와 같은지를 반복적으로 비교한다.(중첩 루프 방식으로 해석)
 
 
@@ -402,7 +401,6 @@ SQL> set autotrace on
 SQL> select count(e1.ename)
   2  from myemp1 E1
   3  WHERE ENAME NOT IN (SELECT ENAME FROM MYEMP1_OLD E2);
-~~~
 
 
 COUNT(E1.ENAME)
@@ -427,14 +425,16 @@ Plan hash value: 1210096379
 Predicate Information (identified by operation id):
 ---------------------------------------------------
 
+
    2 - access("ENAME"="ENAME")
+~~~
 
 NOT IN 을 별다른 힌트없이 실행하면 HASH JOIN RIGHT ANTI NA 연산을 한다.
 
 
 * HASH_AJ 힌트를 사용할 경우
 
-
+~~~
 SQL> SELECT count(e1.ename)
   2  from myemp1 E1
   3  WHERE ENAME NOT IN(SELECT /* + HASH_AJ*/ ENAME
@@ -463,6 +463,7 @@ Predicate Information (identified by operation id):
 ---------------------------------------------------
 
    2 - access("ENAME"="ENAME")
+~~~
 
 
 > 실행계획 SQL 연산 (HASH SEMI-JOIN)
@@ -480,7 +481,7 @@ Predicate Information (identified by operation id):
 
  ~~~
  SQL> SELECT ENAME, SAL FROM EMP WHERE SAL > 1000;
-~~~
+
 
 ENAME                       SAL
 -------------------- ----------
@@ -518,7 +519,9 @@ Predicate Information (identified by operation id):
 ---------------------------------------------------
 
    1 - filter("SAL">1000)
-   
+~~~
+
+
 인덱스 생성 후 search
 
 ~~~
@@ -527,7 +530,7 @@ SQL> create index idx_emp_sal ON EMP(sal);
 Index created.
 
 SQL> SELECT ENAME, SAL FROM EMP WHERE SAL > 1000;
-~~~
+
 
 ENAME                       SAL
 -------------------- ----------
@@ -566,7 +569,7 @@ Predicate Information (identified by operation id):
 ---------------------------------------------------
 
    2 - access("SAL">1000)
-
+~~~
 
 참고로 기본 인덱스를 생성하면 오름차순으로 생성이된다. 특정 컬럼에 대해 인덱스가 구성되어 있다면 인덱스 생성할 때 내림차순이라고 명시하지 않으면 
  컬럼 값에 대해 오름차순으로 인덱스가 구성되므로 인덱스를 경유하게 되면 자동으로 오름차순 형태로 데이터가 추출되게 된다.
@@ -583,18 +586,20 @@ Predicate Information (identified by operation id):
  SQL> SHOW PARAMETER OPTIMIZER_MODE
 ~~~
 
+~~~
 NAME                                 TYPE                   VALUE
 ------------------------------------ ---------------------- ------------------------------
 optimizer_mode                       string                 ALL_ROWS
-
+~~~
 
 **** CASE1
+
 
 ~~~
 SQL> SELECT /*+ RULE*/ COUNT(E.ENAME)
   2  FROM MYEMP1 E, MYDEPT1 D
   3  WHERE TO_CHAR(E.DEPTNO) = TO_CHAR(D.DEPTNO);
-~~~
+
 
 COUNT(E.ENAME)
 --------------
@@ -628,7 +633,7 @@ Predicate Information (identified by operation id):
 Note
 -----
    - rule based optimizer used (consider using cbo)
-
+~~~
 
 **** CASE2
 
@@ -636,7 +641,7 @@ Note
 SQL> SELECT /*+ USER(MERGE(D E)*/ COUNT(E.ENAME)
   2  FROM MYEMP1 E, MYDEPT1 D
   3  WHERE TO_CHAR(E.DEPTNO) = TO_CHAR(D.DEPTNO);
-~~~
+
 
 COUNT(E.ENAME)
 --------------
@@ -662,6 +667,7 @@ Predicate Information (identified by operation id):
 
    2 - access(INTERNAL_FUNCTION("E"."DEPTNO")=INTERNAL_FUNCTION("D"."DEPTN
               O"))
+~~~
 
 [위의 힌트에 따른 쿼리실행속도를 비교해보면 CASE 1 에 비해 CASE 2의 성능이 훨씬 좋다]
 
