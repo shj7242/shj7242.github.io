@@ -146,5 +146,22 @@ EMP 테이블의 데이터를 출려하면서 같은 부서 사원들을 EMPLOYE
 SELECT DEPTNO ,ENAME, HIREDATE LISTAGG()
 ~~~
 
+* FIRST VALUE, LAST_VALUE
 
+~~~
+
+--EMP 테이블에서 10번 부서 사원중에서 급여가 가장 적은 사원이름 출력
+
+SELECTR EMPNO, ENAME, DEPTNO, FIRST_VASLUE(ENAME) OVER(ORDER BY SAL) AS LOWEST_SAL
+    FROM (SELECT * FROM EMP WHERE DEPTNO = 10)
+    ORDER BY EMPNO;
+    
+    
+--10번 부서 사원들중 급여가 가장 높은 직원의 입사일을 출력. 
+
+select empno, ename, sal,deptno,hiredate,        
+    last_value(hiredate) over(order by sal ROWS BETWEEN UNBOUNDED PRECEDING 
+    AND UNBOUNDED FOLLOWING) as highsal_hiredate 
+    from (select * from emp where deptno=10 order by hiredate) order by empno;     
+~~~
 

@@ -32,14 +32,42 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2019 - 02 - 14 (목)</H4>
 <br>
 
-> DML
+> Create Table
+
+~~~
+create table addrbook1 (        
+    name varchar2(10) not null,       
+    address varchar2(50),       
+    age number default 0     ); 
+    
+-- addrbook1 을 tab, user_tables, user_catalog  딕셔너리 뷰로 확인할 수 있다.
+
+select * from tab where table_name = 'addrbook1';
+select * from user_tables where table_name = 'addrbook1';
+select * from user_catalog where table_name = 'addrbook1';
+
+--테이블 구조 확인
+
+desc addrbook1
+
+~~~
+
+* 서브쿼리를 활용한 테이블 생성
+
+Create Table 에서 서브쿼리를 이용하여 타 테이블의 데이터 및 구조를 기본으로 테이블 생성이 가능하다.
+
+서브쿼리 테이블에서 NOT NULL 제약조건만 복사 되므로 Primary Key 또는 Foreign key 제약조건은 다시 생성해야 한다.
+
 
 * Unconditional Insert All : 서브쿼리의 결과를 조건없이 모든 테이블에 입력
+
 
 ~~~
 create table emp_job_info as select ename, job from emp where 1 > 100;  --100 은 1 보다 클 수 없음 (항상 false)
 create table emp_sal_info as select ename, sal from emp where 1 > 100;  
 ~~~
+
+
 
 
 emp 테이블에서모든행을 선택하여 emp_job_info에는 10번부서데이터를 , emp_sal_info에는 20부서 데이터를 입력하시오
@@ -71,11 +99,43 @@ merge into emp_20 e20
 select * from emp_20;
 ~~~
 
+부모테이블 레코드삭제시 자식 테이블의 데이터를 삭제하는 옵션 on delete cascade 이용 
+
+~~~
+create table t2 (      
+    sale_date date,      
+    id number references t1(id) on delete cascade,      
+    amount number      ); 
+
+~~~
+
+> 데이터 딕셔너리
+
+오라클 데이터베이스 운영과 연관된 중요한 정보를 제공하는 읽기 전용 시스템 테이블, 뷰의 집합이 며 일반 사용자가 직접 수정하는 것은 불가능하며 오라클 서버에서 스스로 관리하는 영역이고 소유자 는 SYS 계정이다.  
+ 
+모든 스키마 오브젝트(테이블, 인덱스, 뷰, 시퀀스, 동의어, DB링크, PL/SQL 함수나 프로시저)의 정의와 이 오브젝트에 대해 얼마나 많은 저장공간을 사용하는지, 칼럼의 기본값은 무엇이고 제약조건은 어떤 것들이 있는지, 오라클 사용자의 이름, DB에 생성된 권한과 롤 등이 어떻게 부여 되었는지, 객체접근 및 수정에 따른 시스템 감사정보, 데이터베이스 생성시각, 이름, 운영모드, 인스턴스의 이름 등과 같이 DB운영에 필요한 중요한 정보들이 기록된다. 
+
+* USER_ 데이터 딕셔너리 뷰
+
+USER_CONSTRAINTS : 사용자가 작성한 제약조건을 확인 하는 뷰
+USER_CONS_COLUMNS : 제약조건이 걸려 있는 칼럼을 확인 하는 뷰
+USER_TABLES : 사용자가 작성한 테이블을 확인 하는 뷰, 칼럼구조는 ALL_TABLES 뷰와 동일하며 정확 한 정보를 위해서 테이블의 통계정보가 생성되어야 한다. 
+USER_TAB_COLUMNS : 테이블, 뷰, 클러스터의 칼럼과 관련된 정보 조회용이며 정확한 정보를 위해서 는 테이블, 뷰의 통계정보가 생성 되어야한다
+USER_OBJECTS : 사용자가 작성한 스키마 오브젝트(테이블, 인덱스, 뷰, 시퀀스, DB링크, PLSQL 함수, 프 러시저)를 확인 하는 뷰, 칼럼구조는 ALL_OBJECTS 뷰와 동일하다. 
+USER_OBJECT_SIZE : 사용자가 작성한 PLSQL 오브젝트(PLSQL 함수, 프러시저, 패키지)의 바이트 단위 사이즈를 조회한다. 
+USER_CATALOG : 사용자가 생성한 객체들을 간단히 이름, 종류만 나열한다. 
+USER_INDEXES : 사용자가 작성한 인덱스를 조회한다. 
+USER_IND_COLUMNS : 인덱스 구성 칼럼을 조회한다. 
+ 
 
 > 인덱스
 
 테이블의 칼럼에대해 생성되는 객체로 별도의 영역에 칼럼값들을 정렬한 후 생성한다. 검색속도를 향상시키기 위해 사용된다.
 
+~~~
+CREATE INDEX index_name
+ON table_name (Column);
+~~~
 
 * 단일 / 복합 인덱스 : 단일 인덱스는 하나의 컬럼으로 인덱스가 구성된 것이며, 복합 인덱스란 두개 이상의 칼럼으로 인덱스가 생성된 경우이다.
 
@@ -93,11 +153,22 @@ select table_name, index_name, visibility from user_indexes where table_name = '
 ~~~
 
 
-* 고유/ 비고유 인덱스 (UNIQUE / NON UNIQUE)
+* 고유/ 비고유 인덱스 (UNIQUE / NON UNIQUE) : 고유 인덱스는 칼럼의 값들이 유일한 경우에 만들 수 있는 인덱스이고 비고유 인덱스는 칼럼 값 에 중복된 값이 있는 경우 만드는 인덱스이다.  
+
+고유 인덱스 생성
+
+~~~
+-- 만약 ename 칼럼에 중복되는 값이 있다면 아래 create index 구문은 오류가 발생한다. 
+
+create unique index idx_emp_ename on emp(ename); 
+
+~~~
+
 
 EMP 테이블에서 ENAME 칼럼에 대해 생성되 어있는 인덱스를 제거하시오
 
 ~~~
+
 SELECT a.index_name
     from USER_IND_COLUMNS a, USER_INDEXES b
     where a.table_name = 'EMP'
@@ -105,7 +176,41 @@ SELECT a.index_name
       and a.column_name = 'ENAME'
 ~~~
 
-      
+* Descending index : 인덱스 생성시 칼럼명 다음에 아무값도 안써주면 기본적으로 오름차순 이지만 DESC라고 기술하면 내림차순으로 인덱스가 생성된다.
+
+~~~
+create index idx_emp_job_sal on emp(job, sal desc) 
+~~~
+
+* 인덱스 재 구성 및 삭제 : 칼럼에 대해 생성된 인덱스에 변형(데이터 삽입, 삭제, 수정)이 자주 발생하는 경우 균형잡힌 트리 (Balanced Tree)의 모양이 아닌 트리가 한쪽으로 기울어 지는 현상이 생길 수 있다. 이러한 경우 인덱 스를 재구성 또는 삭제 후 재생성 해야 한다. 
+ 
+~~~
+-- 1. EMP 테이블의 ENAME 칼럼에 대해 생성된 인덱스를 재구성 하세요. 
+ 
+Alter index idx_emp_ename rebuild; 
+ 
+-- 2. EMP 테이블의 ENAME 칼럼에 대해 생성된 인덱스를 삭제 하시요. 
+ 
+Drop index idx_emp_ename; 
+~~~
+
+* 인덱스 숨기기 : 인덱스를 Invisible 시키면 옵티마이저에서 명시적으로 사용하지 않도록 지시할 수 있다.
+
+~~~
+
+select count(*) from emp where sal> 1500;
+
+-- 위 쿼리는 sal column에 인덱스가 걸려있다. plan 에 태울 때 INDEX RAGE SCAN을 한다.
+
+ALTER INDEX IDX_EMP_SAL invisible
+
+select count(*) from emp where sal> 1500;
+
+-- 위 쿼리는 SAL COLUMN 에 걸린 인덱스를 숨겼기 때문에 TABLE ACCESS FULL 하게 된다.
+
+~~~
+
+
 > VIEW
 
 하나 또는 그 이상의 테이블이나 뷰를 이용하여 생성되는 논리적인 테이블로 실제 데이터는 저장하지 않는다.
@@ -178,7 +283,6 @@ set autotrace on
 select empno, ename, dname 
 from emp e, dept d 
 where e.deptno = d.deptno;
-~~~
 
 ----------------------------------------------------------------------------------------
 | Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
@@ -191,7 +295,7 @@ where e.deptno = d.deptno;
 |*  5 |    TABLE ACCESS FULL         | EMP     |    13 |   169 |     3   (0)| 00:00:01 |
 ----------------------------------------------------------------------------------------
 
-
+~~~
 
 dept 부터읽는다. (dept 에 index가 잡힘) --> dept 의 pk_dept 스캐닝 
 dept 의 pk_dept < rowid, deptno >  --> select dname from dept where rowid = pk_dept.rowid (인덱스)
@@ -199,7 +303,7 @@ dept 의 pk_dept < rowid, deptno >  --> select dname from dept where rowid = pk_
 
 ~~~
 select count(*) from emp;
-~~~
+
 
 
 Execution Plan
@@ -217,6 +321,7 @@ Plan hash value: 2937609675
 
 > pl/sql ==> stored function, stored procedure
 
+~~~
 
 DBMS_STATS 패키지
 
@@ -233,12 +338,12 @@ execute dbms_stats.create_stat_table(USER, 'stat_tab', 'users');
 
 ~~~
 select table_name, last_analyzed from user_tables where table_name in ('EMP', 'DEPT');
-~~~
 
 TABLE_NAME                                                   LAST_ANALYZE
 ------------------------------------------------------------ ------------
 DEPT                                                         11-FEB-19
 EMP                                                          11-FEB-19
+~~~
 
 
 데이터 딕셔너리에서 생성된 통계정보 확인 , LAST_ANALYZED 칼럼확인
@@ -263,7 +368,6 @@ dbms_stats.gather_table_stas(
 select column_name, num_distinct, num_nulls
     from user_tab_col_statistics
     where table_name ='MYEMP1';
-~~~
 
 COLUMN_NAME                                                  NUM_DISTINCT  NUM_NULLS
 ------------------------------------------------------------ ------------ ----------
@@ -279,6 +383,7 @@ HIREDATE                                                          3574016       
 OUTDATE                                                                 1    8333335
 MGR                                                                     0   10000002
 
+~~~
 
 
 ~~~
@@ -292,7 +397,6 @@ execute dbms_stats.gather_schema_stats(ownname => USER, estimate_percen => dbms_
 
 ~~~
 show parameter DB_FILE_MULTIBLOCK_READ_COUNT --(외워야됨) 
-~~~
 
 NAME                                 TYPE                   VALUE
 ------------------------------------ ---------------------- ------------------------------
@@ -301,6 +405,7 @@ db_file_multiblock_read_count        integer                111
 111개씩 읽어온다. (1개씩 읽는거보다 훨씬 빠를 수 밖에 없다.)
 
 access full emp, idx ==> (block 단위로 읽고 쓴다) index fast full scan
+~~~
 
 
 - 칼럼 통계정보는 칼럼의 distinct values 의 수(NUMBER OF DISTICT VALUES, NDV), 칼럼의 최소값, 최대값과 같은 정보를 가지고 있다.
