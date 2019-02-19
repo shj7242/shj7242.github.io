@@ -202,6 +202,52 @@ SELECT TRUNC(12.567, 1 ) FROM DUAL ; -- 12.5 반환
 * 1980/12/17 ~ 현재 까지 How long days? How long months? 
 
 
+> 숫자 및 날짜 함수
+
+ABS(n) : 인수 n의 절대값
+CEIL(n) : 인수  n보다 크거나 같은 최소 정수 반환
+EXP(n) : e의 n승 반환
+FLOOR(n) : 인수 n보다 작거나 같은 최대 정수를 반환
+MOD(m, n) : 인수 m을 n으로 나눈 나머지를 반환
+POWER(m, n) : 인수 m의 n 지수승을 반환
+ROUND(m, n) : 인수 m을 소수이하 n자리 까지 반올림
+SIGN(n) : n이 음수면 -1, 양수면 1, 0이면 0을 반환
+TRUNC(m, n) : 인수 m을 소수이하 n자리까지 표시 하는데 절삭한다.
+
+
+> 변환 함수
+
+CHARTOROWID(char) : VARCHAR2 또는 CHAR Type을 ROWID Type으로 변환
+TO_CHAR(datetime|number[,fmt]) : 숫자나 날짜형 자료를 fmt 형식에 맞춰 문자로 변환
+TO_DATE(char, [,fmt]) : fmt 형식의 문자를  Date값으로 변환 한다.
+TO_NUMBER(char [,fmt]) : 숫자형태의 문자 char를 숫자로 변환한다.
+
+~~~
+SELECT ENAME, SAL, ROWID FROM EMP
+    WHERE ENAME = 'SMITH';
+
+SELECT TO_CHAR('8000000'), TO_NUMBER('8,000,000', 9,999,999')
+
+SELECT SYSDATE,
+    ROUND(SYSDATE -TO_DATE('2003.01.01', YYYY.MM.DD'))
+    FROM DUAL;
+    
+SELECT TO_CHAR(SYSDATE, 'ddd') "1년 중 몇일?",
+       TO_CHAR(SYSDATE, 'dd') "월의 몇번째 일?",
+       TO_CHAR(SYSDATE, 'd')  "주중 몇번째 일?"
+       FROM DUAL;
+
+1년 월
+--- -- -
+250 08 2
+
+SELECT TO_CHAR(SYS_DATE, 'YEAR MONTH DD DAY HH24:MI:SS') FROM DUAL;
+
+TO_CHAR(SYSDATE,'YEARMONTHDDDAYHH24:MI:SS')
+-----------------------------------------------------------------------
+TWENTY FOURTEEN 9월 07 일요일 16:30:29
+~~~
+
 
 날짜형식 연산
 
@@ -239,6 +285,8 @@ select ename, hiredate, sysdat, trunc(months_between(sysdate, hiredate)) from em
 * NVL2(a1 , a2, a3) : a1이 null 이면 a3 아니면 a2  ,, a1은 어떠한 datatype 이든 가능하며 a2 , a3 의 경우 long 타입을 제회한 datatype 이어야한다. 만약 a2, a3 이 datatype 이 다르다면 a3을 a2로 변환한다
 
 * DECODE : 조건식
+
+* CASE
 
 사용법
 
@@ -292,6 +340,7 @@ on a.deptno = b.deptno;
 
 > EquiJoin : = 로 조인한다.
 
+
 > Non EquiJoin :  = 연산자 이외의 연산자를 사용하여 조인
 
 ~~~
@@ -312,6 +361,22 @@ select e.ename "name" , e.sal "pay" , s.grade "grade"
 
 
 >Self Join
+
+~~~
+SELECT P.EMPNO, P.ENAME, C.ENAME
+    FROM EMP P ,EMP C
+    WHERE P.MGR = C.EMPNO;
+~~~
+
+> Outer Join
+
+일반적으로 내부조인의 경우 두 테이블 모두 조인 조건을 만족해야 레코드가 출력이 되지만, OUTER JOIN 의 경우 한쪽 테이블의 값이 일치하면 레코드가 출력이 된다.
+
+예를들어 EMP, DEPT 를 조인하여 사원명 부서명 을 출력할 때  EMP 테이블의 KING은 최고관리자로 부서코드가 없다. 이 경우 emp.deptno = dept.deptno 로 조인을 하면 출력이 되지 않는다. (INNER JOIN)
+
+오라클의 경우 OUTER JOIN의 연산자는 "(+)" 이다. 
+
+오라클은 모두 출력 되어야 하는 테이블의 반대쪽, 조인될 데이터가 없는쪽에 "(+)" 를 표시한다.
 
 
 
@@ -440,9 +505,57 @@ where a.deptno = b.deptno
 WITH emps AS(
 SELECT DEPTNO, COUNT(*) AS EMP_COUNT
 FROM EMP GROUP BY DEPTNO)
+
 SELECT E.ENAME, EMPS.EMP_COUNT
 FROM EMP E, EMPS
 WHERE E.DEPTNO = EMPS.DEPTNO;
+
 ~~~
 
+성능상으로도 이점을 볼 수 있다.
 
+
+* WITH 문을 사용하지 않은 경우
+
+~~~
+select e.empno, e.deptno, e.sal, d.dname from (
+select empno, sal, deptno from myemp1 where sal > 5000000
+) e, mydept1 d
+where e.deptno = d.deptno
+and e.deptno = ‘1’
+
+union
+select e.empno, e.deptno, e.sal, d.dname from (
+select empno, sal, deptno from myemp1 where sal > 5000000
+) e, mydept1 d
+where e.deptno = d.deptno
+and e.deptno = ‘2’
+union
+select e.empno, e.deptno, e.sal, d.dname from (
+select empno, sal, deptno from myemp1 where sal > 5000000
+) e, mydept1 d
+where e.deptno = d.deptno
+and e.deptno = ‘3’
+~~~
+
+* WITH 문을 사용한 경우 (거의 절반수준의 속도차이를 보인다.)
+
+~~~
+
+with e as (
+select empno, sal, deptno from myemp1 where sal > 5000000
+)
+select e.empno, e.deptno, e.sal, d.dname from e, mydept1 d
+where e.deptno = d.deptno
+and e.deptno = ‘1’
+union
+select e.empno, e.deptno, e.sal, d.dname from e, mydept1 d
+where e.deptno = d.deptno
+and e.deptno = ‘2’
+union
+select e.empno, e.deptno, e.sal, d.dname from e, mydept1 d
+where e.deptno = d.deptno
+and e.deptno = ‘3’
+
+
+~~~
