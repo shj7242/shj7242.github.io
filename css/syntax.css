@@ -7,6 +7,7 @@
 
 .highlight pre {
   overflow-x: auto;       // this sets the scrolling in x
+    color: white;
 }
 
 .highlight pre code {
@@ -20,7 +21,7 @@
  * Courtesy of GitHub.com
  */
 
-.highlight pre, pre, .highlight .hll { background-color: black; border: 1px solid black; padding: 6px 10px; border-radius: 0px; }
+.highlight pre, pre, .highlight .hll { background-color: black; border: 1px solid black; padding: 6px 10px; border-radius: 0px; color:white;}
 .highlight .c { color: #999988; font-style: italic; }
 .highlight .err { color: #a61717; background-color: #e3d2d2; }
 .highlight .k { font-weight: bold; }
