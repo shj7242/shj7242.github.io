@@ -11,6 +11,7 @@
 
 .highlight pre code {
   white-space: pre;       // forces <code> to respect <pre> formatting
+    color: white;
 }
 
 
@@ -19,7 +20,7 @@
  * Courtesy of GitHub.com
  */
 
-.highlight pre, pre, .highlight .hll { background-color: floralwhite; border: 1px solid black; padding: 6px 10px; border-radius: 10px; }
+.highlight pre, pre, .highlight .hll { background-color: black; border: 1px solid black; padding: 6px 10px; border-radius: 0px; }
 .highlight .c { color: #999988; font-style: italic; }
 .highlight .err { color: #a61717; background-color: #e3d2d2; }
 .highlight .k { font-weight: bold; }

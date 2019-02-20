@@ -122,9 +122,12 @@ AUTOTRACE에는 consistent gets로 표시된다.
 사용법
 
 ~~~
-set autotrace off
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
 
-explain plan
+sql>set autotrace off
+
+sql>explain plan
 for
 (쿼리문)
 
@@ -136,6 +139,8 @@ select * from table(dbms_xplan.display);
 
 실행계획은 해당 SQL을 수행하기 위한 절차이며 오라클 옵티마이저에 의해 만들어 진다.
 ~~~
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
 
 ----------------------------------------------------------------------------------------
 | Id  | Operation                    | Name    | Rows  | Bytes | Cost (%CPU)| Time     |
@@ -169,12 +174,16 @@ CBO : Cost based optimizer : (dbms_stats ==> statistics)
 - OPTIMIZER_MODE 
 
 ~~~
-SHOW OPTIMIZER_MODE
-~~~
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>SHOW OPTIMIZER_MODE
+
 
 NAME                                 TYPE                   VALUE
 ------------------------------------ ---------------------- ------------------------------
 optimizer_mode                       string                 ALL_ROWS
+~~~
 
 기본적으로 ALL_ROWS 모드이다.
 ALL_ROWS 는 통계정보의 유무와 상관없이 모든 SQL 문에 CBO를 이용하며 최대 처리량을 목표로한다.
@@ -221,10 +230,44 @@ ALL_ROWS 와 마찬가지로 CBO를 사용하며 최대 처리량을 목표로 �
 
 rowid에 의한 단일 행 검색이 우선순위가 가장 높다.
 
+ex) select * from emp where rowid ='XXXX';
+
+2. cluster join에 의한 single row access
+
+같은 클러스터 내에 있는 테이블을 조인할 때 이용한다.
+
+~~~
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>select  ename, dname, sal       
+    from   emp e, dept d       
+    where e.deptno = d.deptno       
+    and   e.empno = 8888; 
+~~~
+
+~~~
+SELECT ename, job FROM emp WHERE ename = ‘신희준’;
+~~~
+ 
+WHERE절에 출현하는 칼럼에 인덱스가 있으면 무조건 인덱스를 이용한다. 
+
+인덱스를 이용하는 것 이 FULL SCAN하는 것보다 우선 순위가 높으므로 먼저 ENAME 인덱스를 이용하여 ‘신희준’ 을 랜덤 액세스 한 후 원본 테이블 레코드의 주소값인 ROWID를 찾는다. 
+
+다시 그 주소값(ROWID)을 이 용하여 원본 테이블 레코드에 접근 후 JOB 칼럼값을 추출하는 실행계획을 세운다. 
+
+사실 이 테이 블의 경우 데이터가 몇 건 안되니까 한번에 FULL SCAN하여 가지고 오는 것이 훨씬 빠른데도 인 덱스를 이용한다 
+ 
+이러한 경우 CBO가 더 효율적일 수 있게 된다.
+
+
 > 비용 기반 옵티마이저 (CBO : Cost_Based Optimizer )
 
+비용기반 옵티마이저(CBO)는 실제로 가장 빠르게 실행되는 방법의 Cost를 계산하여 실행 경로를 선택하는 방법으로 DB의 버전이 높아질수록 더욱 정교하게 발전되고 있는 방법이며 오라클에서 권장하고 있다. 
+ 
+하지만 옵티마이저가 가장 최선의 실행 경로를 찾기 위해서는 테이블의 크기, 레코드 수, 컬럼 값의 분포도와 같은 테이블의 통계정보(부가적인 정보)를 제공해 주어야 정상적으로 잘 동작한다 고 할 수 있다. 
 
-
+테이블이나 인덱스에 통계 정보가 있는지에 대한 여부는 USER_TABLES, DBA_TABLES, USER_INDEXES, DBA_INDEXES와 같은 뷰의 LAST_ANALYZED 컬럼의 값을 통해 알 수 있는데, NULL 값을 가지는 경우에는 통계 정보가 없다고 보면 된다
 
 > Optimizer Mode를 변경하는 힌트 (Rule)
 
@@ -234,12 +277,16 @@ EMP 테이블의 DEPTNO 칼럼에 현재 인덱스가 생성되지 않은 상태
 --EMP 테이블의 DEPTNO 칼럼에 인덱스가 있다면 옵티마이저가 사용하지 못하도록 숨기자.
 
 ~~~
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
 --인덱스 확인
-desc user_indexes;
 
-ALTER INDEX IDX_EMP_DEPTNO INVISIBLE;  -- 인덱스가 있어도 invisible로 하면 못잡는다. ( index를 invisible로 해놓고 쿼리를 돌리면 hash join이 됨 - CBO)
+sql>desc user_indexes; 
 
-SELECT /*+ RULE*/
+sql>ALTER INDEX IDX_EMP_DEPTNO INVISIBLE;  -- 인덱스가 있어도 invisible로 하면 못잡는다. ( index를 invisible로 해놓고 쿼리를 돌리면 hash join이 됨 - CBO)
+
+sql>SELECT /*+ RULE*/
     e.empno,
     e.ename,
     d.dname
@@ -251,7 +298,10 @@ WHERE e.deptno = d.deptno;
 
 
 ~~~
-select
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>select
 	a.table_name, a.index_name, a.visibility, a.last_analyzed,
 	b.column_name, b.column_position
 from	user_indexes a , user_ind_columns b
@@ -264,11 +314,11 @@ where	a.table_name = b.table_name
 
 
 ~~~
-select table_name, last_analyzed from user_tables where table_name in ('EMP','DEPT');
-~~~
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
 
+sql> select table_name, last_analyzed from user_tables where table_name in ('EMP','DEPT');
 
-~~~
 TABLE_NAME                                                   LAST_ANALYZE
 ------------------------------------------------------------ ------------
 DEPT                                                         11-FEB-19
@@ -304,7 +354,10 @@ ALL_ROWS는 CBO의 기본값이며 전체 데이터를 가지고오는데 있어
 ALL_ROWS 힌트가 제성능을 발휘하기 위해서 통계정보가 필요하다.
 
 ~~~
-SELECT /*+ ALL_ROWS*/ e.empno, e.ename, d.dname
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>SELECT /*+ ALL_ROWS*/ e.empno, e.ename, d.dname
 FROM myemp1 e, mydept1 d
 WHERE e.deptno = d.deptno;
 ~~~
@@ -315,11 +368,13 @@ CHOOSE CBO의 ALL_ROWS 로 동작하지만 통계정보가 없다면 RBO가 된�
 
 
 ~~~
-SET AUTOTRACE EXPLAIN
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>SET AUTOTRACE EXPLAIN
 
 --통계정보 생성
-ANALYZE TABLE myemp1 COMPUTE STATISTICS;
-ANALYZE 
+sql>ANALYZE TABLE myemp1 COMPUTE STATISTICS;
 ~~~
 
 
@@ -334,32 +389,40 @@ ANALYZE
  반환된 로우를 유니온처럼 합산하는 연산
  
 ~~~
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
 
 --테이블에 생성되어있는 인덱스 및칼럼 확인
 
-SELECT a.index_name, a.column_name b.visibility
+sql>SELECT a.index_name, a.column_name b.visibility
     FROM user_ind_columns a, user_indexes b
 WHERE a.table_name = 'EMP'
 AND   a.index_name = b.index_name;
 
 -- 인덱스가 없으면 생성
-create index idx_emp_job ON EMP(job);
-create index idx_emp_deptno on EMP(deptno);
+sql>create index idx_emp_job ON EMP(job);
+sql>create index idx_emp_deptno on EMP(deptno);
 
 -- RBO로 변경
-ALTER SESSION SET OPTIMIZER_MODE =RULE;
+sql>ALTER SESSION SET OPTIMIZER_MODE =RULE;
 
 ~~~
  
 ~~~
-select *
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>select *
 from emp
 where job = 'SALESMAN' and DEPTNO IN(20,40)
 ;
 ~~~
 
 ~~~
-SELECT *
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+sql>SELECT *
 FROM EMP
 WHERE (JOB = 'SALESMAN' AND DEPTNO =20)
 OR    (JOB = 'SALESMAN' AND DEPTNO =40)
