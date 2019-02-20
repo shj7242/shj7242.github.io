@@ -32,10 +32,72 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2019 - 02 - 15 (금)</H4>
 <br>
 
+> SGA & PGA
+
+>> SGA
+
+* 여러 프로세스가 동시에 접근하는 메모리 영역
+
+* 모든 DB서버 프로세스가 공유하는 메모리 영역
+
+* 모든 사용자가 공유하여 사용하는 메모리 영역
+
+* 공유풀(라이브러리 캐시 + 데이터 사전 캐시), 데이터버퍼캐시, 리두로그버퍼 등으로 구성됨
+
+* SGA가 클수록 HDD 사용 필요성이 줄어들게 되므로 성능이 향상됨. (일종의 Cache)
+
+>> PGA
+
+* 인스턴스의 메모리 영역
+
+* 사용자마다 개별적으로 할당되는 메모리 영역
+
+* 정렬, 셰션, 커서, 변수에 관한 정보를 저장하는 공간
+
+* 개별 서버 프로세스가 가지는 전용 메모리 영역
+
+> SQL 처리 과정
+
+1. 사용자의 SQL 문장 실행 : 오라클 서버측 리스너가 서버 프로세스로 SQL문장 전달
+
+2. SQL 파싱 : 클라이언트에서 보내온 SQL 구문이 서버프로세스 PGA 내부의 Private SQL Area 에서 문법 체크를 우선 진행하고, 테이블 및 컬럼이 있는지, 해당 유저가 테이블 및 컬럼을 select할 권한이 있는지를 Data Dictionary를 통해 체크한다.
+
+Shared pool 을 통해서 동일한 SQL 문장이 있다면 Library Cache 의 parse-tree와 Query Execution Plan을 가지고 와서 실행한다. (Soft Parsing이라고 함)
+
+> Cursor & Oracle Memory
+
+* 커서는 SELECT 또는 DML 조작시 클라이언트 프로세스에서 참조하는 PGA또는 SGA의 Library Cache내 전용 SQL 영역을 가리키는 포인터 또는 핸들이다.
+
+* SQL 커서는 오라클 서버 운영모드가 Dedicate Server환경이면 PGA, MTS 환경이면 SGA의 Library Cache에 위치한다.
+
+* 명시적 커서는 PL/SQL을 작성하는 개발자가 명시적으로 Declare 절에 선언하여 사용하는 커서이며 다중행을 다룰 때 사용한다.
+
+
+> Literal SQL & Bind Variable SQL (Soft Parsing / Hard Parsing)
+
+리터럴 SQL 은 WHERE 절 작성시 비교값에 문자/상수 같은 상수값을 하드코딩으로 작성한 것이다.
+
+Bind Variable SQL 은 WHERE 절의 특정값을 표시하는 자리에 바인드 변수 형태로 표시한 것을 말한다.
+
+리터럴 SQL문을 많이 사용하면 하드파싱의 빈도를 높이게 되어 Library Cache 내에서 Cache 되는 SQL문들이 자주 age out 하게 되므로 주기를 빠르게 하고 Dictionary Cache의 사용률을 
+ 
+높이게 된다. 이러한 Shared SQL Area의 SQL문 중에서 리터럴 SQL 문들을 찾아서 Bind Variable을 이용한 방법으로 바꾸어야 성능향상에 도움이 된다. 
+
+
 > 튜닝 도구 : SQL AUTOTRACE
 
 
 SET AUTOTRACE를 사용하기 위해서 PLAN_TABLE 이 존재해야하며 구문을 활성화 하기 위해 해준다.
+
+SET AUTOTRACE OFF : 기본값으로 AUTOTRACE를 수행하지 않는다. 
+
+SET AUTOTRACE ON EXPLAIN : 실행계획만을 출력 
+
+SET AUTOTRACE ON STATISTICS : 통계정보만을 출력
+
+SET AUTOTRACE ON : 옵티마이저의 실행계획과 통계정보, 질의의 실행 결과를 함께 출력 
+
+SET AUTOTRACE TRACEONLY [EXPLAIN] : SET AUTOTRACE ON과 유사하지만 옵티마이저의 실 행계획과 통계정보를 출력, 만약 EXPAIN이라고 하면 실행계획만 출력한다
 
 ~~~
 SET AUTOTRACE ON
@@ -45,9 +107,13 @@ SET AUTOTRACE ON
 [DB_BLOCK_GETS 및 CONSISTENCE GET]
 
 Consistent Mode : 읽기 일관성이 보장된 상태에서 데이터 블록을 읽는 것인데 대부분 SELECT 쿼리가 해당됨
+
 쿼리가 시작된 시점을 기준으로 일관성있게 읽어 들이며 읽는 도중에 값이 바뀌어도 쿼리시자점의 값으로 읽는다. 
+
 그러므로 SCN의값을 확인하면서 읽는데 값이 변경되면 SCN 번호가 증가되므로 이 경우에는 Rollback Segment에서 과거의 블록을 읽는다.
+
 AUTOTRACE에는 consistent gets로 표시된다.
+
 
 
 
@@ -68,6 +134,7 @@ select * from table(dbms_xplan.display);
 
 > 실행계획 해석(predicate)
 
+실행계획은 해당 SQL을 수행하기 위한 절차이며 오라클 옵티마이저에 의해 만들어 진다.
 ~~~
 
 ----------------------------------------------------------------------------------------
@@ -85,6 +152,12 @@ select * from table(dbms_xplan.display);
 
 위와 같은 plan 에서 옆에 * 가 있으면 predicate 가 있다는 의미이다.
 
+predicate란 인덱스 접근시의 컬럼 액세스 정보, 조인 정보, filter 정보를 각 Opreation 단위로 나 타낸 것이다. 
+ 
+access predicate : 데이터 블록을 어떤 방식으로 Access해서 읽었는지를 나타내는 것이다.  
+
+filter predicate : 데이터 블록을 읽고 나서 데이터를 어떻게 필터링 했는지를 나타낸다. 
+ 
 
 > 초기화 파라미터 OPTIMIZER_MODE
 
@@ -107,10 +180,17 @@ optimizer_mode                       string                 ALL_ROWS
 ALL_ROWS 는 통계정보의 유무와 상관없이 모든 SQL 문에 CBO를 이용하며 최대 처리량을 목표로한다.
 
 
-- CHOOSE  
+1. CHOOSE  : RBO 혹은 CBO 를 하나 선택한다.  
+
+통계 정보의 이용가능 여부에 따라 결정하는데 통계정보가 이용 가능하면 CBO를 사용하고 불가능한 경우에는 RBO를 사용한다. 
+
+만약 데이터딕셔너리에 액세스 되는 테이블 중 적 어도 하나의 테이블에 대한 통계 정보가 있는 경우엔 CBO를 사용하며 최대 처리량(ALL_ROWS)을 목표로 최적화를 수행한다. 
+ 
+딕셔너리에 약간의 통계 정보만을 가지고 있다면 CBO가 사용될 수 있지만 옵티마이저는 통계 정보가 없는 부분에 대해서는 통계 정보를 추측해야 하며 이는 최선의 실행 계획이라기보다 차선 의 실행 계획이라고 볼 수 있다. 
 
 ~~~
 --CHOOSE 모드로 변경
+
 ALTER SESSION SET OPTIMIZER_MODE =CHOOSE;ALTER SESSION SET OPTIMIZER_MODE =CHOOSE;
 ~~~
 
@@ -118,23 +198,24 @@ CBO와 RBO중 하나를 선택한다. 이용가능 여부에 따라 결정한다
 ALL_ROWS 와 마찬가지로 CBO를 사용하며 최대 처리량을 목표로 최적화를 수행한다. 
 
 
-- FIRST_ROWS_(1|10|100|1000) 
+2. FIRST_ROWS_(1|10|100|1000) 
 
 통계정보의 유무와 상관없이 모든 SQL문에 대해 CBO를 이용하며 처음 N개의 레코드를 가장 빨리 추출할 수 있는최적의 경로를 찾음
 
-- FIRST_ROWS 
+3. FIRST_ROWS 
 
 옵티마이저는 첫번째 레코드의추출을 가장 빠르게 하는 최적의 경로를 찾는다.
 
-- RULE
+4. RULE
 
 통계정보의 유무와 관계없이 모든 SQL에 RBO를 사용하도록 한다.
 
 
-
-
 > 규칙 기반 옵티마이저 (RBO : Rule-Based Optimizer)
 
+오라클 DB가 RBO로 동작하는 경우는 옵티마이저 모드가 RULE 이거나 CHOOSE 이면서 인덱스에 대한 통계정보가 없는 경우이다.
+
+* 규칙 기반 옵티마이저의 우선 순위
 
 1. rowid에 의한 single row access
 
@@ -699,5 +780,10 @@ By William Scott [WHERE 조건절 Tip]
 
 - WHERE 절에 선행 INDEX칼럼을 명시하라.
 
+
+
+> 오라클 인덱스
+
+* 비트리 인덱스 : 가장 많이 사용되는 인덱스 형태이며 구조가 자료구조의 TREE 형태와 비슷하다.
 
 ++ bitmap index vs b-tree index
