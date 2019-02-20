@@ -333,14 +333,17 @@ where a.deptno = d.deptno
 ~~~
 
 1. 테이블을 읽는 순서가 어떤게 맞을것인가?
-    1-1. FROM EMP, DEPT
-    1-2. FROM DEPT, EMP
+    
+    * FROM EMP, DEPT
+    
+    * FROM DEPT, EMP
 
 EMP(ROW 14 column 8)  DEPT(ROW 4 COLUMN 3)
+
 --> 읽어야할 데이터가 dept가 훨신 적기 때문에 DEPT 부터 읽어야 함.
 
 
-2. 일반적으로는 뒤에서 부터 읽기 때문에... dept를읽고 emp를 읽는다. 어떤 경우에는 앞에 위치한 EMP를 읽고 DEPT를 읽는다. 어떨 때 일까요?
+2. 일반적으로는 뒤에서 부터 읽기 때문에 dept를읽고 emp를 읽는다. 어떤 경우에는 앞에 위치한 EMP를 읽고 DEPT를 읽는다.
 
 예외:) DEPT INDEX가 있는데 EMP INDEX가 없을 경우에 EMP 테이블을 먼저 읽는다.
 
@@ -847,6 +850,13 @@ By William Scott [WHERE 조건절 Tip]
 
 > 오라클 인덱스
 
-* 비트리 인덱스 : 가장 많이 사용되는 인덱스 형태이며 구조가 자료구조의 TREE 형태와 비슷하다.
+    * 비트리 인덱스 : 가장 많이 사용되는 인덱스 형태이며 구조가 자료구조의 TREE 형태와 비슷하다.
 
-++ bitmap index vs b-tree index
+        기본적인 Algorithm을 이용하는데 주로 온라인 업무의 적은 데이터 처리에 유 리하고 분포도가 나쁜 데이터 처리는 성능에 악영향을 줄 수 있다.
+ 
+        하나의 ROW를 검색 시 어느 ROW나 동일한 양의 블록을 ACCESS하게 되므로 검색 시간이 동일하다.
+
+
+    * 비트맵 인덱스 : 정보저장의 최소단위인 비트를 이용하여 칼럼 값을 간결하게 저장하고 이를 이용하여 자동으로 ROWID를 생성하는 구조를 가지며 분포도가 나쁜 칼럼, NOT, OR를 사용하는 경우 탁월한 성능을 낸다. 
+        
+        
