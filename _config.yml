@@ -28,7 +28,7 @@ des: 메모 / 기술 블로그
 
 # 기본적으로 posts에 들어있는 게시글은 자동으로 선택된다.
 tipue_search:
-include: # 포함할 url을 선택한다.
+include: shj7242.github.io
 pages: false # posts 폴더 이외에 다른 문서 선택 여부 (true일 경우 모든 url이 포함된다.)
 collections: []
 exclude: # 제외시킬 url을 선택한다.
