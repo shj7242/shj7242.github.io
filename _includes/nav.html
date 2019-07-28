@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ site.baseurl }}/">SHJ블로그</a>
+            <a class="navbar-brand" href="{{ site.baseurl }}/">SHJ</a>
         </div>
         
 
@@ -22,15 +22,21 @@
                 </li>
 
                 <li>
-                    <a href="https://shj7242.github.io/about">ABOUT</a>
+                    <a href="https://shj7242.github.io/contact/">금융지식</a>
                 </li>
                 <li>
-                    <a href="https://shj7242.github.io/contact/">CONTACT</a>
+                    <a href="https://shj7242.github.io/all/">IT지식</a>
                 </li>
                 <li>
-                    <a href="https://shj7242.github.io/all/">INDEX</a>
+                    <!-- search box -->
+                    <form action="/search">
+                      <div class="tipue_search_box">
+                        <img src="/assets/tipuesearch/search.png" class="tipue_search_icon">
+                        <input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="최소 3글자 이상" required></div>
+                      <div style="clear: both;"></div>
+                    </form>
                 </li>
-
+                
 <!--
                 {% for page in site.pages %}{% if page.title %}
 				{% if page.url != '/404.html' %}
