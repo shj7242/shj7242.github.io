@@ -34,12 +34,12 @@
          
 
     <div id="search">
-<form action="/search">
-  <div class="tipue_search_box">
-    <img src="/assets/tipuesearch/search.png" class="tipue_search_icon">
-    <input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="최소 3글자 이상" required></div>
-  <div style="clear: both;"></div>
-</form>
+    <form action="{{ site.url }}/search">
+          <div class="tipue_search_box">
+            <img style="margin-left:30px;" src="{{ "/assets/tipuesearch/search.png" | relative_url }}" class="tipue_search_icon">
+            <input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="최소 3글자 이상" required></div>
+          <div style="clear: both;"></div>
+    </form>
                     </div>
 
                 </li>
