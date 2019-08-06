@@ -20,7 +20,6 @@ var tipuesearch_stop_words = ["a", "about", "above", "after", "again", "against"
 var tipuesearch_replace = {'words': [
      {'word': 'tip', 'replace_with': 'tipue'},
      {'word': 'javscript', 'replace_with': 'javascript'},
-     {'word': 'jqeury', 'replace_with': 'jquery'}
 ]};
 
 
@@ -47,8 +46,6 @@ var tipuesearch_stem = {'words': [
 var tipuesearch_related = {'searches': [
      {'search': 'tipue', 'related': 'Tipue Search'},
      {'search': 'tipue', 'before': 'Tipue Search', 'related': 'Getting Started'},
-     {'search': 'tipue', 'before': 'Tipue', 'related': 'jQuery'},
-     {'search': 'tipue', 'before': 'Tipue', 'related': 'Blog'}
 ]};
 
 
@@ -61,12 +58,12 @@ var tipuesearch_string_4 = '1 result';
 var tipuesearch_string_5 = 'results';
 var tipuesearch_string_6 = 'Back';
 var tipuesearch_string_7 = 'More';
-var tipuesearch_string_8 = 'Nothing found.';
+var tipuesearch_string_8 = '검색 결과 없음.';
 var tipuesearch_string_9 = 'Common words are largely ignored.';
-var tipuesearch_string_10 = 'Search too short';
-var tipuesearch_string_11 = 'Should be one character or more.';
-var tipuesearch_string_12 = 'Should be';
-var tipuesearch_string_13 = 'characters or more.';
+var tipuesearch_string_10 = '';
+var tipuesearch_string_11 = '';
+var tipuesearch_string_12 = '';
+var tipuesearch_string_13 = '글자 이상으로 검색하세요';
 var tipuesearch_string_14 = 'seconds';
 var tipuesearch_string_15 = 'Searches related to';
 
@@ -77,4 +74,3 @@ var tipuesearch_string_15 = 'Searches related to';
 // Timer for showTime
 
 var startTimer = new Date().getTime();
-
