@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "FX"
+title:      "환율"
 
-date:       2019-08-03 12:55:00
+date:       2019-05-15 12:55:00
 author:     "신희준"
 header-img: "img/background.jpg"
 comments: true
