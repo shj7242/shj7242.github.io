@@ -1,0 +1,112 @@
+---
+layout:     post
+title:      "FX"
+
+date:       2019-08-03 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="FX">
+ <meta property="og:title" content="FX">
+ <meta property="og:description" content="FX">
+ <meta property="og:url" content="http://shj7242.github.io/2018/08/03/FX/">
+
+ <meta name="twitter:card" content="FX">
+  <meta name="twitter:title" content="FX">
+  <meta name="twitter:description" content="FX">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/08/03/FX/">
+  <meta name="facebook:card" content="FX">
+   <meta name="facebook:title" content="FX">
+   <meta name="facebook:description" content="FX">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2019/08/03/FX/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 05 - 15 (수)</H4>
+<br>
+
+>> 환율
+
+* 환율은 말그대로 두 통화간의 교환비율을 의미하며 각 통화의 상대적 가치라고 표현할 수 있다.
+
+> 환율 표기방법 
+
+* 외환시장 에서 환율 표시방법은 USD/KRW , USD/JPY , USD/HKD 처럼 쌍으로 표시되는게 일반적이다. (Currency Pairs)
+
+* 앞에 있는 통화가 기준통화가 되며 뒤에있는 통화가 상대통화가 되며 환율계산은  상대통화 / 기준통화 (Counter Currency / Base Currency) 
+
+ex) USD 1달러와 KRW 1000원의 가치가 같을 경우 이때 환율은 1000이라고 표현함
+
+~~~
+직접표시법 (European Terms) : USD 를 기준통화로 설정하고 상대통화를 이외 통화로 설정한다. ex) USD/KRW : 1180.23 , USD/HKD : 7.8132
+간접표시법 (American Terms) : 다른통화를 기준통화로 설정하고 USD 를 상대통화로 설정하요 FX 환율 계산 ex) KRW/USD = 0.00082, HKD/USD = 0.13
+~~~
+
+환율을 통해 외환시장이 형성되며 FX Forward (FX선도) , SPOT (현물환) , 통화옵션, 통화선물 등 다양한 파생금융상품들을 통해 시장참여자들은 환율 위험을 분산시킬 수 있다. (Hedge)
+
+
+> 환율의 종류
+
+
+
+* 계약 <-> 결제 시점으로 분류 : 현물환율(Spot) , 선도환율(Forward) 
+
+현물환율 : 2영업일 이내 결제될 경우 적용되는 환율을 말한다. 즉, 현재 환율이 xxx 일때 당일 적용시킬 환율 , 익일 적용시킬 환율 , 2일 후에 적용시킬환율
+선도환율 : 2영업일 이후 결제될 경우 적용시킬 환율. 통상적으로 (현물환율 + 스왑포인트)로 표시
+
+* 스왑포인트 : 서로다른 두통화에대한 각각 금리 차이를 환율로 표시
+
+스왑포인트 (+) : 매도통화 금리 > 매입통화 금리
+스왑포인트 (-) : 매도통화 금리 < 매입통화 금리
+
+~~~
+Day Count Convention : ACTUAL/360
+현물환율 = 선도환율 * (1+매입통화 금리 * (일수/360))/(1+매도통화 금리 * (일수/360))
+
+(시장 고시)
+USD/KRW : 1050.00
+USD Base Rate : 1.5
+KRW Base Rate : 2.5
+Term : 1Y
+
+1050 = F * (1.015)/(1.025)
+1050 = F * 0.99xxxxxx
+F = 1050 / 0.99xxxxxx
+F = 1060
+
+SWAP POINT = F - S 
+= 10
+~~~
+
+매매기준율 : 현물환거래에서 사용된 환율을 가중평균하여 산출한 평균환율 (은행의 경우 변동되는 시세에 따라 여러차례 계산 후 고시함)
+
+~~~
+2019/05/08 09:10 : USD/KRW 1150  Buy USD 10
+2019/05/08 09:13 : USD/KRW 1148  Buy USD 10
+2019/05/08 10:15 : USD/KRW 1151  BUY USD 15
+
+매매기준율 = (1150 * 10) + (1148 * 10) + (1151 * 15) / 45
+~~~
+
+* 기준환율 (basic rate): 각 국 통화에 대해 기본이 되는 미국달러와의 환율
+* 교차환율 (cross rate): 자국통화가 개입되지 않은 미국달러와 다른 나라 통화간의 환율
+* 재정환율 (arbitrated rate): 기준환율과 교차환율의 관계에서 성립한 자국통화와 미국달러화 이외의 통화간의 환율
+
+~~~
+재정환율 계산 : 환율 스플릿
+
+USD/KRW 1070
+USD/JPY 100
+
+(1070/1)/(100/1) = 10.7
+
+JPY/KRW 10.7
+
+~~~
