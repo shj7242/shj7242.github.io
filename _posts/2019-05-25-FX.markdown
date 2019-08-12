@@ -53,13 +53,21 @@ FX는 말그대로 서로다른 통화를 교환하는 행위이다. 이 때 교
 
 장내에서 거래되는 상품이 아니므로 해당 상품 딜러는 POINT TO POINT 거래를 하게된다. (딜러와 거래상대방)
 
-* FX 환율 표기법
+* FX 환율 표기법 <a href = "http://shj7242.github.io/2019/08/03/EXRATE/">[환율 설명]</a>
 
-(European Terms : 국제표준) : USD 를 기준통화로 설정하고 상대통화를 이외 통화로 설정한다. ex) USD/KRW : 1180.23 , USD/HKD : 7.8132
-(American Terms ) : 다른통화를 기준통화로 설정하고 USD 를 상대통화로 설정하요 FX 환율 계산 ex) KRW/USD = 0.00082, HKD/USD = 0.13
+[European Terms] : USD 를 기준통화로 설정하고 상대통화를 이외 통화로 설정한다. ex) USD/KRW : 1180.23 , USD/HKD : 7.8132 (Standard)
+[American Terms] : 다른통화를 기준통화로 설정하고 USD 를 상대통화로 설정하요 FX 환율 계산 ex) KRW/USD = 0.00082, HKD/USD = 0.13
 
 
 
 > SPOT(현물환) 이란?
 
-SPOT은 통상적으로 현물환이라고도 하는데 환전 거래와 매우 유사하다.
+SPOT은 통상적으로 현물환이라고도 하는데 환전 거래와 매우 유사하다. 
+
+계약시점으로부터 2일 내에 거래되며 Today(당일)/Tommorrow(익일)/Spot(2일 후)
+
+~~~
+만일 USD/KRW 1:1100 의 환율로 USD $10000 익일 매입한다고 가정하면 이는 Spot(Tommorrow) 거래이다.
+
+
+~~~
