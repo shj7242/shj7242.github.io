@@ -1,0 +1,79 @@
+---
+layout:     post
+title:      "금리/이자"
+
+date:       2019-06-01 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="Interest">
+ <meta property="og:title" content="Interest">
+ <meta property="og:description" content="Interest">
+ <meta property="og:url" content="http://shj7242.github.io/2018/06/01/Interest/">
+
+ <meta name="twitter:card" content="Interest">
+  <meta name="twitter:title" content="Interest">
+  <meta name="twitter:description" content="Interest">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/06/01/Interest/">
+  <meta name="facebook:card" content="Interest">
+   <meta name="facebook:title" content="Interest">
+   <meta name="facebook:description" content="Interest">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2018/06/01/Interest/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 06 - 01 (토)</H4>
+<br>
+
+>> 금리
+
+
+* 계산방식에 따른 분류
+
+~~~
+단리 : 원금에 대한 이자만 계산 FV = PV + nr
+복리 : 원리금에 대한 이자 계산 FV = PV * (1+r)^n
+
+Money Market 의 경우 금리는 만기에 일시불로 지급된다. 이 경우 단리의 개념이 적용이된다.
+1년을 360일로 표시할 수도 있으며 365일로 표시할 수도 있다. (Day Count Convention)
+
+만일 단리로 180일 동안 예치하였고 금리가 1%라면 만기 시 받는 돈은 아래와 같이 계산된다.
+-------------------------------------
+원금 + (원금 * 이자율) * 180/360 
+-------------------------------------
+
+복리로 계산할 경우
+-------------------------------------
+원금 * (1 * 이자율)^n 
+-------------------------------------
+
+1년에 m회 복리로 n년간 투자할경우
+-------------------------------------
+원금 * (1 * 이자율/m)^(m*n) 
+-------------------------------------
+
+~~~
+
+* 국내 금융시장에서 형성되는 주요 금리
+
+~~~
+한국은행 기준금리(정책금리) , 콜금리, CD91일물 수익률, 만기1년, 3년, 5년, 10년 국고채 수익률 등 이있다.
+~~~
+
+* 시점에 따른 금리 구분
+
+~~~
+현물금리 (Spot Rate) : n 년간의 Spot Rate 는 n년간 투자해서 얻을 수 있는 금리이다. 이 때, 
+선도금리 (Forward Rate)
+
+n년 만기 현물금리는 현재부터 n년동안 투자로부터 얻을 수 있는 금리를 말한다.
+~~~
+
+

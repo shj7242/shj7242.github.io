@@ -1,0 +1,35 @@
+---
+layout:     post
+title:      "Day Count Convention"
+
+date:       2019-03-12 12:55:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="DayCount">
+ <meta property="og:title" content="DayCount">
+ <meta property="og:description" content="DayCount">
+ <meta property="og:url" content="http://shj7242.github.io/2018/03/12/DayCount/">
+
+ <meta name="twitter:card" content="DayCount">
+  <meta name="twitter:title" content="DayCount">
+  <meta name="twitter:description" content="DayCount">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/03/12/DayCount/">
+  <meta name="facebook:card" content="DayCount">
+   <meta name="facebook:title" content="DayCount">
+   <meta name="facebook:description" content="DayCount">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2019/03/12/DayCount/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2019 - 03 - 12 (화)</H4>
+<br>
+
+>> Day Count Convention
