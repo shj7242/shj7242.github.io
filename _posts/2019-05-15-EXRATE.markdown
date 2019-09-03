@@ -12,16 +12,16 @@ comments: true
  <meta property="og:type" content="FX">
  <meta property="og:title" content="FX">
  <meta property="og:description" content="FX">
- <meta property="og:url" content="http://shj7242.github.io/2018/08/03/FX/">
+ <meta property="og:url" content="http://shj7242.github.io/2018/08/03/EXRATE/">
 
  <meta name="twitter:card" content="FX">
   <meta name="twitter:title" content="FX">
   <meta name="twitter:description" content="FX">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/08/03/FX/">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2018/08/03/EXRATE/">
   <meta name="facebook:card" content="FX">
    <meta name="facebook:title" content="FX">
    <meta name="facebook:description" content="FX">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2019/08/03/FX/">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2019/08/03/EXRATE/">
 
 
  </head>
@@ -78,8 +78,8 @@ ex) USD 1달러와 KRW 1000원의 가치가 같을 경우 이때 환율은 1000�
 
 * 스왑포인트 : 서로다른 두통화에대한 각각 금리 차이를 환율로 표시
 
-스왑포인트 (+) : 매도통화 금리 > 매입통화 금리
-스왑포인트 (-) : 매도통화 금리 < 매입통화 금리
+* 스왑포인트 (+) : 매도통화 금리 > 매입통화 금리
+* 스왑포인트 (-) : 매도통화 금리 < 매입통화 금리
 
 ~~~
 Day Count Convention : ACTUAL/360
@@ -178,7 +178,7 @@ CASE 3) 거래통화 중 매입/매도 통화 중 한 통화가 총계정통화�
 |우선순위통화|차우선순위통화|환율|
 |------|---|---|
 |EUR|HKD|8.9|      (거래환율)
-|USD|EUR|0.0892|      = 120 
+|EUR|USD|0.0892|      = 120 
 |USD|HKD|Y|           = 8.9/Cross Rate(8.736) / (1/7.8)  = 7.964
 
 

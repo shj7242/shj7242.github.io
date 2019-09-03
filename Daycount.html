@@ -1,0 +1,58 @@
+<html>
+    <title>희준's 현금흐름 만들기</title>
+
+    <head>
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+        <script>
+            
+            $(document).ready(function(){
+                
+                $("#bond").on("click", function(){
+                    var startDate = $("#strDt").value();
+                    var endDate = $("endDt").value();
+                    var rate = $("rate").value();
+                    alert(startDate);                   
+//                    var startYear = startDate.substr(0,4);
+//                    var startMonth = startDate.substr(5,2);
+//                    var startDay =startDate.substr(8,2);
+//                    
+//                    var endYear = endDate.substr(0,4);
+//                    var endMonth = endDate.substr(5,2);
+//                    var endDay =endDate.substr(8,2);
+                    
+
+                })
+            })
+
+        </script>
+    </head>
+    
+    <body>
+        <div style = "width : 30%; background-color : yellow ">
+            <h1>30/360A - Bond Basis</h1>
+                <div>
+                    <Label>시작일 :</Label> <input type = "text" placeholder = 'yyyy/mm/dd' id ="strDt">
+    
+                </div>
+                <div>
+                    <Label>종료일 :</Label> <input type = "text" placeholder = 'yyyy/mm/dd' id = "endDt">
+                </div>
+                <div>
+                    <Label>이자율 :</Label> <input type = "text" placeholder = 'yyyy/mm/dd' id = "rate">
+                </div>
+            
+            <input type = "button" value = "계산" id = "bond" style = "width : 50%; margin : 10px auto; ">
+            <div>
+                <Label>결과</Label> <input type = "text">
+            
+            </div>
+            
+        </div>
+        
+        
+    
+    </body>
+    
+    
+</html>
