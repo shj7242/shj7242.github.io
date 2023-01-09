@@ -12,16 +12,16 @@ comments: true
  <meta property="og:type" content="자바문자열">
  <meta property="og:title" content="자바문자열">
  <meta property="og:description" content="자바문자열">
- <meta property="og:url" content="http://shj7242.github.io/2023/01/09/자바문자열/">
+ <meta property="og:url" content="http://shj7242.github.io/2023/01/09/javaString/">
 
  <meta name="twitter:card" content="자바문자열">
   <meta name="twitter:title" content="자바문자열">
   <meta name="twitter:description" content="자바문자열">
-  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2023/01/09/자바문자열/">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2023/01/09/javaString/">
   <meta name="facebook:card" content="자바문자열">
    <meta name="facebook:title" content="자바문자열">
    <meta name="facebook:description" content="자바문자열">
-   <meta name="facebook:domain" content="http://shj7242.github.io/2023/01/09/자바문자열/">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2023/01/09/javaString/">
 
 
  </head>
