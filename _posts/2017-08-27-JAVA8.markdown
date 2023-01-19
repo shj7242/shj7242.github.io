@@ -34,23 +34,21 @@ comments: true
    </head>
 
 
-
-
-
 <H4 style ="font-weight:bold; color : black">2017 - 08 - 27 (일)</H4>
 
 <br>
 <H4 style ="font-weight:bold; color:black;">참고 도서 : 자바의 정석(남궁성 저, 도우출판)</H4>
 <br>
 
->Collections Framework
 
+
+# Collections Framework
 <br><br>
 <p>다수의 데이터(Collections), 즉 데이터 그룹을 저장하는 클래스들을 표준화한 프로그래밍 방식<br>
 컬렉션 프레임워크는 크게 3가지 타입의 인터페이스로 나뉜다. ( List , Set , Map )
 </p>
 
->Collections Framework 상속계층도
+# Collections Framework 상속계층도
 
 <br>
 <img src="{{ site.baseurl }}/img/collection.jpg" alt="Post Sample Image">
@@ -81,18 +79,20 @@ while(it.hasNext()){
 ~~~
 
 
->>List
->>>ArrayList, LinkedList
->>>>ArrayList의 경우 스택구조로 되어있기에 중간의 데이터를 삭제하거나 추가할 경우 성능상의 단점을 가진다. 
->>>>LinkedList는 중간에 데이터를 삭제/추가하는 작업에 있어서 성능이 비교적 좋다.(Queue)
+## List
+
+### ArrayList, LinkedList
+
+#### ArrayList의 경우 스택구조로 되어있기에 중간의 데이터를 삭제하거나 추가할 경우 성능상의 단점을 가진다. 
+#### LinkedList는 중간에 데이터를 삭제/추가하는 작업에 있어서 성능이 비교적 좋다.(Queue)
 
 
->>Set
+## Set
 
->>>HashSet
+### HashSet
 
->>>>Set은 중복을 허용하지 않는다. 만일 add() 를 통해 중복된 데이터값을 넣는다면 False 가 반환되면서 저장을 실패할 것이다. 
->>>>중복저장을 허용하지 않고자 할 경우 Set을 활용하면 편할 것이다.
+#### Set은 중복을 허용하지 않는다. 만일 add() 를 통해 중복된 데이터값을 넣는다면 False 가 반환되면서 저장을 실패할 것이다. 
+#### 중복저장을 허용하지 않고자 할 경우 Set을 활용하면 편할 것이다.
 
 
 ~~~java
@@ -108,11 +108,11 @@ System.out.print(list);
 // {1,2,3,4,6,7,11} 이 출력될 것이다. 중복되는 값을 제거한다.
 ~~~
 
->>>TreeSet
+### TreeSet
 
->>>>TreeSet은 이진 검색 트리라는 자료구조 형태로 데이터를 저장하는 클래스이다. 
->>>>TreeSet도 Set의 성격인 중복저장 불허, 순서유지 x 를 가지고 있다.
->>>>TreeSet은 저장할 때 이미 정렬하기 때문에 읽어올 때 따로 정렬할 필요가 없다.
+#### TreeSet은 이진 검색 트리라는 자료구조 형태로 데이터를 저장하는 클래스이다. 
+#### TreeSet도 Set의 성격인 중복저장 불허, 순서유지 x 를 가지고 있다.
+#### TreeSet은 저장할 때 이미 정렬하기 때문에 읽어올 때 따로 정렬할 필요가 없다.
 
 
 ~~~java
@@ -150,14 +150,14 @@ class TreeDictionary{
 }
 ~~~
 
->>Map
+## Map
 
->>>HashMap
+### HashMap
 
->>>>key : value 형태의 자료형을 저장한다.
->>>>key 값의 중복은 허용하지 않지만 value의 중복은 허용한다. 
->>>>HashMap은 해싱을 사용하기 때문에 많은 양의 데이터를 검색하는데 있어서 뛰어난 성능을 가진다.
+#### key : value 형태의 자료형을 저장한다.
+#### key 값의 중복은 허용하지 않지만 value의 중복은 허용한다. 
+#### HashMap은 해싱을 사용하기 때문에 많은 양의 데이터를 검색하는데 있어서 뛰어난 성능을 가진다.
 
->>>TreeMap
->>>>TreeMap 은 TreeSet 처럼 이진검색트리 형태로 되어있으면서 Map의 성질을 가진다. 
->>>>HashMap이 TreeMap 보다 검색성능이 더 좋다고 하여 HashMap을 사용하는게 낫다고 하지만 범위검색 및 정렬검색의 경우 TreeMap의 성능이 더 우수하다.
+### TreeMap
+#### TreeMap 은 TreeSet 처럼 이진검색트리 형태로 되어있으면서 Map의 성질을 가진다. 
+#### HashMap이 TreeMap 보다 검색성능이 더 좋다고 하여 HashMap을 사용하는게 낫다고 하지만 범위검색 및 정렬검색의 경우 TreeMap의 성능이 더 우수하다.
