@@ -82,9 +82,7 @@ while(it.hasNext()){
 
 
 >>List
-
 >>>ArrayList, LinkedList
-
 >>>>ArrayList의 경우 스택구조로 되어있기에 중간의 데이터를 삭제하거나 추가할 경우 성능상의 단점을 가진다. 
 >>>>LinkedList는 중간에 데이터를 삭제/추가하는 작업에 있어서 성능이 비교적 좋다.(Queue)
 
