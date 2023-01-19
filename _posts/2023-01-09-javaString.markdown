@@ -35,7 +35,7 @@ comments: true
 >> 자바 문자열 종류 (String, StringBuilder, StringBuffer)
 
 
-* String
+> String
 
 > 먼저 String 이라는 객체는 immutable(생성 후 변경 불가능) 이라는 속성을 지닌다.
 > immutable은 set 메소드가 없고 변수의 값을 변경할 수 없다.  
@@ -52,9 +52,9 @@ a += "!"
 문자열을 자주 변경하는 경우 계속 가비지가 생성되고 힙메모리 부족으로 성능에 문제가 생길 가능성이 있다. 
 ~~~
 
-* String Builder , String Buffer
 
 >StringBuilder, StringBuffer
+
 >위 두개의 클래스는 기본적으로 가변성(mutable)을 갖는 클래스이다.
 >즉 변수에 선언된 값이 변경이 될 경우 기존 선언된 변수가 참조 하는 heap 영역의 값을 바꾸어 사용한다.
 >값의 변경이 자주 일어 나는 경우 해당 두개의 문자열을 사용하는것이 효율적이다.
@@ -71,9 +71,15 @@ b.append("!");
 
 ~~~
 
-정리
+> 정리
 
 String : 문자열 연산이 적고 멀티스레드 환경일 경우
+
+<br>
+
 StringBuffer : 문자열 연산이 많고 멀티스레드 환경일 경우
+
+<br>
+
 StringBuilder : 문자열 연산이 많고 단일쓰레드이거나 동기화를 고려하지 않아도 되는 경우
 위의 사항을 고려하여 적절하게 사용하면 좋다.
