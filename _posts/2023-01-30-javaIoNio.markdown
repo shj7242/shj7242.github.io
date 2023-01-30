@@ -103,7 +103,7 @@ comments: true
 * NIO의 경우 비동기 요청을 지원한다.
 
 
-  ~~~java
+  ~~~javascript
   
   //IO
   InputStream input = ...; 
@@ -120,6 +120,7 @@ comments: true
   while(!bufferFull(bytesRead)) {
     bytesRead = inChannel.read(buffer);
   }
+  
   ~~~
 
 
