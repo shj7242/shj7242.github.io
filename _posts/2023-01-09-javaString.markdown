@@ -43,10 +43,12 @@ comments: true
   
     - a = "hello world!" 로 변수에 값을 재 할당 하는 것은 a 가 참조 하는 heap 영역의 객체를 바꾸는 것이며 값을 바꾸는 것은 아님.
   
+
   ~~~
   String a = "Hello world"
   a += "!"
   ~~~
+
 
   * 위와 같은 경우 처음 a 변수가 참조하는 heap 영역을 생성하고 a 에 += "!" 을 추가했을 때 a가 참조하는 새로운 heap 영역을 만든다.
 
@@ -58,7 +60,9 @@ comments: true
 + StringBuilder, StringBuffer
 
     - 위 두개의 클래스는 기본적으로 가변성(mutable)을 갖는 클래스이다.
+  
     - 즉 변수에 선언된 값이 변경이 될 경우 기존 선언된 변수가 참조 하는 heap 영역의 값을 바꾸어 사용한다.
+  
     - 값의 변경이 자주 일어 나는 경우 해당 두개의 문자열을 사용하는것이 효율적이다.
     
   ~~~
@@ -69,15 +73,17 @@ comments: true
   ~~~
 
   * 위 두개의 차이점은 동기화의 유무로써 StringBuffer의 경우 멀티스레딩환경에서 Thread-safe하다.
+  
   * 반면 StringBuilder는 동기화를 고려하지않는다. 멀티스레딩환경이 아니라면 StringBuilder의 성능이 더 좋다.
 
 ***
 
-- 정리
+> 정리
 
 * String : 문자열 연산이 적고 멀티스레드 환경일 경우
+
 * StringBuffer : 문자열 연산이 많고 멀티스레드 환경일 경우
+
 * StringBuilder : 문자열 연산이 많고 단일쓰레드이거나 동기화를 고려하지 않아도 되는 경우 
-* 위의 사항을 고려하여 적절하게 사용하면 좋다.
 
 ***
