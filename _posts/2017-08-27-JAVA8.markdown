@@ -69,14 +69,16 @@ comments: true
 - iterator 는 일회성이며 읽는 도중에 컬렉션 변경이 불가하다.<br>
 </p>
 
-~~~java
-List list = new ArrayList(); // ArrayList 한개를 생성
-Iterator it = list.iterator();
-//list 객체의 조상인 collection클래스의 iterator()메소드호출
-while(it.hasNext()){  
-	System.out.println(it.next());
-} //.next()로 읽어옴
-~~~
+  ~~~java
+
+  List list = new ArrayList(); // ArrayList 한개를 생성
+  Iterator it = list.iterator();
+  //list 객체의 조상인 collection클래스의 iterator()메소드호출
+  while(it.hasNext()){  
+      System.out.println(it.next());
+  } //.next()로 읽어옴
+
+  ~~~
 
 
 * List
@@ -97,18 +99,22 @@ while(it.hasNext()){
     + 중복저장을 허용하지 않고자 할 경우 Set을 활용하면 편할 것이다.
 
 
-~~~java
-Object[] obj = {6,7,1,4,6,2,4,11,3,4};
-Set set = new HashSet();
-
-for(int i =0; i <obj.length; i ++){
-	set.add(obj[i]);
-}
-List list = new LinkedList(set); // List의 인스턴스 list에 set을 넣는다.
-Collections.sort(list); // Collections 의 sort() 메소드로 간단히 list를 정렬한다.
-System.out.print(list);  
-// {1,2,3,4,6,7,11} 이 출력될 것이다. 중복되는 값을 제거한다.
-~~~
+  ~~~java
+  
+    Object[] obj = {6,7,1,4,6,2,4,11,3,4};
+  Set set = new HashSet();
+  
+  for(int i =0; i <obj.length; i ++){
+      set.add(obj[i]);
+  }
+  // List의 인스턴스 list에 set을 넣는다.
+  List list = new LinkedList(set);
+  // Collections 의 sort() 메소드로 간단히 list를 정렬한다.
+  Collections.sort(list); 
+  System.out.print(list);  
+  // {1,2,3,4,6,7,11} 이 출력될 것이다. 중복되는 값을 제거한다.
+  
+  ~~~
 
 * TreeSet
 
@@ -119,40 +125,41 @@ System.out.print(list);
     + TreeSet은 저장할 때 이미 정렬하기 때문에 읽어올 때 따로 정렬할 필요가 없다.
 
 
-~~~java
-class TreeLotto{
-	public static void main(String args[]){
-		Set set = new TreeSet();
-		for(int i =0; set.size()<6 ; i ++){
-			int num = (int)(Math.random()*45) +1; // 1~45까지의 랜덤숫자를 num 변수에 넣는다.
-			set.add(num);
-		}
-		System.out.print(set); // 실행결과 {5,7,24,31,33,35} 랜덤숫자가 자동으로 정렬해서 출력
-	}
-}
-~~~
+  ~~~java
+  
+  class TreeLotto{
+      public static void main(String args[]){
+          Set set = new TreeSet();
+          for(int i =0; set.size()<6 ; i ++){
+              int num = (int)(Math.random()*45) +1; // 1~45까지의 랜덤숫자를 num 변수에 넣는다.
+              set.add(num);
+          }
+          System.out.print(set); // 실행결과 {5,7,24,31,33,35} 랜덤숫자가 자동으로 정렬해서 출력
+      }
+  }
+  
+  ~~~
 
 
-<br>
-TreeSet의 subset() 메서드
-<br>
+  * TreeSet의 subset() 메서드
 
-
-~~~java
-class TreeDictionary{
-	public static void main(String args[]){
-		Set set = new TreeSet();
-		set.add("apple");
-		set.add("banana");
-		set.add("car");
-		set.add("dragon");
-		set.add("egg");
-		String from = "a";
-		String to = "c";
-		System.out.println(from+"으로 시작하는 단어부터"+to+"로 시작하는 단어까지 검색"+set.subSet(from,to)); //a로 시작하는 단어부터 c로시작하는 단어를 검색해서 자른다.
-	}
-}
-~~~
+  ~~~java
+  
+  class TreeDictionary{
+      public static void main(String args[]){
+          Set set = new TreeSet();
+          set.add("apple");
+          set.add("banana");
+          set.add("car");
+          set.add("dragon");
+          set.add("egg");
+          String from = "a";
+          String to = "c";
+          System.out.println(from+"으로 시작하는 단어부터"+to+"로 시작하는 단어까지 검색"+set.subSet(from,to)); //a로 시작하는 단어부터 c로시작하는 단어를 검색해서 자른다.
+      }
+  }
+  
+  ~~~
 
 * Map
 
