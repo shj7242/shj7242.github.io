@@ -32,7 +32,9 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2023 - 01 - 31 (화)</H4>
 <br>
 
-# 객체지향 설계 SOLID 원칙
+<p style = "font-weight:bold; color:deepskyblue; size:20px;" >객체지향 설계 SOLID 원칙</p>
+
+<br>
 
 1. 단일 책임 원칙 (Single Responsibility Principal)
 2. 개방-폐쇄 원칙 (Open-Closed Principal)
@@ -41,7 +43,12 @@ comments: true
 5. 의존관계 역전 원칙 (Dependency Inversion Principal)
 
 
-# 단일 책임 원칙
+<br>
+
+<p style = "font-weight:bold; color:deepskyblue; size:20px;">단일 책임 원칙</p>
+
+
+<br>
 
 - 클래스는 한개의 책임을 가져야한다.
 
@@ -51,7 +58,13 @@ comments: true
 
 - 유지보수의 효율성을 위함이다.
 
-# 개방-폐쇄 원칙
+
+<br>
+
+<p style = "font-weight:bold; color:deepskyblue; size:20px;">개방-폐쇄 원칙</p>
+
+
+<br>
 
 - 확장에는 열려있어야 하고 변경에는 닫혀 있어야 한다.
 
@@ -59,7 +72,13 @@ comments: true
 
 - 추상화와 다형성의 개념이라고 볼 수 있다.
 
-# 리스코프 치환 원칙
+
+<br>
+
+<p style = "font-weight:bold; color:deepskyblue; size:20px;">리스코프 치환 원칙</p>
+
+
+<br>
 
 - 하위 타입 객체는 상위 타입 객체를 대신할 수 있다. (부모클래스를 자식클래스가 대체할 수 있음.)
     + 상위 타입 객체를 하위 타입 객체로 치환해도 정상적으로 동작해야 함.
@@ -67,11 +86,20 @@ comments: true
 - 상속관계에서는 꼭 일반화 관계가 성립해야 함.
 
   ~~~java
+  
+    //Student는 Person을 상속받음.
     Student s = new Student();
     Person p = (Person)s;
+  
   ~~~
 
-# 인터페이스 분리 원칙
+<br>
+
+
+<p style = "font-weight:bold; color:deepskyblue; size:20px;">인터페이스 분리 원칙</p>
+
+
+<br>
 
 - 인터페이스는 각 역할에 맞게 분리해야 한다.
 
@@ -79,7 +107,10 @@ comments: true
 
 - 일반적인 클래스를 하나 구현해서 사용하지도 않는 함수를 implement 시키지 말고, 여러개의 구체적인 클래스를 생성해 implement시키면 깔끔한 구조가 된다.
 
-# 의존성 역전 법칙
+
+<br>
+
+<p style = "font-weight:bold; color:deepskyblue; size:20px;">의존성 역전 법칙</p>
 
 - 상위 클래스는 하위클래스에 의존해서는 안됨. (자식이 부모한테 의존해야하지 부모가 자식한테 의존하면 안됨..)
 
