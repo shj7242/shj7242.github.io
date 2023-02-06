@@ -35,16 +35,16 @@ comments: true
 <p style = "font-weight:bold; color:deepskyblue; size:35px;" >객체지향 설계 SOLID 원칙</p>
 
 
-<p style = "font-weight:bold;>  1. 단일 책임 원칙 (Single Responsibility Principal)</p>
-<p style = "font-weight:bold;>  2. 개방-폐쇄 원칙 (Open-Closed Principal)</p>
-<p style = "font-weight:bold;>  3. 리스코프 치환 원칙 (Liskov Substitution Principal)</p>
-<p style = "font-weight:bold;>  4. 인터페이스 분리 원칙 (Interface Segregation Principal)</p>
-<p style = "font-weight:bold;>  5. 의존관계 역전 원칙 (Dependency Inversion Principal)</p>
+<p style = "font-weight:bold;">  1. 단일 책임 원칙 (Single Responsibility Principal) </p>
+<p style = "font-weight:bold;">  2. 개방-폐쇄 원칙 (Open-Closed Principal)</p>
+<p style = "font-weight:bold;">  3. 리스코프 치환 원칙 (Liskov Substitution Principal)</p>
+<p style = "font-weight:bold;">  4. 인터페이스 분리 원칙 (Interface Segregation Principal)</p>
+<p style = "font-weight:bold;">  5. 의존관계 역전 원칙 (Dependency Inversion Principal)</p>
 
 
 <br>
 
-<p style = "font-weight:bold; color:deepskyblue; size:35px;">단일 책임 원칙</p>
+<p style = "font-weight:bold; color:deepskyblue; size:35px;">단일 책임 원칙 </p>
 
 
 
