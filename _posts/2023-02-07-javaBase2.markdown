@@ -37,7 +37,7 @@ comments: true
 
 - 제어의 역전으로 해석된다.
 
-  ~~~java
+  ~~~javascript
   
   #예시 1  
   public class UserController(){
