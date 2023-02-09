@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "자바문자열 String, StringBuilder, StringBuffer"
+title:      "[JAVA] 자바문자열 String, StringBuilder, StringBuffer"
 
 date:       2023-01-09 19:55:00
 author:     "신희준"
@@ -32,7 +32,7 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2023 - 01 - 09 (월)</H4>
 <br>
 
-# 자바 문자열 종류 (String, StringBuilder, StringBuffer)
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;" >자바 문자열 종류 (String, StringBuilder, StringBuffer)</p>
 
 
 + String
@@ -78,7 +78,8 @@ comments: true
 
 ***
 
-> 정리
+
+<p style = "font-weight:bold; color:orangered; font-size:25px; font-style:italic;" >정리</p>
 
 * String : 문자열 연산이 적고 멀티스레드 환경일 경우
 

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "자바 IO/NIO"
+title:      "[JAVA] 자바 IO/NIO"
 
 date:       2023-01-30 19:41:00
 author:     "신희준"
@@ -32,7 +32,8 @@ comments: true
 <H4 style ="font-weight:bold; color : black">2023 - 01 - 30 (월)</H4>
 <br>
 
-# 자바 IO, NIO
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;" >자바 IO, NIO</p>
 
 
 |---------|---------|
@@ -44,7 +45,7 @@ comments: true
 
 
 
-# 스트림 기반 / 채널 기반
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;" >스트림 기반 / 채널 기반</p>
 
 * 스트림은 데이터가 들어온 순서대로 이동하는 단방향의 '통로' 이다.
 
@@ -62,7 +63,8 @@ comments: true
 
     + 채널은 버퍼를 통해서만 읽고(read) 쓰기(write)를 할 수 있다.
 
-# Non Buffer / Buffer
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;" >Non Buffer / Buffer</p>
 
 * 버퍼는 임시로 데이터를 담아둘 수 있는 큐. 스트림의 경우 데이터의 입력단위로 전송한다. 버퍼는 중간에서 입력을 모아 한번에 출력한다.
 
@@ -74,8 +76,7 @@ comments: true
 
     + nio는 버퍼에 데이터를 저장하여 버퍼의 공간이 가득 차거나 설정한 조건을 만족한 경우 처리한다.
 
-# Blocking IO / Non - Blocking IO
-
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;" >Blocking IO / Non - Blocking IO</p>
 
 
 <p style = "color: #006dd7"><b>예를 들어 폐쇄된 주방의 직원은 손님의 주문에 대한 요리가 완료 되고 다음 요청에 의한 요리를 진행합니다.</b></p>
@@ -96,7 +97,8 @@ comments: true
   
   * 단일 쓰레드에서 여러 입출력 채널을 관리합니다.
 
-# 동기 / 비동기
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;" >동기 / 비동기</p>
 
 * IO의 경우 비동기 요청을 지원하지 않는다.
 
@@ -126,7 +128,8 @@ comments: true
 
 ***
 
-> 정리
+
+<p style = "font-weight:bold; color:orangered; font-size:25px; font-style:italic;" >정리</p>
 
 * IO와 NIO의 선택
 

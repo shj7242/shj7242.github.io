@@ -1,0 +1,103 @@
+---
+layout:     post
+title:      "[Spring] IOC / DI"
+
+date:       2023-01-31 19:41:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="IOC / DI">
+ <meta property="og:title" content="IOC / DI">
+ <meta property="og:description" content="IOC / DI">
+ <meta property="og:url" content="http://shj7242.github.io/2023/02/07/javaBase2/">
+
+ <meta name="twitter:card" content="IOC / DI">
+  <meta name="twitter:title" content="IOC / DI">
+  <meta name="twitter:description" content="IOC / DI">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2023/02/07/javaBase2/">
+  <meta name="facebook:card" content="IOC / DI">
+   <meta name="facebook:title" content="IOC / DI">
+   <meta name="facebook:description" content="IOC / DI">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2023/02/07/javaBase2/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2023 - 02 - 07 (화)</H4>
+<br>
+
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">IOC(Inversion Of Control)</p>
+
+- 제어의 역전으로 해석된다.
+
+  ~~~java
+  
+  #예시 1  
+  public class UserController(){
+    LoginService loginService = new LoginService()
+  }
+  
+  ~~~
+
+- 위 소스코드는 UserController 클래스에서 LoginService 객체를 생성한다. IOC는 위와 달리 UserController 클래스에서 LoginService 객체를 생성하여 제어하는 것이 아닌 특정 매개체에 의해 제어되는 것을 의미한다.
+
+- 스프링 IOC 컨테이너가 이 매개체의 역할을 한다. IOC 컨테이너는 빈(Bean) 이라고 불리는 집합체이며, 스프링에서 Bean은 생성된 인스턴스 형태이다. 
+
+- IOC 컨테이너에 Bean을 등록하기 위해 설정파일으로 직접 등록하거나 Component Scan 으로 빈등록을 위한 컴포넌트 인터페이스 어노테이션이 설정되어있는 클래스를 읽어 등록한다.
+
+- 스프링부트의 경우 @SpringBootApplication 이 ComponentScan 을 포함하여 @Controller @Service @Repository @Configuration @Component 설정되어있는 클래스를 IOC 컨테이너에 등록한다.
+
+  ~~~java
+  
+  # 예시 2
+  # 해당 어노테이션으로 등록된 Bean 들을 구성하는 IOC 컨테이너를 통해 제어한다. #예시1 에서는 직접 UserService 인스턴스를 개발자가 직접 만들어 제어  
+  @Service
+  public class LoginService(){
+    
+  }
+
+  ~~~  
+
+<br>
+
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">DI(의존성 주입)</p>
+
+
+- 의존성 주입이라고 하며 IOC 컨테이너에 생성된 인스턴스를 주입한다?(대입한다)  
+
+- 보통 스프링 프레임워크에서 @Autowired 라는 어노테이션으로 의존성 주입이 이루어진다.
+  
+- 예시 2 와 같은 형태로 IOC 컨테이너에 Bean이 등록되면 예시 3처럼 @Autowired 어노테이션을 통해 loginService 객체에 의존성을 주입한다.
+
+- 예시 4 의 경우 @RequiredArgsConstructor 어노테이션을 통해 기본생성자를 생성하여 주입한다.
+  
+  ~~~java
+  
+  #예시 3
+  @Controller
+  public class UserController(){
+    @Autowired
+    private LoginService loginService;
+  }
+    
+  ~~~  
+  
+  ~~~java
+  
+  #예시 4
+  @RequiredArgsConstructor
+  @Controller
+  public class UserController(){
+    private final LoginService loginService;
+  }
+    
+  ~~~  
+
