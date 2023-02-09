@@ -71,7 +71,7 @@ comments: true
 
 <br>
 
-<p style = "font-weight:bold; color:deepskyblue; size:35px;">리스코프 치환 원칙</p>
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">리스코프 치환 원칙</p>
 
 
 
