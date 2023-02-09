@@ -2,7 +2,7 @@
 layout:     post
 title:      "[Spring] IOC / DI"
 
-date:       2023-01-31 19:41:00
+date:       2023-02-07 19:41:00
 author:     "신희준"
 header-img: "img/background.jpg"
 comments: true
@@ -37,7 +37,7 @@ comments: true
 
 - 제어의 역전으로 해석된다.
 
-  ~~~javascript
+  ~~~
   
   #예시 1  
   public class UserController(){
@@ -54,7 +54,7 @@ comments: true
 
 - 스프링부트의 경우 @SpringBootApplication 이 ComponentScan 을 포함하여 @Controller @Service @Repository @Configuration @Component 설정되어있는 클래스를 IOC 컨테이너에 등록한다.
 
-  ~~~java
+  ~~~
   
   # 예시 2
   # 해당 어노테이션으로 등록된 Bean 들을 구성하는 IOC 컨테이너를 통해 제어한다. #예시1 에서는 직접 UserService 인스턴스를 개발자가 직접 만들어 제어  
@@ -79,7 +79,7 @@ comments: true
 
 - 예시 4 의 경우 @RequiredArgsConstructor 어노테이션을 통해 기본생성자를 생성하여 주입한다.
   
-  ~~~java
+  ~~~
   
   #예시 3
   @Controller
@@ -90,7 +90,7 @@ comments: true
     
   ~~~  
   
-  ~~~java
+  ~~~
   
   #예시 4
   @RequiredArgsConstructor
