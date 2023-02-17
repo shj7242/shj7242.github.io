@@ -1,0 +1,107 @@
+---
+layout:     post
+title:      "[Database] 실행계획 Join 종류"
+
+date:       2023-02-17 19:41:00
+author:     "신희준"
+header-img: "img/background.jpg"
+comments: true
+---
+
+<head>
+ <meta property="og:type" content="PLAN_JOIN">
+ <meta property="og:title" content="PLAN_JOIN">
+ <meta property="og:description" content="PLAN_JOIN">
+ <meta property="og:url" content="http://shj7242.github.io/2023/02/17/database1/">
+
+ <meta name="twitter:card" content="PLAN_JOIN">
+  <meta name="twitter:title" content="PLAN_JOIN">
+  <meta name="twitter:description" content="PLAN_JOIN">
+  <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2023/02/17/database1/">
+  <meta name="facebook:card" content="PLAN_JOIN">
+   <meta name="facebook:title" content="PLAN_JOIN">
+   <meta name="facebook:description" content="PLAN_JOIN">
+   <meta name="facebook:domain" content="http://shj7242.github.io/2023/02/17/database1/">
+
+
+ </head>
+
+<br>
+<H4 style ="font-weight:bold; color:black;"> </H4>
+
+<H4 style ="font-weight:bold; color : black">2023 - 02 - 17 (금)</H4>
+<br>
+
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">Nested Loop Join</p>
+
+- Driving 테이블에서 조회하고자 하는 대상의 행을 읽는다.
+
+- Driving 테이블에 조인이 걸린 첫번째 테이블부터 순서대로 조건에 맞는 행들을 검색한다.
+
+  ~~~sql
+  
+  #예시1 - STUDENTID 는 STUDENT 테이블의 PK 이고 PK INDEX
+  SELECT * 
+    FROM STUDENT S, APPLICATION A 
+    FROM S.STUDENTID = A.STUDENTID
+     AND S.GRADE = 4
+     AND A.APPLICATIONCODE = "MATH"
+  
+  ~~~ 
+  
+  * 위의 예시는 수강신청 목록 중 4학년 학생이 신청한 대상을 조회한다.
+  
+  * 이 경우 드라이빙 테이블은 APPLICATION 테이블이다
+  
+  * 먼저 수강신청코드가 수학인 APPLICATION 테이블의 ROW를 조회한다
+  
+  * 조회된 ROW를 LOOP 돌며 STUDENTID가 동일하고 GRADE가 4인 조건에 해당하는 경우 결과값에 결합한다.
+    - 2중 for문을 보는 것과 같다.
+    - Join 컬럼에 인덱스가 없는 경우 Full Scan을 하게된다. ex) STUDENT의 STUDENTID는 인덱스 설정이 되어있어야 함.
+    
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">Sort Merge Join</p>
+
+- 각각의 테이블을 검색 조건에 의하여 정렬한 후 조인 조건으로 값을 조인
+
+- 조인조건이 = 가 아니어도 가능하다 ( LIKE , BETWEEN 등등 )
+
+- 정렬이 끝난 후 연결(각각의 조인 테이블의 조건을 만족하는 ROW를 추출한 뒤 결합)
+
+- 대용량 테이블을 Sort Merge 할 경우 심각한 성능저하.. -> 각 테이블에 최대한 조건을 주어 범위를 줄인다.
+
+- Join 컬럼의 인덱스가 성능에 영향을 미치진 않는다. 
+
+  ~~~sql
+  
+  #예시2 - PK 삭제 
+  SELECT /*+ use_merge(S A)*/  -- 힌트를 줌
+    *  
+    FROM STUDENT S, APPLICATION A 
+    FROM S.STUDENTID = A.STUDENTID
+     AND S.GRADE = 4
+     AND A.APPLICATIONCODE = "MATH"
+     
+  ~~~ 
+
+<p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">Hash Join</p>
+
+- 기본적으로 cpu 메모리를 이용한다 부족시 디스크의 자원을 사용함.
+
+- 조인 조건이 = 이어야 함.
+
+- Join 컬럼의 인덱스가 성능에 영향을 미치진 않는다.
+
+
+  ~~~sql
+  
+  #예시3
+  SELECT /*+ use_hash(S A)*/  -- 힌트를 줌
+    *  
+    FROM STUDENT S, APPLICATION A 
+    FROM S.STUDENTID = A.STUDENTID
+     AND S.GRADE = 4
+     AND A.APPLICATIONCODE = "MATH"
+  
+  ~~~ 
