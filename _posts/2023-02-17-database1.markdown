@@ -39,7 +39,7 @@ comments: true
 
 - Driving 테이블에 조인이 걸린 첫번째 테이블부터 순서대로 조건에 맞는 행들을 검색한다.
 
-  ~~~sql
+  ~~~
   
   #예시1 - STUDENTID 는 STUDENT 테이블의 PK 이고 PK INDEX
   SELECT * 
@@ -73,7 +73,7 @@ comments: true
 
 - Join 컬럼의 인덱스가 성능에 영향을 미치진 않는다. 
 
-  ~~~sql
+  ~~~
   
   #예시2 - PK 삭제 
   SELECT /*+ use_merge(S A)*/  -- 힌트를 줌
@@ -94,7 +94,7 @@ comments: true
 - Join 컬럼의 인덱스가 성능에 영향을 미치진 않는다.
 
 
-  ~~~sql
+  ~~~
   
   #예시3
   SELECT /*+ use_hash(S A)*/  -- 힌트를 줌
