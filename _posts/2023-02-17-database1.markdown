@@ -9,22 +9,19 @@ comments: true
 ---
 
 <head>
- <meta property="og:type" content="PLAN_JOIN">
- <meta property="og:title" content="PLAN_JOIN">
- <meta property="og:description" content="PLAN_JOIN">
- <meta property="og:url" content="http://shj7242.github.io/2023/02/17/database1/">
-
- <meta name="twitter:card" content="PLAN_JOIN">
- <meta name="twitter:title" content="PLAN_JOIN">
- <meta name="twitter:description" content="PLAN_JOIN">
- <meta name="FACEBOOK:domain" content="http://shj7242.github.io/2023/02/17/database1/">
- <meta name="facebook:card" content="PLAN_JOIN">
- <meta name="facebook:title" content="PLAN_JOIN">
- <meta name="facebook:description" content="PLAN_JOIN">
- <meta name="facebook:domain" content="http://shj7242.github.io/2023/02/17/database1/">
-
-
- </head>
+<meta property="og:type" content="PLAN_JOIN">
+<meta property="og:title" content="PLAN_JOIN">
+<meta property="og:description" content="PLAN_JOIN">
+<meta property="og:url" content="http://shj7242.github.io/2023/02/17/database1/">
+<meta name="twitter:card" content="PLAN_JOIN">
+<meta name="twitter:title" content="PLAN_JOIN">
+<meta name="twitter:description" content="PLAN_JOIN">
+<meta name="FACEBOOK:domain" content="http://shj7242.github.io/2023/02/17/database1/">
+<meta name="facebook:card" content="PLAN_JOIN">
+<meta name="facebook:title" content="PLAN_JOIN">
+<meta name="facebook:description" content="PLAN_JOIN">
+<meta name="facebook:domain" content="http://shj7242.github.io/2023/02/17/database1/">
+</head>
 
 <br>
 <H4 style ="font-weight:bold; color:black;"> </H4>
