@@ -35,37 +35,22 @@ comments: true
 
 <p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">Linux Command</p>
 
-- Spring AOP 의 일종이다.
+- 요약
 
-- Transaction 의 시작 종료 등 스프링에서 트랜잭션 처리를 관리한다.
-    * 트랜잭션 시작시 begin
-    * 정상처리시 Commit
-    * 중간에 예외발생시 Rollback
+|----------------------|-------------------------|
+|mkdir                 |디렉토리를 생성함
+|pwd                   |현재 위치한 디렉토리에 있는 폴더와 파일을 확인할 때 사용하며, 여러 옵션을 통해 추가적인 정보 확인   
+|echo                  |변수 값, 문자열 등 텍스트 출력
+|bash                  |쉘 스크립트를 실행한다.
+|sudo                  |다른 사용자의 권한을 얻는것, 관리자 권한으로 특정 명령을 수행할 때 사용
+|cp                    |파일을 복사함.
+|mv                    |파일을 다른 디렉토리 위치로 이동, 또는 파일 이름을 변경할 때 사용
+|clear                 |콘솔을 클리어한다.
+|cat                   |파일의 내용을 텍스트로 출력 함, 인자를 여러 개 주어 여러 파일을 붙여 출력할 수 있음.
+|history               |이전에 사용된 명령어 이력을 본다.
+|find                  |폴더 또는 파일을 검색
+|export                |환경변수를 설정
+|cut -f -d             |delimeter를 기준으로 잘라 field
 
 <p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">사용방법</p>
 
-  ~~~java
-  //예시1
-  @Service
-  @Transactional
-    public class UserService{
-        
-        public String login(){
-            
-        }
-
-    }   
-  ~~~
-  ~~~java
-  //예시2
-  @Service
-    public class UserService{
-        @Transactional
-        public String login(){
-            
-        }
-
-    }   
-  ~~~
-
-  - 위의 예시처럼 클래스 또는 메소드위에 @Transactional 어노테이션을 붙여 사용
