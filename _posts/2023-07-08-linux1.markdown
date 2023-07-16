@@ -50,7 +50,10 @@ comments: true
 |history               |이전에 사용된 명령어 이력을 본다.
 |find                  |폴더 또는 파일을 검색
 |export                |환경변수를 설정
-|cut -f -d             |delimeter를 기준으로 잘라 field
+|curl                  |웹 서버에 요청을 보낼 수 있고, 파일을 다운로드 받을 때 사용.
+|scp                   |ssh로 연결된 호스트 사이에 파일을 복사할 때 사용 (secure copy)
+|df                    |현재 파일 시스템이 얼만큼의 디스크 용량을 차지하는지 확인 (disk file system)
+|grep                  |파일 또는 텍스트에서 특정 키워드가 포함된 줄만 출력
 
 <p style = "font-weight:bold; color:deepskyblue; font-size:25px; font-style:italic;">사용방법</p>
 
